@@ -52,9 +52,7 @@ sns.regplot(data=sns.load_dataset('car_crashes'), x='speeding', y='total');
 ```
 
 
-    
-![png](ML-1-What%20is%20machine%20learning_files/ML-1-What%20is%20machine%20learning_5_0.png)
-    
+![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_5_0.png)
 
 
 ### Classification problems
