@@ -3,6 +3,6 @@ I initially took these notes while attending the [Coursera course on Machine Lea
 The course primary coding language is Octave (or Matlab), while I wanted to try the same excercises in Python.
 I will probably enrich and expand upon the course original content in time, so that in the future these notes might diverge substantially from it.
 
-[ML1]({% link pages/ML-1-WhatIsMachineLearning.md %})
-[ML2]({% link pages/ML-2-ModelAndCostFunction.md %})
+[1 - What is Machine Learning]({{ site.baseurl }}{% link pages/ML-1-WhatIsMachineLearning.md %})
 
+[2 - Model representation and Cost Function]({{ site.baseurl }}{% link pages/ML-2-ModelAndCostFunction.md %})

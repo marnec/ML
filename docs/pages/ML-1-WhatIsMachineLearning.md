@@ -38,12 +38,6 @@ Example:
 Price as a function of size is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
 
 
-```python
-ax = sns.regplot(data=sns.load_dataset('car_crashes'), x='speeding', y='total')
-ax.set_title('car crashings');
-```
-
-
 ![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_4_0.png)
 
 
@@ -52,15 +46,6 @@ We try to map input variables into discrete categories.
 
 Example:
 > Given a patient with a tumor, we have to predict whether the tumor is malignant or benign. 
-
-
-```python
-fig, [ax1, ax2] = plt.subplots(1, 2, figsize=(9, 3))
-sns.scatterplot(data=sns.load_dataset('iris'), x='sepal_length', y='species', hue='species', 
-                legend=False, ax=ax1).set_title('1-dimensional classification problem')
-sns.scatterplot(data=sns.load_dataset('iris'), x='sepal_length', y='sepal_width', hue='species', 
-                ax=ax2).set_title('2-dimensional classification problem');
-```
 
 
 ![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_6_0.png)
@@ -80,12 +65,20 @@ We can divide unsuperised learning in two categories:
 Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on.
 
 
+![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_8_0.png)
+
+
+#### Difference between clustering and classification
+
+
 ```python
-sns.clustermap(datasets.make_blobs(100, 5)[0].T, row_cluster=False);
+fig, [ax1, ax2] = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
+sns.scatterplot(data=iris, x='sepal_length', y='sepal_width', hue='species', ax=ax1);
+sns.scatterplot(data=iris, x='sepal_length', y='sepal_width', legend=False, ax=ax2);
 ```
 
 
-![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_8_0.png)
+![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_10_0.png)
 
 
 ### Non-clustering

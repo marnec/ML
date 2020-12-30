@@ -194,3 +194,63 @@ This function is otherwise called the "Squared error function", or "Mean squared
 
 ---
 The idea is to chose $\theta_0, \theta_1$ to so that $h_\theta(x)$ is close to $y$ for each training example $(x,y)$. In other words we want to chose $\theta_0, \theta_1$ to minimize the cost function $J\left(\theta_0, \theta_1 \right)$
+
+---
+If we try to think of it in visual terms, our training data set is scattered on the $x,y$ plane. We are trying to make a straight line (defined by $h_\theta(x)$) which passes through these scattered data points. 
+
+Our objective is to get the best possible line. The best possible line will that line for which the average squared vertical distance of the scattered points from the line will be the least. Ideally, the line should pass through all the points of our training data set. In such a case, the value of $J(\theta_0, \theta_1)$ would be 0. The following example shows the ideal situation where we have a cost function of 0. 
+
+For a simplified version of the regression hypothesis $h_\theta(x)$ where we removed the offset ($\theta_0$):
+
+$$h_\theta(x)=\theta_1x$$
+
+
+```python
+fig, [ax1, ax2] = plt.subplots(1, 2 ,figsize=(12, 5))
+x = np.linspace(1,3,3)
+ax1.plot(x, x, marker='o', markerfacecolor='C1', markeredgecolor='C1', label='$\\theta_1=1$');
+line, *_ = ax2.plot([1], [0], marker='o')
+line.set_clip_on(False)
+ax1.legend()
+ax2.set_xlim(0, 3)
+ax2.set_ylim(0, 3);
+```
+
+
+![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_20_0.png)
+
+
+$$
+\begin{align}
+J(\theta_1) &= \frac{1}{2m}(0^2+0^2+0^2) \\
+&= 0
+\end{align}
+$$
+
+When $\theta_1 = 1$, we get a slope of 1 which goes through every single data point in our model. Conversely, when $\theta_1 = 0.5$, we see the vertical distance from our fit to the data points increase. 
+
+
+```python
+fig, [ax1, ax2] = plt.subplots(1, 2 ,figsize=(12, 5))
+x = np.linspace(1,3,3)
+ax1.plot(x, x*0.5)
+line, *_ = ax1.plot(x, x, marker='o', ls='none', markerfacecolor='C1', markeredgecolor='C1', label='$\\theta_1=1$')
+ax1.set_xlim(0, 3.1)
+ax1.set_ylim(0, 3.1)
+```
+
+
+
+
+    (0.0, 3.1)
+
+
+
+
+![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_23_1.png)
+
+
+
+```python
+
+```
