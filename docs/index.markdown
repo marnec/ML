@@ -6,3 +6,6 @@ I will probably enrich and expand upon the course original content in time, so t
 [1 - What is Machine Learning]({{ site.baseurl }}{% link pages/ML-1-WhatIsMachineLearning.md %})
 
 [2 - Model representation and Cost Function]({{ site.baseurl }}{% link pages/ML-2-ModelAndCostFunction.md %})
+
+[test](pages/ML-1-WhatIsMachineLearning.md)
+

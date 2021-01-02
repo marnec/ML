@@ -1,3 +1,8 @@
+---
+categories: linearRegression
+permalink: /ML1/
+---
+
 # What is Machine Learning
 
 Older, informal definition by Arthur Samuel:
@@ -38,7 +43,7 @@ Example:
 Price as a function of size is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
 
 
-![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_4_0.png)
+![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_5_0.png)
 
 
 ### Classification problems
@@ -48,7 +53,7 @@ Example:
 > Given a patient with a tumor, we have to predict whether the tumor is malignant or benign. 
 
 
-![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_6_0.png)
+![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_7_0.png)
 
 
 ## Unsupervised learning
@@ -65,7 +70,7 @@ We can divide unsuperised learning in two categories:
 Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on.
 
 
-![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_8_0.png)
+![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_9_0.png)
 
 
 #### Difference between clustering and classification
@@ -78,7 +83,7 @@ sns.scatterplot(data=iris, x='sepal_length', y='sepal_width', legend=False, ax=a
 ```
 
 
-![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_10_0.png)
+![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_11_0.png)
 
 
 ### Non-clustering
