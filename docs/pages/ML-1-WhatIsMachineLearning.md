@@ -1,4 +1,5 @@
 ---
+layout: default
 categories: linearRegression
 permalink: /ML1/
 ---

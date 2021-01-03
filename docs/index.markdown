@@ -1,3 +1,8 @@
+___
+layout: default
+___
+
+
 This is a series of notes on machine learning. 
 I initially took these notes while attending the [Coursera course on Machine Learning from Standford University](https://www.coursera.org/learn/machine-learning/)
 The course primary coding language is Octave (or Matlab), while I wanted to try the same excercises in Python.
