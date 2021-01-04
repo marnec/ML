@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "Introduction to ML"
 categories: linearRegression
 permalink: /ML1/
 order: 1

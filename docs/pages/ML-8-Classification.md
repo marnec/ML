@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "Logistic Regression - Model Representation"
 categories: logisticRegression
 permalink: /ML8/
 order: 8
@@ -89,6 +90,7 @@ h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}
 $$
 
 The output $(y)$ of the sigmoid function
+
 $$\begin{align}
 &\lim_{z\to+\infty}g(z) = 1 \\
 &\lim_{z\to-\infty}g(z) = 0 \\
@@ -143,6 +145,7 @@ $$
 &P(y=0|x;\theta) = 1-P(y=1|x;\theta)
 \end{align}
 $$
+
 # Decision Boundary
 We know $\eqref{eq:interpret}$, now we want to know exactly when $h_\theta(x) \geq 0.5$. Looking at the plot of the sigmoid function we can see that
 

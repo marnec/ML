@@ -1,11 +1,12 @@
 ---
 layout: default
+title: "Overfitting and Underfitting"
 categories: linearRegression
 permalink: /ML11/
 order: 11
 ---
 
-### The problem of overfitting
+# The problem of overfitting
 Let's take some data distributed as in the Figure below
 
 
