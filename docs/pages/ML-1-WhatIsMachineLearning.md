@@ -1,8 +1,8 @@
 ---
-id:1
 layout: default
-categories: linearRegression, introduction
+categories: linearRegression
 permalink: /ML1/
+order: 1
 ---
 
 # What is Machine Learning

@@ -9,8 +9,9 @@ The whole notes are built using Jupyter notebooks, the figures examples and calc
 For readibility purposes most of the source code is hidden. If you wish to see the source code you can download the
 jupyter notebooks from the repository.
 
-{% assign site_pages = site.pages | where_exp: "item", "item.path contains 'ML-'" %}
+{% assign site_pages = site.pages | where_exp: "item", "item.path contains 'ML-'" | sort: "order" %}
 
 {% for page in site_pages %}
-[{{ page.name }}]({{ page.url | relative_url  }})
+{% assign i = forloop.index %}
+{{i}}. [{{ page.title }}]({{ page.url | relative_url  }})
 {% endfor %}

@@ -1,8 +1,15 @@
+---
+layout: default
+categories: logisticRegression
+permalink: /ML10/
+order: 10
+---
+
 # Multiclass Classification
 Sometimes we don't want $y$ to be limited to the $\{0,1\}$ values but instead we could have 3 or more possible classes $y=\{1,2,3\}$ (Notice how we dropped the $0$ class that is linked to absence)
 
 
-![png](ML-10-MulticlassClassification_files/ML-10-MulticlassClassification_1_0.png)
+![png](ML-10-MulticlassClassification_files/ML-10-MulticlassClassification_2_0.png)
 
 
 In binary classification we could draw a decision boundary that would separate the $y=1$ space from the $y=0$ space. How could we use correctly classify three classes now?
@@ -13,7 +20,7 @@ Let's say that we have three classes Triangles ($T$), Squares ($S$) and Crosses 
 The principle of one vs all classification is turning a multiclass classfication problem in three separate binary classifications problems, fitting 3 classifiers.
 
 
-![png](ML-10-MulticlassClassification_files/ML-10-MulticlassClassification_3_0.png)
+![png](ML-10-MulticlassClassification_files/ML-10-MulticlassClassification_4_0.png)
 
 
 We want to train a logistic regression classifiers $h_\theta^{(i)}(x)=P(y=1|x;\theta)$ for each class $i$, (in this case $i=1,2,3$) to predict the probability that $y=1$.

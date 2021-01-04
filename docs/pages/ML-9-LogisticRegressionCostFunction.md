@@ -1,3 +1,11 @@
+---
+layout: default
+categories: logisticRegression
+permalink: /ML9/
+order: 9
+---
+
+
 ```python
 %pylab --no-import-all inline
 import seaborn as sns
@@ -8,7 +16,7 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 
 
-![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_1_0.png)
+![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_2_0.png)
 
 
 For simplcity in the next sections we will call the Cost function for a single example $\text{Cost}$
@@ -30,7 +38,7 @@ $$
 
 
 
-![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_4_0.png)
+![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_5_0.png)
 
 
 This cost function has some desirable properties:

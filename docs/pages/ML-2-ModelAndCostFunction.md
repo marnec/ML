@@ -1,3 +1,10 @@
+---
+layout: default
+categories: linearRegression
+permalink: /ML2/
+order: 2
+---
+
 # Model Representation
 
 
@@ -148,7 +155,7 @@ $$y = h_\theta(x) = \theta_0 + \theta_1x$$
 Sometimes, we might want to use more complex non-linear functions, but this is the simplest building block of regression algorithms which can be built upon later.
 
 
-![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_12_0.png)
+![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_13_0.png)
 
 
 where $\theta_0$ is the offset of $y$ from 0; $\theta_1$ is the slope of the line, since it scales how much $y$ varies compared to $x$.
@@ -188,7 +195,7 @@ For a simplified version of the regression hypothesis $h_\theta(x)$ where we rem
 $$h_\theta(x)=\theta_1x$$
 
 
-![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_21_0.png)
+![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_22_0.png)
 
 
 $$
@@ -201,13 +208,13 @@ $$
 When $\theta_1 = 1$, we get a slope of 1 which goes through every single data point in our model. Conversely, when $\theta_1 = 0.5$, we see the vertical distance from our fit to the data points increase. 
 
 
-![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_24_0.png)
+![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_25_0.png)
 
 
 Plotting 15 $\theta_1$ values in the interval $[-0.5, 2.5]$ yields a bell shaped graph 
 
 
-![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_26_0.png)
+![png](ML-2-ModelAndCostFunction_files/ML-2-ModelAndCostFunction_27_0.png)
 
 
 Thus as a goal, we should try to minimize the cost function. In this case, $\theta_1 = 1$ is our global minimum. 

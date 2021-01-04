@@ -1,8 +1,15 @@
+---
+layout: default
+categories: linearRegression
+permalink: /ML11/
+order: 11
+---
+
 ### The problem of overfitting
 Let's take some data distributed as in the Figure below
 
 
-![png](ML-11-Overfitting_files/ML-11-Overfitting_1_0.png)
+![png](ML-11-Overfitting_files/ML-11-Overfitting_2_0.png)
 
 
 Three models are shown in the figure Below in panels A, B, C:
@@ -14,7 +21,7 @@ Three models are shown in the figure Below in panels A, B, C:
 * Panel C: At the other extreme we fit a 4th order polynomial to the data, and the curve obtained passes exactly through all data points of the training set but it is sort of wiggly and it doesn't seems to be modelling well $y$ behaviour respect $x$. This problem is called **overfitting** or we say that the algorithm has **high variance**. It means that the alogirhtm deosn't generalize well for all possible $x$ values but it seems to cover perfectly only the training set.
 
 
-![png](ML-11-Overfitting_files/ML-11-Overfitting_3_0.png)
+![png](ML-11-Overfitting_files/ML-11-Overfitting_4_0.png)
 
 
 The problem of overfitting comes when we have too many features and the learned hypothesis may fit the training set very well ($J(\theta)\approx0$), but fail to generalize to new examples.
@@ -33,7 +40,7 @@ Until now, in order to choose the degree of the polynomial of our hypothsis we w
 In the example used above we have seen that a quadratic function would be a good fit for the data, while an higher order polynomial would overfit the data and not generalize well.
 
 
-![png](ML-11-Overfitting_files/ML-11-Overfitting_6_0.png)
+![png](ML-11-Overfitting_files/ML-11-Overfitting_7_0.png)
 
 
 If we took the 4th order polynomial of panel B and set $\theta_3$ and $\theta_4$ close to 0, the $h_theta(x)$ in panel B will look like a quadratic function.
@@ -64,16 +71,16 @@ If $\lambda$ is too big it will induce the optimization algorithm (e.g. gradient
 
 By convetion the summation $\sum_{i=1}^n$ starts from $1$, so it is not going to penalize $\theta_0$, however it would make little difference if we were to penalize it too.
 
-## Regularization in linear regression
+## Regularized linear regression
 ### Regularized gradient descent
 Gradient descent for regularized linear regression is the derivative of the regularized cost function for all paramenters of $\theta$ except than $\theta_0$ which is not regularized.
 
 $$
 \begin{align}
-& \text{Repeat } \{ \\
-& \theta_0 := \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_0^{(i)} \\
+&\text{Repeat } \{ \\
+&\theta_0 := \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_0^{(i)} \\
 & \theta_j := \theta_j - \alpha \left[\frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_j^{(i)} + \frac{\lambda}{m}\theta_j\right] \\
-\}
+&\}
 \end{align}
 $$
 
@@ -87,7 +94,7 @@ The term $\left(1 - \alpha\frac{\lambda}{m}\right)$ has very interesting propert
 
 So the effect of the term will be to shrink $\theta_j$ by some small factor ($\approx 1$) before the un-regularized part of the gradient descent is applied.
 
-## Regularized normal equation
+### Regularized normal equation
 For the $m,(n+1)$ dimensional matrix of the features $X$ and the $m$ dimensional vector of labels $y$
 
 $$
@@ -135,3 +142,8 @@ $$
 
 ### Non invertibility
 In a setting where $m\leq n$ than $X^TX$ will be non-invertible (singular). Luckily regularization takes care of that and if $\lambda > 0$, than the term $\left(X^TX + \lambda M \right)$ will be invertible.
+
+
+```python
+
+```
