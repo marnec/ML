@@ -30,38 +30,14 @@ Until now, in order to choose the degree of the polynomial of our hypothsis we w
     
 
 # Regularization
-In the example used above we have seen that a quadratic function would be a good fit for the data, while an higher order polynomial would overfit the data and not generalize well.
 
 
-![png](ML-11-Overfitting_files/ML-11-Overfitting_6_0.png)
+
+```python
+
+```
 
 
-If we took the 4th order polynomial of panel B and set $\theta_3$ and $\theta_4$ close to 0, the $h_theta(x)$ in panel B will look like a quadratic function.
+```python
 
-More in general the idea behind regularization is to set small values for parameters $\theta_j$. This will usually lead to:
-
-* simpler hypotheses
-* hypotheses are less prone to overfitting
-
-In order to do that a **regularization term** is added to the cost function. In this case we will add this term to the cost function for linear regression.
-
-$$
-J(\theta)=\frac{1}{2m} \text{Cost } + \lambda \sum_{i=1}^n\theta_j^2
-$$
-
-$$
-J(\theta)=\frac{1}{2m}\left[\sum_{i=1}^m\left(h_\theta\left(x^{(i)}\right)-y^{(i)}\right)^2 + \lambda \sum_{i=1}^n\theta_j^2 \right]
-$$
-
-Where $\lambda$ is called the **regularization parameter** and controls a tradeoff between two goals:
-
-1. The first goal, represented by $\text{Cost}$ function for a single example, is to fit the training set well
-2. The second goal, captured by the regularization term, is to keep the parameters small
-
-In particular if $\lambda$ is set to the right value it will penalize big values of the parameters $\theta$ by increasing the cost associated to a model with those parameters. 
-
-If $\lambda$ is too big it will induce the optimization algorithm (e.g. gradient descent)  to chose a cost function where all parameters are $\approx 0$, resulting in **underfitting** the training set.
-
-By convetion the summation $\sum_{i=1}^n$ starts from $1$, so it is not going to penalize $\theta_0$, however it would make little difference if we were to penalize it too.
-
-
+```

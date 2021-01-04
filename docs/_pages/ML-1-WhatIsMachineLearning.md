@@ -77,6 +77,13 @@ Take a collection of 1,000,000 different genes, and find a way to automatically 
 #### Difference between clustering and classification
 
 
+```python
+fig, [ax1, ax2] = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
+sns.scatterplot(data=iris, x='sepal_length', y='sepal_width', hue='species', ax=ax1);
+sns.scatterplot(data=iris, x='sepal_length', y='sepal_width', legend=False, ax=ax2);
+```
+
+
 ![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_11_0.png)
 
 
