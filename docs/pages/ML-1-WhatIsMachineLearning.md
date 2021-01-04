@@ -1,6 +1,7 @@
 ---
+id:1
 layout: default
-categories: linearRegression
+categories: linearRegression, introduction
 permalink: /ML1/
 ---
 

@@ -64,4 +64,74 @@ If $\lambda$ is too big it will induce the optimization algorithm (e.g. gradient
 
 By convetion the summation $\sum_{i=1}^n$ starts from $1$, so it is not going to penalize $\theta_0$, however it would make little difference if we were to penalize it too.
 
+## Regularization in linear regression
+### Regularized gradient descent
+Gradient descent for regularized linear regression is the derivative of the regularized cost function for all paramenters of $\theta$ except than $\theta_0$ which is not regularized.
 
+$$
+\begin{align}
+& \text{Repeat } \{ \\
+& \theta_0 := \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_0^{(i)} \\
+& \theta_j := \theta_j - \alpha \left[\frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_j^{(i)} + \frac{\lambda}{m}\theta_j\right] \\
+\}
+\end{align}
+$$
+
+gradient descent for $\theta_j$ can be written as:
+
+$$
+\theta_j := \theta_j\left(1 - \alpha\frac{\lambda}{m}\right) -\alpha\frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_j^{(i)}
+$$
+
+The term $\left(1 - \alpha\frac{\lambda}{m}\right)$ has very interesting properties. This term is going to be a number that is usually a little smaller than $1$ since $\alpha\frac{\lambda}{m}$ is going to be a positive number and since usually the learning rate $\alpha$ is small and $m$ is large.
+
+So the effect of the term will be to shrink $\theta_j$ by some small factor ($\approx 1$) before the un-regularized part of the gradient descent is applied.
+
+## Regularized normal equation
+For the $m,(n+1)$ dimensional matrix of the features $X$ and the $m$ dimensional vector of labels $y$
+
+$$
+\begin{split}
+X=
+\begin{bmatrix}
+\left(x^{(1)}\right)^T\\
+\vdots\\
+\left(x^{(m)}\right)^T
+\end{bmatrix}
+\end{split}
+\quad\quad\quad
+\begin{split}
+y=
+\begin{bmatrix}
+y^{(1)}\\
+\vdots\\
+y^{(m)}
+\end{bmatrix}
+\end{split}
+$$
+
+we minimize $J(\theta)$ by setting $\theta$ with the normal equation
+
+$$
+\theta = (X^TX)^{-1}X^Ty
+$$
+
+The regularized version of the normal equation is
+
+$$
+\theta = \left(X^TX + \lambda M \right)^{-1}X^Ty
+$$
+
+
+Where $M$ is a $(n+1)$ by $(n+1)$ matrix that resembles an identity matrix but where $M^{(1)}_1=0$
+$$
+\begin{bmatrix}
+0 &  &  & \\ 
+ & 1 &  & \\ 
+ &  & \ddots & \\ 
+ &  &  & 1
+\end{bmatrix}
+$$
+
+### Non invertibility
+In a setting where $m\leq n$ than $X^TX$ will be non-invertible (singular). Luckily regularization takes care of that and if $\lambda > 0$, than the term $\left(X^TX + \lambda M \right)$ will be invertible.
