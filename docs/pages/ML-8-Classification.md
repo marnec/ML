@@ -98,19 +98,6 @@ $$\begin{align}
 \end{align}$$
 
 
-```python
-fig, ax = plt.subplots()
-z = np.linspace(-10,10)
-ax.plot(z, 1/(1+np.e**-z), label='$g(z)$')
-ax.legend()
-ax.set_xlabel('z')
-ax.set_yticks([0, .5, 1])
-ax.spines['left'].set_position('center')
-ax.spines['right'].set_visible(False)
-ax.spines['top'].set_visible(False)
-```
-
-
 ![png](ML-8-Classification_files/ML-8-Classification_11_0.png)
 
 
@@ -175,42 +162,10 @@ $$
 This means that if we decide to adopt $0.5$ as a threshold as in $\eqref{eq:interpret}$, if we want to determine if $y=1$ we have to determine if $\theta^Tx \geq 0$
 
 
-```python
-fig, ax = plt.subplots()
-n = 100
-z = np.linspace(-10,10, n)
-g = 1/(1+np.e**-z)
-ax.plot(z, g, label='$g(\\theta^Tx)$')
-ax.set_xlabel('z')
-ax.set_yticks([0, .5, 1])
-ax.spines['left'].set_position('center')
-ax.spines['right'].set_visible(False)
-ax.spines['top'].set_visible(False)
-ax.fill_between(z[:n//2+1] ,g[:n//2+1], alpha=.3, facecolor='C1',
-                label='$g\\left(\\theta^Tx\\right)<0.5\\quad\\to\\quad\\theta^Tx<0$')
-ax.fill_between(z[n//2:] ,g[n//2:], 1, alpha=.3, facecolor='C2',
-                label='$g\\left(\\theta^Tx\\right)\\geq0.5\\quad\\to\\quad\\theta^Tx\\geq0$')
-ax.legend(loc='lower right');
-```
-
-
 ![png](ML-8-Classification_files/ML-8-Classification_13_0.png)
 
 
 Let's suppose we have a dataset like that on the figure below
-
-
-```python
-a = np.random.rand(10, 2)
-b = np.random.rand(10, 2)+2
-
-fig, ax = plt.subplots()
-ax.set_xlabel('$X_1$')
-ax.set_ylabel('$X_2$')
-ax.plot(*a.T, ls='none', marker='o', label='negative')
-ax.plot(*b.T, ls='none', marker='x', c='C3', label='positive')
-ax.legend();
-```
 
 
 ![png](ML-8-Classification_files/ML-8-Classification_15_0.png)

@@ -4,8 +4,3 @@ categories: linearRegression
 permalink: /ML6/
 order: 6
 ---
-
-
-```python
-
-```

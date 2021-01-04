@@ -143,8 +143,3 @@ $$
 
 ### Non invertibility
 In a setting where $m\leq n$ than $X^TX$ will be non-invertible (singular). Luckily regularization takes care of that and if $\lambda > 0$, than the term $\left(X^TX + \lambda M \right)$ will be invertible.
-
-
-```python
-
-```
