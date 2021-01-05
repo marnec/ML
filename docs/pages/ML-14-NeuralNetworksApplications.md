@@ -6,7 +6,7 @@ permalink: /ML14/
 order: 14
 ---
 
-# Neural Network builds complex non-linear functions
+# How neural networks build complex non-linear functions
 In this section we will explain how a neural network can build relatively complex non-linear functions.
 
 Let's take a non-linear classification example like that depicted below, where panel A is just a simplified version of panel B.
@@ -62,28 +62,28 @@ The the output of $\eqref{eq:h}$ is
 
 
 <style  type="text/css" >
-#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row0_col0,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row0_col1,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row0_col2,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row1_col0,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row1_col1,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row1_col2,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row2_col0,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row2_col1,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row2_col2,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row3_col0,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row3_col1,#T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row3_col2{
+#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1,#T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2{
             text-align:  left;
-        }</style><table id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(-30) \approx 0$</td>
+                                <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(-30) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_f5223168_4f76_11eb_9a8d_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(10) \approx 1$</td>
+                                <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_bfd444b2_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(10) \approx 1$</td>
             </tr>
     </tbody></table>
 
@@ -104,28 +104,28 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
 <style  type="text/css" >
-#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row0_col0,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row0_col1,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row0_col2,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row1_col0,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row1_col1,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row1_col2,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row2_col0,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row2_col1,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row2_col2,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row3_col0,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row3_col1,#T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row3_col2{
+#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1,#T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2{
             text-align:  left;
-        }</style><table id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(10) \approx 1$</td>
+                                <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(10) \approx 1$</td>
+                                <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_f5223169_4f76_11eb_9a8d_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(30) \approx 1$</td>
+                                <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_bfd444b3_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(30) \approx 1$</td>
             </tr>
     </tbody></table>
 
@@ -141,16 +141,16 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
 <style  type="text/css" >
-#T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row0_col0,#T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row0_col1,#T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row1_col0,#T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row1_col1{
+#T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0,#T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1,#T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0,#T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1{
             text-align:  left;
-        }</style><table id="T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$h_\Theta(x)$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row0_col1" class="data row0 col1" >$g(10) \approx 1$</td>
+                                <td id="T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1" class="data row0 col1" >$g(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row1_col0" class="data row1 col0" >1</td>
-                        <td id="T_f522316a_4f76_11eb_9a8d_40a3cc65d4e3row1_col1" class="data row1 col1" >$g(-10) \approx 0$</td>
+                                <td id="T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0" class="data row1 col0" >1</td>
+                        <td id="T_bfd444b4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1" class="data row1 col1" >$g(-10) \approx 0$</td>
             </tr>
     </tbody></table>
 
@@ -166,28 +166,28 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
 <style  type="text/css" >
-#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row0_col0,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row0_col1,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row0_col2,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row1_col0,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row1_col1,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row1_col2,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row2_col0,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row2_col1,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row2_col2,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row3_col0,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row3_col1,#T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row3_col2{
+#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1,#T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2{
             text-align:  left;
-        }</style><table id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(10) \approx 1$</td>
+                                <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_f522316b_4f76_11eb_9a8d_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(-30) \approx 0$</td>
+                                <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_bfd444b5_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(-30) \approx 0$</td>
             </tr>
     </tbody></table>
 
@@ -207,37 +207,59 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
 <style  type="text/css" >
-#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col0,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col1,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col2,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col3,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col4,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col0,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col1,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col2,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col3,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col4,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col0,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col1,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col2,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col3,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col4,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col0,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col1,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col2,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col3,#T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col4{
+#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col3,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col4,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col3,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col4,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col3,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col4,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col3,#T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col4{
             text-align:  left;
-        }</style><table id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$a_1^{(2)}$</th>        <th class="col_heading level0 col3" >$a_2^{(2)}$</th>        <th class="col_heading level0 col4" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$a_1^{(2)}$</th>        <th class="col_heading level0 col3" >$a_2^{(2)}$</th>        <th class="col_heading level0 col4" >$h_\Theta(x)$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col2" class="data row0 col2" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row0_col4" class="data row0 col4" >1</td>
+                                <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col2" class="data row0 col2" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row0_col4" class="data row0 col4" >1</td>
             </tr>
             <tr>
-                                <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col2" class="data row1 col2" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col3" class="data row1 col3" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row1_col4" class="data row1 col4" >0</td>
+                                <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col2" class="data row1 col2" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col3" class="data row1 col3" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row1_col4" class="data row1 col4" >0</td>
             </tr>
             <tr>
-                                <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col2" class="data row2 col2" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col3" class="data row2 col3" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row2_col4" class="data row2 col4" >0</td>
+                                <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col2" class="data row2 col2" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col3" class="data row2 col3" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row2_col4" class="data row2 col4" >0</td>
             </tr>
             <tr>
-                                <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col2" class="data row3 col2" >1</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col3" class="data row3 col3" >0</td>
-                        <td id="T_44de8c2a_4f7b_11eb_9a8d_40a3cc65d4e3row3_col4" class="data row3 col4" >1</td>
+                                <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col2" class="data row3 col2" >1</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col3" class="data row3 col3" >0</td>
+                        <td id="T_c0a89fb4_4f9c_11eb_b5d9_40a3cc65d4e3row3_col4" class="data row3 col4" >1</td>
             </tr>
     </tbody></table>
 
+
+
+# Neural network multi-class classification
+Multiclass classification in neural network is an extension of the on vs all method. Let's say that we want to build an image processing algorithm that can distinguish between four class of vehicles. We will build a neural network with 4 output units, each of which will model one of the output classes $C$
+
+$$
+h\Theta(x) = \begin{bmatrix}
+P(y_1 \mid x, \Theta) \\
+P(y_2 \mid x, \Theta) \\
+P(y_3 \mid x, \Theta)\\
+P(y_4 \mid x, \Theta)
+\end{bmatrix}
+$$
+
+
+![png](ML-14-NeuralNetworksApplications_files/ML-14-NeuralNetworksApplications_25_0.png)
+
+
+So that $h^{(i)}_\Theta(x)$ can be one of the following
+
+$$h^{(i)}_\Theta(x) \approx \begin{bmatrix}1\\0\\0\\0\end{bmatrix} \;, \;  \begin{bmatrix}0\\1\\0\\0\end{bmatrix} \;, \;  \begin{bmatrix}0\\0\\1\\0\end{bmatrix}
+\;, \;  \begin{bmatrix}0\\0\\0\\1\end{bmatrix}$$
 
