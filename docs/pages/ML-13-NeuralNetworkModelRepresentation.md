@@ -45,7 +45,8 @@ The computational entities in a neural networks are:
 * $a_i^{(j)}$  activation neuron/unit $i$ in layer $j$
 * $\Theta^{(j)}$ matrix of weights controlling the function mapping from layer $j$ to layer $j+1$ 
 
-And the computation in the network 
+And the computation in the network
+
 $$
 [x_0x_1x_2x_3]\to \left[a_1^{(2)}a_2^{(2)}a_3^{(2)} \right]\to h_\Theta(x)
 $$
@@ -119,7 +120,9 @@ $$
 z^{(2)}=\Theta^{(1)}a^{(1)}
 $$
 
-What we have written so far give us the value for $a^{(2)}_{1}, a^{(2)}_{2}, a^{(2)}_{3}$ but if we look at $\eqref{eq:neuralnet_h}$ we see that we need one more value, the bias unit $a^{(2)}_{0} = 1$ that we need to add to $a^{(2)}$, which becomes a $\mathbb{R}^4$ vector
+What we have written so far give us the value for $ a^{(2)}_1, a^{(2)}_2, a^{(2)}_3 $.
+
+If we look at $ \eqref{eq:neuralnet_h} $ we see that we need one more value, the bias unit $a^{(2)}_{0} = 1$ that we need to add to $a^{(2)}$, which becomes a $\mathbb{R}^4$ vector
 
 $$
 a^{(2)}=
