@@ -161,7 +161,7 @@ That would produce a model that tries very hard to correctly classify all exampl
 Non regularized logistic regression would have a cost function $j(\theta)$
 
 $$
-J(\theta)=\text{Cost}=-\left[\frac{1}{m}\sum^m_{i=1}y^{(i)}\log h_\theta\left(x^{(i)}\right)+\left(1-y^{(i)}\right)\log\left(1-h_\theta(x^{(1)}\right)\right]
+J(\theta)=\text{Cost}=\frac{1}{m}-\left[\sum^m_{i=1}y^{(i)}\log h_\theta\left(x^{(i)}\right)+\left(1-y^{(i)}\right)\log\left(1-h_\theta(x^{(1)}\right)\right]
 $$
 
 And to regularize it all we need to do is to add the regularization term
@@ -188,3 +188,8 @@ $$
 $$
 
 This looks cosmetically identical to gradient descent of linear regression but it is of course different because in logistic regression $h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$ whereas for linear regression $h_\theta(x)=\theta^Tx$
+
+
+```python
+
+```

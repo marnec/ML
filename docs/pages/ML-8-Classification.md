@@ -248,8 +248,3 @@ So $y=1$ for $x_1^2+x_2^2\geq1$ and the decision boundary is $x_1^2+x_2^2=1$.
 
 ![png](ML-8-Classification_files/ML-8-Classification_21_0.png)
 
-
-
-```python
-
-```

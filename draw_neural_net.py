@@ -35,7 +35,7 @@ def _add_arrow(line, position=None, direction='right', size=15, color=None):
         size=size
     )
 
-def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node_labels=None, layer_labels=None, colors=None):
+def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node_labels=None, layer_labels=None, colors=None, lwe=1, lwn=1):
     '''
     Draw a neural network cartoon using matplotilb.
     
@@ -77,7 +77,7 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
             if n + 1 == layers and output is not None:
                 ax.text(*xy, f" {output}", fontsize=16, va='center', zorder=10)
             else:
-                circle = plt.Circle(xy, radius, color='w', ec='k', zorder=4)
+                circle = plt.Circle(xy, radius, color='w', ec='k', zorder=4, lw=lwn)
                 ax.add_artist(circle)
                 nodes.append(circle)
         
@@ -100,12 +100,6 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
         for node, c in zip(nodes, colors):
             node.set_edgecolor(c)
 
-
-
-                
-        
-
-
     # Edges
     edges = []
     for n, (layer_size_a, layer_size_b) in enumerate(zip(layer_sizes[:-1], layer_sizes[1:])):
@@ -114,7 +108,7 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
         for m in range(layer_size_a):
             for o in range(layer_size_b):
                 line = plt.Line2D([n*h_spacing + left, (n + 1)*h_spacing + left],
-                                  [layer_top_a - m*v_spacing, layer_top_b - o*v_spacing], c='k')
+                                  [layer_top_a - m*v_spacing, layer_top_b - o*v_spacing], c='k', lw=lwe)
                 edges.append(line)
                 ax.add_artist(line)
                 

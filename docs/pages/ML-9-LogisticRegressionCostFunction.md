@@ -137,8 +137,3 @@ These algorithms, at the cost of being more complex, share a series of advantage
 
 * They remove need of manually picking an $\alpha$
 * They are often faster than gradient descent
-
-
-```python
-
-```
