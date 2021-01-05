@@ -35,7 +35,8 @@ def _add_arrow(line, position=None, direction='right', size=15, color=None):
         size=size
     )
 
-def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node_labels=None, layer_labels=None, colors=None, lwe=1, lwn=1):
+def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node_labels=None, edge_labels=None, 
+    layer_labels=None, colors=None, edgecolors=None, bias_nodes=None, lwe=1, lwn=1):
     '''
     Draw a neural network cartoon using matplotilb.
     
@@ -90,6 +91,16 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
                 if n <= len(layer_labels)-1:
                     ax.text(x, 0.05, layer_labels[n], fontsize=12, va='center', ha='center', zorder=10)
 
+    # Bias-Nodes
+    if bias_nodes is not None:
+        for n, bnode in zip(range(layers), bias_nodes):
+            if bnode is not False:
+                x_bias = (n)*h_spacing + left
+                y_bias = top + 0.005
+                circle = plt.Circle((x_bias, y_bias), v_spacing/4., color='w', ec='k', zorder=4, lw=lwn)
+                ax.text(x_bias, y_bias, '+1', fontsize=12, zorder=10, va='center', ha='center')
+                ax.add_artist(circle)   
+
     # Node labels
     if node_labels is not None and isinstance(node_labels, list):
         for node, label in zip(nodes, node_labels):
@@ -111,13 +122,70 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
                                   [layer_top_a - m*v_spacing, layer_top_b - o*v_spacing], c='k', lw=lwe)
                 edges.append(line)
                 ax.add_artist(line)
-                
-    # # Edges arrows 
-    # for edge in edges:
-    #     _add_arrow(edge)
-    # ax.set_aspect((top-bottom)/(right-left))
-    ax.axis('off')
 
+                # Edge labels
+                if edge_labels is not None:
+                    elabel = ""
+                    if isinstance(edge_labels, list):
+                        if len(edges) <= len(edge_labels):
+                            elabel = edge_labels[len(edges)-1]
+                    elif isinstance(edge_labels, np.array):
+                        elabel = str(round(edge_labels[n][m, o],4))
+
+                    xm = (n*h_spacing + left)
+                    xo = ((n + 1)*h_spacing + left)
+                    ym = (layer_top_a - m*v_spacing)
+                    yo = (layer_top_b - o*v_spacing)
+                    rot_mo_rad = np.arctan((yo-ym)/(xo-xm))
+                    rot_mo_deg = rot_mo_rad*180./np.pi
+                    xm1 = xm + (v_spacing/2+0.05)*np.cos(rot_mo_rad)
+                    if n == 0:
+                        if yo > ym:
+                            ym1 = ym + (v_spacing/2.+0.12)*np.sin(rot_mo_rad)
+                        else:
+                            ym1 = ym + (v_spacing/2+0.05)*np.sin(rot_mo_rad)
+                    else:
+                        if yo > ym:
+                            ym1 = ym + (v_spacing/2+0.12)*np.sin(rot_mo_rad)
+                        else:
+                            ym1 = ym + (v_spacing/2+0.04)*np.sin(rot_mo_rad)
+                    ax.text(xm1, ym1, elabel, rotation=rot_mo_deg, fontsize=10)
+
+    # Edges between bias and nodes
+    for n, (layer_size_a, layer_size_b) in enumerate(zip(layer_sizes[:-1], layer_sizes[1:])):
+        if bias_nodes is not None and bias_nodes[n] is True:
+            layer_top_a = v_spacing*(layer_size_a - 1)/2. + (top + bottom)/2.
+            layer_top_b = v_spacing*(layer_size_b - 1)/2. + (top + bottom)/2.
+            x_bias = n*h_spacing + left
+            y_bias = top + 0.005 
+            for o in range(layer_size_b):
+                line = plt.Line2D([x_bias, (n + 1)*h_spacing + left],
+                              [y_bias, layer_top_b - o*v_spacing], c='k', lw=lwe)
+                edges.append(line)
+                ax.add_artist(line)
+                if edge_labels is not None:
+                    elabel=""
+                    if isinstance(edge_labels, list):
+                        if len(edges) <= len(edge_labels):
+                            elabel = edge_labels[len(edges)-1]
+                    # elif isinstance(edge_labels, np.array):
+                    #     elabel = str(round(edge_labels[n][m, o],4))
+                    xo = ((n + 1)*h_spacing + left)
+                    yo = (layer_top_b - o*v_spacing)
+                    rot_bo_rad = np.arctan((yo-y_bias)/(xo-x_bias))
+                    rot_bo_deg = rot_bo_rad*180./np.pi
+                    xo2 = xo - (v_spacing+0.01)*np.cos(rot_bo_rad)
+                    yo2 = yo - (v_spacing+0.01)*np.sin(rot_bo_rad)
+                    xo1 = xo2 -0.05 *np.cos(rot_bo_rad)
+                    yo1 = yo2 -0.05 *np.sin(rot_bo_rad)
+                    plt.text( xo1, yo1, elabel, rotation=rot_bo_deg, fontsize=10)  
+
+    if edgecolors is not None:
+        for color, edge in zip(edgecolors, edges):
+            edge.set_color(color)
+                
+    
+    ax.axis('off')
 
 
 def draw_annotated_neural_net(ax, left, right, bottom, top, layer_sizes, coefs_=None, intercepts_=None, n_iter_=None, loss_=None):
