@@ -24,7 +24,7 @@ The principle of one vs all classification is turning a multiclass classfication
 ![png](ML-10-MulticlassClassification_files/ML-10-MulticlassClassification_4_0.png)
 
 
-We want to train a logistic regression classifiers $h_\theta^{(i)}(x)=P(y=1|x;\theta)$ for each class $i$, (in this case $i=1,2,3$) to predict the probability that $y=1$.
+We want to train a logistic regression classifiers $h_\theta^{(i)}(x)=P(y=1 \mid x;\theta)$ for each class $i$, (in this case $i=1,2,3$) to predict the probability that $y=1$.
 
 Finally on a new input $x$, to make a prediction, we will run all the classifiers and map $x$ to the class $i$ that maximizes
 

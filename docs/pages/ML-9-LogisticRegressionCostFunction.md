@@ -7,17 +7,7 @@ order: 9
 ---
 
 
-```python
-%pylab --no-import-all inline
-import seaborn as sns
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-```
-
-    Populating the interactive namespace from numpy and matplotlib
-
-
-
-![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_2_0.png)
+![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_1_0.png)
 
 
 For simplcity in the next sections we will call the Cost function for a single example $\text{Cost}$
@@ -39,7 +29,7 @@ $$
 
 
 
-![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_5_0.png)
+![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_4_0.png)
 
 
 This cost function has some desirable properties:
@@ -47,7 +37,7 @@ This cost function has some desirable properties:
 * For $y=1$
     * $h_\theta(x)\to1 \implies \text{Cost}\to0$. This is what we want because there should be an increasingly smaller cost when $h_\theta(x)\to y$ and no cost when $h_\theta(x) = y = 1$
 
-    * $h_\theta(x) \to 0 \implies \text{Cost}\to\infty$. This captures the intuition that if $y=1$ and $P(y=1|x;\theta)$ the algorithm is penalized by a large cost
+    * $h_\theta(x) \to 0 \implies \text{Cost}\to\infty$. This captures the intuition that if $y=1$ and $P(y=1\mid x;\theta)$ the algorithm is penalized by a large cost
     
 * For $y=0$
     * $h_\theta(x)\to1 \implies \text{Cost}\to\infty$. There is a big cost associated to predicting 1 when $y=0$
@@ -120,6 +110,7 @@ This looks identical to fradient descent for linear regression, however the defi
 Vectorized implementations of the cost function and the gradient descent are
 
 ## Cost function
+
 $$
 \begin{align}
 &h = g(X\theta)\\
@@ -128,6 +119,7 @@ $$
 $$
 
 ## Gradient descent
+
 $$
 \theta:=\theta-\frac{\alpha}{m}X^T\left(g(X\theta)-\vec{y}\right)
 $$

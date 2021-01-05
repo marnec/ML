@@ -189,7 +189,7 @@ $$
 1 \\
 1
 \end{bmatrix}
-\label{eq:tetat} \tag{9}
+\label{eq:thetat} \tag{9}
 $$
 
 Given $\eqref{eq:cond}$, and since $\theta^Tx=-3 +x_1 + x_2$

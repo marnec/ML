@@ -84,7 +84,7 @@ $$
 \end{align}
 $$
 
-Looking at $\eqref{eq:neuralnet}$ again, we can see that the way the arguments of $g$ in $a_1^{(2)}, a_2^{(2)}, a_2^{(2)}$ are disposed can be written as $\Theta(1)x$, where $x$ is a vector of inputs.
+Looking at $\eqref{eq:neuralnet}$ again, we can see that the way the arguments of $g$ in $a_1^{(2)}, a_2^{(2)}, a_2^{(2)}$ are disposed can be written as $\Theta^{(1)}x$, where $x$ is a vector of inputs.
 
 $$
 \begin{split}

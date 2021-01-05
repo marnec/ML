@@ -132,6 +132,7 @@ $$
 
 
 Where $M$ is a $(n+1)$ by $(n+1)$ matrix that resembles an identity matrix but where $M^{(1)}_1=0$
+
 $$
 \begin{bmatrix}
 0 &  &  & \\ 
@@ -143,3 +144,47 @@ $$
 
 ### Non invertibility
 In a setting where $m\leq n$ than $X^TX$ will be non-invertible (singular). Luckily regularization takes care of that and if $\lambda > 0$, than the term $\left(X^TX + \lambda M \right)$ will be invertible.
+
+## Regularized logistic regression
+Logistic regression can suffer from overfitting too. For example we may have an hypothesis with many high order features, or more generally with many features (not necessarily polynomial)
+
+$$
+\begin{align}
+h_\theta(x)=&g(\theta_0+\theta_1x_1+\theta_2x^2_1 \\
+&\theta_3x^2_1x_2+\theta_4x^2_1x^1_2\\
+&\theta_5x_1^2x^3_2+\dots)
+\end{align}
+$$
+
+That would produce a model that tries very hard to correctly classify all examples in teh training set, failing to generalize.
+
+Non regularized logistic regression would have a cost function $j(\theta)$
+
+$$
+J(\theta)=\text{Cost}=-\left[\frac{1}{m}\sum^m_{i=1}y^{(i)}\log h_\theta\left(x^{(i)}\right)+\left(1-y^{(i)}\right)\log\left(1-h_\theta(x^{(1)}\right)\right]
+$$
+
+And to regularize it all we need to do is to add the regularization term
+
+$$
+J(\theta)=\text{Cost}+\frac{\lambda}{2m}\sum_{j=1}^n\theta_j^2
+$$
+
+This has the effect of penalizing the elements of $\theta$ from being too large. So in order to implement gradient descent for regularized logistic regression we will
+
+$$
+\begin{align}
+&\text{Repeat } \{ \\
+&\theta_0 := \theta_0 - \alpha \frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_0^{(i)} \\
+& \theta_j := \theta_j - \alpha \left[\frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_j^{(i)} + \frac{\lambda}{m}\theta_j\right] \\
+&\}
+\end{align}
+$$
+
+where again the update of $\theta_j$ can be written as
+
+$$
+\theta_j := \theta_j\left(1 - \alpha\frac{\lambda}{m}\right) -\alpha\frac{1}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)}-y^{(i)}\right)x_j^{(i)}
+$$
+
+This looks cosmetically identical to gradient descent of linear regression but it is of course different because in logistic regression $h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$ whereas for linear regression $h_\theta(x)=\theta^Tx$
