@@ -28,8 +28,9 @@
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
         {{ content }}
+        {%- include comments.html -%}
       </div>
-      {%- include comments.html -%}
+
     </main>
     {%- include footer.html -%}
   </body>
