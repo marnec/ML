@@ -33,24 +33,34 @@
         {{ content }}
 
         {% if page.comments %}
-          <div id="gitment_container">
-            <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-            <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+        <script src="https://utteranc.es/client.js"
+                repo="https://github.com/marnec/ML"
+                issue-term="{{page.name}}"
+                theme="github-light"
+                label="comment"
+                crossorigin="anonymous"
+                async>
+        </script>
+        <!--<div id="gitment_container">
+          <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+          <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 
-            <script>
-              const gitment = new Gitment({
-                id: '{{ page.name }}', // optional
-                owner: 'marnec',
-                repo: 'https://github.com/marnec/ML',
-                oauth: {
-                  client_id: '{{site.client_id}}',
-                  client_secret: '{{site.client_sc}}',
-                },
-              })
+          <script>
+            const gitment = new Gitment({
+              id: '{{ page.name }}', // optional
+              owner: 'marnec',
+              repo: 'https://github.com/marnec/ML',
+              oauth: {
+                client_id: '{{site.client_id}}',
+                client_secret: '{{site.client_sc}}',
+              },
+            })
 
-              gitment.render('gitment_container')
-            </script>
-          </div>
+            gitment.render('gitment_container')
+          </script>
+        </div>-->
+
+
 <!--        <div id="disqus_thread"></div>-->
 <!--        <script>-->
 <!--          /**-->
