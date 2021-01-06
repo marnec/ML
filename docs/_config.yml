@@ -32,6 +32,8 @@ theme: minima
 plugins:
   - jekyll-feed
 
+client_id: c94b126c82fa00b8e8a2
+client_sc: 80c197d9b76975dce24893dd7e693503075fb206
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
