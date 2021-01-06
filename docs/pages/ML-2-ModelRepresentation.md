@@ -4,6 +4,7 @@ title: "Linear Regression - Model Representation"
 categories: linearRegression
 permalink: /ML2/
 order: 2
+comments: true
 ---
 
 # Model Representation
