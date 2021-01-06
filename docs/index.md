@@ -4,7 +4,7 @@ title: Notes on Machine Learning
 comments: false
 ---
 This is a series of articles on machine learning that I wrote while following 
-[professor Ng's course on Machine Learning course on Coursera](https://www.coursera.org/learn/machine-learning/home/welcome)
+[Andrew Ng's course on Machine Learning course on Coursera](https://www.coursera.org/learn/machine-learning/home/welcome)
 
 The single sections are built using Jupyter notebooks and converting them in markdown. All the figures and calculations
 are coded in Python.
