@@ -32,15 +32,15 @@
       <div class="wrapper">
         {{ content }}
 
-        {% if page.comments %}
         <script src="https://utteranc.es/client.js"
                 repo="https://github.com/marnec/ML"
-                issue-term="{{page.name}}"
-                theme="github-light"
+                issue-term="pathname"
                 label="comment"
+                theme="github-light"
                 crossorigin="anonymous"
                 async>
         </script>
+      </div>
         <!--<div id="gitment_container">
           <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
           <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
@@ -83,7 +83,6 @@
 
 <!--      </div>-->
 
-      {% endif %}
 
 
     </main>
