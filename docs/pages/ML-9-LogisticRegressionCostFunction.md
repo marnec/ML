@@ -4,6 +4,7 @@ title: "Logistic Regression - Cost function"
 categories: logisticRegression
 permalink: /ML9/
 order: 9
+comments: true
 ---
 
 

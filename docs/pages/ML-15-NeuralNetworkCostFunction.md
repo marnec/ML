@@ -4,6 +4,7 @@ title: "Neural Networks - Cost Function"
 categories: neuralNetwork
 permalink: /ML15/
 order: 15
+comments: true
 ---
 
 # Neural Network Cost function

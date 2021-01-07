@@ -4,6 +4,7 @@ title: "Logistic Regression - Multiclass Classification"
 categories: logisticRegression
 permalink: /ML10/
 order: 10
+comments: true
 ---
 
 # Multiclass Classification

@@ -4,6 +4,7 @@ title: "Neural Networks - Applications"
 categories: neuralNetwork
 permalink: /ML14/
 order: 14
+comments: true
 ---
 
 # How neural networks build complex non-linear functions

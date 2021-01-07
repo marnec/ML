@@ -28,28 +28,28 @@ In supervised learning we have a training set that contains examples $(x, y)$ an
 
 
 <style  type="text/css" >
-#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row0_col0,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row0_col1,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row1_col0,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row1_col1,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row2_col0,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row2_col1,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row3_col0,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row3_col1,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row4_col0,#T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row4_col1{
+#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col1{
             text-align:  left;
-        }</style><table id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
+        }</style><table id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row0_col0" class="data row0 col0" >2104</td>
-                        <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row0_col1" class="data row0 col1" >399.900000</td>
+                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col0" class="data row0 col0" >2104</td>
+                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col1" class="data row0 col1" >399.900000</td>
             </tr>
             <tr>
-                                <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row1_col0" class="data row1 col0" >1600</td>
-                        <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row1_col1" class="data row1 col1" >329.900000</td>
+                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col0" class="data row1 col0" >1600</td>
+                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col1" class="data row1 col1" >329.900000</td>
             </tr>
             <tr>
-                                <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row2_col0" class="data row2 col0" >2400</td>
-                        <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row2_col1" class="data row2 col1" >369.000000</td>
+                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col0" class="data row2 col0" >2400</td>
+                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col1" class="data row2 col1" >369.000000</td>
             </tr>
             <tr>
-                                <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row3_col0" class="data row3 col0" >1416</td>
-                        <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row3_col1" class="data row3 col1" >232.000000</td>
+                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col0" class="data row3 col0" >1416</td>
+                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col1" class="data row3 col1" >232.000000</td>
             </tr>
             <tr>
-                                <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row4_col0" class="data row4 col0" >3000</td>
-                        <td id="T_b4e66732_4fac_11eb_b5d9_40a3cc65d4e3row4_col1" class="data row4 col1" >539.900000</td>
+                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col0" class="data row4 col0" >3000</td>
+                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col1" class="data row4 col1" >539.900000</td>
             </tr>
     </tbody></table>
 

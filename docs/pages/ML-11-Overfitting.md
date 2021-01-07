@@ -4,6 +4,7 @@ title: "Overfitting and Underfitting"
 categories: linearRegression
 permalink: /ML11/
 order: 11
+comments: true
 ---
 
 # The problem of overfitting
@@ -188,8 +189,3 @@ $$
 $$
 
 This looks cosmetically identical to gradient descent of linear regression but it is of course different because in logistic regression $h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$ whereas for linear regression $h_\theta(x)=\theta^Tx$
-
-
-```python
-
-```

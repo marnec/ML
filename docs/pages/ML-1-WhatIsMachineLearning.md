@@ -4,6 +4,7 @@ title: "Introduction to ML"
 categories: linearRegression
 permalink: /ML1/
 order: 1
+comments: true
 ---
 
 # What is Machine Learning

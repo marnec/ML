@@ -23,7 +23,9 @@ p = zeros(size(X, 1), 1);
 
 
 
-
+X = [ones(size(X)(1), 1), X];
+X = Theta1*X'
+X = Theta2*X'
 
 
 

@@ -4,6 +4,7 @@ title: "Neural Networks - Model Representation"
 categories: neuralNetwork
 permalink: /ML13/
 order: 13
+comments: true
 ---
 
 # Model Representation of Neural Network

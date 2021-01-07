@@ -4,6 +4,7 @@ title: "Logistic Regression - Model Representation"
 categories: logisticRegression
 permalink: /ML8/
 order: 8
+comments: true
 ---
 
 # Classification problems and Logistic regression

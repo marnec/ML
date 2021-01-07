@@ -4,6 +4,7 @@ title: "Neural Networks - Motivation"
 categories: neuralNetwork
 permalink: /ML12/
 order: 12
+comments: true
 ---
 
 # Non-linear hypothesis
