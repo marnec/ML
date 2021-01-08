@@ -3,4 +3,4 @@ jupyter nbconvert ML-*.ipynb --to markdown --output-dir='./docs/pages' --TagRemo
 sed -i  '1{/^[[:space:]]*$/d}' docs/pages/*ML-*.md
 sed -i 's/<\/input>//g' docs/pages/*ML-*.md
 rsync -rtv data/ docs/pages/data
-
+git add --all
