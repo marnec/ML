@@ -237,42 +237,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img44ac5eadb99d4c8e8b47f918dfc074a9">
+  <img id="_anim_imge317ad5a99f0432bbd78a2ef3157d55c">
   <div class="anim-controls">
-    <input id="_anim_slider44ac5eadb99d4c8e8b47f918dfc074a9" type="range" class="anim-slider"
+    <input id="_anim_slidere317ad5a99f0432bbd78a2ef3157d55c" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim44ac5eadb99d4c8e8b47f918dfc074a9.set_frame(parseInt(this.value));">
+           oninput="anime317ad5a99f0432bbd78a2ef3157d55c.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.slower()">
+      <button title="Decrease speed" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.first_frame()">
+      <button title="First frame" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.previous_frame()">
+      <button title="Previous frame" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.reverse_animation()">
+      <button title="Play backwards" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.pause_animation()">
+      <button title="Pause" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.play_animation()">
+      <button title="Play" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.next_frame()">
+      <button title="Next frame" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.last_frame()">
+      <button title="Last frame" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="anim44ac5eadb99d4c8e8b47f918dfc074a9.faster()">
+      <button title="Increase speed" onclick="anime317ad5a99f0432bbd78a2ef3157d55c.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_select44ac5eadb99d4c8e8b47f918dfc074a9"
+    <form title="Repetition mode" action="#n" name="_anim_loop_selecte317ad5a99f0432bbd78a2ef3157d55c"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_44ac5eadb99d4c8e8b47f918dfc074a9"
+      <input type="radio" name="state" value="once" id="_anim_radio1_e317ad5a99f0432bbd78a2ef3157d55c"
              >
-      <label for="_anim_radio1_44ac5eadb99d4c8e8b47f918dfc074a9">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_44ac5eadb99d4c8e8b47f918dfc074a9"
+      <label for="_anim_radio1_e317ad5a99f0432bbd78a2ef3157d55c">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_e317ad5a99f0432bbd78a2ef3157d55c"
              checked>
-      <label for="_anim_radio2_44ac5eadb99d4c8e8b47f918dfc074a9">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_44ac5eadb99d4c8e8b47f918dfc074a9"
+      <label for="_anim_radio2_e317ad5a99f0432bbd78a2ef3157d55c">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_e317ad5a99f0432bbd78a2ef3157d55c"
              >
-      <label for="_anim_radio3_44ac5eadb99d4c8e8b47f918dfc074a9">Reflect</label>
+      <label for="_anim_radio3_e317ad5a99f0432bbd78a2ef3157d55c">Reflect</label>
     </form>
   </div>
 </div>
@@ -282,11 +282,11 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img44ac5eadb99d4c8e8b47f918dfc074a9";
-    var slider_id = "_anim_slider44ac5eadb99d4c8e8b47f918dfc074a9";
-    var loop_select_id = "_anim_loop_select44ac5eadb99d4c8e8b47f918dfc074a9";
+    var img_id = "_anim_imge317ad5a99f0432bbd78a2ef3157d55c";
+    var slider_id = "_anim_slidere317ad5a99f0432bbd78a2ef3157d55c";
+    var loop_select_id = "_anim_loop_selecte317ad5a99f0432bbd78a2ef3157d55c";
     var frames = new Array(100);
-    
+
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
 bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAzIklEQVR4nO3dd3xV9f3H8dcnG0KYCSsQZtibiAsHgjIcuGrV1rrRqlVbtWpt\
@@ -23233,7 +23233,7 @@ RK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim44ac5eadb99d4c8e8b47f918dfc074a9 = new Animation(frames, img_id, slider_id, 20.0,
+        anime317ad5a99f0432bbd78a2ef3157d55c = new Animation(frames, img_id, slider_id, 20.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -23276,8 +23276,8 @@ def hypothesis(x, theta0, theta1):
 
 # First construct a grid of (theta0, theta1) parameter pairs and their
 # corresponding cost function values.
-theta0_grid = np.linspace(-1000,2000,101)
-theta1_grid = np.linspace(-.5,.5,101)
+theta0_grid = np.linspace(-500,1000,101)
+theta1_grid = np.linspace(0,.2,101)
 J_grid = cost_func(theta0_grid[np.newaxis,:,np.newaxis],
                    theta1_grid[:,np.newaxis,np.newaxis])
 
@@ -23290,8 +23290,8 @@ contours = ax[1].contour(X, Y, J_grid, np.logspace(1, 6, 30))
 # Take N steps with learning rate alpha down the steepest gradient,
 # starting at (theta0, theta1) = (0, 0).
 N = 5
-alpha = 0.01
-theta = [np.array((0,0))]
+alpha = 0.0000001
+theta = [np.array((0,.12))]
 
 J = [cost_func(*theta[0])[0]]
 for j in range(N-1):
@@ -23308,16 +23308,16 @@ for j in range(N-1):
 # Annotate the cost function plot with coloured points indicating the
 # parameters chosen and red arrows indicating the steps down the gradient.
 # Also plot the fit function on the LHS data plot in a matching colour.
-colors = ['b', 'g', 'm', 'c', 'orange']
+colors = ['C0', 'C1', 'C2', 'C3', 'C4'] 
 ax[0].plot(x, hypothesis(x, *theta[0]), color=colors[0], lw=2,
            label=r'$\theta_0 = {:.3f}, \theta_1 = {:.3f}$'.format(*theta[0]))
 for j in range(1,N):
-#     ax[1].annotate('', xy=theta[j], xytext=theta[j-1],
-#                    arrowprops={'arrowstyle': '->', 'color': 'r', 'lw': 1},
-#                    va='center', ha='center')
+    ax[1].annotate('', xy=theta[j], xytext=theta[j-1],
+                   arrowprops={'arrowstyle': '->', 'color': colors[j-1], 'lw': 1},
+                   va='center', ha='center')
     ax[0].plot(x, hypothesis(x, *theta[j]), color=colors[j], lw=2,
            label=r'$\theta_0 = {:.3f}, \theta_1 = {:.3f}$'.format(*theta[j]))
-# ax[1].scatter(*zip(*theta), c=colors, s=40, lw=0)
+ax[1].scatter(*zip(*theta), c=colors, s=40, lw=0)
 
 # Labels, titles and a legend.
 ax[1].set_xlabel(r'$\theta_0$')
@@ -23339,7 +23339,7 @@ ax[0].legend()
 
 
 
-    <matplotlib.legend.Legend at 0x7f831c9af518>
+    <matplotlib.legend.Legend at 0x7fa8ccceb668>
 
 
 
@@ -23388,3 +23388,13 @@ for ax in axes:
 
 ![png](ML-4-GradientDescent_files/ML-4-GradientDescent_6_0.png)
 
+
+
+```python
+
+```
+
+
+```python
+
+```

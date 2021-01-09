@@ -36,7 +36,7 @@ def _add_arrow(line, position=None, direction='right', size=15, color=None):
     )
 
 def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node_labels=None, edge_labels=None, 
-    layer_labels=None, colors=None, edgecolors=None, bias_nodes=None, lwe=1, lwn=1):
+    layer_labels=None, colors=None, edgecolors=None, bias_nodes=None, lwe=1, lwn=1, node_fraction=4, labelfontsize=10, layerfontsize=12, edgefontsize=10):
     '''
     Draw a neural network cartoon using matplotilb.
     
@@ -69,7 +69,7 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
 
     # Nodes
     nodes = []
-    radius = v_spacing/4
+    radius = v_spacing/node_fraction
     for n, layer_size in enumerate(layer_sizes):
         layer_top = v_spacing*(layer_size - 1)/2 + (top + bottom)/2
         x = n*h_spacing + left
@@ -86,25 +86,26 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
         if layer_labels is not None:
             if layer_labels is True:
                 if output is None or (output is not None and n+1 != layers):
-                    ax.text(x, 0.05, f"Layer {n+1}", fontsize=12, va='center', ha='center', zorder=10)
+                    ax.text(x, 0.05, f"Layer {n+1}", fontsize=layerfontsize, va='center', ha='center', zorder=10)
             if isinstance(layer_labels, list):
                 if n <= len(layer_labels)-1:
-                    ax.text(x, 0.05, layer_labels[n], fontsize=12, va='center', ha='center', zorder=10)
+                    ax.text(x, 0.05, layer_labels[n], fontsize=layerfontsize, va='center', ha='center', zorder=10)
 
     # Bias-Nodes
     if bias_nodes is not None:
         for n, bnode in zip(range(layers), bias_nodes):
             if bnode is not False:
                 x_bias = (n)*h_spacing + left
-                y_bias = top + 0.005
-                circle = plt.Circle((x_bias, y_bias), v_spacing/4., color='w', ec='k', zorder=4, lw=lwn)
-                ax.text(x_bias, y_bias, '+1', fontsize=12, zorder=10, va='center', ha='center')
+                y_bias = top + radius
+                circle = plt.Circle((x_bias, y_bias), radius, color='w', ec='k', zorder=4, lw=lwn)
+                ax.text(x_bias, y_bias, '+1', fontsize=labelfontsize, zorder=10, va='center', ha='center')
+                nodes.append(circle)
                 ax.add_artist(circle)   
 
     # Node labels
     if node_labels is not None and isinstance(node_labels, list):
         for node, label in zip(nodes, node_labels):
-            ax.text(*node.center, label, fontsize=12, va='center', ha='center', zorder=10)
+            ax.text(*node.center, label, fontsize=labelfontsize, va='center', ha='center', zorder=10)
 
     # Node colors
     if colors is not None and isinstance(colors, list):
@@ -149,7 +150,7 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
                             ym1 = ym + (v_spacing/2+0.12)*np.sin(rot_mo_rad)
                         else:
                             ym1 = ym + (v_spacing/2+0.04)*np.sin(rot_mo_rad)
-                    ax.text(xm1, ym1, elabel, rotation=rot_mo_deg, fontsize=10)
+                    ax.text(xm1, ym1, elabel, rotation=rot_mo_deg, fontsize=edgefontsize)
 
     # Edges between bias and nodes
     for n, (layer_size_a, layer_size_b) in enumerate(zip(layer_sizes[:-1], layer_sizes[1:])):
@@ -157,7 +158,7 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
             layer_top_a = v_spacing*(layer_size_a - 1)/2. + (top + bottom)/2.
             layer_top_b = v_spacing*(layer_size_b - 1)/2. + (top + bottom)/2.
             x_bias = n*h_spacing + left
-            y_bias = top + 0.005 
+            y_bias = top + radius
             for o in range(layer_size_b):
                 line = plt.Line2D([x_bias, (n + 1)*h_spacing + left],
                               [y_bias, layer_top_b - o*v_spacing], c='k', lw=lwe)
@@ -178,7 +179,7 @@ def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node
                     yo2 = yo - (v_spacing+0.01)*np.sin(rot_bo_rad)
                     xo1 = xo2 -0.05 *np.cos(rot_bo_rad)
                     yo1 = yo2 -0.05 *np.sin(rot_bo_rad)
-                    plt.text( xo1, yo1, elabel, rotation=rot_bo_deg, fontsize=10)  
+                    plt.text( xo1, yo1, elabel, rotation=rot_bo_deg, fontsize=edgefontsize)  
 
     if edgecolors is not None:
         for color, edge in zip(edgecolors, edges):

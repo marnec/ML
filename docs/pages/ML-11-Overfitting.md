@@ -189,3 +189,8 @@ $$
 $$
 
 This looks cosmetically identical to gradient descent of linear regression but it is of course different because in logistic regression $h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$ whereas for linear regression $h_\theta(x)=\theta^Tx$
+
+
+```python
+
+```

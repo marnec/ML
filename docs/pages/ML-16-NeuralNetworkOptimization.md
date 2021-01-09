@@ -13,7 +13,7 @@ Given the cost function for an artificial neural network
 
 $$
 \begin{align}
-J(\Theta)=&-\frac{1}{m}\left[\sum^m_{i=1}\sum^K_{k=1}y_k^{(i)}\log \left(h_\Theta\left(x^{(i)}\right)\right)_k+\left(1-y_k^{(i)}\right)\log\left(1-h_\Theta \left(x^{(1)}\right)\right)_k\right] \\
+J(\Theta)=&-\frac{1}{m}\left[\sum^m_{i=1}\sum^K_{k=1}y_k^{(i)}\log \left(h_\Theta\left(x^{(i)}\right)\right)_k+\left(1-y_k^{(i)}\right)\log\left(1-h_\Theta \left(x^{(i)}\right)\right)_k\right] \\
 &+\frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}}\left(\Theta_{ji}^{(l)}\right)^2
 \end{align}
 \label{eq:neuralnetcost} \tag{1}
@@ -111,4 +111,69 @@ It can then be demonstrated that $D_{ij}^{(l)}$ is equal to the partial derivati
 
 $$
 \frac{\partial}{\partial\Theta}J(\Theta)=D_{ij}^{(l)}
+$$
+
+## Back-propagation inuition
+To try and understand back-porpagation let's first see exactly what is happening in forward propagation
+
+
+![png](ML-16-NeuralNetworkOptimization_files/ML-16-NeuralNetworkOptimization_6_0.png)
+
+
+Let's take the network depicted above, the count of units (excluding the bias) are 2 for the input layer and for the two input layers and 1 for the output layer 
+
+
+![png](ML-16-NeuralNetworkOptimization_files/ML-16-NeuralNetworkOptimization_8_0.png)
+
+
+When performing forward propagation for one example $x^{(i)}, y^{(i)}$, we will feed $x^{(i)}$ in the input layer ($x_1^{(i)}, x_2^{(i)}$). The computation of $z^{(3)}$  in forward propagation is:
+
+$$
+\begin{equation}
+z^{(3)}
+=\color{magenta}{\Theta_{10}^{(2)} \cdot 1}
++\color{red}{\Theta_{11}^{(2)}a_1^{(2)}}
++\color{cyan}{\Theta_{12}^{(2)}a_2^{(2)}}
+\end{equation}
+\label{eq:forprop} \tag{4}
+$$
+
+Back propagation does something very similar to $\eqref{eq:forprop}$ except that the direction of the operation is reversed.
+
+To understand what back-propagation is doing let's focus on the cost function $\eqref{eq:neuralnetcost}$. Since we have just one output unit we can simplify $\eqref{eq:neuralnetcost}$ to 
+
+$$
+\begin{align}
+J(\Theta)=&-\frac{1}{m}\left[\sum^m_{i=1}y^{(i)}\log \left(h_\Theta\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right)\log\left(1-h_\Theta \left(x^{(i)}\right)\right)\right] \\
+&+\frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}}\left(\Theta_{ji}^{(l)}\right)^2
+\end{align}
+$$
+
+Now since forward and back-propagation are applied to one example at a time, let's focus on a single example $x^{(i)}, y^{(i)}$  and ignore regularization ($\lambda=0$); the cost function $\text{cost}$
+
+$$
+\begin{equation}
+\text{cost}(i) = y^{(i)}\log \left(h_\Theta\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right)\log\left(1-h_\Theta \left(x^{(i)}\right)\right)
+\end{equation}
+\label{eq:costi} \tag{5}
+$$
+
+calculates the distance between our prediction $h_\Theta(x)$ and labels $y$ in the case of a logistic function. In a way this is very similar to the cost function for linear regression and for simplicity we may think the cost function as
+
+$$\text{cost}(i) \approx \left(h_\Theta\left(x^{(i)}\right) - y^{(i)}\right)^2$$
+
+Now let's look at what back-propagation is doing
+
+In a previous section we said that back-propagation computes $\delta_j^{(l)}$ and called that term the "error" $a_j^{(l)}$. More formally $\delta_j^{(l)}$ are the partial deriative with respect to the intermediate terms $z_j^{(l)}$ of the cost function $\eqref{eq:costi}$.
+
+$$\delta_j^{(l)} = \frac{\partial}{\partial z_j^{(l)}}\text{cost}(i)$$
+
+And they are a measuer of how much we would like to change the neural networks weight in order to affect the intermediate terms $z_j^{(l)}$
+
+
+![png](ML-16-NeuralNetworkOptimization_files/ML-16-NeuralNetworkOptimization_11_0.png)
+
+
+$$
+\delta_2^{(2)}=\color{magenta}{\Theta_{12}^{(i)}\delta_1^{(3)}}+\color{red}{\Theta_{22}^{(3)}\delta_2^{(3)}}
 $$
