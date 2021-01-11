@@ -8,7 +8,9 @@ comments: true
 ---
 
 
+    
 ![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_1_0.png)
+    
 
 
 For simplcity in the next sections we will call the Cost function for a single example $\text{Cost}$
@@ -30,7 +32,9 @@ $$
 
 
 
+    
 ![png](ML-9-LogisticRegressionCostFunction_files/ML-9-LogisticRegressionCostFunction_4_0.png)
+    
 
 
 This cost function has some desirable properties:

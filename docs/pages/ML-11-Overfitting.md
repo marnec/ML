@@ -11,7 +11,9 @@ comments: true
 Let's take some data distributed as in the Figure below
 
 
+    
 ![png](ML-11-Overfitting_files/ML-11-Overfitting_2_0.png)
+    
 
 
 Three models are shown in the figure Below in panels A, B, C:
@@ -23,7 +25,9 @@ Three models are shown in the figure Below in panels A, B, C:
 * Panel C: At the other extreme we fit a 4th order polynomial to the data, and the curve obtained passes exactly through all data points of the training set but it is sort of wiggly and it doesn't seems to be modelling well $y$ behaviour respect $x$. This problem is called **overfitting** or we say that the algorithm has **high variance**. It means that the alogirhtm deosn't generalize well for all possible $x$ values but it seems to cover perfectly only the training set.
 
 
+    
 ![png](ML-11-Overfitting_files/ML-11-Overfitting_4_0.png)
+    
 
 
 The problem of overfitting comes when we have too many features and the learned hypothesis may fit the training set very well ($J(\theta)\approx0$), but fail to generalize to new examples.
@@ -42,7 +46,9 @@ Until now, in order to choose the degree of the polynomial of our hypothsis we w
 In the example used above we have seen that a quadratic function would be a good fit for the data, while an higher order polynomial would overfit the data and not generalize well.
 
 
+    
 ![png](ML-11-Overfitting_files/ML-11-Overfitting_7_0.png)
+    
 
 
 If we took the 4th order polynomial of panel B and set $\theta_3$ and $\theta_4$ close to 0, the $h_theta(x)$ in panel B will look like a quadratic function.
