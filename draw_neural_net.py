@@ -1,310 +1,122 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def ann(architecture, radius=1, width=1, height=1, ax=None, node_lw=1, edge_lw=1, bias=True, edge_from_center=True, node_color='k', 
+    edge_color='k', layer_labels=False, node_labels=False, edge_labels=False, edge_label_spacing=1,
+    node_colors=True, edge_colors=False):
 
-def _add_arrow(line, position=None, direction='right', size=15, color=None):
-    """
-    add an arrow to a line.
+    if ax is None:
+        fig, ax = plt.subplots()
 
-    line:       Line2D object
-    position:   x-position of the arrow. If None, mean of xdata is taken
-    direction:  'left' or 'right'
-    size:       size of the arrow in fontsize points
-    color:      if None, line color is taken.
-    """
-    if color is None:
-        color = line.get_color()
+    max_m = max(architecture)
+    max_n = len(architecture)
 
-    xdata = line.get_xdata()
-    ydata = line.get_ydata()
-
-    if position is None:
-        position = np.mean(xdata)
-        
-    # find closest index
-    start_ind = np.argmin(np.absolute(xdata - position))
-    if direction == 'right':
-        end_ind = start_ind + 1
-    else:
-        end_ind = start_ind - 1
-
-    line.axes.annotate('',
-        xytext=(xdata[start_ind], ydata[start_ind]),
-        xy=(xdata[end_ind], ydata[end_ind]),
-        arrowprops=dict(arrowstyle="->", color=color),
-        size=size
-    )
-
-def draw_neural_net(ax, left, right, bottom, top, layer_sizes, output=None, node_labels=None, edge_labels=None, 
-    layer_labels=None, colors=None, edgecolors=None, bias_nodes=None, lwe=1, lwn=1, node_fraction=4, labelfontsize=10, layerfontsize=12, edgefontsize=10):
-    '''
-    Draw a neural network cartoon using matplotilb.
-    
-    :usage:
-        >>> fig = plt.figure(figsize=(12, 12))
-        >>> draw_neural_net(fig.gca(), .1, .9, .1, .9, [4, 7, 2])
-    
-    :parameters:
-        - ax : matplotlib.axes.AxesSubplot
-            The axes on which to plot the cartoon (get e.g. by plt.gca())
-        - left : float
-            The center of the leftmost node(s) will be placed here
-        - right : float
-            The center of the rightmost node(s) will be placed here
-        - bottom : float
-            The center of the bottommost node(s) will be placed here
-        - top : float
-            The center of the topmost node(s) will be placed here
-        - layer_sizes : list of int
-            List of layer sizes, including input and output dimensionality
-    '''
-
-    if output is not None:
-        layer_sizes.append(1)
-
-    v_spacing = (top - bottom)/float(max(layer_sizes))
-    h_spacing = (right - left)/float(len(layer_sizes) - 1)
-
-    layers = len(layer_sizes)
+    v_spacing = height/max_m
+    h_spacing = width/max_n
 
     # Nodes
     nodes = []
-    radius = v_spacing/node_fraction
-    for n, layer_size in enumerate(layer_sizes):
-        layer_top = v_spacing*(layer_size - 1)/2 + (top + bottom)/2
-        x = n*h_spacing + left
-        for m in range(layer_size):
-            xy = (x, layer_top - m*v_spacing)
-            if n + 1 == layers and output is not None:
-                ax.text(*xy, f" {output}", fontsize=16, va='center', zorder=10)
-            else:
-                circle = plt.Circle(xy, radius, color='w', ec='k', zorder=4, lw=lwn)
-                ax.add_artist(circle)
-                nodes.append(circle)
+    radius = radius/20
+    
+    net_left = h_spacing * (max_n - 1)/max_n/2
+    for n, layer_size in enumerate(architecture):
+        layer_top = v_spacing * (layer_size - 1)/2 + 1/2
         
+        x = net_left + n*h_spacing
+        layer = []
+
+        for m in range(layer_size):
+            y = layer_top - m*v_spacing
+        
+            circle = plt.Circle((x, y), radius, color='w', ec='k', zorder=4, lw=node_lw)
+            ax.add_artist(circle)
+
+            layer.append(circle)
+        nodes.append(layer)
+
         # Layer labels
-        if layer_labels is not None:
-            if layer_labels is True:
-                if output is None or (output is not None and n+1 != layers):
-                    ax.text(x, 0.05, f"Layer {n+1}", fontsize=layerfontsize, va='center', ha='center', zorder=10)
-            if isinstance(layer_labels, list):
-                if n <= len(layer_labels)-1:
-                    ax.text(x, 0.05, layer_labels[n], fontsize=layerfontsize, va='center', ha='center', zorder=10)
+        layer_label_y = 0.0  
+        if layer_labels is True:
+            ax.text(x, layer_label_y, f"Layer {n+1}", fontsize=10, va='center', ha='center', zorder=10)
+        elif isinstance(layer_labels, list):
+            ax.text(x, layer_label_y, layer_labels[n], fontsize=10, va='center', ha='center', zorder=10)
 
-    # Bias-Nodes
-    if bias_nodes is not None:
-        for n, bnode in zip(range(layers), bias_nodes):
-            if bnode is not False:
-                x_bias = (n)*h_spacing + left
-                y_bias = top + radius
-                circle = plt.Circle((x_bias, y_bias), radius, color='w', ec='k', zorder=4, lw=lwn)
-                ax.text(x_bias, y_bias, '+1', fontsize=labelfontsize, zorder=10, va='center', ha='center')
-                nodes.append(circle)
-                ax.add_artist(circle)   
-
-    # Node labels
-    if node_labels is not None and isinstance(node_labels, list):
-        for node, label in zip(nodes, node_labels):
-            ax.text(*node.center, label, fontsize=labelfontsize, va='center', ha='center', zorder=10)
-
-    # Node colors
-    if colors is not None and isinstance(colors, list):
-        for node, c in zip(nodes, colors):
-            node.set_edgecolor(c)
 
     # Edges
     edges = []
-    for n, (layer_size_a, layer_size_b) in enumerate(zip(layer_sizes[:-1], layer_sizes[1:])):
-        layer_top_a = v_spacing*(layer_size_a - 1)/2. + (top + bottom)/2.
-        layer_top_b = v_spacing*(layer_size_b - 1)/2. + (top + bottom)/2.
-        for m in range(layer_size_a):
-            for o in range(layer_size_b):
-                line = plt.Line2D([n*h_spacing + left, (n + 1)*h_spacing + left],
-                                  [layer_top_a - m*v_spacing, layer_top_b - o*v_spacing], c='k', lw=lwe)
-                edges.append(line)
-                ax.add_artist(line)
-
-                # Edge labels
-                if edge_labels is not None:
-                    elabel = ""
-                    if isinstance(edge_labels, list):
-                        if len(edges) <= len(edge_labels):
-                            elabel = edge_labels[len(edges)-1]
-                    elif isinstance(edge_labels, np.array):
-                        elabel = str(round(edge_labels[n][m, o],4))
-
-                    xm = (n*h_spacing + left)
-                    xo = ((n + 1)*h_spacing + left)
-                    ym = (layer_top_a - m*v_spacing)
-                    yo = (layer_top_b - o*v_spacing)
-                    rot_mo_rad = np.arctan((yo-ym)/(xo-xm))
-                    rot_mo_deg = rot_mo_rad*180./np.pi
-                    xm1 = xm + (v_spacing/2+0.05)*np.cos(rot_mo_rad)
-                    if n == 0:
-                        if yo > ym:
-                            ym1 = ym + (v_spacing/2.+0.12)*np.sin(rot_mo_rad)
-                        else:
-                            ym1 = ym + (v_spacing/2+0.05)*np.sin(rot_mo_rad)
-                    else:
-                        if yo > ym:
-                            ym1 = ym + (v_spacing/2+0.12)*np.sin(rot_mo_rad)
-                        else:
-                            ym1 = ym + (v_spacing/2+0.04)*np.sin(rot_mo_rad)
-                    ax.text(xm1, ym1, elabel, rotation=rot_mo_deg, fontsize=edgefontsize)
-
-    # Edges between bias and nodes
-    for n, (layer_size_a, layer_size_b) in enumerate(zip(layer_sizes[:-1], layer_sizes[1:])):
-        if bias_nodes is not None and bias_nodes[n] is True:
-            layer_top_a = v_spacing*(layer_size_a - 1)/2. + (top + bottom)/2.
-            layer_top_b = v_spacing*(layer_size_b - 1)/2. + (top + bottom)/2.
-            x_bias = n*h_spacing + left
-            y_bias = top + radius
-            for o in range(layer_size_b):
-                line = plt.Line2D([x_bias, (n + 1)*h_spacing + left],
-                              [y_bias, layer_top_b - o*v_spacing], c='k', lw=lwe)
-                edges.append(line)
-                ax.add_artist(line)
-                if edge_labels is not None:
-                    elabel=""
-                    if isinstance(edge_labels, list):
-                        if len(edges) <= len(edge_labels):
-                            elabel = edge_labels[len(edges)-1]
-                    # elif isinstance(edge_labels, np.array):
-                    #     elabel = str(round(edge_labels[n][m, o],4))
-                    xo = ((n + 1)*h_spacing + left)
-                    yo = (layer_top_b - o*v_spacing)
-                    rot_bo_rad = np.arctan((yo-y_bias)/(xo-x_bias))
-                    rot_bo_deg = rot_bo_rad*180./np.pi
-                    xo2 = xo - (v_spacing+0.01)*np.cos(rot_bo_rad)
-                    yo2 = yo - (v_spacing+0.01)*np.sin(rot_bo_rad)
-                    xo1 = xo2 -0.05 *np.cos(rot_bo_rad)
-                    yo1 = yo2 -0.05 *np.sin(rot_bo_rad)
-                    plt.text( xo1, yo1, elabel, rotation=rot_bo_deg, fontsize=edgefontsize)  
-
-    if edgecolors is not None:
-        for color, edge in zip(edgecolors, edges):
-            edge.set_color(color)
-                
+    for n, (layer_n1, layer_n2) in enumerate(zip(nodes[:-1], nodes[1:]), 1):
+        edge_from = []
+        for node_layer_n1 in layer_n1:
+            edge_to = []
+            for i, node_layer_n2 in enumerate(layer_n2):
+                if bias is False or (bias is True and i != 0) or n == max_n-1:
+                    x, y = zip(*[node_layer_n1.center, node_layer_n2.center])
+                    if edge_from_center is False:
+                        x = x[0] + radius, x[1] - radius
+                    line = plt.Line2D(x, y, lw=edge_lw, c=edge_color)
+                    ax.add_artist(line)
+                    edge_to.append(line)
+            edge_from.append(edge_to)
+        edges.append(edge_from)
     
+    ax.set_xlim(0, width)
+    ax.set_ylim(0.5 - height/2, 0.5 + height/2)
+
+    # Node labels and colors
+    tot_nodes = -1
+    for l, layer in enumerate(nodes, 1):
+        for j, node in enumerate(layer, 1):
+            tot_nodes += 1
+            # labels
+            label = ''
+            if node_labels is True:
+                term = 'x' if l == 1 else 'a'
+                label = f'${term}_{{{j}}}^{{({l})}}$'
+            elif isinstance(node_labels, list):
+                if tot_nodes <= len(node_labels) - 1:
+                    label = node_labels[tot_nodes]
+            ax.text(*node.center, label, zorder=10, ha='center', va='center')
+            # colors
+            if not node_colors is False:
+                c = 'k'
+                if node_colors is True:
+                    c = 'C0' if l == 1 else 'C1'
+                elif isinstance(node_colors, list):
+                    if tot_nodes <= len(node_colors) - 1:
+                        c = node_colors[tot_nodes]
+                node.set_edgecolor(c)
+
+    # Edge labels and colors
+    tot_edges = -1
+    if edge_labels is True:
+        for l, layer in enumerate(edges, 1):
+            for j, from_node in enumerate(layer, 1):
+                for i, edge in enumerate(from_node, 1):
+                    tot_edges += 1
+                    # labels
+                    label = ''
+                    if edge_labels is True:
+                        theta_idx = ''.join(map(str, [j,i]))
+                        label = f'$\\Theta_{{{theta_idx}}}^{{({l})}}$'
+                    elif isinstance(edge_labels, list):
+                        if tot_edges <= len(edge_labels) - 1:
+                            label = edge_labels[tot_edges]
+                    x, y = edge.get_xdata(), edge.get_ydata()
+                    xdist, ydist = np.diff(x).squeeze(), np.diff(y).squeeze()
+                    rotation = np.degrees(np.arcsin(np.diff(y).squeeze()))
+                    x += (xdist if rotation < 0 else -xdist)*.1 * edge_label_spacing
+                    y += (ydist if rotation < 0 else -ydist)*.1 * edge_label_spacing
+                    ax.text(np.mean(x), np.mean(y), label, va='bottom', ha='center',
+                    rotation=rotation)
+                    # colors
+                    if not edge_colors is False:
+                        c = 'k'
+                        if edge_colors is True:
+                            c = 'C0' if l == 1 else 'C1'
+                        elif isinstance(edge_colors, list):
+                            if tot_edges <= len(edge_colors) - 1:
+                                c = edge_colors[tot_edges]
+                        edge.set_color(c)
     ax.axis('off')
 
-
-def draw_annotated_neural_net(ax, left, right, bottom, top, layer_sizes, coefs_=None, intercepts_=None, n_iter_=None, loss_=None):
-    '''
-    Draw a neural network cartoon using matplotilb.
-    
-    :usage:
-        >>> fig = plt.figure(figsize=(12, 12))
-        >>> draw_neural_net(fig.gca(), .1, .9, .1, .9, [4, 7, 2])
-    
-    :parameters:
-        - ax : matplotlib.axes.AxesSubplot
-            The axes on which to plot the cartoon (get e.g. by plt.gca())
-        - left : float
-            The center of the leftmost node(s) will be placed here
-        - right : float
-            The center of the rightmost node(s) will be placed here
-        - bottom : float
-            The center of the bottommost node(s) will be placed here
-        - top : float
-            The center of the topmost node(s) will be placed here
-        - layer_sizes : list of int
-            List of layer sizes, including input and output dimensionality
-    '''
-    n_layers = len(layer_sizes)
-    v_spacing = (top - bottom)/float(max(layer_sizes))
-    h_spacing = (right - left)/float(len(layer_sizes) - 1)
-    
-    # Input-Arrows
-    layer_top_0 = v_spacing*(layer_sizes[0] - 1)/2. + (top + bottom)/2.
-    for m in range(layer_sizes[0]):
-        plt.arrow(left-0.18, layer_top_0 - m*v_spacing, 0.12, 0,  lw =1, head_width=0.01, head_length=0.02)
-    
-    # Nodes
-    for n, layer_size in enumerate(layer_sizes):
-        layer_top = v_spacing*(layer_size - 1)/2. + (top + bottom)/2.
-        for m in range(layer_size):
-            circle = plt.Circle((n*h_spacing + left, layer_top - m*v_spacing), v_spacing/8.,
-                                color='w', ec='k', zorder=4)
-            if n == 0:
-                plt.text(left-0.125, layer_top - m*v_spacing, r'$X_{'+str(m+1)+'}$', fontsize=15)
-            elif (n_layers == 3) & (n == 1):
-                plt.text(n*h_spacing + left+0.00, layer_top - m*v_spacing+ (v_spacing/8.+0.01*v_spacing), r'$H_{'+str(m+1)+'}$', fontsize=15)
-            elif n == n_layers - 1:
-                plt.text(n*h_spacing + left+0.10, layer_top - m*v_spacing, r'$y_{'+str(m+1)+'}$', fontsize=15)
-            ax.add_artist(circle)
-    
-    # Bias-Nodes
-    for n, layer_size in enumerate(layer_sizes):
-        if n < n_layers -1:
-            x_bias = (n+0.5)*h_spacing + left
-            y_bias = top + 0.005
-            circle = plt.Circle((x_bias, y_bias), v_spacing/8., color='w', ec='k', zorder=4)
-            plt.text(x_bias-(v_spacing/8.+0.10*v_spacing+0.01), y_bias, r'$1$', fontsize=15)
-            ax.add_artist(circle)   
-    
-    # Edges
-    # Edges between nodes
-    for n, (layer_size_a, layer_size_b) in enumerate(zip(layer_sizes[:-1], layer_sizes[1:])):
-        layer_top_a = v_spacing*(layer_size_a - 1)/2. + (top + bottom)/2.
-        layer_top_b = v_spacing*(layer_size_b - 1)/2. + (top + bottom)/2.
-        for m in range(layer_size_a):
-            for o in range(layer_size_b):
-                line = plt.Line2D([n*h_spacing + left, (n + 1)*h_spacing + left],
-                                  [layer_top_a - m*v_spacing, layer_top_b - o*v_spacing], c='k')
-                ax.add_artist(line)
-
-                if coefs_ is not None:
-                    xm = (n*h_spacing + left)
-                    xo = ((n + 1)*h_spacing + left)
-                    ym = (layer_top_a - m*v_spacing)
-                    yo = (layer_top_b - o*v_spacing)
-                    rot_mo_rad = np.arctan((yo-ym)/(xo-xm))
-                    rot_mo_deg = rot_mo_rad*180./np.pi
-                    xm1 = xm + (v_spacing/8.+0.05)*np.cos(rot_mo_rad)
-                    if n == 0:
-                        if yo > ym:
-                            ym1 = ym + (v_spacing/8.+0.12)*np.sin(rot_mo_rad)
-                        else:
-                            ym1 = ym + (v_spacing/8.+0.05)*np.sin(rot_mo_rad)
-                    else:
-                        if yo > ym:
-                            ym1 = ym + (v_spacing/8.+0.12)*np.sin(rot_mo_rad)
-                        else:
-                            ym1 = ym + (v_spacing/8.+0.04)*np.sin(rot_mo_rad)
-                    plt.text( xm1, ym1,str(round(coefs_[n][m, o],4)), rotation=rot_mo_deg, fontsize=10)
-    
-    # Edges between bias and nodes
-    for n, (layer_size_a, layer_size_b) in enumerate(zip(layer_sizes[:-1], layer_sizes[1:])):
-        if n < n_layers-1:
-            layer_top_a = v_spacing*(layer_size_a - 1)/2. + (top + bottom)/2.
-            layer_top_b = v_spacing*(layer_size_b - 1)/2. + (top + bottom)/2.
-        x_bias = (n+0.5)*h_spacing + left
-        y_bias = top + 0.005 
-        for o in range(layer_size_b):
-            line = plt.Line2D([x_bias, (n + 1)*h_spacing + left],
-                          [y_bias, layer_top_b - o*v_spacing], c='k')
-            ax.add_artist(line)
-            if intercepts_ is not None:
-                xo = ((n + 1)*h_spacing + left)
-                yo = (layer_top_b - o*v_spacing)
-                rot_bo_rad = np.arctan((yo-y_bias)/(xo-x_bias))
-                rot_bo_deg = rot_bo_rad*180./np.pi
-                xo2 = xo - (v_spacing/8.+0.01)*np.cos(rot_bo_rad)
-                yo2 = yo - (v_spacing/8.+0.01)*np.sin(rot_bo_rad)
-                xo1 = xo2 -0.05 *np.cos(rot_bo_rad)
-                yo1 = yo2 -0.05 *np.sin(rot_bo_rad)
-                plt.text( xo1, yo1, str(round(intercepts_[n][o],4)), rotation=rot_bo_deg, fontsize=10)    
-                
-    # Output-Arrows
-    layer_top_0 = v_spacing*(layer_sizes[-1] - 1)/2. + (top + bottom)/2.
-    for m in range(layer_sizes[-1]):
-        plt.arrow(right+0.015, layer_top_0 - m*v_spacing, 0.16*h_spacing, 0,  lw =1, head_width=0.01, head_length=0.02)
-    
-    if n_iter_ is not None and loss_ is not None:
-        # Record the n_iter_ and loss
-        plt.text(left + (right-left)/3., bottom - 0.005*v_spacing, \
-                 'Steps:'+str(n_iter_)+'    Loss: ' + str(round(loss_, 6)), fontsize = 15)
-
-    ax.set_aspect((top-bottom)/(right-left))
-    ax.axis('off')
+    return ax, nodes, edges
