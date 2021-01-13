@@ -11,9 +11,7 @@ comments: true
 Suppose we have a classification problem and we are training a neural network like that shown in the picture with $L$ number of layers and $s_l$ no of units in layer $l$; suppose we have a training set $\left \lbrace  (x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \dots, (x^{(m)}, y^{(m)}) \right \rbrace$.
 
 
-    
 ![png](ML-15-NeuralNetworkCostFunction_files/ML-15-NeuralNetworkCostFunction_2_0.png)
-    
 
 
 We are going to consider two kind of classification problems
@@ -48,8 +46,3 @@ $$
 * the double sum simply adds up the logistic regression costs calculated for each cell in the output layer
 * the triple sum simply adds up the squares of all the individual Θs in the entire network.
 * the $i$ in the triple sum does not refer to training example $i$
-
-
-```python
-
-```

@@ -33,9 +33,7 @@ For a simplified version of the regression hypothesis $h_\theta(x)$ where we rem
 $$h_\theta(x)=\theta_1x$$
 
 
-    
 ![png](ML-3-CostFunction_files/ML-3-CostFunction_8_0.png)
-    
 
 
 $$
@@ -48,17 +46,13 @@ $$
 When $\theta_1 = 1$, we get a slope of 1 which goes through every single data point in our model. Conversely, when $\theta_1 = 0.5$, we see the vertical distance from our fit to the data points increase. 
 
 
-    
 ![png](ML-3-CostFunction_files/ML-3-CostFunction_11_0.png)
-    
 
 
 Plotting 15 $\theta_1$ values in the interval $[-0.5, 2.5]$ yields a bell shaped graph 
 
 
-    
 ![png](ML-3-CostFunction_files/ML-3-CostFunction_13_0.png)
-    
 
 
 Thus as a goal, we should try to minimize the cost function. In this case, $\theta_1 = 1$ is our global minimum. 
@@ -67,17 +61,13 @@ Thus as a goal, we should try to minimize the cost function. In this case, $\the
 Let's take a slightly more complex hypothesis wwhere we have $\theta \in \mathbb{R}^2$. Suppose that we set $\theta_0=50; \;\theta_1=0.06$ amd that we want to plot the corresponding value for the cost function
 
 
-    
 ![png](ML-3-CostFunction_files/ML-3-CostFunction_15_0.png)
-    
 
 
 Now we have two parameters so the cost function depends on two variables and its plot needs to account for three dimensions. We can use a surface plot where the $x$ axis is $\theta_0$, the $y$ axis is $\theta_1$ and the $z$ axis (the height) is the cost function at specific values of $\theta_0, \theta_1$
 
 
-    
 ![png](ML-3-CostFunction_files/ML-3-CostFunction_17_0.png)
-    
 
 
 These surface plots allow to visualize the cost as a function of two parameters but they are somehow difficult to interpret and the perception of the shape of the cost-function-space is influenced by the perspective from a certain the point of view.
@@ -85,7 +75,5 @@ These surface plots allow to visualize the cost as a function of two parameters 
 A more accessible kind of plots are the contour plots, bidimensional plot in which the two axis represent the parameters and lines join points where the $J(\theta_0, \theta_1)$ assumes the same value (like geograpical height-maps).
 
 
-    
 ![png](ML-3-CostFunction_files/ML-3-CostFunction_19_0.png)
-    
 
