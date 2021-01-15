@@ -23344,59 +23344,82 @@ ax[0].legend()
 
 
 
-    
 ![png](ML-4-GradientDescent_files/ML-4-GradientDescent_5_1.png)
-    
 
 
 
 ```python
-fig, axes = plt.subplots(1, 2, figsize=(8, 8))
-
-def hypothesis(x, theta0, theta1):
-    """Our "hypothesis function", a straight line."""
-    return theta0 + theta1*x
-
-def cost_func(theta0, theta1, x, y):
-    """The cost function, J(theta0, theta1) describing the goodness of fit."""
-    theta0 = np.atleast_3d(np.asarray(theta0))
-    theta1 = np.atleast_3d(np.asarray(theta1))
-    return np.average((y-hypothesis(x, theta0, theta1))**2, axis=2)/2
+def  cal_cost(theta,X,y):
+    '''
+    X = Row of X's np.zeros((2,j))
+    y = Actual y's np.zeros((2,1))
+    '''
+    m = len(y)
+    predictions = X.dot(theta)
+    cost = (1/2*m) * np.sum(np.square(predictions-y))
+    return cost
 
 
-training_set = pd.read_csv('data/house_pricing.csv')
-training_set.price /= 1000
-training_set.plot.scatter(x='sqf', y='price', ax=axes[0])
-x, _, y = training_set.T.values
-
-theta0_grid = np.linspace(-1000, 2000,101)
-theta1_grid = np.linspace(-1,1,101)
-J_grid = cost_func(theta0_grid[np.newaxis,:,np.newaxis],
-                   theta1_grid[:,np.newaxis,np.newaxis], x, y)
-
-N = 5
-# for j in range(1,N):
-#     axes[1].annotate('', xy=theta[j], xytext=theta[j-1],
-#                    arrowprops={'arrowstyle': '->', 'color': 'r', 'lw': 1},
-#                    va='center', ha='center')
-#     axes[0].axline([0, theta[j][0]], slope=theta[j][1])
-#     axes[0].plot(x, hypothesis(x, *theta[j]),
-#            label=r'$\theta_0 = {:.3f}, \theta_1 = {:.3f}$'.format(*theta[j]))
-
-for ax in axes:
-    ax.set_aspect(1/ax.get_data_ratio())
+def gradient_descent(X,y,theta,learning_rate=0.01,iterations=100):
+    '''
+    X    = Matrix of X with added bias units
+    y    = Vector of Y
+    theta=Vector of thetas np.random.randn(j,1)
+    learning_rate 
+    iterations = no of iterations
+    '''
+    m = len(y)
+    cost_history = np.zeros(iterations)
+    theta_history = np.zeros((iterations,2))
+    
+    for it in range(iterations):
+        prediction = np.dot(X,theta)
+        theta = theta -(1/m)*learning_rate*( X.T.dot((prediction - y)))
+        
+        theta_history[it,:] = theta.T[0]
+        cost_history[it]  = cal_cost(theta,X,y)
+        
+    return theta, cost_history, theta_history
 ```
 
 
-    
-![png](ML-4-GradientDescent_files/ML-4-GradientDescent_6_0.png)
-    
+```python
+X, y = pd.read_csv('data/house_pricing.csv').drop('rooms', 1).T.values
+# X = X / (np.max(X) - np.min(X))
+
+alpha = 0.00000001
+iterations = 100
+
+theta = np.zeros((2,1))
+
+X_b = np.c_[np.ones((len(X),1)), X]
+theta,cost_history,theta_history = gradient_descent(X_b,y,theta, alpha, iterations)
+
+# print('Theta0:          {:0.3f},\nTheta1:          {:0.3f}'.format(theta[0][0],theta[1][0]))
+# print('Final cost/MSE:  {:0.3f}'.format(cost_history[-1]))
+```
+
+
+```python
+plt.plot(X, y, ls='none', marker='x', c='k')
+x = np.linspace(np.min(X), np.max(X), 100)
+idx = np.arange(0, iterations, 10)
+for theta0, theta1 in theta_history[idx]:
+    plt.plot(x, theta0 + theta1 * x)
+```
+
+
+![png](ML-4-GradientDescent_files/ML-4-GradientDescent_8_0.png)
 
 
 
 ```python
-
+plt.plot(range(iterations),cost_history,'b.');
 ```
+
+
+![png](ML-4-GradientDescent_files/ML-4-GradientDescent_9_0.png)
+
 
 
 ```python
