@@ -16,7 +16,9 @@ Imagine that we graph the cost function based on its fields $\theta_0$ and $\the
 We put $\theta_0$ on the $x$ axis and $\theta_1$ on the $y$ axis, with the cost function on the vertical $z$ axis. The points on our graph will be the result of the cost function using our hypothesis with those specific theta parameters. The graph below depicts such a setup.
 
 
-![png](ML-4-GradientDescent_files/ML-4-GradientDescent_2_0.png)
+    
+![png](ML-4-GradientDescent_files/ML-4-GradientDescent_3_0.png)
+    
 
 
 We will know that we have succeeded when our cost function is at the very bottom of the pits in our graph, i.e. when its value is the minimum. The red point shows the minimum in the graph.
@@ -33,10 +35,28 @@ $$
 
 where $j=0,1$ represents the feature index number.
 
-At each iteration $j$, one should simultaneously update the parameters $\theta_1, \theta_2,...,\theta_n$. Updating a specific parameter prior to calculating another one on the $j^{(th)}j $(th) iteration would yield to a wrong implementation. 
+When the partial derivative of $\theta_j$ is analytically solved, the gradient descent beocmes:
+
+$$
+\begin{align}
+& \text{repeat until convergence } \big\lbrace \\
+& \theta_j := \theta_j-\alpha\frac{1}{m}\sum_{i=1}^m  \left(h_\theta \left(x^{(i)}\right) - y^{(i)} \right)x^{(i)} \qquad \text{for } j := 0 \dots n \\
+&\big\rbrace
+\end{align}
+$$
+
+At each iteration $j$, one should simultaneously update the parameters $\theta_1, \theta_2,...,\theta_n$. Updating a specific parameter prior to calculating another one on the $j^{(th)}j $(th) iteration would yield to a wrong implementation.
+
+When written in tis vectorial form, the simultaneus update is already encoded in its expression:
+
+$$
+\frac{\partial}{\partial\theta_j}J(\theta)=X^T (X\theta-y)
+$$
 
 
-![png](ML-4-GradientDescent_files/ML-4-GradientDescent_4_0.png)
+    
+![png](ML-4-GradientDescent_files/ML-4-GradientDescent_5_0.png)
+    
 
 
 
@@ -227,42 +247,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img3dff973d3c0f4c81b853ac8e6052cedb">
+  <img id="_anim_img5ea39f56164b452692f1c32954fca3d7">
   <div class="anim-controls">
-    <input id="_anim_slider3dff973d3c0f4c81b853ac8e6052cedb" type="range" class="anim-slider"
+    <input id="_anim_slider5ea39f56164b452692f1c32954fca3d7" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim3dff973d3c0f4c81b853ac8e6052cedb.set_frame(parseInt(this.value));">
+           oninput="anim5ea39f56164b452692f1c32954fca3d7.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.slower()">
+      <button title="Decrease speed" onclick="anim5ea39f56164b452692f1c32954fca3d7.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.first_frame()">
+      <button title="First frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.previous_frame()">
+      <button title="Previous frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.reverse_animation()">
+      <button title="Play backwards" onclick="anim5ea39f56164b452692f1c32954fca3d7.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.pause_animation()">
+      <button title="Pause" onclick="anim5ea39f56164b452692f1c32954fca3d7.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.play_animation()">
+      <button title="Play" onclick="anim5ea39f56164b452692f1c32954fca3d7.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.next_frame()">
+      <button title="Next frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.last_frame()">
+      <button title="Last frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="anim3dff973d3c0f4c81b853ac8e6052cedb.faster()">
+      <button title="Increase speed" onclick="anim5ea39f56164b452692f1c32954fca3d7.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_select3dff973d3c0f4c81b853ac8e6052cedb"
+    <form title="Repetition mode" action="#n" name="_anim_loop_select5ea39f56164b452692f1c32954fca3d7"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_3dff973d3c0f4c81b853ac8e6052cedb"
+      <input type="radio" name="state" value="once" id="_anim_radio1_5ea39f56164b452692f1c32954fca3d7"
              >
-      <label for="_anim_radio1_3dff973d3c0f4c81b853ac8e6052cedb">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_3dff973d3c0f4c81b853ac8e6052cedb"
+      <label for="_anim_radio1_5ea39f56164b452692f1c32954fca3d7">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_5ea39f56164b452692f1c32954fca3d7"
              checked>
-      <label for="_anim_radio2_3dff973d3c0f4c81b853ac8e6052cedb">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_3dff973d3c0f4c81b853ac8e6052cedb"
+      <label for="_anim_radio2_5ea39f56164b452692f1c32954fca3d7">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_5ea39f56164b452692f1c32954fca3d7"
              >
-      <label for="_anim_radio3_3dff973d3c0f4c81b853ac8e6052cedb">Reflect</label>
+      <label for="_anim_radio3_5ea39f56164b452692f1c32954fca3d7">Reflect</label>
     </form>
   </div>
 </div>
@@ -272,9 +292,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img3dff973d3c0f4c81b853ac8e6052cedb";
-    var slider_id = "_anim_slider3dff973d3c0f4c81b853ac8e6052cedb";
-    var loop_select_id = "_anim_loop_select3dff973d3c0f4c81b853ac8e6052cedb";
+    var img_id = "_anim_img5ea39f56164b452692f1c32954fca3d7";
+    var slider_id = "_anim_slider5ea39f56164b452692f1c32954fca3d7";
+    var loop_select_id = "_anim_loop_select5ea39f56164b452692f1c32954fca3d7";
     var frames = new Array(10);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -12908,7 +12928,7 @@ TkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim3dff973d3c0f4c81b853ac8e6052cedb = new Animation(frames, img_id, slider_id, 500.0,
+        anim5ea39f56164b452692f1c32954fca3d7 = new Animation(frames, img_id, slider_id, 500.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -12916,3 +12936,38 @@ TkSuQmCC\
 
 
 
+
+## Feature scaling
+We can speed up gradient descent by having each of our input values in roughly the same range. This is because $\theta$ will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven.
+
+The way to prevent this is to modify the ranges of our input variables so that they are all roughly the same. Ideally:
+
+$$−1 ≤ x_{(i)}x $$
+
+or
+
+$$−0.5 ≤ x_{(i)}x $$
+
+These aren't exact requirements; we are only trying to speed things up. The goal is to get all input variables into roughly one of these ranges, give or take a few.
+
+Two techniques to help with this are feature scaling and mean normalization. Feature scaling involves dividing the input values by the range (i.e. the maximum value minus the minimum value) of the input variable, resulting in a new range of just 1. Mean normalization involves subtracting the average value for an input variable from the values for that input variable resulting in a new average value for the input variable of just zero. To implement both of these techniques, adjust your input values as shown in this formula:
+
+$$x_i := \dfrac{x_i - \mu_i}{s_i}x $$
+
+Where $μ_i$ is the average of all the values for feature $(i)$ and $s_i$ is the range of values (max - min), or $s_i$ is the standard deviation.
+
+Note that dividing by the range, or dividing by the standard deviation, give different results. The quizzes in this course use range - the programming exercises use standard deviation. For example, if $x_i$ represents housing prices with a range of 100 to 2000  and a mean value of 1000, then, 
+
+$$x_i := \dfrac{price-1000}{1900}x$$
+
+## Learning rate
+Make a plot with number of iterations on the x-axis. Now plot the cost function, J(θ) over the number of iterations of gradient descent. If J(θ) ever increases, then you probably need to decrease $\alpha$.
+
+Automatic convergence test: Declare convergence if $J(\theta)$ decreases by less than $E$ in one iteration, where $E$ is some small value such as $10^{−3}$. However in practice it's difficult to choose this threshold value.
+
+It has been proven that if learning rate $\alpha$ is sufficiently small, then $J(\theta)$ will decrease on every iteration.
+
+To summarize:
+
+* If $\alpha$ is too small: slow convergence;
+* If $\alpha$ is too large: may not decrease on every iteration and thus may not converge.
