@@ -11,13 +11,17 @@ comments: true
 Let's use as an example the housing prices in Portland Oregon and plot them with respect to the surface of the house in square feets
 
 
+    
 ![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_2_0.png)
+    
 
 
 Let's say that you want to know the possible price of an house given its surface. One thing that you could do is to draw a straight line that describes the growth of prices with surface.
 
 
+    
 ![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_4_0.png)
+    
 
 
 This is an example of supervised learning since we know the answer for each example in the dataset and it is also an example of regression problem, where we try to predict a contnuous value.
@@ -81,7 +85,9 @@ $$y = h_\theta(x) = \theta_0 + \theta_1x$$
 Sometimes, we might want to use more complex non-linear functions, but this is the simplest building block of regression algorithms which can be built upon later.
 
 
+    
 ![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_11_0.png)
+    
 
 
 where $\theta_0$ is the offset of $y$ from 0; $\theta_1$ is the slope of the line, since it scales how much $y$ varies compared to $x$.

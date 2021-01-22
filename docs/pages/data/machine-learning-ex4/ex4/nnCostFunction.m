@@ -73,16 +73,21 @@ yk = (1:num_labels)==y;
 J = (1/m)* sum(sum(((-yk) .* log(h) - (1 - yk) .* log(1 - h))));
 J += (lambda/(2*m)) * (sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end).^2)));
 
+d3 = h - yk;
+d2 = (d3 * Theta2) .* [ones(size(z2, 1), 1) sigmoidGradient(z2)];
+d2 = d2(:,2:end);
 
+D1 = Theta1_grad + d2' * a1;
+D2 = Theta2_grad + d3' * a2;
 
+Theta1_grad = (1 / m) * D1;
+Theta2_grad = (1 / m) * D2;
 
+Theta1_grad(:,1) = (1 / m) * D1(:,1);
+Theta2_grad(:,1) = (1 / m) * D2(:,1);
 
-
-
-
-
-
-
+Theta1_grad(:,2:end) = (1 / m) * D1(:,2:end) + (lambda / m) * Theta1(:,2:end);
+Theta2_grad(:,2:end) = (1 / m) * D2(:,2:end) + (lambda / m) * Theta2(:,2:end);
 
 
 
