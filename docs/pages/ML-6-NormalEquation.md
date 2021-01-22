@@ -2,6 +2,7 @@
 layout: default
 categories: linearRegression
 permalink: /ML6/
+title: "Normal equation"
 order: 6
 comments: true
 ---

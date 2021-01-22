@@ -1,6 +1,7 @@
 ---
 layout: default
 categories: linearRegression
+title: "Polynomial Regression"
 permalink: /ML5/
 order: 5
 comments: true
