@@ -242,7 +242,10 @@ $$
 Test error
 
 $$
+\begin{equation}
 J_\text{test}(\theta) = \frac{1}{2m_\text{test}}\sum^{m_\text{test}}_{i=1}\left(h_\theta\left(x_\text{test}^{(i)}\right) - y_\text{test}^{(i)}\right)^2
+\end{equation}
+\label{eq:testerr} \tag{5}
 $$
 
 And so before testing the generalization power of you algorithm on the test set you can select the model that produces $\min_\theta J(\theta)$ calculated on the Cross Validation set.
@@ -295,7 +298,54 @@ We will then calculate $\min_\theta J(\theta)$ for each $\lambda^{(i)}$ to obtai
     
 
 
+## Learning curves
 
-```python
+Learning curves are often useful tools to explore the performance of your learning algorithm and to diagnose high bias/variance problems. Given $\eqref{eq:trainerr}$ and $\eqref{eq:crosserr}$, learning curves plot the effect of $m$ on $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$. This effect is achieved by articificially limit the number of examples availables $m$.
 
-```
+* When the algorithm is not over- or under-fitting (A), $J_\text{train}(\theta)$ will increase with $m$ while $J_\text{CV}(\theta)$ will decrease when $m$ increases;
+* If the algorithm suffers from high bias (underfitting) (B), $J_\text{CV}(\theta)$ will behave more or less like in (A), decreasing at the increase of $m$ but $J_\text{train}(\theta) \approx J_\text{CV}(\theta)$ for large values of $m$. This has one important implication: when your algorithm suffer from high bias, increasing the number of examples $m$ will not be helpful;
+* If the algorith suffers from high variance (overfitting) (C), $J_\text{train}(\theta)$ will increase with $m$ and $J_\text{CV}(\theta)$ will decrease at the increase of $m$ but at a much slower rate, so that the values there will always be a large gap between the values of $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$.
+
+
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_19_0.png)
+    
+
+
+However it is important to notice that for the high variance case (C), for very large values of $m$, $J_\text{train}(\theta)$ will finally decrease and converge towards $J_\text{CV}(\theta)$. In this case (overfitting) having more training examples $m$ will help reduce the problem.
+
+
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_21_0.png)
+    
+
+
+## Diagnose learning algorihtm
+We can summarize this whole section with a series of reccomendations to follow if your learning algorithm has unacceptably large errors on new examples:
+
+* Get more training examples $\quad \to \quad$ fixes high variance
+* Try a smaller set of features $\quad \to \quad$ fixes high variance
+* Try getting additional features $\quad \to \quad$ fixes high bias
+* Try adding polynomial features $\quad \to \quad$ fixes high bias
+* Try decreasing $\lambda \quad \to \quad$ fixes high bias
+* Try increasing $\lambda \quad \to \quad$ fixes high variance
+
+Until now, when talking about a learning algorithm, we always refererred to a regularized linear regression. 
+
+But we can try to apply what we have learned to neural networks: small neural networks have fewer parameters and are more prone to underfitting but in contrast they are computationally cheaper.
+
+
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_23_0.png)
+    
+
+
+Large neural networks on the other hand (with more hidden units or more hidden layers) are more prone to overfitting and, as a secondary and maybe marginal problem, they tend to be more computationally expensive. In this case we can use regularization $\lambda$ to address overfitting.
+
+
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_25_0.png)
+    
+
+
+Finding the right number of hidden layers can be also achieved empirically by trying to explore the performance of neural networks with different number of hidden layers and chose the one that minimizes $\eqref{eq:crosserr}$
