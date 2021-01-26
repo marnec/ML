@@ -21,7 +21,7 @@
 title: Machine Learning
 email: rvrmarco@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Notes on Machine Learning in Python
+  ML in Python
 baseurl: "/ML" # the subpath of your site, e.g. /blog
 url: "https://marnec.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: marco_nex

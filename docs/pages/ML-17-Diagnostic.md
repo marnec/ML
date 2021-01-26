@@ -12,7 +12,9 @@ comments: true
 In the case of house prices if we want to see how our hypothesis is performing we could just plot it. Since we have just one feature (the area of each house) we can plot the feature against the price.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_2_0.png)
+    
 
 
 When we have many features it becomes impossible to plot hypotheses. How do we tell if our hypothesis is overfitting? The standard way to evaluate a training hypothesis is to split the training set in two randomly selected subsets. The first subset ($70\%$ of the examples) will be the **training set** and the second subset ($30\%$ of the examples) will be the **test set** (blue background).
@@ -21,48 +23,48 @@ When we have many features it becomes impossible to plot hypotheses. How do we t
 
 
 <style  type="text/css" >
-#T_86088242_5e5c_11eb_a487_40a3cc65d4e3row7_col0,#T_86088242_5e5c_11eb_a487_40a3cc65d4e3row7_col1,#T_86088242_5e5c_11eb_a487_40a3cc65d4e3row8_col0,#T_86088242_5e5c_11eb_a487_40a3cc65d4e3row8_col1,#T_86088242_5e5c_11eb_a487_40a3cc65d4e3row9_col0,#T_86088242_5e5c_11eb_a487_40a3cc65d4e3row9_col1{
+#T_71820c22_5eec_11eb_9b85_b42e9941f9d7row7_col0,#T_71820c22_5eec_11eb_9b85_b42e9941f9d7row7_col1,#T_71820c22_5eec_11eb_9b85_b42e9941f9d7row8_col0,#T_71820c22_5eec_11eb_9b85_b42e9941f9d7row8_col1,#T_71820c22_5eec_11eb_9b85_b42e9941f9d7row9_col0,#T_71820c22_5eec_11eb_9b85_b42e9941f9d7row9_col1{
             background-color:  lightskyblue;
-        }</style><table id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
+        }</style><table id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row0_col0" class="data row0 col0" >2104</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row0_col1" class="data row0 col1" >399900</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row0_col0" class="data row0 col0" >2104</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row0_col1" class="data row0 col1" >399900</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row1_col0" class="data row1 col0" >1600</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row1_col1" class="data row1 col1" >329900</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row1_col0" class="data row1 col0" >1600</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row1_col1" class="data row1 col1" >329900</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row2_col0" class="data row2 col0" >2400</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row2_col1" class="data row2 col1" >369000</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row2_col0" class="data row2 col0" >2400</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row2_col1" class="data row2 col1" >369000</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row3_col0" class="data row3 col0" >1416</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row3_col1" class="data row3 col1" >232000</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row3_col0" class="data row3 col0" >1416</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row3_col1" class="data row3 col1" >232000</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row4_col0" class="data row4 col0" >3000</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row4_col1" class="data row4 col1" >539900</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row4_col0" class="data row4 col0" >3000</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row4_col1" class="data row4 col1" >539900</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row5_col0" class="data row5 col0" >1985</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row5_col1" class="data row5 col1" >299900</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row5_col0" class="data row5 col0" >1985</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row5_col1" class="data row5 col1" >299900</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row6_col0" class="data row6 col0" >1534</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row6_col1" class="data row6 col1" >314900</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row6_col0" class="data row6 col0" >1534</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row6_col1" class="data row6 col1" >314900</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row7_col0" class="data row7 col0" >1427</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row7_col1" class="data row7 col1" >198999</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row7_col0" class="data row7 col0" >1427</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row7_col1" class="data row7 col1" >198999</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row8_col0" class="data row8 col0" >1380</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row8_col1" class="data row8 col1" >212000</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row8_col0" class="data row8 col0" >1380</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row8_col1" class="data row8 col1" >212000</td>
             </tr>
             <tr>
-                                <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row9_col0" class="data row9 col0" >1494</td>
-                        <td id="T_86088242_5e5c_11eb_a487_40a3cc65d4e3row9_col1" class="data row9 col1" >242500</td>
+                                <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row9_col0" class="data row9 col0" >1494</td>
+                        <td id="T_71820c22_5eec_11eb_9b85_b42e9941f9d7row9_col1" class="data row9 col1" >242500</td>
             </tr>
     </tbody></table>
 
@@ -91,7 +93,7 @@ $$
 & \quad \;\; \vdots \\ 
 &\left(x^{(m_\text{test})}_{\text{test}}, y^{(m_\text{test})}_{\text{test}} \right)
 \end{align}
-\label{eq:tetsdata} \tag{2}
+\label{eq:testdata} \tag{2}
 $$
 
 So here's how you will proceed with these two subsets: 
@@ -156,50 +158,50 @@ In order to resolve this issue we are going to split our dataset in three subset
 
 
 <style  type="text/css" >
-#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row6_col0,#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row6_col1,#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row7_col0,#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row7_col1{
+#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row6_col0,#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row6_col1,#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row7_col0,#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row7_col1{
             background-color:  bisque;
-        }#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row8_col0,#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row8_col1,#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row9_col0,#T_86088243_5e5c_11eb_a487_40a3cc65d4e3row9_col1{
+        }#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row8_col0,#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row8_col1,#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row9_col0,#T_71820c23_5eec_11eb_9b85_b42e9941f9d7row9_col1{
             background-color:  lightskyblue;
-        }</style><table id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
+        }</style><table id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row0_col0" class="data row0 col0" >2104</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row0_col1" class="data row0 col1" >399900</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row0_col0" class="data row0 col0" >2104</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row0_col1" class="data row0 col1" >399900</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row1_col0" class="data row1 col0" >1600</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row1_col1" class="data row1 col1" >329900</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row1_col0" class="data row1 col0" >1600</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row1_col1" class="data row1 col1" >329900</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row2_col0" class="data row2 col0" >2400</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row2_col1" class="data row2 col1" >369000</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row2_col0" class="data row2 col0" >2400</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row2_col1" class="data row2 col1" >369000</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row3_col0" class="data row3 col0" >1416</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row3_col1" class="data row3 col1" >232000</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row3_col0" class="data row3 col0" >1416</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row3_col1" class="data row3 col1" >232000</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row4_col0" class="data row4 col0" >3000</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row4_col1" class="data row4 col1" >539900</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row4_col0" class="data row4 col0" >3000</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row4_col1" class="data row4 col1" >539900</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row5_col0" class="data row5 col0" >1985</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row5_col1" class="data row5 col1" >299900</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row5_col0" class="data row5 col0" >1985</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row5_col1" class="data row5 col1" >299900</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row6_col0" class="data row6 col0" >1534</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row6_col1" class="data row6 col1" >314900</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row6_col0" class="data row6 col0" >1534</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row6_col1" class="data row6 col1" >314900</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row7_col0" class="data row7 col0" >1427</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row7_col1" class="data row7 col1" >198999</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row7_col0" class="data row7 col0" >1427</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row7_col1" class="data row7 col1" >198999</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row8_col0" class="data row8 col0" >1380</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row8_col1" class="data row8 col1" >212000</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row8_col0" class="data row8 col0" >1380</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row8_col1" class="data row8 col1" >212000</td>
             </tr>
             <tr>
-                                <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row9_col0" class="data row9 col0" >1494</td>
-                        <td id="T_86088243_5e5c_11eb_a487_40a3cc65d4e3row9_col1" class="data row9 col1" >242500</td>
+                                <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row9_col0" class="data row9 col0" >1494</td>
+                        <td id="T_71820c23_5eec_11eb_9b85_b42e9941f9d7row9_col1" class="data row9 col1" >242500</td>
             </tr>
     </tbody></table>
 
@@ -240,7 +242,10 @@ $$
 Test error
 
 $$
+\begin{equation}
 J_\text{test}(\theta) = \frac{1}{2m_\text{test}}\sum^{m_\text{test}}_{i=1}\left(h_\theta\left(x_\text{test}^{(i)}\right) - y_\text{test}^{(i)}\right)^2
+\end{equation}
+\label{eq:testerr} \tag{5}
 $$
 
 And so before testing the generalization power of you algorithm on the test set you can select the model that produces $\min_\theta J(\theta)$ calculated on the Cross Validation set.
@@ -251,43 +256,96 @@ While it is ill advised to optimizize $J_\text{test}(\theta)$ and $J_\text{CV}(\
 When a ML algorith is underperfoming with respect to expectations is almost always because of an **over-fitting** problem or **under-fitting** problem.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_12_0.png)
+    
 
 
-Let's say that training error and cross validation error are defined as in $\eqref{eq:trainerr}$ and $\eqref{eq:crosserr}$.
+Let's say that training error and cross validation error are defined as in $\eqref{eq:trainerr}$ and $\eqref{eq:crosserr}$. If we plot $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$ as a function of the polynome degree $d$ we will see that $J_\text{train}(\theta)$ decrease at the increase of $d$, because we are able to fit the algorithm better and better; $J_\text{CV}(\theta)$ will be large for small values of $d$ indicating that we are underfitting the data, it will decrease at the increase of $d$ until reaching the minimum value for the optimal $d$ and raise again when further increasing $d$.
 
 
-```python
-%%capture --no-display
-xcross = np.linspace(-.5, .5)
-xtrain = np.linspace(-1, 2)
-
-jtrain = -np.log(xtrain)
-jcross = 10*xcross ** 2
-
-fig, ax = plt.subplots()
-ax.plot(xcross-.8, jcross+.7, label='$J_{CV}$')
-ax.plot(xtrain - 1.5 , jtrain, label='$J_{train}$')
-ax.axvline(-.8, ls='--', c='k', label='optimal $d$ value')
-ax.set_xticks([])
-ax.set_yticks([])
-ax.set_ylabel('Cost $J(\\theta)$')
-ax.set_xlabel('$d$ polynome degree')
-ax.legend();
-```
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_14_0.png)
+    
 
 
+So we can generalize and deduce that when both $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$ are large we are in underfitting the algorithm (high bias); when $J_\text{CV}(\theta)$ is large but $J_\text{train}(\theta)$ is small we are underfitting the algorithm (high variance).
+
+### Effect of regularization of Bias/Variance
+The regularization parameter $\lambda$ also has an effect on the bias/variance trade-off. To chose the right value of $\lambda$ we can adopt a similar strategy to that adopted in the previous section: with 
+
+$$
+J(\theta) = \frac{1}{2m}\sum_{i=1}^m\left(h_\theta\left( x ^{(i)}\right) -y^{(i)} \right)^2 + \frac{\lambda}{2m}\sum_{j=1}^m\theta_j^2
+$$
+
+we can try different valus of $\lambda$ 
+
+$$
+\Lambda = 
+\begin{bmatrix}
+0\\0.01\\0.02\\0.04\\ 0.08 \\ \vdots \\10
+\end{bmatrix} \quad \to \quad
+\begin{bmatrix}
+\theta^{(1)}\\ \theta^{(2)}\\ \theta^{(3)}\\ \theta^{(4)}\\ \theta^{(5)} \\ \vdots \\ \theta^{(l)}
+\end{bmatrix} = \Theta
+$$
+
+We will then calculate $\min_\theta J(\theta)$ for each $\lambda^{(i)}$ to obtain a set of prameters $\theta^{(i)}$. We will then use the set of parameters $\theta^{(i)}$ to calculate $J_\text{CV}\left(\theta^{(i)}\right)$ and select the model that staisfy $\min_{\theta^{(i)}} J_\text{CV}(\Theta)$. Finally we can calculate $J_\text{test}\left(\theta^{(i)}\right)$ with the $\theta^{(i)}$ that minimizes $J_\text{CV}\left(\theta^{(i)}\right)$.
 
 
-    <matplotlib.legend.Legend at 0x7fa4e8cd9a90>
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_17_0.png)
+    
 
 
+## Learning curves
+
+Learning curves are often useful tools to explore the performance of your learning algorithm and to diagnose high bias/variance problems. Given $\eqref{eq:trainerr}$ and $\eqref{eq:crosserr}$, learning curves plot the effect of $m$ on $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$. This effect is achieved by articificially limit the number of examples availables $m$.
+
+* When the algorithm is not over- or under-fitting (A), $J_\text{train}(\theta)$ will increase with $m$ while $J_\text{CV}(\theta)$ will decrease when $m$ increases;
+* If the algorithm suffers from high bias (underfitting) (B), $J_\text{CV}(\theta)$ will behave more or less like in (A), decreasing at the increase of $m$ but $J_\text{train}(\theta) \approx J_\text{CV}(\theta)$ for large values of $m$. This has one important implication: when your algorithm suffer from high bias, increasing the number of examples $m$ will not be helpful;
+* If the algorith suffers from high variance (overfitting) (C), $J_\text{train}(\theta)$ will increase with $m$ and $J_\text{CV}(\theta)$ will decrease at the increase of $m$ but at a much slower rate, so that the values there will always be a large gap between the values of $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$.
 
 
-![png](ML-17-Diagnostic_files/ML-17-Diagnostic_14_1.png)
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_19_0.png)
+    
 
 
+However it is important to notice that for the high variance case (C), for very large values of $m$, $J_\text{train}(\theta)$ will finally decrease and converge towards $J_\text{CV}(\theta)$. In this case (overfitting) having more training examples $m$ will help reduce the problem.
 
-```python
 
-```
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_21_0.png)
+    
+
+
+## Diagnose learning algorihtm
+We can summarize this whole section with a series of reccomendations to follow if your learning algorithm has unacceptably large errors on new examples:
+
+* Get more training examples $\quad \to \quad$ fixes high variance
+* Try a smaller set of features $\quad \to \quad$ fixes high variance
+* Try getting additional features $\quad \to \quad$ fixes high bias
+* Try adding polynomial features $\quad \to \quad$ fixes high bias
+* Try decreasing $\lambda \quad \to \quad$ fixes high bias
+* Try increasing $\lambda \quad \to \quad$ fixes high variance
+
+Until now, when talking about a learning algorithm, we always refererred to a regularized linear regression. 
+
+But we can try to apply what we have learned to neural networks: small neural networks have fewer parameters and are more prone to underfitting but in contrast they are computationally cheaper.
+
+
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_23_0.png)
+    
+
+
+Large neural networks on the other hand (with more hidden units or more hidden layers) are more prone to overfitting and, as a secondary and maybe marginal problem, they tend to be more computationally expensive. In this case we can use regularization $\lambda$ to address overfitting.
+
+
+    
+![png](ML-17-Diagnostic_files/ML-17-Diagnostic_25_0.png)
+    
+
+
+Finding the right number of hidden layers can be also achieved empirically by trying to explore the performance of neural networks with different number of hidden layers and chose the one that minimizes $\eqref{eq:crosserr}$
