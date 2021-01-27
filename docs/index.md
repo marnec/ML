@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Notes on Machine Learning
+title: ML in Python
 comments: false
 ---
 This is a series of articles on machine learning that I wrote while following 
