@@ -8,7 +8,7 @@ def insert_figcaption(infile, baseurl_subpath=''):
 	with open(infile) as markdown_file:
 		md = markdown_file.read()
 
-	pattern = r'!\[png\]\((.*)\)\n{1,3}<a id="figcaption">(.*)</a>'
+	pattern = r'!\[png\]\((.*)\)\n{1,3}<i id="\S+">(.*)</i>'
 	matches = list(re.finditer(pattern, md))
 	
 	def repl_and_count(mobj):
