@@ -13,9 +13,7 @@ In this section we will explain how a neural network can build relatively comple
 Let's take a non-linear classification example like that depicted below, where panel A is just a simplified version of panel B.
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_2_0.png)
-    
 
 
 This is a non-linear classification example modeled by the logical XNOR function
@@ -41,9 +39,7 @@ $$
 $$
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_5_0.png)
-    
 
 
 So that 
@@ -58,9 +54,7 @@ $$
 Since the sigmoid activation function $g(z)$ is
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_7_0.png)
-    
 
 
 The the output of $\eqref{eq:h}$ is
@@ -102,9 +96,7 @@ Which is exactly the $x_1 \wedge x_2$.
 The following network and table show instead $x_1 \vee x_2$
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_11_0.png)
-    
 
 
 $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
@@ -143,9 +135,7 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 ## Logical NOT function
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_15_0.png)
-    
 
 
 
@@ -170,9 +160,7 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 ## Logical NOT-1 AND NOT-2 function
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_18_0.png)
-    
 
 
 
@@ -209,15 +197,11 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 ## Logical XNOR function
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_21_0.png)
-    
 
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_22_0.png)
-    
 
 
 
@@ -272,9 +256,7 @@ P(y_4 \mid x, \Theta)
 $$
 
 
-    
 ![png](ML-13-NeuralNetworksApplications_files/ML-13-NeuralNetworksApplications_25_0.png)
-    
 
 
 So that $h^{(i)}_\Theta(x)$ can be one of the following
