@@ -44,21 +44,31 @@ Example:
 
 > Given data about the size of houses on the real estate market, try to predict their price. 
 
-Price as a function of size is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
+Price as a function of size (<a href="#scatter">Figure below</a>) is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
 
 
+    
 ![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_5_0.png)
+    
 
+
+<i id="scatter">Price of houses in USD $(y)$ plotted against the living surface in square foots $(x)$ of a set of houses in Portland, Oregon</i>
 
 ### Classification problems
 We try to map input variables into discrete categories. 
 
 Example:
-> Given a patient with a tumor, we have to predict whether the tumor is malignant or benign. 
+> Given a patient with a tumor, we have to predict whether the tumor is malignant or benign.
+
+When trying to predict malignancy, a tumor can either be malignant (positive case, 1) or bening (negative case, 0). This situation is represented in the <a href="#tumorsize">Figure below</a>
 
 
+    
 ![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_7_0.png)
+    
 
+
+<i id="tumorsize">Measured size of tumors $(x)$ and their malignancy $(y)$ constrained to the values $0$ (bening) or $1$ (malignant)</i>
 
 ## Unsupervised learning
 We don't know how the correct output should look like. Unsupervised learning allows us to approach problems with little or no idea of what our results should look like. Wit unsupervised learning we try to derive structure and patterns from data where we don't necessarily know the effect of the variables. We derive this structure by clustering the data based on relationships among the variables in the data.
@@ -71,17 +81,31 @@ We can divide unsuperised learning in two categories:
 * **Non-clustering**
 
 ### Clustering
-Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on.
+Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on (<a href="#genexpr">Figure below</a>).
 
 
+    
 ![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_9_0.png)
+    
 
+
+<i id="genexpr">Heatmap of gene expression of 5 genes for 100 individuals, which are then clustered based on the similarity of the (gene-) expression profile (data is randomly generated).</i>
 
 #### Difference between clustering and classification
+In classification, we try to teach a learning algrithm to associate a set of features to the correct class after exposing it to many labeled examples. In clustering we don't know the correct label and we try measure if some data can be grouped toghther based on a feature or a combination of features. In <a href="#iris">the figure below</a>, the same dataset is shown in its labeled (left) and unlabeled (right) versions.
 
 
+    
 ![png](ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_11_0.png)
+    
 
+
+<i id="iris">Labeled (left) and unlabeled (right) data on sepal length $(x)$ and width $(y)$</i>
 
 ### Non-clustering
 The "Cocktail Party Algorithm" allows you to find structure in a chaotic environment. (i.e. identifying individual voices and music from a mesh of sounds at a cocktail party).
+
+
+```python
+
+```
