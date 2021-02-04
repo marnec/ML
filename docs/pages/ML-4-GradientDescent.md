@@ -16,9 +16,7 @@ Imagine that we graph the cost function based on its fields $\theta_0$ and $\the
 We put $\theta_0$ on the $x$ axis and $\theta_1$ on the $y$ axis, with the cost function on the vertical $z$ axis. The points on our graph will be the result of the cost function using our hypothesis with those specific theta parameters. The graph below depicts such a setup.
 
 
-    
 ![png](ML-4-GradientDescent_files/ML-4-GradientDescent_3_0.png)
-    
 
 
 We will know that we have succeeded when our cost function is at the very bottom of the pits in our graph, i.e. when its value is the minimum. The red point shows the minimum in the graph.
@@ -54,9 +52,7 @@ $$
 $$
 
 
-    
 ![png](ML-4-GradientDescent_files/ML-4-GradientDescent_5_0.png)
-    
 
 
 

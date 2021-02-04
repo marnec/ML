@@ -17,9 +17,7 @@ In a simplistic way a neuron is a computational unit that receive some input via
 A neuron implemented on the computer has a very simple model that mimics the architecture of an anatomical neuron. We're a going to model a neuron as just a logistic unit. The yellow node represents the *body* of the neuron, which is fed input through its *dendrites*, and produces an output $h_\theta(x)$ that is produced by the neuron body, though its **activation function** and transported forward by the neuron *axon*. Where $h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}$
 
 
-    
 ![png](ML-12-NeuralNetworkModelRepresentation_files/ML-12-NeuralNetworkModelRepresentation_2_0.png)
-    
 
 
 A simpler representation is sometimes used to depict a neural network
@@ -31,9 +29,7 @@ $$
 Sometimes when representing the inputs of a neuron the $x_0$, which is sometimes called the bias unit (since $x_0=1$), might be added if it convenient for the discussion of the model.
 
 
-    
 ![png](ML-12-NeuralNetworkModelRepresentation_files/ML-12-NeuralNetworkModelRepresentation_4_0.png)
-    
 
 
 In neural networks the parameters $\theta$ of the model are sometimes called **weights**.
@@ -41,9 +37,7 @@ In neural networks the parameters $\theta$ of the model are sometimes called **w
 Until now we represented single neurons; a neural network is a group of different neurons connected together. The input nodes are grouped in what is called the **input layer**, which is always the first layer of the neural network. The final layer is called the **output layer**, since it computes the final value of our hypothesis. And all layers in between the input and the output layers are called **hidden layers**. They are called hidden layers because we can't observes the values computed by these nodes.
 
 
-    
 ![png](ML-12-NeuralNetworkModelRepresentation_files/ML-12-NeuralNetworkModelRepresentation_6_0.png)
-    
 
 
 
@@ -166,9 +160,7 @@ This process is called **forward propagation**
 Let's take the network used as example above and focus on the last two layers
 
 
-    
 ![png](ML-12-NeuralNetworkModelRepresentation_files/ML-12-NeuralNetworkModelRepresentation_10_0.png)
-    
 
 
 What is left in this neural network is simply logistic regeression, where we use the output unit (or logistic regression unit) to build the hypothesis $h_\Theta(x)$
@@ -184,9 +176,7 @@ The neural network, instead of being constrained to feed the features $x$ to log
 Neural networks can have different number and dimension of hidden layers and the way a neural network is connected is called its **architecture**.
 
 
-    
 ![png](ML-12-NeuralNetworkModelRepresentation_files/ML-12-NeuralNetworkModelRepresentation_12_0.png)
-    
 
 
 

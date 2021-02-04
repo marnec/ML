@@ -42,9 +42,7 @@ Where $\theta_{ij}^{(l)} \in \mathbb{R}$
 Suppose that we have only one training example $(x, y)$ and the neural network in the picture below
 
 
-    
 ![png](ML-15-NeuralNetworkOptimization_files/ML-15-NeuralNetworkOptimization_2_0.png)
-    
 
 
 The first thing we are going to do is applying **forward propagation**
@@ -119,17 +117,13 @@ $$
 To try and understand back-porpagation let's first see exactly what is happening in forward propagation
 
 
-    
 ![png](ML-15-NeuralNetworkOptimization_files/ML-15-NeuralNetworkOptimization_6_0.png)
-    
 
 
 Let's take the network depicted above, the count of units (excluding the bias) are 2 for the input layer and for the two input layers and 1 for the output layer 
 
 
-    
 ![png](ML-15-NeuralNetworkOptimization_files/ML-15-NeuralNetworkOptimization_8_0.png)
-    
 
 
 When performing forward propagation for one example $x^{(i)}, y^{(i)}$, we will feed $x^{(i)}$ in the input layer ($x_1^{(i)}, x_2^{(i)}$). The computation of $z^{(3)}$  in forward propagation is:
@@ -177,9 +171,7 @@ $$\delta_j^{(l)} = \frac{\partial}{\partial z_j^{(l)}}\text{cost}(i)$$
 And they are a measuer of how much we would like to change the neural networks weight in order to affect the intermediate terms $z_j^{(l)}$
 
 
-    
 ![png](ML-15-NeuralNetworkOptimization_files/ML-15-NeuralNetworkOptimization_11_0.png)
-    
 
 
 $$

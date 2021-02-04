@@ -33,19 +33,24 @@ def insert_figcaption(md, baseurl_subpath=''):
 
 
 def insert_figrefs(md):
-
-    def repl(mobj):
+    def repl_figrefs(mobj):
         global figrefs
 
         iid = mobj.group(1)
         repl = textwrap.dedent("""
             <a href="{}">Figure {}</a>
             """.format(iid, figrefs[iid.strip("#")]))
+
         return repl
 
 
-    return re.sub(r'<a href="(\S+)">.*</a>', repl, md)
+    return re.sub(r'<a href="(\S+)">.*</a>', repl_figrefs, md)
 
+
+def update_md(md, func_call):
+    if func_call is not None:
+        md = func_call
+    return md
 
 if __name__ == "__main__":
     for mdfile in argv[1:]:
@@ -53,8 +58,8 @@ if __name__ == "__main__":
         with open(mdfile) as f:
             md = f.read()
 
-        md = insert_figcaption(md, 'pages')
-        md = insert_figrefs(md)
+        md = update_md(md, insert_figcaption(md, 'pages'))
+        md = update_md(md, insert_figrefs(md))
 
         if md:
             with open(mdfile, 'w') as markdown_file:
