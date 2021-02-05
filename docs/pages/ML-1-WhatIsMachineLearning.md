@@ -44,13 +44,13 @@ Example:
 
 > Given data about the size of houses on the real estate market, try to predict their price. 
 
-Price as a function of size (<a href="#scatter">Figure 3</a>) is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
+Price as a function of size (<a href="#scatter">Figure 4</a>) is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
 
 
 
 <figure id="scatter">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_5_0.png" alt="png">
-    <figcaption>Figure 3. Price of houses in USD $(y)$ plotted against the living surface in square foots $(x)$ of a set of houses in Portland, Oregon</figcaption>
+    <figcaption>Figure 4. Price of houses in USD $(y)$ plotted against the living surface in square foots $(x)$ of a set of houses in Portland, Oregon</figcaption>
 </figure>
 
 ### Classification problems
@@ -59,13 +59,13 @@ We try to map input variables into discrete categories.
 Example:
 > Given a patient with a tumor, we have to predict whether the tumor is malignant or benign.
 
-When trying to predict malignancy, a tumor can either be malignant (positive case, 1) or bening (negative case, 0). This situation is represented in the <a href="#tumorsize">Figure 4</a>
+When trying to predict malignancy, a tumor can either be malignant (positive case, 1) or bening (negative case, 0). This situation is represented in the <a href="#tumorsize">Figure 5</a>
 
 
 
 <figure id="tumorsize">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_7_0.png" alt="png">
-    <figcaption>Figure 4. Measured size of tumors $(x)$ and their malignancy $(y)$ constrained to the values $0$ (bening) or $1$ (malignant)</figcaption>
+    <figcaption>Figure 5. Measured size of tumors $(x)$ and their malignancy $(y)$ constrained to the values $0$ (bening) or $1$ (malignant)</figcaption>
 </figure>
 
 ## Unsupervised learning
@@ -79,23 +79,23 @@ We can divide unsuperised learning in two categories:
 * **Non-clustering**
 
 ### Clustering
-Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on (<a href="#genexpr">Figure 5</a>).
+Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on (<a href="#genexpr">Figure 6</a>).
 
 
 
 <figure id="genexpr">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_9_0.png" alt="png">
-    <figcaption>Figure 5. Heatmap of gene expression of 5 genes for 100 individuals, which are then clustered based on the similarity of the (gene-) expression profile (data is randomly generated).</figcaption>
+    <figcaption>Figure 6. Heatmap of gene expression of 5 genes for 100 individuals, which are then clustered based on the similarity of the (gene-) expression profile (data is randomly generated).</figcaption>
 </figure>
 
 #### Difference between clustering and classification
-In classification, we try to teach a learning algrithm to associate a set of features to the correct class after exposing it to many labeled examples. In clustering we don't know the correct label and we try measure if some data can be grouped toghther based on a feature or a combination of features. In <a href="#iris">Figure 6</a>, the same dataset is shown in its labeled (left) and unlabeled (right) versions.
+In classification, we try to teach a learning algrithm to associate a set of features to the correct class after exposing it to many labeled examples. In clustering we don't know the correct label and we try measure if some data can be grouped toghther based on a feature or a combination of features. In <a href="#iris">Figure 7</a>, the same dataset is shown in its labeled (left) and unlabeled (right) versions.
 
 
 
 <figure id="iris">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_11_0.png" alt="png">
-    <figcaption>Figure 6. Labeled (left) and unlabeled (right) data on sepal length $(x)$ and width $(y)$</figcaption>
+    <figcaption>Figure 7. Labeled (left) and unlabeled (right) data on sepal length $(x)$ and width $(y)$</figcaption>
 </figure>
 
 ### Non-clustering
