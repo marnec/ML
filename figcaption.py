@@ -6,7 +6,6 @@ i = 1
 figrefs = {}
 
 def insert_figcaption(md, baseurl_subpath=''):
-
     pattern = r'!\[png\]\((.*)\)(\n\s*)+<i id="(\S+)">(.*)</i>'
     matches = list(re.finditer(pattern, md))
 
@@ -16,14 +15,12 @@ def insert_figcaption(md, baseurl_subpath=''):
 
         url, _, iid, caption = mobj.groups()
         repl = textwrap.dedent("""
-            <figure id="{}">
-                <img src="{}/{}" alt="png">
-                <figcaption>Figure {}. {}</figcaption>
-            </figure>
-            """.format(iid, baseurl, url, i, caption))
+        <figure id="{}">
+            <img src="{}/{}" alt="png">
+            <figcaption>Figure {}. {}</figcaption>
+        </figure>""".format(iid, baseurl, url, i, caption))
 
         figrefs[iid] = i
-
         i +=1
         return repl
 
@@ -33,16 +30,11 @@ def insert_figcaption(md, baseurl_subpath=''):
 
 
 def insert_figrefs(md):
+
     def repl_figrefs(mobj):
         global figrefs
-
         iid = mobj.group(1)
-        repl = textwrap.dedent("""
-            <a href="{}">Figure {}</a>
-            """.format(iid, figrefs[iid.strip("#")]))
-
-        return repl
-
+        return "<a href=\"{}\">Figure {}</a>".format(iid, figrefs[iid.strip("#")])
 
     return re.sub(r'<a href="(\S+)">.*</a>', repl_figrefs, md)
 
@@ -51,6 +43,7 @@ def update_md(md, func_call):
     if func_call is not None:
         md = func_call
     return md
+
 
 if __name__ == "__main__":
     for mdfile in argv[1:]:

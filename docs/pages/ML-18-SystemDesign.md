@@ -14,8 +14,3 @@ comments: true
 
     Populating the interactive namespace from numpy and matplotlib
 
-
-
-```python
-
-```
