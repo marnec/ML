@@ -43,15 +43,16 @@ $$
 \label{eq:logcost} \tag{1}
 $$
 
-When $y=1$, the contribution to the cost function is given by the left factor in $\eqref{eq:logcost}$, a single example will have a very small contribution to the cost function for large values of $z$ (<a href="#costterms">Figure below</a>, panel A, blue line). To build a SVM, we will build a cost function such that its behavior will be like that of the orange line in panel A of <a href="#costterms">the Figure below</a>. As we will see later, this make the SVM behave similarly to logistic regression while giving a computational advantage by simplifying the optimization problem.
+When $y=1$, the contribution to the cost function is given by the left factor in $\eqref{eq:logcost}$, a single example will have a very small contribution to the cost function for large values of $z$ (<a href="#costterms">Figure 8</a>. As we will see later, this make the SVM behave similarly to logistic regression while giving a computational advantage by simplifying the optimization problem.
 
-When $y=0$, the SVM will be very similar witha semi-step behavior at 1 in reversed direction (<a href="#costterms">Figure below</a>, panel B, orange line)
-
-
-![png](ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_5_0.png)
+When $y=0$, the SVM will be very similar witha semi-step behavior at 1 in reversed direction (<a href="#costterms">Figure 8</a>, panel B, orange line)
 
 
-<i id="costterm">Cost term for a single example in logistic regression as a function of $z$ in the cases of $y=1$ (A, blue) and $y=0$ (B); and their versions in an SVM (A, B, orange lines).</i>
+
+<figure id="costterms">
+    <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_5_0.png" alt="png">
+    <figcaption>Figure 8. Cost term for a single example in logistic regression as a function of $z$ in the cases of $y=1$ (A, blue) and $y=0$ (B); and their versions in an SVM (A, B, orange lines).</figcaption>
+</figure>
 
 So, where the optimization problem in logistic regression is:
 
@@ -77,3 +78,8 @@ With these two modifications we can now write the conventional form of the optim
 $$
 \min_\theta C  \sum_{i=1}^m \left[y^{(i)} \text{ Cost}_1(\theta^Tx^{(i)}) + (1-y^{(i)}) \text{ Cost}_0(\theta^Tx^{(i)}) \right] + \frac{1}{2} \sum_{j=0}^n\theta_j^2
 $$
+
+
+```python
+
+```
