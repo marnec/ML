@@ -86,7 +86,7 @@ $$
 Sometimes SVMs are referred to as large margin classifiers. In this section we will see why and we will introduce the hypothesis representation of SVMs.
 
 ### Large margin classification - intuition
-By looking at <a href='#svmcost'>the figure below</a>, we can see that if we want to minimize the cost of a training example, we need to have:
+By looking at <a href="#svmcost">Figure 9</a>, we can see that if we want to minimize the cost of a training example, we need to have:
 
 * If we have $y=1$ (panel A), then to have $\text{Cost}_1(z)=0$, we need to have $z \equiv (\theta^Tx) \geq 1$ and not just $\geq 0$
 * If we have $y=0$ (panel B), then to have $\text{Cost}_1(z)=0$, we need to have $z \equiv (\theta^Tx) \leq -1$ and not just $< 0$
