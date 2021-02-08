@@ -7,7 +7,7 @@ order: 20
 comments: true
 ---
 
-# Large Margin Classification
+# Support Vector Machines
 At this point we have seen a number of learning algorithm. While it is true to a certain degree that different learning algorithms have similar performances and that the amount and quality of data is fundamental, we need to cover another class of learning algorithm that are often used in industry and academia, the **Support Vector Machines** (SVM). These algorithms can sometimes give a cleaner and more powerful way of learning complex non-linear functions.
 
 ## Optimization objective
@@ -64,7 +64,7 @@ By just substituting the $Cost_{0/1}$ terms, the optimization problem for an SVM
 
 $$
 \begin{equation}
-\min_\theta\color{red}{\frac{1}{m}}\sum_{i=1}^m \left[ y^{(i)} \text{ Cost}_1(\theta^Tx^{(i)}) + (1-y^{(i)}) \text{ Cost}_0(\theta^Tx^{(i)}) \right] + \frac{\color{magenta}{\lambda}}{2\color{red}{m}} \sum_{j=0}^n\theta_j^2
+\min_\theta \color{red}{\frac{1}{m}} \sum_{i=1}^m \left[ y^{(i)} \text{ Cost}_1(\theta^Tx^{(i)}) + (1-y^{(i)}) \text{ Cost}_0(\theta^Tx^{(i)}) \right] + \frac{ \color{magenta}{ \lambda}}{2 \color{red}{m}} \sum_{j=0}^n\theta_j^2
 \end{equation}
 $$
 
@@ -76,8 +76,65 @@ However we are going to slightly reparametrize it:
 With these two modifications we can now write the conventional form of the optimization problem for an SVM:
 
 $$
+\begin{equation}
 \min_\theta C  \sum_{i=1}^m \left[y^{(i)} \text{ Cost}_1(\theta^Tx^{(i)}) + (1-y^{(i)}) \text{ Cost}_0(\theta^Tx^{(i)}) \right] + \frac{1}{2} \sum_{j=0}^n\theta_j^2
+\end{equation}
+\label{eq:svmcost} \tag{2}
 $$
+
+## Large Margin Classification
+Sometimes SVMs are referred to as large margin classifiers. In this section we will see why and we will introduce the hypothesis representation of SVMs.
+
+### Large margin classification - intuition
+By looking at <a href='#svmcost'>the figure below</a>, we can see that if we want to minimize the cost of a training example, we need to have:
+
+* If we have $y=1$ (panel A), then to have $\text{Cost}_1(z)=0$, we need to have $z \equiv (\theta^Tx) \geq 1$ and not just $\geq 0$
+* If we have $y=0$ (panel B), then to have $\text{Cost}_1(z)=0$, we need to have $z \equiv (\theta^Tx) \leq -1$ and not just $< 0$
+
+This builds in an extra safety **margin** for correct classification in SVMs.
+
+
+
+<figure id="svmcost">
+    <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_8_0.png" alt="png">
+    <figcaption>Figure 9. Cost of a single example in a SVM as a function of $z \equiv \theta^Tx$, for the case of $y=1$ (A) and $y=0$ (B).</figcaption>
+</figure>
+
+Consider a case where we set the regularization parameter $C$ to a very large value. This will allow us to see a simplified and more intuitive version of the working of an SVM, which however does not reflect their entire complexity. When $C$ is very large then the optimization process declared in $\eqref{eq:svmcost}$ will chose the values so that the sum of the cost of all examples is $=0$
+
+$$
+\min_\theta \overbrace{C}^{\gg 0} \underbrace{\sum_{i=1}^m \left[y^{(i)} \text{ Cost}_1(\theta^Tx^{(i)}) + (1-y^{(i)}) \text{ Cost}_0(\theta^Tx^{(i)}) \right]}_{=0} + \frac{1}{2} \sum_{j=0}^n\theta_j^2
+$$
+
+So our optimization problem becomes 
+
+$$
+\begin{align}
+&\min_\theta C \cdot 0 + \frac{1}{2} \sum_{j=1}^n \theta_j^2 \\
+&\mathrm{s.t. } 
+\begin {cases}
+\theta^Tx^{(i)}\geq & 1  & \mathrm{if} \; y^{(i)}=1\\
+\theta^Tx^{(i)}\leq &-1 & \mathrm{if} \; y^{(i)}=0\\
+\end{cases}
+\end{align}
+$$
+
+When solving this opimization problem you obtain a very interesting **decision boundary**. Let's take a training set like that in <a href="#decbound">Figure 10</a>. This data is linearly separable and multiple decision boundary would separate positive and negative examples perfectly (panel A). But none of those, while minimizing the cost function, look like sensible choices, since the data hints at a pattern that is not picked up by those decision boundaries.
+
+An SVM instead would set its decision boundary as in panel B (black line). In order to achieve that decision boundary, the SVM tries to maximize the distance between the closest points to the decision boundary itself: it tries to maximize its **margins**.
+
+
+
+<figure id="decbound">
+    <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_10_0.png" alt="png">
+    <figcaption>Figure 10. Linear decision boundaries obtained by logistic regression with equivalent cost (A). Linear decision boundary obtained through large margin classification (B).</figcaption>
+</figure>
+
+The SVM tries to separate the data with the largest margin possible, for this reason the SVM is sometimes called large margin classifier.
+
+Large margin classifiers are not very robust to outliers and to be fair, SVMs are a bit more sophisticated and robust than the simple concept of large margin classifier explained above. SVM behaves like large margin classifier **only** when $C$ is very large ($\equiv \lambda$ is very small, since $C \approx \frac{1}{\lambda}$), in other words when there is no regularization. However this is a useful way to convey an intuition of how SVMs work.
+
+### Large margin classification - mathematics
 
 
 ```python
