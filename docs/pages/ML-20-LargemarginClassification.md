@@ -110,12 +110,13 @@ So our optimization problem becomes
 
 $$
 \begin{align}
-&\min_\theta C \cdot 0 + \frac{1}{2} \sum_{j=1}^n \theta_j^2 \\
-&\mathrm{s.t. } 
+&\min_\theta C \cdot 0 + \frac{1}{2} \sum_{j=1}^n \theta_j^2 \label{eq:objectfun} \tag{3} \\
+&\mathrm{s.t.}
 \begin {cases}
-\theta^Tx^{(i)}\geq & 1  & \mathrm{if} \; y^{(i)}=1\\
-\theta^Tx^{(i)}\leq &-1 & \mathrm{if} \; y^{(i)}=0\\
-\end{cases}
+\theta^Tx^{(i)}\geq & 1  & \mathrm{if} \; y^{(i)}=1 \\
+\theta^Tx^{(i)}\leq &-1 & \mathrm{if} \; y^{(i)}=0 \\
+\end{cases} 
+\label{eq:constraints} \tag{4}
 \end{align}
 $$
 
@@ -135,8 +136,68 @@ The SVM tries to separate the data with the largest margin possible, for this re
 Large margin classifiers are not very robust to outliers and to be fair, SVMs are a bit more sophisticated and robust than the simple concept of large margin classifier explained above. SVM behaves like large margin classifier **only** when $C$ is very large ($\equiv \lambda$ is very small, since $C \approx \frac{1}{\lambda}$), in other words when there is no regularization. However this is a useful way to convey an intuition of how SVMs work.
 
 ### Large margin classification - mathematics
+In order to understand how the decision boundary is defined in a SVM we are going to adopt a set of simplifications: 
+
+* $\theta_0=0$ 
+* number of features $n=2$
+
+We can now rewrite $\eqref{eq:objectfun}$ as:
+
+$$
+\begin{align}
+\min_\theta \frac{1}{2} \sum_{j=1}^n \theta^2_j & = \frac{1}{2} \left(\theta_1^2+\theta_2^2 \right) \\
+&= \frac{1}{2} \left( \sqrt{\theta_1^2+\theta_2^2} \right)^2 \\
+&= \frac{1}{2} \cdot \left \| \theta \right \|^2 
+\end{align}
+$$
+
+where the term $\sqrt{\theta_1^2+\theta_2^2}$ is equal to the module of the vector $\theta = [ \theta_0, \theta_1 , \theta_2 ]$. So in this case the SVM is minimizing the square norm or length of the parameter vector $\theta$.
+
+Now let's look at the $\theta^Tx$ terms in $\eqref{eq:objectfun}$: The training example $x^{(i)} = [x_1, x_2]$ is a vector from the origin $(0, 0)$ and the same goes for the parameter vector $[\theta_1, \theta_2]$. So we can calculate $\theta^Tx$ as the inner product of $\theta$ and $x^{(i)}$
+
+$$
+\begin{align}
+\left \langle  \theta, x^{(i)} \right \rangle &= \theta^Tx^{(i)} \\
+& = p^{(i)} \cdot \| \theta \| \label {eq:innerproj} \tag{5} \\
+& = \theta_1x_1^{(i)} + \theta_2x_2^{(i)} \label {eq:innerdot} \tag{6} \\
+\end{align}
+$$
+
+where $p^{(i)}$ is the projection of $x^{(i)}$ on $\theta$ as shown in <a href="#vectproj">Figure 11</a>. $\eqref{eq:innerproj}$ and $\eqref{eq:innerdot}$ are equivalent and equally valid ways to calculate $\theta^Tx$: $\eqref{eq:innerproj}$ is the inner product $\langle \theta, x^{(i)} \rangle$ and $\eqref{eq:innerdot}$ is the vector multiplication $\theta \times x^{(i)}$.
 
 
-```python
 
-```
+<figure id="vectproj">
+    <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_13_0.png" alt="png">
+    <figcaption>Figure 11. Vector $x^{(i)} = [x_1^{(i)}, x_2^{(i)}]$ representing a single example $i$,  where the number of features $n=2$; Parameters vector $\theta = [\theta_0, \theta_1, \theta_2]$ with $\theta_0 = 0$</figcaption>
+</figure>; Vector projection $p^{(i)}$ of $x^{(i)}$ on $\theta$.
+
+This means that we can express the constraints defined in $\eqref{eq:constraints}$ as:
+
+$$
+\begin {cases}
+p^{(i)} \cdot \| \theta \| \geq & 1  & \mathrm{if} \; y^{(i)}=1 \\
+p^{(i)} \cdot \| \theta \| \leq &-1 & \mathrm{if} \; y^{(i)}=0 \\
+\end{cases}
+\label{eq:constraintsproj} \tag{7}
+$$
+
+Now let's see how this reflects on the decision boundary selection in a SVM. Let's take the very simple example depicted in <a href="#decboundsvmsimpleex">Figure 12</a>.
+
+In panel A, the decision boundary is not very good because it's very close to the training examples: it has small **margins**. Let's see why the SVM will not chose this: (it can be shown that) the parameter vector $\theta$ is orthogonal to the decision boundary and starts at origin simply because we chose to set $\theta_0=0$. If we look at the projections of $x^{(1)}, x^{(2)}$ on $\theta : p^{(1)},p^{(2)}$ we will see that they are pretty small numbers, as $x^{(1)}$ and $x^{(2)}$ are close to the decision boundary. Given $\eqref{eq:constraintsproj}$, in order to have $p^{(i)} \cdot \| \theta \| \geq  1$, if $p^{(i)}$ is small then $\cdot \| \theta \|$ must be large, but since $\eqref{eq:objectfun}$, this is not the wanted direction for $\| \theta \|$.
+
+In panel B the decision boundary maximizes the margins $p^{(1)},p^{(2)}$, which in turn has the effect of reducing the size of $\| \theta \|$ and bringing the algorithm closer to the optimization objective.
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x7f846fb0fe10>]
+
+
+
+
+
+<figure id="decboundsvmsimpleex">
+    <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_15_1.png" alt="png">
+    <figcaption>Figure 12. Bad (A) and good (B) decision boundaries that correctly separate the training data.</figcaption>
+</figure>
