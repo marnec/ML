@@ -169,8 +169,8 @@ where $p^{(i)}$ is the projection of $x^{(i)}$ on $\theta$ as shown in <a href="
 
 <figure id="vectproj">
     <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_13_0.png" alt="png">
-    <figcaption>Figure 11. Vector $x^{(i)} = [x_1^{(i)}, x_2^{(i)}]$ representing a single example $i$,  where the number of features $n=2$; Parameters vector $\theta = [\theta_0, \theta_1, \theta_2]$ with $\theta_0 = 0$</figcaption>
-</figure>; Vector projection $p^{(i)}$ of $x^{(i)}$ on $\theta$.
+    <figcaption>Figure 11. Vector $x^{(i)} = [x_1^{(i)}, x_2^{(i)}]$ representing a single example $i$,  where the number of features $n=2$; Parameters vector $\theta = [\theta_0, \theta_1, \theta_2]$ with $\theta_0 = 0$; Vector projection $p^{(i)}$ of $x^{(i)}$ on $\theta$.</figcaption>
+</figure>
 
 This means that we can express the constraints defined in $\eqref{eq:constraints}$ as:
 
@@ -190,14 +190,7 @@ In panel B the decision boundary maximizes the margins $p^{(1)},p^{(2)}$, which 
 
 
 
-
-    [<matplotlib.lines.Line2D at 0x7f846fb0fe10>]
-
-
-
-
-
 <figure id="decboundsvmsimpleex">
-    <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_15_1.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_15_0.png" alt="png">
     <figcaption>Figure 12. Bad (A) and good (B) decision boundaries that correctly separate the training data.</figcaption>
 </figure>
