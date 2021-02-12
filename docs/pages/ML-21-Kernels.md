@@ -129,26 +129,6 @@ Training example $x^{(2)}$ is far from any landmark, hence $f_1, f_2, f_3 \appro
 
 
 
-```python
-fig, ax = plt.subplots()
-ax.scatter(*a.T)
-ax.set_xlabel('$x_1$', fontsize=13)
-ax.set_ylabel('$x_2$', fontsize=13)
-ax.set_xticks([])
-ax.set_yticks([])
-ax.set_xlim(0, 1)
-ax.set_ylim(0, 1)
-for i, p in enumerate(a, 1):
-    ax.text(*p + .01, '$l^{{({})}}$'.format(i), fontsize=13)
-
-ax.plot(*a[0] + [.05, -.05], ls='none', marker='o', c='C1', label='$y^{(1)}=1$')
-ax.text(*a[0] + [.07, -.04], '$x^{(1)}$', fontsize=13)
-ax.plot(*a[1] + [.01, -.3], ls='none', marker='o', c='C9', label='$y^{(2)}=0$')
-ax.text(*a[1] + [.03, -.29], '$x^{(2)}$', fontsize=13)
-ax.legend(fontsize=13);
-```
-
-
     
 
 <figure id="manuallandmarks2">
