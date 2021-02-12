@@ -87,7 +87,7 @@ By looking at <a href="#gaussk">Figure 15</a>, we can see how $f_1 \to 1$ when $
 
 <figure id="gaussk">
     <img src="{{site.baseurl}}/pages/ML-21-Kernels_files/ML-21-Kernels_9_0.png" alt="png">
-    <figcaption>Figure 15. Guassian kernel</figcaption>
+    <figcaption>Figure 15. Three-dimensional surface and contour plot of the value the gaussian kernel $f_1$ as a function of the features $x_1$ and $x_2$. The three couple of plots are views of the kernel values when $\sigma^2= 1, 0.5, 3$ respectively.</figcaption>
 </figure>
 
 It is also interesting to notice the effect of different values of $\sigma^2$ on $f_1$ output. When $\sigma^2$ decreases, $f_1$ falls to $0$ much more rapidly when $x$ stray from $l^{(1)}$. Conversely if the value of $\sigma^2$ is large the decay of $f_1$ is much slower.
@@ -135,3 +135,38 @@ Training example $x^{(2)}$ is far from any landmark, hence $f_1, f_2, f_3 \appro
     <img src="{{site.baseurl}}/pages/ML-21-Kernels_files/ML-21-Kernels_12_0.png" alt="png">
     <figcaption>Figure 16. Manually placed landmarks as in <a href="#manuallandmarks">Figure 14</a> and training example falling close or far from landmarks.</figcaption>
 </figure>
+
+### Choice of the landmarks
+Until now we manually picked the landmarks, in an SVM landmarks are defined as exactly the same coordinates as the points in the training set. This means that when an input is fed to the trained algorithm, it calculates how close it is to points in the training set.
+
+### SVM with kernels
+By defining the landmarks as the example coordinates means that if we have an $m \times n$ training set where each example $x^{(i)} \in \mathbb{R}^{n+1}$ space, we are going to define $m$ features (one for each training example), so that we will have our feature vector $f \in \mathbb{R}^{m+1}$ and also our parameter vector $\theta \in \mathbb{R}^{m+1}$.
+
+The training for an SVM with kernels will be
+
+$$
+\min_\theta C \sum^m_{i=1}y^{(i)} \text{cost}_1  \underbrace{\left(\theta^T f^{(i)}\right)}_{ \neq \theta^Tx^{(i)}}  + \left( 1- y^{(i)}\right) \text{cost}_0 \left( \theta^T f^{(i)}\right) + \frac{1}{2} \sum^{\overbrace{n}^{m}}_{j=1}\theta^2_j
+$$
+
+
+#### Implementation detail of SVM optimization
+In optimization implementations, usually the term $\sum^{\overbrace{n}^{m}}_{j=1}\theta^2_j$ is calculated as $\theta^T\theta$. 
+
+When optimizing an SVM algorithm, since $\theta \in \mathbb{R}^{m+1}$, we could end up with a huge number of parameters and $\theta^T\theta$ becomes inefficient or computationally impossible. 
+
+For this reason the term is usually slightly changed to $\theta^TM\theta$, where $M$ is a matrix that makes the computation much easier.
+
+Incidentally, this implementation trick is also what prevents the kernel strategy to be applied to other learning algorithms. Kernels can be used with logistic regression too, however the $\theta^TM\theta$ would not be as useful as with SVMs, and consequently computation would not scale with the number of examples.
+
+### SVM hyper-parameters
+There are two parameters that need to be manually set for SVMs and will affect the bias *vs* variance trade-off: $C$ and $\sigma^2$
+
+$C \approx \frac{1}{\lambda}$:
+
+* large $C$: Lower bias, higher variance
+* small $C$: Higher bias, lower variance
+
+$\sigma^2$, as we can infer from <a href="#gaussk">Figure 15</a>:
+
+* Large $\sigma^2$: features $f_i$ vary more smoothly; higher bias, lower variance
+* Small $\sigma^2$: features $f_i$ vary more abruptly; lower bias, higher variance
