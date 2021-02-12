@@ -99,6 +99,7 @@ And we will attain higher recall but lower precision.
 In general by lowering the threshold we will trade off precision for recall and if we were to plot recall and precision for a number of possible threshold values we would have something like <a href="#prerec">Figure 3</a>:
 
 
+    
 
 <figure id="prerec">
     <img src="{{site.baseurl}}/pages/ML-19-SkewedClasses_files/ML-19-SkewedClasses_6_0.png" alt="png">

@@ -12,6 +12,7 @@ comments: true
 In the case of house prices if we want to see how our hypothesis is performing we could just plot it. Since we have just one feature (the area of each house) we can plot the feature against the price as in <a href="#linreghouseprice">Figure 1</a>.
 
 
+    
 
 <figure id="linreghouseprice">
     <img src="{{site.baseurl}}/pages/ML-17-Diagnostic_files/ML-17-Diagnostic_2_0.png" alt="png">
@@ -257,6 +258,7 @@ While it is ill advised to optimizize $J_\text{test}(\theta)$ and $J_\text{CV}(\
 When a ML algorith is underperfoming with respect to expectations is almost always because of an **over-fitting** problem or **under-fitting** problem.
 
 
+    
 
 <figure id="polynomialregression">
     <img src="{{site.baseurl}}/pages/ML-17-Diagnostic_files/ML-17-Diagnostic_12_0.png" alt="png">
@@ -266,7 +268,9 @@ When a ML algorith is underperfoming with respect to expectations is almost alwa
 Let's say that training error and cross validation error are defined as in $\eqref{eq:trainerr}$ and $\eqref{eq:crosserr}$. If we plot $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$ as a function of the polynome degree $d$ we will see that $J_\text{train}(\theta)$ decrease at the increase of $d$, because we are able to fit the algorithm better and better; $J_\text{CV}(\theta)$ will be large for small values of $d$ indicating that we are underfitting the data, it will decrease at the increase of $d$ until reaching the minimum value for the optimal $d$ and raise again when further increasing $d$.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_14_0.png)
+    
 
 
 So we can generalize and deduce that when both $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$ are large we are in underfitting the algorithm (high bias); when $J_\text{CV}(\theta)$ is large but $J_\text{train}(\theta)$ is small we are underfitting the algorithm (high variance).
@@ -293,7 +297,9 @@ $$
 We will then calculate $\min_\theta J(\theta)$ for each $\lambda^{(i)}$ to obtain a set of prameters $\theta^{(i)}$. We will then use the set of parameters $\theta^{(i)}$ to calculate $J_\text{CV}\left(\theta^{(i)}\right)$ and select the model that staisfy $\min_{\theta^{(i)}} J_\text{CV}(\Theta)$. Finally we can calculate $J_\text{test}\left(\theta^{(i)}\right)$ with the $\theta^{(i)}$ that minimizes $J_\text{CV}\left(\theta^{(i)}\right)$.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_17_0.png)
+    
 
 
 ## Learning curves
@@ -305,13 +311,17 @@ Learning curves are often useful tools to explore the performance of your learni
 * If the algorith suffers from high variance (overfitting) (C), $J_\text{train}(\theta)$ will increase with $m$ and $J_\text{CV}(\theta)$ will decrease at the increase of $m$ but at a much slower rate, so that the values there will always be a large gap between the values of $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_19_0.png)
+    
 
 
 However it is important to notice that for the high variance case (C), for very large values of $m$, $J_\text{train}(\theta)$ will finally decrease and converge towards $J_\text{CV}(\theta)$. In this case (overfitting) having more training examples $m$ will help reduce the problem.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_21_0.png)
+    
 
 
 ## Diagnose learning algorihtm
@@ -329,13 +339,17 @@ Until now, when talking about a learning algorithm, we always refererred to a re
 But we can try to apply what we have learned to neural networks: small neural networks have fewer parameters and are more prone to underfitting but in contrast they are computationally cheaper.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_23_0.png)
+    
 
 
 Large neural networks on the other hand (with more hidden units or more hidden layers) are more prone to overfitting and, as a secondary and maybe marginal problem, they tend to be more computationally expensive. In this case we can use regularization $\lambda$ to address overfitting.
 
 
+    
 ![png](ML-17-Diagnostic_files/ML-17-Diagnostic_25_0.png)
+    
 
 
 Finding the right number of hidden layers can be also achieved empirically by trying to explore the performance of neural networks with different number of hidden layers and chose the one that minimizes $\eqref{eq:crosserr}$

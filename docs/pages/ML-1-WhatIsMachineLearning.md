@@ -47,6 +47,7 @@ Example:
 Price as a function of size (<a href="#scatter">Figure 4</a>) is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
 
 
+    
 
 <figure id="scatter">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_5_0.png" alt="png">
@@ -62,6 +63,7 @@ Example:
 When trying to predict malignancy, a tumor can either be malignant (positive case, 1) or bening (negative case, 0). This situation is represented in the <a href="#tumorsize">Figure 5</a>
 
 
+    
 
 <figure id="tumorsize">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_7_0.png" alt="png">
@@ -82,6 +84,7 @@ We can divide unsuperised learning in two categories:
 Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on (<a href="#genexpr">Figure 6</a>).
 
 
+    
 
 <figure id="genexpr">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_9_0.png" alt="png">
@@ -92,6 +95,7 @@ Take a collection of 1,000,000 different genes, and find a way to automatically 
 In classification, we try to teach a learning algrithm to associate a set of features to the correct class after exposing it to many labeled examples. In clustering we don't know the correct label and we try measure if some data can be grouped toghther based on a feature or a combination of features. In <a href="#iris">Figure 7</a>, the same dataset is shown in its labeled (left) and unlabeled (right) versions.
 
 
+    
 
 <figure id="iris">
     <img src="{{site.baseurl}}/pages/ML-1-WhatIsMachineLearning_files/ML-1-WhatIsMachineLearning_11_0.png" alt="png">

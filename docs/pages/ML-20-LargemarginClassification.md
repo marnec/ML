@@ -20,7 +20,9 @@ h_\theta(x) = \frac{1}{1+e^{-\theta^Tx}}
 $$
 
 
+    
 ![png](ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_3_0.png)
+    
 
 
 In logistic regression:
@@ -48,6 +50,7 @@ When $y=1$, the contribution to the cost function is given by the left factor in
 When $y=0$, the SVM will be very similar witha semi-step behavior at 1 in reversed direction (<a href="#costterms">Figure 8</a>, panel B, orange line)
 
 
+    
 
 <figure id="costterms">
     <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_5_0.png" alt="png">
@@ -94,6 +97,7 @@ By looking at <a href="#svmcost">Figure 9</a>, we can see that if we want to min
 This builds in an extra safety **margin** for correct classification in SVMs.
 
 
+    
 
 <figure id="svmcost">
     <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_8_0.png" alt="png">
@@ -125,6 +129,7 @@ When solving this opimization problem you obtain a very interesting **decision b
 An SVM instead would set its decision boundary as in panel B (black line). In order to achieve that decision boundary, the SVM tries to maximize the distance between the closest points to the decision boundary itself: it tries to maximize its **margins**.
 
 
+    
 
 <figure id="decbound">
     <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_10_0.png" alt="png">
@@ -166,6 +171,7 @@ $$
 where $p^{(i)}$ is the projection of $x^{(i)}$ on $\theta$ as shown in <a href="#vectproj">Figure 11</a>. $\eqref{eq:innerproj}$ and $\eqref{eq:innerdot}$ are equivalent and equally valid ways to calculate $\theta^Tx$: $\eqref{eq:innerproj}$ is the inner product $\langle \theta, x^{(i)} \rangle$ and $\eqref{eq:innerdot}$ is the vector multiplication $\theta \times x^{(i)}$.
 
 
+    
 
 <figure id="vectproj">
     <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_13_0.png" alt="png">
@@ -189,6 +195,7 @@ In panel A, the decision boundary is not very good because it's very close to th
 In panel B the decision boundary maximizes the margins $p^{(1)},p^{(2)}$, which in turn has the effect of reducing the size of $\| \theta \|$ and bringing the algorithm closer to the optimization objective.
 
 
+    
 
 <figure id="decboundsvmsimpleex">
     <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_15_0.png" alt="png">
