@@ -148,18 +148,10 @@ $$
 \min_\theta C \sum^m_{i=1}y^{(i)} \text{cost}_1  \underbrace{\left(\theta^T f^{(i)}\right)}_{ \neq \theta^Tx^{(i)}}  + \left( 1- y^{(i)}\right) \text{cost}_0 \left( \theta^T f^{(i)}\right) + \frac{1}{2} \sum^{\overbrace{n}^{m}}_{j=1}\theta^2_j
 $$
 
-
-#### Implementation detail of SVM optimization
-In optimization implementations, usually the term $\sum^{\overbrace{n}^{m}}_{j=1}\theta^2_j$ is calculated as $\theta^T\theta$. 
-
-When optimizing an SVM algorithm, since $\theta \in \mathbb{R}^{m+1}$, we could end up with a huge number of parameters and $\theta^T\theta$ becomes inefficient or computationally impossible. 
-
-For this reason the term is usually slightly changed to $\theta^TM\theta$, where $M$ is a matrix that makes the computation much easier.
-
-Incidentally, this implementation trick is also what prevents the kernel strategy to be applied to other learning algorithms. Kernels can be used with logistic regression too, however the $\theta^TM\theta$ would not be as useful as with SVMs, and consequently computation would not scale with the number of examples.
+SVMs can also be used **without kernels**, and they are usually referred to as **SVMs with linear kernels**; it means that they will predict $y=1 \to \theta^Tx \geq 0$. This is usually the case when the number of features $n$ is large and the number of examples $m$ is small and you want to model the hypothesis as a linear function in order to prevent overfitting.
 
 ### SVM hyper-parameters
-There are two parameters that need to be manually set for SVMs and will affect the bias *vs* variance trade-off: $C$ and $\sigma^2$
+When training an SVM, regardless of what kernel you use you will have to set the parameter $C$. Additionally, when using a Gaussian kernel, you will need to set the parameter $\sigma^2$. Both these hyper-parameters affect the bias *vs* variance trade-off
 
 $C \approx \frac{1}{\lambda}$:
 
@@ -170,3 +162,30 @@ $\sigma^2$, as we can infer from <a href="#gaussk">Figure 15</a>:
 
 * Large $\sigma^2$: features $f_i$ vary more smoothly; higher bias, lower variance
 * Small $\sigma^2$: features $f_i$ vary more abruptly; lower bias, higher variance
+
+### Implementation details
+#### SVM optimization
+In optimization implementations, usually the term $\sum^{\overbrace{n}^{m}}_{j=1}\theta^2_j$ is calculated as $\theta^T\theta$. 
+
+When optimizing an SVM algorithm, since $\theta \in \mathbb{R}^{m+1}$, we could end up with a huge number of parameters and $\theta^T\theta$ becomes inefficient or computationally impossible. 
+
+For this reason the term is usually slightly changed to $\theta^TM\theta$, where $M$ is a matrix that makes the computation much easier.
+
+Incidentally, this implementation trick is also what prevents the kernel strategy to be applied to other learning algorithms. Kernels can be used with logistic regression too, however the $\theta^TM\theta$ would not be as useful as with SVMs, and consequently computation would not scale with the number of examples.
+
+#### Other kernel tricks
+Many numerical tricks are used in the implementations of SVMs and, while most of the times SVMs are used with linear of Gaussian kernels, they can accept other similarity functions. However not any function will work with SVMs and, in order to prevent divergence during training (due to the cited numerical tricks), they need to satisfy a technical condition called **Mercer's Theorem**. 
+
+#### Feature scaling with Gaussian kernel
+If using a Gaussian kernel and if features have very different scales **you do need** to perform feature scaling. 
+
+## Logistic regression *vs* SVMs
+In principle, to choose when to use logistic regression instead of SVMs, depends on the shape of your training set $(m, n)$, where $n$ is the number of features and $m$ is the number of training examples.
+
+If $n$ is large relatively to $m$ ($\geq 1$ orders of magnitude): use logistic regression or SVM with linear kernel.
+
+If $n$ is small ($n \in [1, 1000]$) and $m$ neither small nor big ($m \in [10, 10000]$): use SVM with Gaussian kernel.
+
+If $m$ is large relatively to $n$: create or add more features and use logistic regression or SVM with linear kernel.
+
+We couple logistic regression with SVM with linear kernel because they tend to have very similar performance. It is important to notice that in all these regimes **neural networks are likely to work well** but may be slower to train.

@@ -201,3 +201,8 @@ In panel B the decision boundary maximizes the margins $p^{(1)},p^{(2)}$, which 
     <img src="{{site.baseurl}}/pages/ML-20-LargemarginClassification_files/ML-20-LargemarginClassification_15_0.png" alt="png">
     <figcaption>Figure 12. Bad (A) and good (B) decision boundaries that correctly separate the training data.</figcaption>
 </figure>
+
+## Multi-class classification
+Many SVM packages already have built-in modules for multi-class classification. Otherwise, SVMs are entirely compatible with the one-vs-all strategy that we have seen before used with logistic regression. 
+
+Briefly, the method consists in training $K$ SVMs, each one needs to distinguish $y=i$ from the rest for $y = 1, 2, \ldots, K$, by obtaining $K$ parameter vectors $\theta^{(1)}, \ldots, \theta^{(K)}$. We would then run all algorithms and just pick the class $i$ with the largest $\left( \theta^{(i)}\right)^Tx$
