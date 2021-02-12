@@ -91,3 +91,67 @@ By looking at <a href="#gaussk">Figure 15</a>, we can see how $f_1 \to 1$ when $
 </figure>
 
 It is also interesting to notice the effect of different values of $\sigma^2$ on $f_1$ output. When $\sigma^2$ decreases, $f_1$ falls to $0$ much more rapidly when $x$ stray from $l^{(1)}$. Conversely if the value of $\sigma^2$ is large the decay of $f_1$ is much slower.
+
+### Multiple landmarks
+Let's get back to <a href="#manuallandmarks">Figure 14</a> and let's try to put together what we have learned in the case of multiple landmarks.
+
+We have three features $f_1, f_2, f_3$ and our hypothesis:
+
+$$
+y = 1 \quad \text{if} \quad \theta_0 + \theta_1f_1 + \theta_2f_2 + \theta_3f_3 \geq 0
+$$
+
+Suppose that we have run our learning algorithm and came up with the following parameters
+
+$$
+\theta=
+\begin{bmatrix}
+0.5 \\ 1 \\ 1 \\ 0
+\end{bmatrix}
+$$
+
+Now let's consider various training examples placed on the features space $(x_1, x_2)$ represented on <a href="#manuallandmarks2">Figure 16</a>.
+
+Training example $x^{(1)}$ is close to $l^{(1)}$, hence $f_1 \approx 1$ while $f_2, f_3 \approx 0$. Its prediction will be:
+
+$$
+\begin{align}
+h_\theta(x^{(1)}) & =  \theta_0 + \theta_1 \cdot 1 + \theta_2 \cdot 0 + \theta_3 \cdot 0 \\
+&= -0.5 + 1 \\
+&= 0.5 \geq 1 \\
+& \to y^{(1)} = 1  
+\end{align}
+$$
+
+
+Training example $x^{(2)}$ is far from any landmark, hence $f_1, f_2, f_3 \approx 0$ and $y^{(2)} \approx -0.5$
+
+
+
+
+```python
+fig, ax = plt.subplots()
+ax.scatter(*a.T)
+ax.set_xlabel('$x_1$', fontsize=13)
+ax.set_ylabel('$x_2$', fontsize=13)
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1)
+for i, p in enumerate(a, 1):
+    ax.text(*p + .01, '$l^{{({})}}$'.format(i), fontsize=13)
+
+ax.plot(*a[0] + [.05, -.05], ls='none', marker='o', c='C1', label='$y^{(1)}=1$')
+ax.text(*a[0] + [.07, -.04], '$x^{(1)}$', fontsize=13)
+ax.plot(*a[1] + [.01, -.3], ls='none', marker='o', c='C9', label='$y^{(2)}=0$')
+ax.text(*a[1] + [.03, -.29], '$x^{(2)}$', fontsize=13)
+ax.legend(fontsize=13);
+```
+
+
+    
+
+<figure id="manuallandmarks2">
+    <img src="{{site.baseurl}}/pages/ML-21-Kernels_files/ML-21-Kernels_12_0.png" alt="png">
+    <figcaption>Figure 16. Manually placed landmarks as in <a href="#manuallandmarks">Figure 14</a> and training example falling close or far from landmarks.</figcaption>
+</figure>
