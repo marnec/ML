@@ -43,7 +43,7 @@ $$
 \end{align}
 $$
 
-where $k$ stands for kernel and is a function that measure similarity and $\| x - l^{(i)}\|$ is the euclidean distance between the example $x$ and the landmark point $l^{(i)}$. In particular the specific kernel $k$ used here is called the **Gaussian kernel**.
+where $k$ stands for kernel and is a function that measure similarity and $\| x - l^{(i)}\|$ is the euclidean distance between the example $x$ and the landmark point $l^{(i)}$; $\sigma$ is called the **bandwidth parameter** and determines the steepness of the Gaussian distribution. In particular the specific kernel $k$ used here is called the **Gaussian kernel**.
 
 Let's explore more in detail the first landmark, whose numerator can be also written as the square of the component-wise distance of the vector $x$ from the vector $l^{(1)}$:
 
@@ -153,15 +153,15 @@ SVMs can also be used **without kernels**, and they are usually referred to as *
 ### SVM hyper-parameters
 When training an SVM, regardless of what kernel you use you will have to set the parameter $C$. Additionally, when using a Gaussian kernel, you will need to set the parameter $\sigma^2$. Both these hyper-parameters affect the bias *vs* variance trade-off
 
-$C \approx \frac{1}{\lambda}$:
+* misclassification penalty $C \approx \frac{1}{\lambda}$:
 
-* large $C$: Lower bias, higher variance
-* small $C$: Higher bias, lower variance
+    * large $C$: Lower bias, higher variance
+    * small $C$: Higher bias, lower variance
 
-$\sigma^2$, as we can infer from <a href="#gaussk">Figure 15</a>:
+* bandwidth parameter $\sigma^2$, as we can infer from <a href="#gaussk">Figure 15</a>:
 
-* Large $\sigma^2$: features $f_i$ vary more smoothly; higher bias, lower variance
-* Small $\sigma^2$: features $f_i$ vary more abruptly; lower bias, higher variance
+    * Large $\sigma^2$: features $f_i$ vary more smoothly; higher bias, lower variance
+    * Small $\sigma^2$: features $f_i$ vary more abruptly; lower bias, higher variance
 
 ### Implementation details
 #### SVM optimization
