@@ -26,7 +26,7 @@ For example a structure that we can find in data points represented in <a href="
 <figure id="simpleclusters">
     <img src="{{site.baseurl}}/pages/ML-22-UnsupervisedLearning_files/ML-22-UnsupervisedLearning_2_0.png" alt="png">
     <figcaption>Figure 17. An example of unsupervised learning problem: unlabeled data is clustered in two groups based on their distance in the feature space $x \in \mathbb{R}^2$</figcaption>
-</figure>.
+</figure>
 
 ## K-means clustering
 In Clustering we want an algorithm to group our data into coherent subgroups.K-means algorithm is by far the most popular and widely used clustering algorithm.
@@ -34,17 +34,6 @@ In Clustering we want an algorithm to group our data into coherent subgroups.K-m
 Suppose we have an unlabeled dataset and we want to apply the K-means algorithm to find if there is any structure in it. What the K-means algorithm does is first initialize random points called the **centroids**. In <a href="#kmeanscentroids">Figure 18</a> we can see two centroids because we want to group the data in two clusters.
 
 
-
-
-```python
-p1, p2 = np.random.rand(2, 15, 2) * scale
-fig, ax = plt.subplots()
-p2 += scale
-colors = ['C1', 'C2']
-ax.scatter(*np.r_[p1, p2].T, c='C0', alpha=.5)
-cs = np.array([[.1, .4], [.4, .1]])
-ax.scatter(*cs.T, c=['C1', 'C2'], marker='x');
-```
 
 
     
@@ -73,7 +62,7 @@ Iterations stop when the centroids position does not change any further.
 More formally, the K-means algorithm takes as input:
 
 * The number of clusters $K$
-* A training set $\left \{ x^{(1)}, x^{(2)}, x^{(3)}, \ldots, x^{(m)} \right \}$
+* A training set $\left \lbrace x^{(1)}, x^{(2)}, x^{(3)}, \ldots, x^{(m)} \right \rbrace$
 
 where $x \in \mathbb{R}^n$ since by convention $x_0=1$ is dropped.
 
@@ -83,11 +72,17 @@ Then the algorithm works by
 
 2. Repeat until convergence
 
-    1. cluster assignment: assign each training example to its closest centroid 
-    $$ c^{(i)} := \min_k \| x^{(i)} - \mu_k \|^2$$
-    2. centroid positioning: move each centroid to the average coordinates of its assigned training examples
-    $$\mu_k = \frac{1}{m^{(c=k)}} [x^{(c_1)}, x^{(c_2)}, \ldots] \in \mathbb{R}^n$$
+    A. cluster assignment: assign each training example to its closest centroid
+
+    $$
+    c^{(i)} := \min_k \| x^{(i)} - \mu_k \|^2
+    $$
+
+    B. centroid positioning: move each centroid to the average coordinates of its assigned training examples
     
+    $$
+    \mu_k = \frac{1}{m^{(c=k)}} [x^{(c_1)}, x^{(c_2)}, \ldots] \in \mathbb{R}^n
+    $$
 
 If a centroid has no points assigned it can be:
 
