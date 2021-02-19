@@ -20,7 +20,13 @@ When training a learning algorithm on a training set with hundreds or thousands 
 
 Dimensionality reduction is not limited to bi-dimensional data; a typical task of dimensionality reduction could be to reduce a $\mathbb{R}^{1000}$ to a $\mathbb{R}^{100}$ feature space
 
-Dimensionality reduction is used for two main purposes: **data compression** and **data visualization**. Data compression is a label that covers a very wide range of uses, from simply occupying less virtual memory for files in hard disk to speed up learning algorithms; the use of dimensionality reduction for data visualization aims at reducing $n$ features to 2 or 3 features, which are the maximum number of dimensions in a plot.
+Dimensionality reduction is used for two main purposes:
+* **data compression**
+    * reduce memory / disk space needed to store data
+    * speed up learning algorithms: dimensionality reduction should only be applied to the training set; furthermore it is advisable to not run dimensionality reduction on the dataset *a priori*, you should start with raw data and apply dimensionality reduction only the learning process doesn't turn out as desired.
+* **data visualization** for visualization purposes, we reduce the number of features to 2 or 3, which are the maximum number of dimensions in a plot.
+
+People sometimes use dimensionality reduction algorithms (e.g. PCA) to prevent overfitting, this might work but it is not a good way to address overfitting and instead regularization should be used. Dimensionality reduction algorithms loose some information and while in most cases it might work, that information could be valuable to a learning algorithm.
 
 ##  Principal Component Analysis
 Principal Component Analysis (PCA) is the most common algorithm for dimensionality reduction.
@@ -110,15 +116,15 @@ $$
 x \approx U_\text{reduce}^T z
 $$
 
-However, all points of $x$ will be along the $u$ vector and we will lose exactly the information of the projection error.
-
-So, the smaller the projection error, the more faithful the reconstruction.
+However, all points of $x$ will be along the $u$ vector and we will lose exactly the information of the projection error (<a href="#reconstruction">Figure 24</a>). So, the smaller the projection error, the more faithful the reconstruction.
 
 
     
-![png](ML-23-DimensionalityReduction_files/ML-23-DimensionalityReduction_10_0.png)
-    
 
+<figure id="reconstruction">
+    <img src="{{site.baseurl}}/pages/ML-23-DimensionalityReduction_files/ML-23-DimensionalityReduction_10_0.png" alt="png">
+    <figcaption>Figure 24. Projection of bi-dimensional features $x$ on vector $u$ with projection error as a dashed green line (A); representation of reduced features $z$ (B); reconstruction of approximated features $x$ from $z$ with loss of the projection error information.</figcaption>
+</figure>
 
 ## Setting the number of Principal Components
 The rule of thumb adopted usually to decide the hyper-parameter $k$ (the number of principal components) is this:
@@ -135,7 +141,7 @@ $$
 \frac{1}{m} \sum^m_{i=1} \left \| x^{(i)} \right \|^2
 $$
 
-Typically, $k$ is chosen to be the smallest value so that
+Typically, $k$ is chosen to be the smallest that satisfies
 
 $$
 \begin{equation}
@@ -170,8 +176,3 @@ $$
 $$
 
 Or in other words that the sum of the first $k$ diagonal values divided by all diagonal values is $\geq 0.99$. This means that $\mathrm{SVD}(\Sigma)$ needs to be called only once since once you have $S$ you can check for condition $\eqref{eq:pcakconditionsvd}$ for all values of $k$.
-
-
-```python
-
-```
