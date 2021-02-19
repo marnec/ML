@@ -31,7 +31,7 @@ If we want to reduce data from 2 dimensions to 1 dimension (<a href="#pcaline">F
     
 
 <figure id="pcaline">
-    <img src="{{site.baseurl}}/pages/ML-23-DimensionalityReduction_files/ML-23-DimensionalityReduction_5_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-23-DimensionalityReduction_files/ML-23-DimensionalityReduction_6_0.png" alt="png">
     <figcaption>Figure 23. Distance calculation for PCA in the linear case (A) and linear regression (B).</figcaption>
 </figure>
 
@@ -71,7 +71,7 @@ $$
 
 and then calculate the [eigenvectors](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors) of $\Sigma$. Since $\Sigma$ is a [symmetric positive definite matrix](https://en.wikipedia.org/wiki/Definite_symmetric_matrix) you usually calculate the eigenvectors with [Singular Value Decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition) (SVD). 
 
-SVD outputs three matrices $U, S, V$, of which we are interested in the $U$ matrix. This will also be an $n \times n$ matrix, whose columns represents the vectors $u$.
+SVD outputs three matrices $U, S, V$. To identify the new vector space are only interested in the $U$ matrix. This will also be an $n \times n$ matrix, whose columns represents the vectors $u$.
 
 $$
 U=
@@ -100,3 +100,78 @@ z = U_\text{reduce}^T x
 $$
 
 and since $U_\text{reduce}^T \in \mathbb{R}^{k \times n}$ and $x \in \mathbb{R}^{n \times 1}$, then $z \in \mathbb{R}^{k \times 1}$ or $z \in \mathbb{R}^k$
+
+## Reconstruction from compressed data
+Reconstruction from projected data $z$ to original data $x$ is possible but with some loss of information. 
+
+In order to get an approximation of the original feature vector $x$ we can 
+
+$$
+x \approx U_\text{reduce}^T z
+$$
+
+However, all points of $x$ will be along the $u$ vector and we will lose exactly the information of the projection error.
+
+So, the smaller the projection error, the more faithful the reconstruction.
+
+
+    
+![png](ML-23-DimensionalityReduction_files/ML-23-DimensionalityReduction_10_0.png)
+    
+
+
+## Setting the number of Principal Components
+The rule of thumb adopted usually to decide the hyper-parameter $k$ (the number of principal components) is this:
+
+Given the average squared projection error
+
+$$
+\frac{1}{m} \sum^m_{i=1} \left \| x^{(i)} - x^{(i)}_\text{approx} \right \|^2
+$$
+
+and the total variation in the data
+
+$$
+\frac{1}{m} \sum^m_{i=1} \left \| x^{(i)} \right \|^2
+$$
+
+Typically, $k$ is chosen to be the smallest value so that
+
+$$
+\begin{equation}
+\frac{\frac{1}{m} \sum^m_{i=1} \left \| x^{(i)} - x^{(i)}_\text{approx} \right \|^2}
+{\frac{1}{m} \sum^m_{i=1} \left \| x^{(i)} \right \|^2} \leq 0.01
+\end{equation}
+\label{eq:pcakcondition} \tag{1}
+$$
+
+In other words, $k$ is chosen so that $99\%$ of the variance is retained. Depending on the necessities, $k$ can also be chosen as to retain $95\%$ or $90\%$ of the variance; these two are also quite typical values, but usually $99\%$ is chosen.
+
+In order to calculate $k$, we can proceed by just calculating PCA for each $k \in [1, n]$  until we find $\eqref{eq:pcakcondition}$ satisfied.
+
+Alternatively, we can use the matrix $S$ returned by the $\mathrm{SVD}(\Sigma)$ to calculate the variance efficiently. Where $S$ is
+
+$$
+S=\begin{bmatrix}
+S_{1,1} & 0 & 0 & 0\\
+0 & S_{2,2} & 0 & 0\\
+0 & 0 & \ddots & 0\\
+0 & 0 & 0 & S_{n, n} \\
+\end{bmatrix} \in \mathbb{R}^{n \times n}
+$$
+
+then the condition $\mathrm{SVD}(\Sigma)$ for a given $k$ becomes
+
+$$
+\begin{equation}
+1-\frac{\sum^k_{i=1}S_{i,i}}{\sum^n_{i=1}S_{i,i}} \leq 0.1
+\end{equation}
+\label{eq:pcakconditionsvd} \tag{2}
+$$
+
+Or in other words that the sum of the first $k$ diagonal values divided by all diagonal values is $\geq 0.99$. This means that $\mathrm{SVD}(\Sigma)$ needs to be called only once since once you have $S$ you can check for condition $\eqref{eq:pcakconditionsvd}$ for all values of $k$.
+
+
+```python
+
+```
