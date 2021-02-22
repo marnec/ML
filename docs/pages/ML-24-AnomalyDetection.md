@@ -138,13 +138,16 @@ When there is some dependency between two or more features (e.g. linear dependen
 
 Instead of modeling $p(x_1)$ and $p(x_2)$ separately they should have been modeled together. In order to do so we would have to slightly change our system.
 
-Given the parameters $\mu \in \mathbb{R}^n$ and $\Sigma \in \mathbb{R}^{n \times n}$ called the covariance matrix
+Given the parameters $\mu \in \mathbb{R}^n$ and $\Sigma \in \mathbb{R}^{n \times n}$ called the [covariance matrix](https://en.wikipedia.org/wiki/Covariance_matrix)
 
 $$
-p(x; \mu, \Sigma) = \frac{1}{(2\pi)^{\frac{n}{2} } \underbrace{\sqrt{\| \Sigma \|}}_{\text{determinant of } \Sigma} } \exp  \left (-\frac{1}{2} (x-\mu)^T \Sigma^{-1} (x- \mu) \right)
+\begin{aligned}
+p(x; \mu, \Sigma) = \frac{1}{(2\pi)^{\frac{n}{2} } | \Sigma |^{\frac{1}{2}} } \exp  \left (-\frac{1}{2} (x-\mu)^T \Sigma^{-1} (x- \mu) \right)
+\end{aligned}
+\label{eq:multivarprob} \tag{2}
 $$
 
-Now by setting the values of $\mu$ and $\Sigma$
+Where $|\Sigma|^{1/2}$ is called the determinant of $\Sigma$. Now by setting the values of $\mu$ and $\Sigma$
 
 $$
 \mu= \begin{bmatrix}1.5\\1.5\end{bmatrix}  \qquad \qquad \Sigma = \begin{bmatrix}1.0 & 0.5 \\0.5 & 1.0\end{bmatrix}
@@ -159,3 +162,16 @@ we would have a model that correctly identify the anomalous example (<a href="#m
     <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_20_0.png" alt="png">
     <figcaption>Figure 31. Contour plot of the probability density of function of a multivariate Gaussian distribution</figcaption>
 </figure>
+
+## Multivariate Anomaly detection
+We've already defined $\eqref{eq:multivarprob}$ as the probability of an example $x$ of being drawn from a multivariate Gaussian distribution described by its two parameters $\mu$ and $\Sigma$.
+
+In order to define an anomaly detection model based on a multivariate Gaussian distribution we need to estimate its parameters $\mu$ and $\Sigma$, where:
+
+$$
+\mu= \frac{1}{m} \sum^m_{i=1}x^{(i)}  \qquad \qquad \Sigma = \frac{1}{m}\sum^m_{i=1} \left(x^{(i)} - \mu \right)\left(x^{(i)} - \mu \right)^T
+$$
+
+The univariate Gaussian anomaly detection is actually a special case of the multivariate one, with the constraint that the off-diagonal of the covariance matrix is 0.
+
+It should also be noted that the univariate model is somewhat more used and can also be adapted to model correlated features. For it to work with correlated features you would need to manually create a new feature from the combination of the correlated ones, while the multivariate model would automatically capture such correlation. However, the univariate model is computationally cheaper and scales better to large $n$. Furthermore, where the univariate model works fine even with small $m$, the multivariate model requires $m > n$ for $\Sigma$ to be invertible.
