@@ -33,8 +33,8 @@ Suppose $x \in \mathbb{R}$. If $x$ distributes as a Gaussian distributions with 
     
 
 <figure id="gaussian">
-    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_7_0.png" alt="png">
-    <figcaption>Figure 26. Kernel density plot calculated from 100,000 points randomly drawn from a Gaussian distribution with mean $\mu$ and variance $\sigma^2$</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_6_0.png" alt="png">
+    <figcaption>Figure 26. Gaussian distribution with mean $\mu$ and variance $\sigma^2$</figcaption>
 </figure>
 
 The function of the Gaussian distribution is
@@ -50,7 +50,7 @@ Suppose you have a dataset $\lbrace x^{(1)}, x^{(2)}, \ldots, x^{(m)} \rbrace$ w
     
 
 <figure id="paramestim">
-    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_11_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_10_0.png" alt="png">
     <figcaption>Figure 27. Data distributed on the $x$ axis and their Gaussian density estimation</figcaption>
 </figure>
 
@@ -79,7 +79,45 @@ p(x) & = p(x_1; \mu_1,\sigma^2_1)p(x_2; \mu_2,\sigma^2_2),\ldots,p(x_n; \mu_n,\s
 \end{align}
 $$
 
+### Evaluation
+Anomaly detection algorithm can be evaluated with a confusion matrix given that some anomalous data is included in the training, in the test and cross-validation sets. The number of anomalous examples can be very small (e.g. 1:1000) but it is useful when evaluating.
 
-```python
+Evaluation on test / cross-validation set can the be based on the raw numbers of the confusion matrix, on precision/recall or $F_1$-Score metrics.
 
-```
+The cross-validations set can be used to choose the parameter $\varepsilon$
+
+## Anomaly Detection vs Supervised Learning
+In order to evaluate an anomaly detection model we need some labeled data. Then why don't we use a supervised classification algorithm to detect anomalous data points?
+
+|           | Anomaly detection                                                                                                                                                                                                                                | Supervised learning                                                                                                                                                                      |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Imbalance | Commonly, you have a very small number of positive examples (0-20) and  a large number of negative examples.                                                                                                                                     | You have a large number of positive and negative examples                                                                                                                                |
+| Coverage  | There may be many different types of anomalies. It may be hard for any algorithm to learn from positive examples what do the anomalies look like. Furthermore, future anomalies may look nothing like any anomalous example in the training set. | You have enough positive examples for an algorithm to get a sense of what positive examples are like; future positive examples are likely to be similar to the ones in the training set. |
+
+## Selecting Features for anomaly detection
+The choice of features included in an anomaly detection model heavily impact its performance.
+
+The most common problem that we want to overcome and is caused by a sub-optimal choice of the features is that $p(x)$ assumes comparable values for normal and anomalous examples.
+
+Usually the best procedure to choose features is by an error analysis, which is best explained in the <a href="#erroranalysis">Figure 28</a>
+
+
+    
+
+<figure id="erroranalysis">
+    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_14_0.png" alt="png">
+    <figcaption>Figure 28. An anomalous example not detected with a single feature $x_1$ and correctly detected in the feature space $x_1, x_2$</figcaption>
+</figure>
+
+A good practice in choosing features is to choose or combine features so that they take on unusually large or small values in the event of an anomaly.
+
+## Non-Gaussian features
+Even if a feature has not a Gaussian distribution (<a href="#gaussbetadist">Figure 29</a>), usually the algorithm works fine. However, usually the algorithm will work better if non-Gaussian data is **transformed to Gaussian**.
+
+
+    
+
+<figure id="gaussbetadist">
+    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_16_0.png" alt="png">
+    <figcaption>Figure 29. Histogram of data drawn from a Gaussian (A) and Beta (B) distributions and from the Beta distribution transformed to Gaussian (C)</figcaption>
+</figure>
