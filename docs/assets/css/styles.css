@@ -17,11 +17,15 @@ img {
     display: block;
 }
 
+
+
 figure {
     background-color: #fff;
     padding: 5px;
     font-size: .875em;
-    display: table;
+    /*display: table;*/
+    margin: 0 auto;
+    display: block;
 }
 
 figcaption {
