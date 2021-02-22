@@ -12,7 +12,7 @@ Anomaly detection describes a class of problems that many consider unsupervised 
 
 Anomaly detection is best explained through an example: suppose you are a aircraft engine manufacturer and, as part of your quality assurance testing, you measure a set of features of your manufactured engines. For this example the heat generated $x_1$ and the vibration intensity $x_2$.
 
-The results of your measurements is a dataset $\left \{x^{(1)}, x^{(2)}, \ldots, x^{(m)} \right \}$ (<a href="#engines">Figure 25</a>)
+The results of your measurements is a dataset $\left \lbrace x^{(1)}, x^{(2)}, \ldots, x^{(m)} \right \rbrace$ (<a href="#engines">Figure 25</a>)
 
 
     
@@ -44,7 +44,7 @@ p(x;\mu, \sigma^2)=\frac{1}{\sigma \sqrt{2 \pi}}  \left( - \frac{(x-\mu)^2}{2\si
 $$
 
 ## Parameter estimation
-Suppose you have a dataset $\{x^{(1)}, x^{(2)}, \ldots, x^{(m)} \}$ with $x^{(i)} \in \mathbb{R}$ (<a href="#paramestim">Figure 27</a>) and you suspect that they are Gaussian distributed with each $x^{(i)} \approx \mathcal{N}(\mu, \sigma^2)$ but I don't know the values of the two parameters $\mu$ and $\sigma^2$
+Suppose you have a dataset $\lbrace x^{(1)}, x^{(2)}, \ldots, x^{(m)} \rbrace$ with $x^{(i)} \in \mathbb{R}$ (<a href="#paramestim">Figure 27</a>) and you suspect that they are Gaussian distributed with each $x^{(i)} \approx \mathcal{N}(\mu, \sigma^2)$ but I don't know the values of the two parameters $\mu$ and $\sigma^2$
 
 
     
