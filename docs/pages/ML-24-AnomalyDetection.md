@@ -77,6 +77,7 @@ p(x) & = p(x_1; \mu_1,\sigma^2_1)p(x_2; \mu_2,\sigma^2_2),\ldots,p(x_n; \mu_n,\s
 & = \prod^n_{j=1}p(x_j; \mu_j,\sigma^2_j) \\
 & = \prod^n_{j=1}\frac{1}{\sigma_j \sqrt{2 \pi}}  \left( - \frac{(x_j-\mu_j)^2}{2\sigma_j^2} \right)
 \end{align}
+\label{eq:gaussprob} \tag{1}
 $$
 
 ### Evaluation
@@ -120,4 +121,41 @@ Even if a feature has not a Gaussian distribution (<a href="#gaussbetadist">Figu
 <figure id="gaussbetadist">
     <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_16_0.png" alt="png">
     <figcaption>Figure 29. Histogram of data drawn from a Gaussian (A) and Beta (B) distributions and from the Beta distribution transformed to Gaussian (C)</figcaption>
+</figure>
+
+## Multivariate Gaussian Distribution
+When calculating the probability $p(x)$ of an example being drawn from a normal distribution, we make an important assumption: that all features $x_j$ are independent.
+
+When there is some dependency between two or more features (e.g. linear dependency) the model might not be able to correctly identify anomalous examples. For example in the <a href="#multivar">Figure 30</a>, features $x_1$ and $x_2$ are linearly dependent and the new example, while being intuitively anomalous is not detected as such (panel A) since it is in the acceptable range of values of both $x_1$ (panel B) and $x_2$ (panel C) Gaussian distributions.
+
+
+    
+
+<figure id="multivar">
+    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_18_0.png" alt="png">
+    <figcaption>Figure 30. Dependent features and a new anomalous example not correctly classified by the algorithm modeled as an two independent Gaussian models (A); the $x_1$ (B) and $x_2$ (C) Gaussian models</figcaption>
+</figure>
+
+Instead of modeling $p(x_1)$ and $p(x_2)$ separately they should have been modeled together. In order to do so we would have to slightly change our system.
+
+Given the parameters $\mu \in \mathbb{R}^n$ and $\Sigma \in \mathbb{R}^{n \times n}$ called the covariance matrix
+
+$$
+p(x; \mu, \Sigma) = \frac{1}{(2\pi)^{\frac{n}{2} } \underbrace{\sqrt{\| \Sigma \|}}_{\text{determinant of } \Sigma} } \exp  \left (-\frac{1}{2} (x-\mu)^T \Sigma^{-1} (x- \mu) \right)
+$$
+
+Now by setting the values of $\mu$ and $\Sigma$
+
+$$
+\mu= \begin{bmatrix}1.5\\1.5\end{bmatrix}  \qquad \qquad \Sigma = \begin{bmatrix}1.0 & 0.5 \\0.5 & 1.0\end{bmatrix}
+$$
+
+we would have a model that correctly identify the anomalous example (<a href="#multivarinclined">Figure 31</a>).
+
+
+    
+
+<figure id="multivarinclined">
+    <img src="{{site.baseurl}}/pages/ML-24-AnomalyDetection_files/ML-24-AnomalyDetection_20_0.png" alt="png">
+    <figcaption>Figure 31. Contour plot of the probability density of function of a multivariate Gaussian distribution</figcaption>
 </figure>
