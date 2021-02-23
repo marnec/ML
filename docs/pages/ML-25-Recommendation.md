@@ -352,3 +352,125 @@ $$
 For each product $i$ we learn a feature vector $x^{(i)} \in \mathbb{R}^n$. In order to find movies $j$ related to movie $i$ we have to find small values of the distance between the two movies 
 
 $$\| x^{(i)} - x^{(j)} \|$$
+
+## Mean Normalization
+By applying mean normalization we prevent not being able to recommend any movie to users that haven't rated any. For those users we instead predict that their rating is the average rating of all users for that movie.
+
+Suppose you have a new user Eve, that hasn't rated any movie.
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Alice</th>
+      <th>Bob</th>
+      <th>Carol</th>
+      <th>Dave</th>
+      <th>Eve</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Love at last</th>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Romance forever</th>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Cute puppies</th>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Car chases</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Katana</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Without mean normalization we have
+
+$$
+\min_{x^{(1)}, \ldots, x^{(n_m)},\theta^{(1)}, \ldots, \theta^{(n_u)}}  
+\underbrace{\frac{1}{2} \sum_{(i,j):r(i,j)=1} \left ( \left( \theta^{(j)} \right) ^Tx^{(i)} -y^{(i,j)} \right)^2 }_0
++ \underbrace{\frac{\lambda}{2} \sum^{n_m}_{i=1} \sum^n_{k=1}\left(x_k^{(i)}\right)^2}_0
++ \frac{\lambda}{2} \sum^{n_u}_{j=1} \sum^n_{k=1}\left(\theta_k^{(j)}\right)^2
+$$
+
+And consequently for any movie $i$
+
+$$
+\left (\theta^{(5)} \right) x^{(i)} = 0
+$$
+
+But if we subtract the average movie rating to the rating matrix before training and add it back to the prediction we have:
+
+$$
+Y=
+\begin{bmatrix}
+ 5&  5&  0&  0& ? \\
+ 5& ?& ?&  0& ? \\
+?&  4&  0& ?& ? \\
+ 0&  0&  5&  4& ? \\
+ 0&  0&  5& 0& ?
+\end{bmatrix}
+\qquad
+\mu=\begin{bmatrix}
+2.5 \\ 2.5 \\ 2.  \\ 2.25\\ 1.25
+\end{bmatrix} \to Y=
+\begin{bmatrix}
+ 2.5 &  2.5 & -2.5 & -2.5 &   ? \\ 2.5 &   ?&   ?& -2.5 &   ? \\  ?&  2.  & -2.  &   ?&   ? \\-2.25& -2.25&  2.75&  1.75&   ? \\-1.25& -1.25&  3.75& -1.25&   ?
+\end{bmatrix}
+$$
+
+And the prediction would be
+
+$$
+\underbrace{\left (\theta^{(5)} \right) x^{(i)}}_0 + \mu_i= 2.5
+$$
+
