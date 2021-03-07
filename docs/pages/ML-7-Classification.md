@@ -53,7 +53,7 @@ It may be confusing that the term *regression* in logistic regression is associa
 Logistic regression is a classification algorithm
 
 # Hypothesis representation
-The representation of the logistic regression hypothesis should satisfy the output baoundaries
+The representation of the logistic regression hypothesis should satisfy the output boundaries
 
 $$0 \leq H_\theta(x) \leq 1$$
 

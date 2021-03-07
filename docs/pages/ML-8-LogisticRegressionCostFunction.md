@@ -7,22 +7,16 @@ order: 8
 comments: true
 ---
 
+The Cost function for a single training example is called the **Loss function** $\mathcal{L}$
 
-    
-![png](ML-8-LogisticRegressionCostFunction_files/ML-8-LogisticRegressionCostFunction_1_0.png)
-    
+$$\frac{1}{2}\left(h_\theta\left(x^{(i)}\right)-y^{(i)}\right)^2 \equiv \mathcal{L} \implies J(\theta)=\frac{1}{m}\sum_{i=1}^m\mathcal{L}$$
 
-
-For simplcity in the next sections we will call the Cost function for a single example $\text{Cost}$
-
-$$\frac{1}{2}\left(h_\theta\left(x^{(i)}\right)-y^{(i)}\right)^2 \equiv \text{Cost} \implies J(\theta)=\frac{1}{m}\sum_{i=1}^m\text{Cost}$$
-
-## Cost function for a single training example
-Here is the cost function that we will use for logistic regression
+## Loss Function
+For a single training example, the Cost function is called the **Loss function** $\mathcal{L}$
 
 $$
 \begin{equation*}
-\text{Cost}=
+\mathcal{L}=
 \begin{cases}
 -log(h_\theta(x)), & \text{if } y=1\\
 -log(1-h_\theta(x)), & \text{if } y=0\\
@@ -31,35 +25,29 @@ $$
 $$
 
 
-
-    
-![png](ML-8-LogisticRegressionCostFunction_files/ML-8-LogisticRegressionCostFunction_4_0.png)
-    
-
-
 This cost function has some desirable properties:
 
 * For $y=1$
-    * $h_\theta(x)\to1 \implies \text{Cost}\to0$. This is what we want because there should be an increasingly smaller cost when $h_\theta(x)\to y$ and no cost when $h_\theta(x) = y = 1$
+    * $h_\theta(x)\to1 \implies \mathcal{L}\to0$. This is what we want because there should be an increasingly smaller cost when $h_\theta(x)\to y$ and no cost when $h_\theta(x) = y = 1$
 
-    * $h_\theta(x) \to 0 \implies \text{Cost}\to\infty$. This captures the intuition that if $y=1$ and $P(y=1\mid x;\theta)$ the algorithm is penalized by a large cost
+    * $h_\theta(x) \to 0 \implies \mathcal{L}\to\infty$. This captures the intuition that if $y=1$ and $P(y=1\mid x;\theta)$ the algorithm is penalized by a large cost
     
 * For $y=0$
-    * $h_\theta(x)\to1 \implies \text{Cost}\to\infty$. There is a big cost associated to predicting 1 when $y=0$
-    * $h_\theta(x)\to0 \implies \text{Cost}\to0$. There is no cost associated to predicting 0 when $y=0$
+    * $h_\theta(x)\to1 \implies \mathcal{L}\to\infty$. There is a big cost associated to predicting 1 when $y=0$
+    * $h_\theta(x)\to0 \implies \mathcal{L}\to0$. There is no cost associated to predicting 0 when $y=0$
 
 ## Simplified cost function
-Since $y\in{0,1}$ we can write the $\text{Cost}$ function in a simpler way and compress the two cases in one equation.
+Since $y\in{0,1}$ we can write the $\mathcal{L}$ function in a simpler way and compress the two cases in one equation.
 
 $$
-\text{Cost}(h_\theta(x),y)=-y\log(h_\theta(x))-(1-y)\log(1-h_\theta(x))
+\mathcal{L}(h_\theta(x),y)=-y\log(h_\theta(x))-(1-y)\log(1-h_\theta(x))
 $$
 
 When $y=1$:
 
 $$
 \begin{align}
-\text{Cost}(h_\theta(x),y)&=-1\cdot\log(h_\theta(x))-0\cdot\log(1-h_\theta(x))\\
+\mathcal{L}(h_\theta(x),y)&=-1\cdot\log(h_\theta(x))-0\cdot\log(1-h_\theta(x))\\
 &=-\log(h_\theta(x))
 \end{align}
 $$
@@ -68,17 +56,17 @@ When $y=0$:
 
 $$
 \begin{align}
-\text{Cost}(h_\theta(x),y)&=-0\cdot\log(h_\theta(x))-1\cdot\log(1-h_\theta(x))\\
+\mathcal{L}(h_\theta(x),y)&=-0\cdot\log(h_\theta(x))-1\cdot\log(1-h_\theta(x))\\
 &=-\log(1-h_\theta(x))
 \end{align}
 $$
 
-## Cost function for the entire dataset
+## Cost function
 Now that we have a more compact way of writing the cost function we can write it for the whole dataset
 
 $$
 \begin{align}
-J(\theta)&=\frac{1}{m}\sum_{i=1}^m\text{Cost}(h_\theta(x^{(i)}),y^{(i)})\\
+J(\theta)&=\frac{1}{m}\sum_{i=1}^m\mathcal{L}\left(h_\theta \left(x^{(i)} \right),y^{(i)}\right)\\
 &=-\frac{1}{m}\left[\sum_{i=1}^my^{(i)}\log\left(h_\theta(x^{(i)})\right)+\left(1-y^{(i)}\right)\log\left(1-h_\theta(x^{(i)})\right)\right]
 \end{align}
 $$
@@ -109,7 +97,7 @@ Plugging the derived term into the gradient descent we obtain
 
 $$\theta_j := \theta_j-\frac{\alpha}{m}\sum_{i=1}^m\left(h_\theta(x^{(i)})-y^{(i)}\right)x_j^{(i)}$$
 
-This looks identical to fradient descent for linear regression, however the definition of $h_\theta(x)$ is changed and is now $\frac{1}{1+e^{\theta^Tx}}$
+This looks identical to gradient descent for linear regression, however the definition of $h_\theta(x)$ is changed and is now $\frac{1}{1+e^{\theta^Tx}}$
 
 # Vectorization
 Vectorized implementations of the cost function and the gradient descent are

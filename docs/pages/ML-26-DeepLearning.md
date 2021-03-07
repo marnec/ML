@@ -1,0 +1,52 @@
+---
+layout: default
+title: "Deep Learning"
+categories: deeplearning
+permalink: /ML26/
+order: 26
+comments: true
+---
+
+# Deep learning
+While the concept of deep learning has been around since many years, it really took off some years ago. On one hand, from the advent of computers and internet we ha started to accumulate an enormous amount of data. On the other hand computational power has increased to the point that training very large neural network is now not only possible, but relatively easy. These two fact combined are the reason behind the popularization of deep learning algorithm, since large amount of data (more precisely labeled data) fed into very large neural networks, produce results unachievable by other models.
+
+So in one word **scale** has been driving deep learning, scale of labeled data, of computational power and of the algorithm.
+
+Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#sigmoidrelu">Figure 32</a>).
+
+
+    
+
+<figure id="sigmoidrelu">
+    <img src="{{site.baseurl}}/pages/ML-26-DeepLearning_files/ML-26-DeepLearning_2_0.png" alt="png">
+    <figcaption>Figure 32. Comparison between sigmoid function and ReLU</figcaption>
+</figure>
+
+This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
+
+## Derivatives
+Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#derivative">Figure 33</a>).
+
+The slope $\frac{\text{height} }{\text{width}}=3$ so we say that the derivative of $f(a)$ at the point $a=2$ is $3$. Height and width are the the vertical and horizontal distances and the slope is also expressed as $\frac{df(a)}{da}$ or as $\frac{d}{da}f(a)$. The reason why $a'$ doesn't appear in this representation is because, formally, the derivative is calculated at a very small increment of $a$ such as $a' \approx a$.
+
+For a straight line (<a href="#derivative">Figure 33</a>, panel A) the derivative is constant along the whole line.
+
+
+
+
+    (-0.5, 7.0)
+
+
+
+
+    
+
+<figure id="derivative">
+    <img src="{{site.baseurl}}/pages/ML-26-DeepLearning_files/ML-26-DeepLearning_4_1.png" alt="png">
+    <figcaption>Figure 33. The concept of derivative applied to a straight line</figcaption>
+</figure>
+
+
+```python
+
+```
