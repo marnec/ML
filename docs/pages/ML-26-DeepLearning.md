@@ -39,6 +39,75 @@ For a straight line (<a href="#derivative">Figure 33</a>, panel A) the derivativ
     <figcaption>Figure 33. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
 </figure>
 
+## Computational graph
+The computational graph explains the forward- and backward- propagation (as to say the flow of the computation) that takes place in the training of a neural network. 
+
+To illustrate the computation graph let's use a simpler example than a full blown neural network, let's say that we are writing a function $J(a, b, c) = 3(a+bc)$. In order to compute this function there are three steps: 
+
+1. $u = bc$
+2. $v = a + u$
+3. $J=3v$
+
+We can draw these steps in a computational graph
+
+
+
+
+    
+![svg](ML-26-DeepLearning_files/ML-26-DeepLearning_6_0.svg)
+    
+
+
+
+Suppose we want to calculate $\frac{dJ}{dv}$ ( in other words if we change the value $v$ of a little amount how would the value of $J$ change?). 
+
+* $J = 3v$
+* $v = 11 \to 3.001$
+* $J = 33 \to 33.003$
+
+So 
+
+$$\frac{dJ}{dv}=\frac{0.003}{0.001}=3$$
+
+In the terminology of backpropagation if we want to compute $\frac{dJ}{dv}$ we take one step back from $J$ to $v$
+
+
+
+
+    
+![svg](ML-26-DeepLearning_files/ML-26-DeepLearning_8_0.svg)
+    
+
+
+
+We now want to calculate $\frac{dJ}{da}$, in other words the change of value $J$ when $a$ changes
+
+* $a = 5 \to 5.001$
+* $v = 11 \to 11.001$
+* $J = 33 \to 33.003$
+
+So, once again
+
+$$\frac{dJ}{da}=\frac{0.003}{0.001}=3$$
+
+Where the net change is given by 
+
+$$
+\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}
+$$
+
+
+In calculus this is called the **chain rule** where $a$ affects $v$ that affects $J$ ($a\to v \to J$). So that the change of $J$ when $a$ is given by the product $\frac{dJ}{dv}\frac{dv}{da}$. This illustrates how having computed $\frac{dJ}{dv}$ helps in calculating $\frac{dJ}{da}$
+
+
+
+
+    
+![svg](ML-26-DeepLearning_files/ML-26-DeepLearning_10_0.svg)
+    
+
+
+
 
 ```python
 
