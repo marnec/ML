@@ -32,18 +32,11 @@ The slope $\frac{\text{height} }{\text{width}}=3$ so we say that the derivative 
 For a straight line (<a href="#derivative">Figure 33</a>, panel A) the derivative is constant along the whole line.
 
 
-
-
-    (-0.5, 7.0)
-
-
-
-
     
 
 <figure id="derivative">
-    <img src="{{site.baseurl}}/pages/ML-26-DeepLearning_files/ML-26-DeepLearning_4_1.png" alt="png">
-    <figcaption>Figure 33. The concept of derivative applied to a straight line</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-26-DeepLearning_files/ML-26-DeepLearning_4_0.png" alt="png">
+    <figcaption>Figure 33. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
 </figure>
 
 
