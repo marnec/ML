@@ -106,7 +106,7 @@ Vectorized implementations of the cost function and the gradient descent are
 
 $$
 \begin{align}
-&h = g(X\theta)\\
+&h = g(\theta x)\\
 &J(\theta)=\frac{1}{m}\left(-y^T\log(h)-(1-y)^T\log(1-h)\right)
 \end{align}
 $$
