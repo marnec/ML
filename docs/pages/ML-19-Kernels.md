@@ -8,30 +8,30 @@ comments: true
 ---
 
 # Non-linear hypothesis with SVMs
-In this section we will see how kernels enable SVMs to model complex non-linear data. Suppose we have a dataset like that in <a href="#ellipserandom">Figure 13</a>. 
+In this section we will see how kernels enable SVMs to model complex non-linear data. Suppose we have a dataset like that in <a href="#ellipserandom">the figure below</a>. 
 
 
     
+![png](ML-19-Kernels_files/ML-19-Kernels_3_0.png)
+    
 
-<figure id="ellipserandom">
-    <img src="{{site.baseurl}}/pages/ML-19-Kernels_files/ML-19-Kernels_3_0.png" alt="png">
-    <figcaption>Figure 13. Non linear data scattered on its features space $(x_1, x_2)$. In this plots coordinates are randomly generated to fill two ellipses.</figcaption>
-</figure>
+
+<i id="ellipserandom">Non linear data scattered on its features space $(x_1, x_2)$. In this plots coordinates are randomly generated to fill two ellipses.</i>
 
 We could manually design an hypothesis with high order polynomial features to model the data, but is there a better way to choose the features?
 
 ## Kernels
 In this section we will start to explore the idea of **kernels** to define new features. 
 
-Let's manually choose three points in the feature space $(x_1, x_2)$, that we will call the **landmarks** $l^{(1)}, l^{(2)}, l^{(3)}$ (<a href="#manuallandmarks">Figure 14</a>). We are going to define our as a measure of similarity between the training examples and the landmarks.
+Let's manually choose three points in the feature space $(x_1, x_2)$, that we will call the **landmarks** $l^{(1)}, l^{(2)}, l^{(3)}$ (<a href="#manuallandmarks">figure below</a>). We are going to define our as a measure of similarity between the training examples and the landmarks.
 
 
     
+![png](ML-19-Kernels_files/ML-19-Kernels_6_0.png)
+    
 
-<figure id="manuallandmarks">
-    <img src="{{site.baseurl}}/pages/ML-19-Kernels_files/ML-19-Kernels_6_0.png" alt="png">
-    <figcaption>Figure 14. Three landmarks points chosen manually</figcaption>
-</figure>
+
+<i id="manuallandmarks">Three landmarks points chosen manually</i>
 
 Given an example $x$, we will define three features $f_1, f_2, f_3$:
 
@@ -80,20 +80,20 @@ $$
 l^{(1)} = \begin{bmatrix}3\\5\end{bmatrix}, \quad f_1 = \exp \left( -\frac{\left \| x - l^{(1)} \right \|^2}{2\sigma^2}\right)
 $$
 
-By looking at <a href="#gaussk">Figure 15</a>, we can see how $f_1 \to 1$ when $x_1 \to 3$ and $x_2 \to 5$, where $(3, 5)$ are the coordinates of $l^{(1)}$. 
+By looking at <a href="#gaussk">the figure below</a>, we can see how $f_1 \to 1$ when $x_1 \to 3$ and $x_2 \to 5$, where $(3, 5)$ are the coordinates of $l^{(1)}$. 
 
 
     
+![png](ML-19-Kernels_files/ML-19-Kernels_9_0.png)
+    
 
-<figure id="gaussk">
-    <img src="{{site.baseurl}}/pages/ML-19-Kernels_files/ML-19-Kernels_9_0.png" alt="png">
-    <figcaption>Figure 15. Three-dimensional surface and contour plot of the value the gaussian kernel $f_1$ as a function of the features $x_1$ and $x_2$. The three couple of plots are views of the kernel values when $\sigma^2= 1, 0.5, 3$ respectively.</figcaption>
-</figure>
+
+<i id="gaussk">Three-dimensional surface and contour plot of the value the gaussian kernel $f_1$ as a function of the features $x_1$ and $x_2$. The three couple of plots are views of the kernel values when $\sigma^2= 1, 0.5, 3$ respectively.</i>
 
 It is also interesting to notice the effect of different values of $\sigma^2$ on $f_1$ output. When $\sigma^2$ decreases, $f_1$ falls to $0$ much more rapidly when $x$ stray from $l^{(1)}$. Conversely if the value of $\sigma^2$ is large the decay of $f_1$ is much slower.
 
 ### Multiple landmarks
-Let's get back to <a href="#manuallandmarks">Figure 14</a> and let's try to put together what we have learned in the case of multiple landmarks.
+Let's get back to <a href="#manuallandmarks">the figure with the manually set landmarks</a> and let's try to put together what we have learned in the case of multiple landmarks.
 
 We have three features $f_1, f_2, f_3$ and our hypothesis:
 
@@ -110,7 +110,7 @@ $$
 \end{bmatrix}
 $$
 
-Now let's consider various training examples placed on the features space $(x_1, x_2)$ represented on <a href="#manuallandmarks2">Figure 16</a>.
+Now let's consider various training examples placed on the features space $(x_1, x_2)$ represented on <a href="#manuallandmarks2">the figure below</a>.
 
 Training example $x^{(1)}$ is close to $l^{(1)}$, hence $f_1 \approx 1$ while $f_2, f_3 \approx 0$. Its prediction will be:
 
@@ -130,11 +130,11 @@ Training example $x^{(2)}$ is far from any landmark, hence $f_1, f_2, f_3 \appro
 
 
     
+![png](ML-19-Kernels_files/ML-19-Kernels_12_0.png)
+    
 
-<figure id="manuallandmarks2">
-    <img src="{{site.baseurl}}/pages/ML-19-Kernels_files/ML-19-Kernels_12_0.png" alt="png">
-    <figcaption>Figure 16. Manually placed landmarks as in <a href="#manuallandmarks">Figure 14</a> and training example falling close or far from landmarks.</figcaption>
-</figure>
+
+<i id="manuallandmarks2">Manually placed landmarks as in <a href="#manuallandmarks">previous figure</a> and training example falling close or far from landmarks.</i>
 
 ### Choice of the landmarks
 Until now we manually picked the landmarks, in an SVM landmarks are defined as exactly the same coordinates as the points in the training set. This means that when an input is fed to the trained algorithm, it calculates how close it is to points in the training set.
@@ -158,7 +158,7 @@ When training an SVM, regardless of what kernel you use you will have to set the
     * large $C$: Lower bias, higher variance
     * small $C$: Higher bias, lower variance
 
-* bandwidth parameter $\sigma^2$, as we can infer from <a href="#gaussk">Figure 15</a>:
+* bandwidth parameter $\sigma^2$, as we can infer from <a href="#gaussk">the figure with the gaussian and contour plots</a>:
 
     * Large $\sigma^2$: features $f_i$ vary more smoothly; higher bias, lower variance
     * Small $\sigma^2$: features $f_i$ vary more abruptly; lower bias, higher variance

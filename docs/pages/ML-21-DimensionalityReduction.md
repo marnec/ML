@@ -8,15 +8,15 @@ comments: true
 ---
 
 # Dimensionality Reduction
-When training a learning algorithm on a training set with hundreds or thousands of features, it is very likely that some of them are redundant as in <a href="#redundantlen">Figure 22</a>. Two features do not need to be encoding for the same property to be redundant, it is sufficient that they are highly correlated.
+When training a learning algorithm on a training set with hundreds or thousands of features, it is very likely that some of them are redundant as in <a href="#redundantlen">the figure below</a>. Two features do not need to be encoding for the same property to be redundant, it is sufficient that they are highly correlated.
 
 
     
+![png](ML-21-DimensionalityReduction_files/ML-21-DimensionalityReduction_2_0.png)
+    
 
-<figure id="redundantlen">
-    <img src="{{site.baseurl}}/pages/ML-21-DimensionalityReduction_files/ML-21-DimensionalityReduction_2_0.png" alt="png">
-    <figcaption>Figure 22. Two redundant features (same property in different units of measure, the relationship not being perfectly linear is due to different approximation of the measurements) (A); Two redundant features measuring different but highly correlated properties (B); features space of panel A collapsed in (projected on) a single dimension (C) </figcaption>
-</figure>
+
+<i id="redundantlen">Two redundant features (same property in different units of measure, the relationship not being perfectly linear is due to different approximation of the measurements) (A); Two redundant features measuring different but highly correlated properties (B); features space of panel A collapsed in (projected on) a single dimension (C) </i>
 
 Dimensionality reduction is not limited to bi-dimensional data; a typical task of dimensionality reduction could be to reduce a $\mathbb{R}^{1000}$ to a $\mathbb{R}^{100}$ feature space
 
@@ -31,24 +31,24 @@ People sometimes use dimensionality reduction algorithms (e.g. PCA) to prevent o
 ##  Principal Component Analysis
 Principal Component Analysis (PCA) is the most common algorithm for dimensionality reduction.
 
-If we want to reduce data from 2 dimensions to 1 dimension (<a href="#pcaline">Figure 23</a>), the goal of PCA is to find a vector $u^{(1)} \in \mathbb{R^n}$ onto which to project the data so as to minimize the projection error.
+If we want to reduce data from 2 dimensions to 1 dimension (<a href="#pcaline">the figure below</a>), the goal of PCA is to find a vector $u^{(1)} \in \mathbb{R^n}$ onto which to project the data so as to minimize the projection error.
 
 
     
+![png](ML-21-DimensionalityReduction_files/ML-21-DimensionalityReduction_6_0.png)
+    
 
-<figure id="pcaline">
-    <img src="{{site.baseurl}}/pages/ML-21-DimensionalityReduction_files/ML-21-DimensionalityReduction_6_0.png" alt="png">
-    <figcaption>Figure 23. Distance calculation for PCA in the linear case (A) and linear regression (B).</figcaption>
-</figure>
+
+<i id="pcaline">Distance calculation for PCA in the linear case (A) and linear regression (B).</i>
 
 In $n$ dimensions PCA tries to find a surface with a smaller number of dimensions $k$ ($k$ vectors $u^{(1)}, u^{(2)}, \ldots, u^{(k)}$) on which to project the data so that the sum of squares of the projections distance (projection error) is minimized.
 
 ### PCA vs Linear Regression
 While it may be cosmetically similar, there is substantial difference between PCA and linear regression. 
 
-In linear regression (<a href="#pcaline">Figure 23</a>, panel B) we try to predict some value $y$ given some input feature $x_1$  and in training linear regression we try to minimize the **vertical distance** between $x_1, y$ points and a straight line.
+In linear regression (<a href="#pcaline">figure above</a>, panel B) we try to predict some value $y$ given some input feature $x_1$  and in training linear regression we try to minimize the **vertical distance** between $x_1, y$ points and a straight line.
 
-In PCA (<a href="#pcaline">Figure 23</a>, panel A) there is no variable $y$: we try to reduce the dimensionality of a feature space $x_1, x_2$ by minimizing the **projection error** of feature points and a straight line.
+In PCA (<a href="#pcaline">the figure above</a>, panel A) there is no variable $y$: we try to reduce the dimensionality of a feature space $x_1, x_2$ by minimizing the **projection error** of feature points and a straight line.
 
 ## PCA algorithm
 ### Preprocessing
@@ -65,7 +65,7 @@ $$\frac{x_j - \mu_j}{s_j}$$
 where $s_j$ is a measure of the range of values of $x_j$, commonly the standard deviation.
 
 ### Dimensionality reduction
-The objective of PCA is to project a higher number of dimensions $n$ on a lower number of dimensions $k$ (defined by $k$ vectors $ \{u_1, u_2, \ldots, u_k \}$), as shown in <a href="#redundantlen">Figure 22</a>, panels A and C.
+The objective of PCA is to project a higher number of dimensions $n$ on a lower number of dimensions $k$ (defined by $k$ vectors $ \{u_1, u_2, \ldots, u_k \}$), as shown in <a href="#redundantlen">figure above</a>, panels A and C.
 
 The mathematical proof of this process is rather complex but the procedure is instead quite simple.
 
@@ -116,15 +116,15 @@ $$
 x \approx U_\text{reduce}^T z
 $$
 
-However, all points of $x$ will be along the $u$ vector and we will lose exactly the information of the projection error (<a href="#reconstruction">Figure 24</a>). So, the smaller the projection error, the more faithful the reconstruction.
+However, all points of $x$ will be along the $u$ vector and we will lose exactly the information of the projection error (<a href="#reconstruction">figure below</a>). So, the smaller the projection error, the more faithful the reconstruction.
 
 
     
+![png](ML-21-DimensionalityReduction_files/ML-21-DimensionalityReduction_10_0.png)
+    
 
-<figure id="reconstruction">
-    <img src="{{site.baseurl}}/pages/ML-21-DimensionalityReduction_files/ML-21-DimensionalityReduction_10_0.png" alt="png">
-    <figcaption>Figure 24. Projection of bi-dimensional features $x$ on vector $u$ with projection error as a dashed green line (A); representation of reduced features $z$ (B); reconstruction of approximated features $x$ from $z$ with loss of the projection error information.</figcaption>
-</figure>
+
+<i id="reconstruction">Projection of bi-dimensional features $x$ on vector $u$ with projection error as a dashed green line (A); representation of reduced features $z$ (B); reconstruction of approximated features $x$ from $z$ with loss of the projection error information.</i>
 
 ## Setting the number of Principal Components
 The rule of thumb adopted usually to decide the hyper-parameter $k$ (the number of principal components) is this:

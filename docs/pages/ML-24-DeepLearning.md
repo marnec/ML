@@ -12,32 +12,32 @@ While the concept of deep learning has been around since many years, it really t
 
 So in one word **scale** has been driving deep learning, scale of labeled data, of computational power and of the algorithm.
 
-Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#sigmoidrelu">Figure 32</a>).
+Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#sigmoidrelu">figure below</a>).
 
 
     
+![png](ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png)
+    
 
-<figure id="sigmoidrelu">
-    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png" alt="png">
-    <figcaption>Figure 32. Comparison between sigmoid function and ReLU</figcaption>
-</figure>
+
+<i id="sigmoidrelu">Comparison between sigmoid function and ReLU</i>
 
 This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
 
 ## Derivatives
-Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#derivative">Figure 33</a>).
+Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#derivative">figure below</a>).
 
 The slope $\frac{\text{height} }{\text{width}}=3$ so we say that the derivative of $f(a)$ at the point $a=2$ is $3$. Height and width are the the vertical and horizontal distances and the slope is also expressed as $\frac{df(a)}{da}$ or as $\frac{d}{da}f(a)$. The reason why $a'$ doesn't appear in this representation is because, formally, the derivative is calculated at a very small increment of $a$ such as $a' \approx a$.
 
-For a straight line (<a href="#derivative">Figure 33</a>, panel A) the derivative is constant along the whole line.
+For a straight line (<a href="#derivative">figure below</a>, panel A) the derivative is constant along the whole line.
 
 
     
+![png](ML-24-DeepLearning_files/ML-24-DeepLearning_4_0.png)
+    
 
-<figure id="derivative">
-    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_4_0.png" alt="png">
-    <figcaption>Figure 33. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
-</figure>
+
+<i id="derivative">The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</i>
 
 ## Computational graph
 The computational graph explains the forward- and backward- propagation (as to say the flow of the computation) that takes place in the training of a neural network. 
