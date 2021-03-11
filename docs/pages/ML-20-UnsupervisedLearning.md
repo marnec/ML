@@ -8,7 +8,7 @@ comments: true
 ---
 
 # Unsupervised learning
-When describing unsupervised learning it is useful to define it compared to supervised learning. In supervised learning what we do can be summarized as: given a set of labels, fit an hypothesis that describe the data. In contrast in unsupervised learning we don't have any label (<a href="ML1#iris">one of the first figures</a>)
+When describing unsupervised learning it is useful to define it compared to supervised learning. In supervised learning what we do can be summarized as: given a set of labels, fit an hypothesis that describe the data. In contrast in unsupervised learning we don't have any label (<a href="{{site.basurl}}/ML/ML1#iris">Figure 4</a>)
 
 The training set in an unsupervised learning problem is in the form
 
@@ -18,32 +18,32 @@ $$
 
 The objective of unsupervised learning is for the algorithm to find some structure in the data.
 
-For example a structure that we can find in data points represented in <a href="#simpleclusters">the figure below</a> is that the points are grouped in two clusters. This would be called a clustering algorithm
+For example a structure that we can find in data points represented in <a href="#simpleclusters">Figure 20</a> is that the points are grouped in two clusters. This would be called a clustering algorithm
 
 
     
-![png](ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_2_0.png)
-    
 
-
-<i id="simpleclusters">An example of unsupervised learning problem: unlabeled data is clustered in two groups based on their distance in the feature space $x \in \mathbb{R}^2$</i>
+<figure id="simpleclusters">
+    <img src="{{site.baseurl}}/pages/ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_2_0.png" alt="png">
+    <figcaption>Figure 20. An example of unsupervised learning problem: unlabeled data is clustered in two groups based on their distance in the feature space $x \in \mathbb{R}^2$</figcaption>
+</figure>
 
 ## K-means clustering
 In Clustering we want an algorithm to group our data into coherent subgroups.K-means algorithm is by far the most popular and widely used clustering algorithm.
 
-Suppose we have an unlabeled dataset and we want to apply the K-means algorithm to find if there is any structure in it. What the K-means algorithm does is first initialize random points called the **centroids**. In <a href="#kmeanscentroids">the figure below</a> we can see two centroids because we want to group the data in two clusters.
+Suppose we have an unlabeled dataset and we want to apply the K-means algorithm to find if there is any structure in it. What the K-means algorithm does is first initialize random points called the **centroids**. In <a href="#kmeanscentroids">Figure 21</a> we can see two centroids because we want to group the data in two clusters.
 
 
 
 
     
-![png](ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_4_0.png)
-    
 
+<figure id="kmeanscentroids">
+    <img src="{{site.baseurl}}/pages/ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_4_0.png" alt="png">
+    <figcaption>Figure 21. figure caption</figcaption>
+</figure>
 
-<i id="kmeanscentroids">figure caption</i>
-
-K-means is an iterative algorithm; each iteration is composed of two steps shown in <a href="#kmeansteps">the figure below</a>
+K-means is an iterative algorithm; each iteration is composed of two steps shown in <a href="#kmeansteps">Figure 22</a>
 
 1. **Cluster assignment** assign each training example $x^{(i)}$ to the closest cluster centroid
 
@@ -53,11 +53,11 @@ Iterations stop when the centroids position does not change any further.
 
 
     
-![png](ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_6_0.png)
-    
 
-
-<i id="kmeansteps">Computational steps in a single iteration of the K-means algorithm for a set of training examples described by a feature vector $x \in \mathbb{R}^2$: cluster assignment (A) and centroid re-positioning (B)</i>
+<figure id="kmeansteps">
+    <img src="{{site.baseurl}}/pages/ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_6_0.png" alt="png">
+    <figcaption>Figure 22. Computational steps in a single iteration of the K-means algorithm for a set of training examples described by a feature vector $x \in \mathbb{R}^2$: cluster assignment (A) and centroid re-positioning (B)</figcaption>
+</figure>
 
 More formally, the K-means algorithm takes as input:
 
@@ -90,15 +90,15 @@ If a centroid has no points assigned it can be:
 * randomly reassigned (less common)
 
 ## K-means for non-separated clusters
-Until now we have seen the K-means algorithm applied to data were clusters are well separated but sometimes K-means is also applied to non separated clusters. In the example shown in <a href="#tshirtsizes">the figure below</a> we see the height and weight of a set of people. In this case we might be interested in grouping these people in three T-shirt sizes (three clusters).
+Until now we have seen the K-means algorithm applied to data were clusters are well separated but sometimes K-means is also applied to non separated clusters. In the example shown in <a href="#tshirtsizes">Figure 23</a> we see the height and weight of a set of people. In this case we might be interested in grouping these people in three T-shirt sizes (three clusters).
 
 
     
-![png](ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_8_0.png)
-    
 
-
-<i id="tshirtsizes">Distribution of people based on their height and weight, clustered in $K=3$ clusters with the K-means algorithms</i>
+<figure id="tshirtsizes">
+    <img src="{{site.baseurl}}/pages/ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_8_0.png" alt="png">
+    <figcaption>Figure 23. Distribution of people based on their height and weight, clustered in $K=3$ clusters with the K-means algorithms</figcaption>
+</figure>
 
 ## K-means optimization objective
 Alike to supervised learning also K-means algorithm has an optimization objective. Given
@@ -133,14 +133,14 @@ The best method to choose the number of clusters is usually picking it manually 
 
 One of the reasons why it is difficult to choose the number of cluster is because it is genuinely ambiguous how many clusters there actually are in a data set.
 
-If no particular requirement is specified (in <a href="#tshirtsizes">figure above</a> we wanted exactly three clusters, for the three sizes of t-shirts S, M, L), a method that is sometimes used is known as the **elbow method**.
+If no particular requirement is specified (in <a href="#tshirtsizes">Figure 23</a> we wanted exactly three clusters, for the three sizes of t-shirts S, M, L), a method that is sometimes used is known as the **elbow method**.
 
 
     
-![png](ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_11_0.png)
-    
 
+<figure id="elbow">
+    <img src="{{site.baseurl}}/pages/ML-20-UnsupervisedLearning_files/ML-20-UnsupervisedLearning_11_0.png" alt="png">
+    <figcaption>Figure 24. Representation of a good output (A) and bad output (B) of the elbow method for selecting the optimal number of clusters $K$</figcaption>
+</figure>
 
-<i id="elbow">Representation of a good output (A) and bad output (B) of the elbow method for selecting the optimal number of clusters $K$</i>
-
-When using this method we will calculate the cost $J$ as a function of the number of clusters $K$ (<a href="#elbow">figure above</a>) and try to identify a region where there is an elbow (there is a sharp change of the direction of the $J$ by further increasing $K$). such elbow is present in the plot (panel A) than we can select the $K$ at which we have the hinge of the elbow. However usually the $J$ by $K$ function is much less clear (panel B) and it is not suitable to identify an optimal $K$.
+When using this method we will calculate the cost $J$ as a function of the number of clusters $K$ (<a href="#elbow">Figure 24</a>) and try to identify a region where there is an elbow (there is a sharp change of the direction of the $J$ by further increasing $K$). such elbow is present in the plot (panel A) than we can select the $K$ at which we have the hinge of the elbow. However usually the $J$ by $K$ function is much less clear (panel B) and it is not suitable to identify an optimal $K$.

@@ -42,11 +42,11 @@ Until now we represented single neurons; a neural network is a group of differen
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_6_0.png)
-    
 
-
-<i id="simpleann">A simple neural network with one hidden layer</i>
+<figure id="simpleann">
+    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_6_0.png" alt="png">
+    <figcaption>Figure 5. A simple neural network with one hidden layer</figcaption>
+</figure>
 
 The computational entities in a neural networks are:
 
@@ -191,7 +191,7 @@ Neural networks can have different number and dimension of hidden layers and the
 
 
 ## Vectorization
-<a href="#simpleann">The simple one-hidden-layer neural network depicted above</a> is described by the set of equations:
+<a href="#simpleann">Figure 5</a> is described by the set of equations:
 
 $$
 \begin{aligned}
