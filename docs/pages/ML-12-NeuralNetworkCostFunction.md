@@ -11,7 +11,7 @@ comments: true
 Until now we used the sigmoid activation (<a href="#activfuncs">Figure 6</a>, panel A) function but you can use different activation functions that affect the output.
 
 ## Different types of activation functions
-A function that almost always works better than th sigmoi function is the hyperbolic tangent function (<a href="#activfuncs">Figure 6</a>, panel B), which is a shifted and scaled version of the sigmoid function. The reason it works better than the sigmoid function is that, being centered on 0, the mean of the activation values in the hidden units of a layer is close to 0 and this makes the learning process easier for the next layer. This is always valid with the exception of the output layer.
+A function that almost always works better than th sigmoid function is the hyperbolic tangent function (<a href="#activfuncs">Figure 6</a>, panel B), which is a shifted and scaled version of the sigmoid function. The reason it works better than the sigmoid function is that, being centered on 0, the mean of the activation values in the hidden units of a layer is close to 0 and this makes the learning process easier for the next layer. This is always valid with the exception of the output layer.
 
 One of the drawbacks of both the sigmoid function and the hyperbolic tangent function is that for extreme values of $z$, the derivatives are $\approx 0$ (the slope of the function is close to 0) and this can slow down gradient descent. 
 
@@ -35,17 +35,6 @@ Why not set $z = a$ (a situation sometimes called a linear activation function)?
 As a matter of fact it can be demonstrated that a neural network with 1 hidden layer with linear activation functions (<a href="#linann">Figure 7</a>, panel A), it is not more expressive than a logistic regression algorithm.
 
 
-```python
-fig, [ax1, ax2] = plt.subplots(1, 2, figsize=(10, 4))
-ann([3, 3, 1], node_labels=['$x_1$','$x_2$', '$x_3$', 'lin', 'lin', 'lin', '$\\sigma$'], radius=3, node_colors=True, ax=ax1)
-ax1.set_aspect('equal')
-ax1.text(-0.1, 1.15, 'A', transform=ax1.transAxes, fontsize=15, va='top', ha='right')
-ann([3, 3, 1], node_labels=['$x_1$','$x_2$', '$x_3$', '! lin', '! lin', '! lin', 'lin'], radius=3, node_colors=True, ax=ax2)
-ax2.set_aspect('equal')
-ax2.text(-0.1, 1.15, 'B', transform=ax2.transAxes, fontsize=15, va='top', ha='right');
-```
-
-
     
 
 <figure id="linann">
@@ -55,12 +44,18 @@ ax2.text(-0.1, 1.15, 'B', transform=ax2.transAxes, fontsize=15, va='top', ha='ri
 
 There is a case in which having a linear activation function in the output layer might be useful: when using a neural network for a regression problem, where $y \in \mathbb{R}$. But in that case the hidden units should have non-linear activation functions (<a href="#linann">Figure 7</a>, panel B).
 
+
+    
+![png](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_6_0.png)
+    
+
+
 # Neural Network Cost function
 Suppose we have a classification problem and we are training a neural network like that shown in the picture with $L$ number of layers and $s_l$ no of units in layer $l$; suppose we have a training set $\left \lbrace  (x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \dots, (x^{(m)}, y^{(m)}) \right \rbrace$.
 
 
     
-![png](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_7_0.png)
+![png](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_8_0.png)
     
 
 
