@@ -28,60 +28,131 @@ $$
 [x_0x_1x_2x_3]\to[]\to h_\theta(x)
 $$
 
-Sometimes when representing the inputs of a neuron the $x_0$, which is sometimes called the bias unit (since $x_0=1$), might be added if it convenient for the discussion of the model.
+where $x_0$ (sometimes called the bias unit) is usually omitted in favor of another representation:
 
+$$
+[x_1x_2x_3]\to[]\to h_\theta(x)
+$$
 
-    
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_4_0.png)
-    
+and the parameters, or **weights** ($w$) are accompanied by the **bias** $b$.
 
-
-In neural networks the parameters $\theta$ of the model are sometimes called **weights** ($w$).
-
-Until now we represented single neurons; a neural network is a group of different neurons connected together. The input nodes are grouped in what is called the **input layer** ($a^{[0]}$), which is always the first layer of the neural network. The final layer is called the **output layer**, since it computes the final value of our hypothesis. And all layers in between the input and the output layers are called **hidden layers**. They are called hidden layers because we can't observes the values computed by these nodes.
+Until now we represented single neurons; a neural network is a group of different neurons connected together. The input nodes are grouped in what is called the **input layer** ($x$), which is always the first layer of the neural network. The final layer is called the **output layer**, since it computes the final value of our hypothesis. And all layers in between the input and the output layers are called **hidden layers**. They are called hidden layers because we can't observes the values computed by these nodes.
 
 
     
 
 <figure id="simpleann">
-    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_6_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_5_0.png" alt="png">
     <figcaption>Figure 5. A simple neural network with one hidden layer</figcaption>
 </figure>
 
 The computational entities in a neural networks are:
 
 * $a_i^{[j]}$  activation neuron/unit $i$ in layer $j$
-* $w^{(j)}$ matrix of weights controlling the function mapping from layer $j$ to layer $j+1$ 
+* $W^{[j]}$ matrix of weights controlling the function mapping from layer $j$ to layer $j+1$ 
+* $b^{[j]}$ the bias vectors
 
 And the computation in the network
 
 $$
-\left[x_0 x_1 x_2 x_3 \right]\to \left[a_1^{[1]}a_2^{[1]}a_3^{[1]} \right]\to h_w(x) \equiv a_1^{[2]} \equiv \hat{y}
+\left[x_1 x_2 x_3 \right]\to \left[a_1^{[1]}a_2^{[1]}a_3^{[1]} \right]\to a_1^{[2]} \equiv \hat{y}
 $$
 
-depicted in the figure above, is
+# Forward propagation
+
+The flow of the computation in the network in <a href="#simpleann">Figure 5</a> from input (left) to prediction (right), called forward propagation, is just like that in logistic regression but a lot more times. In fact, each unit in layer $j$ is **densely connected** (namely is connected to all units in layer $j+1$) and we will have to compute a logistic regression for each connection.
+
+So, for example, the computations that we will have to execute from the input layer to the first layer will be:
 
 $$
 \begin{align}
-& a_1^{[1]} = g \left(w_{10}^{[1]}x_0 + w_{11}^{[1]}x_1 + w_{12}^{[1]}x_2 + w_{13}^{[1]}x_3\right) \\
-& a_2^{[1]} = g \left(w_{20}^{[1]}x_0 + w_{21}^{[1]}x_1 + w_{22}^{[1]}x_2 + w_{23}^{[1]}x_3\right) \\
-& a_3^{[1]} = g \left(w_{30}^{[1]}x_0 + w_{31}^{[1]}x_1 + w_{32}^{[1]}x_2 + w_{33}^{[1]}x_3\right)
+& a_1^{[1]} =
+g \left(
+\left( W_{11}^{[1]}x_1 + b^{[1]}_{11} \right) + 
+\left( W_{12}^{[1]}x_2 + b^{[1]}_{12} \right) +
+\left( W_{13}^{[1]}x_3 + b^{[1]}_{13} \right)
+\right) \\
+& a_2^{[1]} = 
+g \left(
+\left( W_{21}^{[1]}x_1 + b^{[1]}_{21} \right) + 
+\left( W_{22}^{[1]}x_2 + b^{[1]}_{22} \right) +
+\left( W_{23}^{[1]}x_3 + b^{[1]}_{23} \right)
+\right) \\
+& a_3^{[1]} = 
+g \left(
+\left( W_{31}^{[1]}x_1 + b^{[1]}_{31} \right) + 
+\left( W_{32}^{[1]}x_2 + b^{[1]}_{32} \right) +
+\left( W_{33}^{[1]}x_3 + b^{[1]}_{33} \right)
+\right) \\
 \end{align}
 \label{eq:neuralnet} \tag{1}
 $$
 
+That is to say that we compute our hidden units in the first layer as a $3\times 4$ matrix of parameters $W^{[j]}_{ik}$, weighting the connection from unit $k$ in layer $j-1$ to unit $i$ in layer $j$.
 
-$$
-h_w(x)= a_1^{[3]} =  \left(w_{10}^{[2]}a_0^{[2]} + w_{11}^{[1]}a_1^{[2]} + w_{12}^{[2]}a_2^{[2]} + w_{13}^{[2]}a_3^{[2]}\right)
-\label{eq:neuralnet_h} \tag{2}
-$$
 
-So in this network we have 3 input units and 3 hidden units and so the dimension of $w^{[1]}$, which is the matrix of parameters weighting the values from the 3 input units from the 3 hidden units is going to be $w^{[1]} \in \mathbb{R} ^{3\times4}$.
 
-In general if a network has $s_j$ units in layer $j$, $s_{j+1}$ units in layer $j+1$, then $w^{[j]}$ will be of dimension $s_{j+1} \times (s_j+1)$
 
-# Forward propagation
+```python
+w = pd.DataFrame(index=['$a^{[1]}_1$', '$a^{[1]}_2$', '$a^{[1]}_3$'], columns=['$x_1$', '$x_2$', '$x_3$'])
+for i in range(0, 3):
+    for j in range(0, 3):
+        w.iloc[i, j] = f'$W^{{[1]}}_{{{i+1}{j+1}}}$'
+w
+```
 
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>$x_1$</th>
+      <th>$x_2$</th>
+      <th>$x_3$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>$a^{[1]}_1$</th>
+      <td>$W^{[1]}_{11}$</td>
+      <td>$W^{[1]}_{12}$</td>
+      <td>$W^{[1]}_{13}$</td>
+    </tr>
+    <tr>
+      <th>$a^{[1]}_2$</th>
+      <td>$W^{[1]}_{21}$</td>
+      <td>$W^{[1]}_{22}$</td>
+      <td>$W^{[1]}_{23}$</td>
+    </tr>
+    <tr>
+      <th>$a^{[1]}_3$</th>
+      <td>$W^{[1]}_{31}$</td>
+      <td>$W^{[1]}_{32}$</td>
+      <td>$W^{[1]}_{33}$</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+## Vectorization
 Let's rewrite the argument of the functions $g$ in $\eqref{eq:neuralnet}$ as $z^{[j]}$ so that now we have
 
 $$
@@ -92,19 +163,18 @@ $$
 \end{align}
 $$
 
-Looking at $\eqref{eq:neuralnet}$ again, we can see that the way the arguments of $g$ in $a_1^{[1]}, a_2^{[1]}, a_2^{[1]}$ are disposed can be written as $w^{[1]}x$, where $x$ is a vector of inputs.
+Looking at $\eqref{eq:neuralnet}$ again, we can see that the way the arguments of $g$ in $a_1^{[1]}, a_2^{[1]}, a_2^{[1]}$ are disposed can be written as $W^{[1]}x$, where $x$ is a vector of inputs.
 
 $$
 \begin{split}
 x=
 \begin{bmatrix}
-x_0\\
 x_1\\
 x_2\\
 x_3
 \end{bmatrix}
 \end{split}
-\quad\quad\quad
+\qquad
 \begin{split}
 z^{[1]}=
 \begin{bmatrix}
@@ -112,12 +182,19 @@ z_1^{[1]}\\
 z_2^{[1]}\\
 z_3^{[1]}
 \end{bmatrix}
+\qquad
+a^{[1]}=
+\begin{bmatrix}
+a_1^{[1]}\\
+a_2^{[1]}\\
+a_3^{[1]}
+\end{bmatrix}
 \end{split}
 $$
 
 $$
 \begin{align}
-&z^{[1]}=w^{[1]}x \\
+&z^{[1]}=W^{[1]}x +b^{[1]}\\
 &a^{[1]}=g\left(z^{[1]}\right)
 \end{align}
 $$
@@ -125,29 +202,17 @@ $$
 Where $a^{[1]}$ and $z^{[1]}$ are $\mathbb{R}^3$ vectors. Now we could say that the input layer is also an activation layer and call it $a^{[0]}$ so that
 
 $$
-z^{[1])}=w^{[1]}a^{[0]}
+z^{[1]}=W^{[1]}a^{[0]} + b^{[1]}
 $$
 
 What we have written so far give us the value for $ a^{[1]}_1, a^{[1]}_2, a^{[1]}_3 $.
 
-If we look at $ \eqref{eq:neuralnet_h} $ we see that we need one more value, the bias unit $a^{[1]}_{0} = 1$ that we need to add to $a^{[1]}$, which becomes a $\mathbb{R}^4$ vector
-
-$$
-a^{[1]}=
-\begin{bmatrix}
-a_0^{[1]}\\
-a_1^{[1]}\\
-a_2^{[1]}\\
-a_3^{[1]}
-\end{bmatrix}
-$$
-
-We can now compute $h_w(x)$ $\eqref{eq:neuralnet_h}$
+We can now compute $\hat{y} \eqref{eq:neuralnet_h}$
 
 $$
 \begin{align}
-&z^{[2]}=w^{[2]}a^{[1]} \\
-&h_w(x)=a^{[2]} = g\left(z^{[2]}\right)
+&z^{[2]}=W^{[2]}a^{[1]} + v^{[2]} \\
+&\hat{y}=a^{[2]} = g\left(z^{[2]}\right)
 \end{align}
 $$
 
@@ -155,38 +220,38 @@ or more generally
 
 $$
 \begin{align}
-&z^{[j]}=\Theta^{[j]}a^{[j-1]} \\
-&h_w(x)=a^{[j]} = g\left(z^{[j]}\right)
+&z^{[j]}=W^{[j]}a^{[j-1]} + b^{[j]} \\
+&\hat{y}=a^{[j]} = g\left(z^{[j]}\right)
 \end{align}
 $$
 
 
 This process is called **forward propagation**
 
-# Neural networks learn its own features
+# Neural networks learn their own features
 Let's take the network used as example above and focus on the last two layers
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_10_0.png)
+![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_11_0.png)
     
 
 
-What is left in this neural network is simply logistic regeression, where we use the output unit (or logistic regression unit) to build the hypothesis $h_w(x)$
+What is left in this neural network is simply logistic regeression, where we use the output unit (or logistic regression unit) to build the hypothesis $\hat{y}$
 
 $$
-h_w(x) = g\left(w_{10}^{[2]}a_0^{[1]}+w_{11}^{[2]}a_1^{[1]}+w_{12}^{[2]}a_2^{[1]}+ w_{13}^{[2]}a_3^{[1]} \right)
+\hat{y} = \sigma \left(w_{10}^{[2]}a_0^{[1]}+w_{11}^{[2]}a_1^{[1]}+w_{12}^{[2]}a_2^{[1]}+ w_{13}^{[2]}a_3^{[1]} \right)
 $$
 
-Where the features fed into logistic regression are the values in $a^{[1]}$. And here resides the fundamental difference between neural networks and logistic regression: the features $a^{[1]}$ they themselves are learned as functions of the input $x$ with some other set of parameters $w^{[1]}$
+Where the features fed into logistic regression are the values in $a^{[1]}$. And here resides the fundamental difference between neural networks and logistic regression: the features $A^{[1]}$ they themselves are learned as functions of the input $x$ with some other set of parameters $W^{[1]}$
 
-The neural network, instead of being constrained to feed the features $x$ to logistic regression, learns its own features $a^{[1]}$ to feed into logistic regression. Depending on the parameters $w^{[1]}$, it can learn some complex features and result in a better hypothesis that you could have if you were constrained to use features $x$ or even if you had to manually set some higher order polynomial features combining the features $x$.
+The neural network, instead of being constrained to feed the features $x$ to logistic regression, learns its own features $A^{[1]}$ to feed into logistic regression. Depending on the parameters $W^{[1]}$, it can learn some complex features and result in a better hypothesis that you could have if you were constrained to use features $x$ or even if you had to manually set some higher order polynomial features combining the features $x$.
 
 Neural networks can have different number and dimension of hidden layers and the way a neural network is connected is called its **architecture**.
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_12_0.png)
+![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_13_0.png)
     
 
 
@@ -231,7 +296,7 @@ $$
 \begin{aligned}
 &Z^{[1]}= W^{[1]}X + b^{[1]} \\
 &A^{[1]} = \sigma(z^{[1]})\\
-&Z^{[2]}= W^{[1]}A^{[1]} + b^{[2]}\\
+&Z^{[2]}= W^{[2]}A^{[1]} + b^{[2]}\\
 &A^{[2]} = \sigma(Z^{[2]})\\
 \end{aligned}
 $$

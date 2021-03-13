@@ -48,3 +48,30 @@ $$\color{blue}{\frac{\partial}{\partial\Theta_{01}^{(1)}}J(\Theta)=\frac{\partia
 and this means that even after one gredient descent update $\color{blue}{\Theta_{01}^{(1)}=\Theta_{02}^{(1)}}$. And the same goes for $\color{red}{\Theta_{01}^{(1)}=\Theta_{02}^{(1)}}$ and $\color{green}{\Theta_{01}^{(1)}=\Theta_{02}^{(1)}}$.
 
 In order to get around this proble an ANN is randomly initialized. Each $\Theta_{ij}^{(l)}$ is initialized to a random value in $[-\epsilon, \epsilon]$
+
+The random initialization of parameters $W^{[1]}$ (`w1`) can be done as:
+
+
+```python
+constant = 0.01
+w1 = np.random.rand(3,3) * constant
+w1
+```
+
+
+
+
+    array([[0.00353591, 0.00491842, 0.00794126],
+           [0.00999681, 0.00271361, 0.00033436],
+           [0.00869346, 0.00907858, 0.00824595]])
+
+
+
+where `constant` is typically $0.01$, the reason being that if the wigths are too large, the activation function $a^{[1]}$ will output large values and gradient descent will be very slow.
+
+When training shallow neural networks `constant=0.01` is ok but when training deep neural networks you might want to chose different `constant`, but usually it wiil end up being a relatively small number.
+
+
+```python
+
+```
