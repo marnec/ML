@@ -10,7 +10,14 @@ comments: true
 # Model Representation of Neural Network
 Anatomical neurons are cells that are present in the brain in millions. A neuron has a cell body, a number of input wires, called *dendrites* and an output wire called *axon*.
 
-![neuron](data/img/neuron.png)
+
+
+
+    
+![svg](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_2_0.svg)
+    
+
+
 
 In a simplistic way a neuron is a computational unit that receive some input via dendrites, does some computation and then outputs something via the axon to other neurons in the brain.
 
@@ -18,7 +25,7 @@ A neuron implemented on the computer has a very simple model that mimics the arc
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_2_0.png)
+![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_4_0.png)
     
 
 
@@ -42,7 +49,7 @@ Until now we represented single neurons; a neural network is a group of differen
     
 
 <figure id="simpleann">
-    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_5_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_7_0.png" alt="png">
     <figcaption>Figure 5. A simple neural network with one hidden layer</figcaption>
 </figure>
 
@@ -97,7 +104,7 @@ That is to say that we compute our hidden units in the first layer as a $3\times
 w = pd.DataFrame(index=['$a^{[1]}_1$', '$a^{[1]}_2$', '$a^{[1]}_3$'], columns=['$x_1$', '$x_2$', '$x_3$'])
 for i in range(0, 3):
     for j in range(0, 3):
-        w.iloc[i, j] = f'$W^{{[1]}}_{{{i+1}{j+1}}}$'
+        w.iloc[i, j] = '$W^{{[1]}}_{{{}{}}}$'.format(i+1, j+1)
 w
 ```
 
@@ -233,7 +240,7 @@ Let's take the network used as example above and focus on the last two layers
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_11_0.png)
+![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_13_0.png)
     
 
 
@@ -251,7 +258,7 @@ Neural networks can have different number and dimension of hidden layers and the
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_13_0.png)
+![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_15_0.png)
     
 
 

@@ -107,3 +107,8 @@ In calculus this is called the **chain rule** where $a$ affects $v$ that affects
     
 
 
+
+
+```python
+
+```
