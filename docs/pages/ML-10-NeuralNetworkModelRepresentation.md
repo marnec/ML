@@ -100,15 +100,6 @@ That is to say that we compute our hidden units in the first layer as a $3\times
 
 
 
-```python
-w = pd.DataFrame(index=['$a^{[1]}_1$', '$a^{[1]}_2$', '$a^{[1]}_3$'], columns=['$x_1$', '$x_2$', '$x_3$'])
-for i in range(0, 3):
-    for j in range(0, 3):
-        w.iloc[i, j] = '$W^{{[1]}}_{{{}{}}}$'.format(i+1, j+1)
-w
-```
-
-
 
 
 <div>
