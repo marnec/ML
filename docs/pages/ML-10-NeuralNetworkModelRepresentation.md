@@ -151,110 +151,91 @@ That is to say that we compute our hidden units in the first layer as a $3\times
 
 
 ## Vectorization
-Let's rewrite the argument of the functions $g$ in $\eqref{eq:neuralnet}$ as $z^{[j]}$ so that now we have
+
+### First step of vectorization
+Let's see vectorization for $\eqref{eq:neuralnet}$: this process can be then applied to any other layer. In  $\eqref{eq:neuralnet}$ we have the equations $\eqref{eq:l1unit1vect}$ are the operations required to calculate $a^{[1]}_1$ from input $x_1, x_2, x_3$ (<a href="#annfirststeps">Figure 6</a>, panel A).
 
 $$
 \begin{align}
-& a_1^{[1]} = g \left(z_1^{[1]}\right) \\
-& a_2^{[1]} = g \left(z_2^{[1]}\right) \\
-& a_3^{[1]} = g \left(z_3^{[1]}\right)
+&z^{[1]}_1=w^{[1]T}_1x+b_1^{[1]} \\
+&a^{[1]}_1=\sigma(z^{[1]}_1)
+\end{align}
+\label{eq:l1unit1vect} \tag{3}
+$$
+
+
+
+Similarly, $\eqref{eq:l1unit2vect}$ are the operations required to calculate $a^{[1]}_2$ from input $x_1, x_2, x_3$ (<a href="#annfirststeps">Figure 6</a>, panel B)
+
+$$
+\begin{align}
+&z^{[1]}_2=w^{[1]T}_2x+b_2^{[1]} \\
+&a^{[1]}_2=\sigma(z^{[1]}_2)
+\end{align}
+\label{eq:l1unit2vect} \tag{5}
+$$
+
+Finally, $\eqref{eq:l1unit3vect}$  are the operations required to calculate $a^{[1]}_3$ from input $x_1, x_2, x_3$ (<a href="#annfirststeps">Figure 6</a>, panel C)
+
+$$
+\begin{align}
+&z^{[1]}_3=w^{[1]T}_3x+b_2^{[1]} \\
+&a^{[1]}_3=\sigma(z_3^{[1]})
+\end{align}
+\label{eq:l1unit3vect} \tag{6}
+$$
+
+
+    
+
+<figure id="annfirststeps">
+    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_12_0.png" alt="png">
+    <figcaption>Figure 6. First three steps of forward propagation to calculate the hidden units of the first layer from the input layer.</figcaption>
+</figure>
+
+### Second step of vectorization
+Given the set of equation that describe the activtion of the first layer from the input layer, let's see how to calculate $\color{blue}{z^{[1]}}$ as a vector:
+
+$$
+\begin{align}
+&\color{blue}{z_1^{[1]}} = \color{red}{w^{[1]T}_1}x+\color{green}{b_1^{[1]}} & a_1^{[1]} = \sigma \left(z_1^{[1]}\right) \\
+&\color{blue}{z_2^{[1]}} = \color{red}{w^{[1]T}_2}x+\color{green}{b_2^{[1]}} & a_2^{[1]} = \sigma \left(z_2^{[1]}\right) \\
+&\color{blue}{z_3^{[1]}} = \color{red}{w^{[1]T}_3}x+\color{green}{b_3^{[1]}} & a_3^{[1]} = \sigma \left(z_3^{[1]}\right)
 \end{align}
 $$
 
-Looking at $\eqref{eq:neuralnet}$ again, we can see that the way the arguments of $g$ in $a_1^{[1]}, a_2^{[1]}, a_2^{[1]}$ are disposed can be written as $W^{[1]}x$, where $x$ is a vector of inputs.
+Let's first take the vectors $\color{red}{w^{[1]T}_i}$ and stack them into a matrix $\color{red}{W^{[1]}}$. $w^{[1]}_i$ are column vectors, so their transpose are row vectors that are stacked vertically. 
 
 $$
-\begin{split}
-x=
+\color{blue}{z^{[1]}}=
+\underbrace{
 \begin{bmatrix}
-x_1\\
-x_2\\
-x_3
-\end{bmatrix}
-\end{split}
-\qquad
-\begin{split}
-z^{[1]}=
+\rule[.5ex]{2.5ex}{0.5pt} &  \color{red}{w^{[1]T}_1} &\rule[.5ex]{2.5ex}{0.5pt}\\
+\rule[.5ex]{2.5ex}{0.5pt} & \color{red}{w^{[1]T}_2} & \rule[.5ex]{2.5ex}{0.5pt}\\
+\rule[.5ex]{2.5ex}{0.5pt} & \color{red}{w^{[1]T}_3} & \rule[.5ex]{2.5ex}{0.5pt}\\
+\end{bmatrix}}_{s_j \times n}
+\underbrace{
 \begin{bmatrix}
-z_1^{[1]}\\
-z_2^{[1]}\\
-z_3^{[1]}
-\end{bmatrix}
-\qquad
-a^{[1]}=
+x_1 \\ x_2 \\ x_3
+\end{bmatrix}}_{n \times 1}+
+\underbrace{
 \begin{bmatrix}
-a_1^{[1]}\\
-a_2^{[1]}\\
-a_3^{[1]}
-\end{bmatrix}
-\end{split}
+\color{green}{b_1^{[1]}} \\ \color{green}{b_2^{[1]}} \\ \color{green}{b_3^{[1]}}
+\end{bmatrix}}_{s_j \times 1}
+=\underbrace{\begin{bmatrix}
+\color{blue}{z_1^{[1]}} \\ \color{blue}{z_2^{[1]}} \\ \color{blue}{z_3^{[1]}}
+\end{bmatrix}}_{s_j \times 1}
 $$
 
-$$
-\begin{align}
-&z^{[1]}=W^{[1]}x +b^{[1]}\\
-&a^{[1]}=g\left(z^{[1]}\right)
-\end{align}
-$$
-
-Where $a^{[1]}$ and $z^{[1]}$ are $\mathbb{R}^3$ vectors. Now we could say that the input layer is also an activation layer and call it $a^{[0]}$ so that
+And now we can calculate $a^{[1]}$
 
 $$
-z^{[1]}=W^{[1]}a^{[0]} + b^{[1]}
+a^{[1]}=\sigma \underbrace{ \left( \begin{bmatrix}
+\color{blue}{a_1^{[1]}} \\ \color{blue}{a_2^{[1]}} \\ \color{blue}{a_3^{[1]}}
+\end{bmatrix} \right) }_{s_j \times 1}
 $$
 
-What we have written so far give us the value for $ a^{[1]}_1, a^{[1]}_2, a^{[1]}_3 $.
-
-We can now compute $\hat{y} \eqref{eq:neuralnet_h}$
-
-$$
-\begin{align}
-&z^{[2]}=W^{[2]}a^{[1]} + v^{[2]} \\
-&\hat{y}=a^{[2]} = g\left(z^{[2]}\right)
-\end{align}
-$$
-
-or more generally
-
-$$
-\begin{align}
-&z^{[j]}=W^{[j]}a^{[j-1]} + b^{[j]} \\
-&\hat{y}=a^{[j]} = g\left(z^{[j]}\right)
-\end{align}
-$$
-
-
-This process is called **forward propagation**
-
-# Neural networks learn their own features
-Let's take the network used as example above and focus on the last two layers
-
-
-    
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_13_0.png)
-    
-
-
-What is left in this neural network is simply logistic regeression, where we use the output unit (or logistic regression unit) to build the hypothesis $\hat{y}$
-
-$$
-\hat{y} = \sigma \left(w_{10}^{[2]}a_0^{[1]}+w_{11}^{[2]}a_1^{[1]}+w_{12}^{[2]}a_2^{[1]}+ w_{13}^{[2]}a_3^{[1]} \right)
-$$
-
-Where the features fed into logistic regression are the values in $a^{[1]}$. And here resides the fundamental difference between neural networks and logistic regression: the features $A^{[1]}$ they themselves are learned as functions of the input $x$ with some other set of parameters $W^{[1]}$
-
-The neural network, instead of being constrained to feed the features $x$ to logistic regression, learns its own features $A^{[1]}$ to feed into logistic regression. Depending on the parameters $W^{[1]}$, it can learn some complex features and result in a better hypothesis that you could have if you were constrained to use features $x$ or even if you had to manually set some higher order polynomial features combining the features $x$.
-
-Neural networks can have different number and dimension of hidden layers and the way a neural network is connected is called its **architecture**.
-
-
-    
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_15_0.png)
-    
-
-
-## Vectorization
-<a href="#simpleann">Figure 5</a> is described by the set of equations:
+So, summarizing what we have written above and extending it to the second layer we have
 
 $$
 \begin{aligned}
@@ -263,18 +244,29 @@ $$
 &z^{[2]}= W^{[1]}a^{[1]} + b^{[2]}\\
 &a^{[2]} = \sigma(z^{[2]})\\
 \end{aligned}
+\label{eq:vectanneqs} \tag{7}
 $$
 
-This process must be repeated for each training example $x^{(n)}$ and will produce $n$ outputs $a^{[2](n)} = \hat{y}^{(n)}$
+or more generally
+
+$$
+\begin{align}
+&z^{[j]}=W^{[j]}a^{[j-1]} + b^{[j]} \\
+&a^{[j]} = \sigma \left(z^{[j]}\right)
+\end{align}
+$$
+
+### Third step of vetorization across multiple examples
+The process in $\eqref{eq:vectanneqs}$ must be repeated for each training example $x^{(n)}$ and will produce $n$ outputs $a^{[2](n)} = \hat{y}^{(n)}$
 
 In a non-vectorized implementation you would have something along the lines of:
 
 ```python
 for i in len(examples):
-    z[1][i] = w[1] @ x(i) + b[i]
-    a[1][i] = sigmoid(z[1][i])
-    z[2][i] = w[2] @ x(i) + b[i]
-    a[2][i] = sigmoid(z[2][i])
+    z1[i] = w1 @ x(i) + b[i]
+    a1[i] = sigmoid(z1[i])
+    z2[i] = w2 @ x(i) + b[i]
+    a2[i] = sigmoid(z1[i])
 ```
 
 Given our vector of training examples:

@@ -7,6 +7,33 @@ order: 11
 comments: true
 ---
 
+# Neural networks learn their own features
+Let's take the network used as example above and focus on the last two layers
+
+
+    
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_2_0.png)
+    
+
+
+What is left in this neural network is simply logistic regeression, where we use the output unit (or logistic regression unit) to build the hypothesis $\hat{y}$
+
+$$
+\hat{y} = \sigma \left(w_{10}^{[2]}a_0^{[1]}+w_{11}^{[2]}a_1^{[1]}+w_{12}^{[2]}a_2^{[1]}+ w_{13}^{[2]}a_3^{[1]} \right)
+$$
+
+Where the features fed into logistic regression are the values in $a^{[1]}$. And here resides the fundamental difference between neural networks and logistic regression: the features $A^{[1]}$ they themselves are learned as functions of the input $x$ with some other set of parameters $W^{[1]}$
+
+The neural network, instead of being constrained to feed the features $x$ to logistic regression, learns its own features $A^{[1]}$ to feed into logistic regression. Depending on the parameters $W^{[1]}$, it can learn some complex features and result in a better hypothesis that you could have if you were constrained to use features $x$ or even if you had to manually set some higher order polynomial features combining the features $x$.
+
+Neural networks can have different number and dimension of hidden layers and the way a neural network is connected is called its **architecture**.
+
+
+    
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_4_0.png)
+    
+
+
 # How neural networks build complex non-linear functions
 In this section we will explain how a neural network can build relatively complex non-linear functions.
 
@@ -14,7 +41,7 @@ Let's take a non-linear classification example like that depicted below, where p
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_2_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_6_0.png)
     
 
 
@@ -42,7 +69,7 @@ $$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_5_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_9_0.png)
     
 
 
@@ -59,7 +86,7 @@ Since the sigmoid activation function $g(z)$ is
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_7_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_11_0.png)
     
 
 
@@ -103,7 +130,7 @@ The following network and table show instead $x_1 \vee x_2$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_11_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_15_0.png)
     
 
 
@@ -144,7 +171,7 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_15_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_19_0.png)
     
 
 
@@ -171,7 +198,7 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_18_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_22_0.png)
     
 
 
@@ -210,13 +237,13 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_21_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_25_0.png)
     
 
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_22_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_26_0.png)
     
 
 
@@ -273,7 +300,7 @@ $$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_25_0.png)
+![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_29_0.png)
     
 
 
