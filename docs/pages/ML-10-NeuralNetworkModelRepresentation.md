@@ -198,21 +198,21 @@ Given the set of equation that describe the activtion of the first layer from th
 
 $$
 \begin{align}
-&\color{blue}{z_1^{[1]}} = \color{red}{w^{[1]T}_1}x+\color{green}{b_1^{[1]}} & a_1^{[1]} = \sigma \left(z_1^{[1]}\right) \\
-&\color{blue}{z_2^{[1]}} = \color{red}{w^{[1]T}_2}x+\color{green}{b_2^{[1]}} & a_2^{[1]} = \sigma \left(z_2^{[1]}\right) \\
-&\color{blue}{z_3^{[1]}} = \color{red}{w^{[1]T}_3}x+\color{green}{b_3^{[1]}} & a_3^{[1]} = \sigma \left(z_3^{[1]}\right)
+&z_1^{[1]} = w^{[1]T}_1 x + b_1^{[1]} & a_1^{[1]} = \sigma \left(z_1^{[1]}\right) \\
+&z_2^{[1]} = w^{[1]T}_2 x + b_2^{[1]} & a_2^{[1]} = \sigma \left(z_2^{[1]}\right) \\
+&z_3^{[1]} = w^{[1]T}_3 x + b_3^{[1]} & a_3^{[1]} = \sigma \left(z_3^{[1]}\right)
 \end{align}
 $$
 
 Let's first take the vectors $\color{red}{w^{[1]T}_i}$ and stack them into a matrix $\color{red}{W^{[1]}}$. $w^{[1]}_i$ are column vectors, so their transpose are row vectors that are stacked vertically. 
 
 $$
-\color{blue}{z^{[1]}}=
+z^{[1]}=
 \underbrace{
 \begin{bmatrix}
-\rule[.5ex]{2.5ex}{0.5pt} &  \color{red}{w^{[1]T}_1} &\rule[.5ex]{2.5ex}{0.5pt}\\
-\rule[.5ex]{2.5ex}{0.5pt} & \color{red}{w^{[1]T}_2} & \rule[.5ex]{2.5ex}{0.5pt}\\
-\rule[.5ex]{2.5ex}{0.5pt} & \color{red}{w^{[1]T}_3} & \rule[.5ex]{2.5ex}{0.5pt}\\
+\rule[.5ex]{2.5ex}{0.5pt} & w^{[1]T}_1 &\rule[.5ex]{2.5ex}{0.5pt}\\
+\rule[.5ex]{2.5ex}{0.5pt} & w^{[1]T}_2 & \rule[.5ex]{2.5ex}{0.5pt}\\
+\rule[.5ex]{2.5ex}{0.5pt} & w^{[1]T}_3 & \rule[.5ex]{2.5ex}{0.5pt}\\
 \end{bmatrix}}_{s_j \times n}
 \underbrace{
 \begin{bmatrix}
@@ -220,10 +220,10 @@ x_1 \\ x_2 \\ x_3
 \end{bmatrix}}_{n \times 1}+
 \underbrace{
 \begin{bmatrix}
-\color{green}{b_1^{[1]}} \\ \color{green}{b_2^{[1]}} \\ \color{green}{b_3^{[1]}}
+b_1^{[1]} \\ b_2^{[1]} \\ b_3^{[1]}
 \end{bmatrix}}_{s_j \times 1}
 =\underbrace{\begin{bmatrix}
-\color{blue}{z_1^{[1]}} \\ \color{blue}{z_2^{[1]}} \\ \color{blue}{z_3^{[1]}}
+z_1^{[1]} \\ z_2^{[1]} \\ z_3^{[1]}
 \end{bmatrix}}_{s_j \times 1}
 $$
 
@@ -231,7 +231,7 @@ And now we can calculate $a^{[1]}$
 
 $$
 a^{[1]}=\sigma \underbrace{ \left( \begin{bmatrix}
-\color{blue}{a_1^{[1]}} \\ \color{blue}{a_2^{[1]}} \\ \color{blue}{a_3^{[1]}}
+z_1^{[1]} \\ z_2^{[1]} \\ z_3^{[1]}
 \end{bmatrix} \right) }_{s_j \times 1}
 $$
 
@@ -257,15 +257,15 @@ $$
 $$
 
 ### Third step of vetorization across multiple examples
-The process in $\eqref{eq:vectanneqs}$ must be repeated for each training example $x^{(n)}$ and will produce $n$ outputs $a^{[2](n)} = \hat{y}^{(n)}$
+The process in $\eqref{eq:vectanneqs}$ must be repeated for each training example $x^{(m)}$ and will produce $m$ outputs $a^{[2](m)} = \hat{y}^{(m)}$
 
 In a non-vectorized implementation you would have something along the lines of:
 
 ```python
 for i in len(examples):
-    z1[i] = w1 @ x(i) + b[i]
+    z1[i] = w1 @ x[i] + b[i]
     a1[i] = sigmoid(z1[i])
-    z2[i] = w2 @ x(i) + b[i]
+    z2[i] = w2 @ x([i] + b[i]
     a2[i] = sigmoid(z1[i])
 ```
 
@@ -274,9 +274,9 @@ Given our vector of training examples:
 $$
 X=
 \begin{bmatrix}
-&\vdots&\vdots&&\vdots\\
+& \rule[-1ex]{0.5pt}{2.5ex} & \rule[-1ex]{0.5pt}{2.5ex} & & \rule[-1ex]{0.5pt}{2.5ex}\\
 &x^{(1)}&x^{(2)}&\dots&x^{(m)}\\
-&\vdots&\vdots&&\vdots\\
+& \rule[-1ex]{0.5pt}{2.5ex} & \rule[-1ex]{0.5pt}{2.5ex} & & \rule[-1ex]{0.5pt}{2.5ex}\\
 \end{bmatrix} \in \mathbb{R}^{n\times m}
 $$
 
@@ -296,17 +296,22 @@ with $Z^{[1]}$ and $A^{[1]}$ represent the $z$-values and $a$-values of the firs
 $$
 Z^{[1]}=
 \begin{bmatrix}
-&\vdots&\vdots&&\vdots\\
+& \rule[-1ex]{0.5pt}{2.5ex} & \rule[-1ex]{0.5pt}{2.5ex} & & \rule[-1ex]{0.5pt}{2.5ex}\\
 &z^{[1](1)}&z^{[1](2)}&\dots&z^{[1](m)}\\
-&\vdots&\vdots&&\vdots\\
+& \rule[-1ex]{0.5pt}{2.5ex} & \rule[-1ex]{0.5pt}{2.5ex} & & \rule[-1ex]{0.5pt}{2.5ex}\\
 \end{bmatrix} \in \mathbb{R}^{n^{[1]} \times m} 
 \qquad 
 A^{[1]}=
 \begin{bmatrix}
-&\vdots&\vdots&&\vdots\\
+& \rule[-1ex]{0.5pt}{2.5ex} & \rule[-1ex]{0.5pt}{2.5ex} & & \rule[-1ex]{0.5pt}{2.5ex}\\
 &a^{[1](1)}&a^{[1](2)}&\dots&a^{[1](m)}\\
-&\vdots&\vdots&&\vdots\\
+& \rule[-1ex]{0.5pt}{2.5ex} & \rule[-1ex]{0.5pt}{2.5ex} & & \rule[-1ex]{0.5pt}{2.5ex}\\
 \end{bmatrix} \in \mathbb{R}^{n^{[1]} \times m}
 $$
 
 where $m$ is the number of training examples and $n^{[1]}$ is the number of nodes (hidden units) in the first layer of the neural networks.
+
+
+```python
+
+```
