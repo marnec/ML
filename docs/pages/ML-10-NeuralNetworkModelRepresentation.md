@@ -55,9 +55,9 @@ Until now we represented single neurons; a neural network is a group of differen
 
 The computational entities in a neural networks are:
 
-* $a_i^{[j]}$  activation neuron/unit $i$ in layer $j$
-* $W^{[j]}$ matrix of weights controlling the function mapping from layer $j$ to layer $j+1$ 
-* $b^{[j]}$ the bias vectors
+* $a_i^{[l]}$  activation neuron/unit $i$ in layer $l$
+* $W^{[l]}$ matrix of weights controlling the function mapping from layer $l$ to layer $l+1$ 
+* $b^{[l]}$ the bias vectors
 
 And the computation in the network
 
@@ -67,7 +67,7 @@ $$
 
 # Forward propagation
 
-The flow of the computation in the network in <a href="#simpleann">Figure 5</a> from input (left) to prediction (right), called forward propagation, is just like that in logistic regression but a lot more times. In fact, each unit in layer $j$ is **densely connected** (namely is connected to all units in layer $j+1$) and we will have to compute a logistic regression for each connection.
+The flow of the computation in the network in <a href="#simpleann">Figure 5</a> from input (left) to prediction (right), called forward propagation, is just like that in logistic regression but a lot more times. In fact, each unit in layer $l$ is **densely connected** (namely is connected to all units in layer $l+1$) and we will have to compute a logistic regression for each connection.
 
 So, for example, the computations that we will have to execute from the input layer to the first layer will be:
 
@@ -95,7 +95,7 @@ g \left(
 \label{eq:neuralnet} \tag{1}
 $$
 
-That is to say that we compute our hidden units in the first layer as a $3\times 4$ matrix of parameters $W^{[j]}_{ik}$, weighting the connection from unit $k$ in layer $j-1$ to unit $i$ in layer $j$.
+That is to say that we compute our hidden units in the first layer as a $3\times 3$ matrix of parameters $W^{[l]}_{ij}$, weighting the connection from unit $j$ in layer $l-1$ to unit $i$ in layer $l$.
 
 
 
@@ -194,7 +194,7 @@ $$
 </figure>
 
 ### Second step of vectorization
-Given the set of equation that describe the activtion of the first layer from the input layer, let's see how to calculate $\color{blue}{z^{[1]}}$ as a vector:
+Given the set of equation that describe the activtion of the first layer from the input layer, let's see how to calculate $z^{[1]}$ as a vector:
 
 $$
 \begin{align}
@@ -204,7 +204,9 @@ $$
 \end{align}
 $$
 
-Let's first take the vectors $\color{red}{w^{[1]T}_i}$ and stack them into a matrix $\color{red}{W^{[1]}}$. $w^{[1]}_i$ are column vectors, so their transpose are row vectors that are stacked vertically. 
+Let's first take the vectors $w^{[1]T}_i$ and stack them into a matrix $W^{[1]}$. 
+
+$w^{[1]}_i$ are column vectors, so their transpose are row vectors that are stacked vertically. 
 
 $$
 z^{[1]}=
@@ -310,8 +312,3 @@ A^{[1]}=
 $$
 
 where $m$ is the number of training examples and $n^{[1]}$ is the number of nodes (hidden units) in the first layer of the neural networks.
-
-
-```python
-
-```

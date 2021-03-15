@@ -62,7 +62,7 @@ $$
 \begin{align}
 &x_1,x_2\in \lbrace 0,1 \rbrace\\
 &y= x_1 \wedge x_2\\
-&\Theta^{(1)} = 
+&W^{[1]} = 
 \begin{bmatrix}-30\\20\\20\end{bmatrix}
 \end{align}
 $$
@@ -77,12 +77,12 @@ So that
 
 $$
 \begin{equation}
-h_\Theta(x) = g(-30+20x_1+20x_2)
+\hat{y} = \sigma(-30+20x_1+20x_2)
 \end{equation}
 \label{eq:h} \tag{1}
 $$
 
-Since the sigmoid activation function $g(z)$ is
+Since the sigmoid activation function $\sigma(z)$ is
 
 
     
@@ -96,28 +96,28 @@ The the output of $\eqref{eq:h}$ is
 
 
 <style  type="text/css" >
-#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row0_col0,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row0_col1,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row0_col2,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row1_col0,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row1_col1,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row1_col2,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row2_col0,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row2_col1,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row2_col2,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row3_col0,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row3_col1,#T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row3_col2{
+#T_1efba_row0_col0,#T_1efba_row0_col1,#T_1efba_row0_col2,#T_1efba_row1_col0,#T_1efba_row1_col1,#T_1efba_row1_col2,#T_1efba_row2_col0,#T_1efba_row2_col1,#T_1efba_row2_col2,#T_1efba_row3_col0,#T_1efba_row3_col1,#T_1efba_row3_col2{
             text-align:  left;
-        }</style><table id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_1efba_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$\hat{y}$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(-30) \approx 0$</td>
+                                <td id="T_1efba_row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_1efba_row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_1efba_row0_col2" class="data row0 col2" >$\sigma(-30) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_1efba_row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_1efba_row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_1efba_row1_col2" class="data row1 col2" >$\sigma(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_1efba_row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_1efba_row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_1efba_row2_col2" class="data row2 col2" >$\sigma(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_456fb800_54dd_11eb_8e7f_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(10) \approx 1$</td>
+                                <td id="T_1efba_row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_1efba_row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_1efba_row3_col2" class="data row3 col2" >$\sigma(10) \approx 1$</td>
             </tr>
     </tbody></table>
 
@@ -134,34 +134,34 @@ The following network and table show instead $x_1 \vee x_2$
     
 
 
-$$h_\Theta(x) = g(-10+20x_1+20x_2)$$
+$$\hat{y} = \sigma(-10+20x_1+20x_2)$$
 
 
 
 
 <style  type="text/css" >
-#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row0_col0,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row0_col1,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row0_col2,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row1_col0,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row1_col1,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row1_col2,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row2_col0,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row2_col1,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row2_col2,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row3_col0,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row3_col1,#T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row3_col2{
+#T_8f5e0_row0_col0,#T_8f5e0_row0_col1,#T_8f5e0_row0_col2,#T_8f5e0_row1_col0,#T_8f5e0_row1_col1,#T_8f5e0_row1_col2,#T_8f5e0_row2_col0,#T_8f5e0_row2_col1,#T_8f5e0_row2_col2,#T_8f5e0_row3_col0,#T_8f5e0_row3_col1,#T_8f5e0_row3_col2{
             text-align:  left;
-        }</style><table id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_8f5e0_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$\hat{y}$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_8f5e0_row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_8f5e0_row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_8f5e0_row0_col2" class="data row0 col2" >$\sigma(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(10) \approx 1$</td>
+                                <td id="T_8f5e0_row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_8f5e0_row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_8f5e0_row1_col2" class="data row1 col2" >$\sigma(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(10) \approx 1$</td>
+                                <td id="T_8f5e0_row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_8f5e0_row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_8f5e0_row2_col2" class="data row2 col2" >$\sigma(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_82324e42_54dd_11eb_8e7f_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(30) \approx 1$</td>
+                                <td id="T_8f5e0_row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_8f5e0_row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_8f5e0_row3_col2" class="data row3 col2" >$\sigma(30) \approx 1$</td>
             </tr>
     </tbody></table>
 
@@ -179,16 +179,16 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
 <style  type="text/css" >
-#T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row0_col0,#T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row0_col1,#T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row1_col0,#T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row1_col1{
+#T_48978_row0_col0,#T_48978_row0_col1,#T_48978_row1_col0,#T_48978_row1_col1{
             text-align:  left;
-        }</style><table id="T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_48978_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$\hat{y}$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row0_col1" class="data row0 col1" >$g(10) \approx 1$</td>
+                                <td id="T_48978_row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_48978_row0_col1" class="data row0 col1" >$\sigma(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row1_col0" class="data row1 col0" >1</td>
-                        <td id="T_8e704f56_54dd_11eb_8e7f_40a3cc65d4e3row1_col1" class="data row1 col1" >$g(-10) \approx 0$</td>
+                                <td id="T_48978_row1_col0" class="data row1 col0" >1</td>
+                        <td id="T_48978_row1_col1" class="data row1 col1" >$\sigma(-10) \approx 0$</td>
             </tr>
     </tbody></table>
 
@@ -206,28 +206,28 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
 <style  type="text/css" >
-#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row0_col0,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row0_col1,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row0_col2,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row1_col0,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row1_col1,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row1_col2,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row2_col0,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row2_col1,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row2_col2,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row3_col0,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row3_col1,#T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row3_col2{
+#T_1a161_row0_col0,#T_1a161_row0_col1,#T_1a161_row0_col2,#T_1a161_row1_col0,#T_1a161_row1_col1,#T_1a161_row1_col2,#T_1a161_row2_col0,#T_1a161_row2_col1,#T_1a161_row2_col2,#T_1a161_row3_col0,#T_1a161_row3_col1,#T_1a161_row3_col2{
             text-align:  left;
-        }</style><table id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_1a161_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$\hat{y}$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row0_col2" class="data row0 col2" >$g(10) \approx 1$</td>
+                                <td id="T_1a161_row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_1a161_row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_1a161_row0_col2" class="data row0 col2" >$\sigma(10) \approx 1$</td>
             </tr>
             <tr>
-                                <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row1_col2" class="data row1 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_1a161_row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_1a161_row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_1a161_row1_col2" class="data row1 col2" >$\sigma(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row2_col2" class="data row2 col2" >$g(-10) \approx 0$</td>
+                                <td id="T_1a161_row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_1a161_row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_1a161_row2_col2" class="data row2 col2" >$\sigma(-10) \approx 0$</td>
             </tr>
             <tr>
-                                <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_aab5940a_54dd_11eb_8e7f_40a3cc65d4e3row3_col2" class="data row3 col2" >$g(-30) \approx 0$</td>
+                                <td id="T_1a161_row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_1a161_row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_1a161_row3_col2" class="data row3 col2" >$\sigma(-30) \approx 0$</td>
             </tr>
     </tbody></table>
 
@@ -251,36 +251,36 @@ $$h_\Theta(x) = g(-10+20x_1+20x_2)$$
 
 
 <style  type="text/css" >
-#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col0,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col1,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col2,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col3,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col4,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col0,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col1,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col2,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col3,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col4,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col0,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col1,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col2,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col3,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col4,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col0,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col1,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col2,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col3,#T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col4{
+#T_a7f58_row0_col0,#T_a7f58_row0_col1,#T_a7f58_row0_col2,#T_a7f58_row0_col3,#T_a7f58_row0_col4,#T_a7f58_row1_col0,#T_a7f58_row1_col1,#T_a7f58_row1_col2,#T_a7f58_row1_col3,#T_a7f58_row1_col4,#T_a7f58_row2_col0,#T_a7f58_row2_col1,#T_a7f58_row2_col2,#T_a7f58_row2_col3,#T_a7f58_row2_col4,#T_a7f58_row3_col0,#T_a7f58_row3_col1,#T_a7f58_row3_col2,#T_a7f58_row3_col3,#T_a7f58_row3_col4{
             text-align:  left;
-        }</style><table id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$a_1^{(2)}$</th>        <th class="col_heading level0 col3" >$a_2^{(2)}$</th>        <th class="col_heading level0 col4" >$h_\Theta(x)$</th>    </tr></thead><tbody>
+        }</style><table id="T_a7f58_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$a_1^{[1]}$</th>        <th class="col_heading level0 col3" >$a_2^{[1]}$</th>        <th class="col_heading level0 col4" >$\hat{y}$</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col2" class="data row0 col2" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row0_col4" class="data row0 col4" >1</td>
+                                <td id="T_a7f58_row0_col0" class="data row0 col0" >0</td>
+                        <td id="T_a7f58_row0_col1" class="data row0 col1" >0</td>
+                        <td id="T_a7f58_row0_col2" class="data row0 col2" >0</td>
+                        <td id="T_a7f58_row0_col3" class="data row0 col3" >1</td>
+                        <td id="T_a7f58_row0_col4" class="data row0 col4" >1</td>
             </tr>
             <tr>
-                                <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col2" class="data row1 col2" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col3" class="data row1 col3" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row1_col4" class="data row1 col4" >0</td>
+                                <td id="T_a7f58_row1_col0" class="data row1 col0" >0</td>
+                        <td id="T_a7f58_row1_col1" class="data row1 col1" >1</td>
+                        <td id="T_a7f58_row1_col2" class="data row1 col2" >0</td>
+                        <td id="T_a7f58_row1_col3" class="data row1 col3" >0</td>
+                        <td id="T_a7f58_row1_col4" class="data row1 col4" >0</td>
             </tr>
             <tr>
-                                <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col2" class="data row2 col2" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col3" class="data row2 col3" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row2_col4" class="data row2 col4" >0</td>
+                                <td id="T_a7f58_row2_col0" class="data row2 col0" >1</td>
+                        <td id="T_a7f58_row2_col1" class="data row2 col1" >0</td>
+                        <td id="T_a7f58_row2_col2" class="data row2 col2" >0</td>
+                        <td id="T_a7f58_row2_col3" class="data row2 col3" >0</td>
+                        <td id="T_a7f58_row2_col4" class="data row2 col4" >0</td>
             </tr>
             <tr>
-                                <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col2" class="data row3 col2" >1</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col3" class="data row3 col3" >0</td>
-                        <td id="T_1713c8d2_54df_11eb_8e7f_40a3cc65d4e3row3_col4" class="data row3 col4" >1</td>
+                                <td id="T_a7f58_row3_col0" class="data row3 col0" >1</td>
+                        <td id="T_a7f58_row3_col1" class="data row3 col1" >1</td>
+                        <td id="T_a7f58_row3_col2" class="data row3 col2" >1</td>
+                        <td id="T_a7f58_row3_col3" class="data row3 col3" >0</td>
+                        <td id="T_a7f58_row3_col4" class="data row3 col4" >1</td>
             </tr>
     </tbody></table>
 
@@ -304,8 +304,8 @@ $$
     
 
 
-So that $h^{(i)}_\Theta(x)$ can be one of the following
+So that $\hat{y}_i$ can be one of the following
 
-$$h^{(i)}_\Theta(x) \approx \begin{bmatrix}1\\0\\0\\0\end{bmatrix} \;, \;  \begin{bmatrix}0\\1\\0\\0\end{bmatrix} \;, \;  \begin{bmatrix}0\\0\\1\\0\end{bmatrix}
+$$\hat{y}_i \approx \begin{bmatrix}1\\0\\0\\0\end{bmatrix} \;, \;  \begin{bmatrix}0\\1\\0\\0\end{bmatrix} \;, \;  \begin{bmatrix}0\\0\\1\\0\end{bmatrix}
 \;, \;  \begin{bmatrix}0\\0\\0\\1\end{bmatrix}$$
 
