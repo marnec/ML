@@ -7,43 +7,109 @@ order: 13
 comments: true
 ---
 
-#  Backpropagation
-
-Given the cost function for an artificial neural network
+# Gradien Descent
+The aim of a neural network is, to minimize the cost function calculated on its parameters, which, if using the same network as in 
+<a href="{{site.basurl}}/ML/ML10#simpleann">Figure 5</a>, are: 
 
 $$
 \begin{align}
-J(\Theta)=&-\frac{1}{m}\left[\sum^m_{i=1}\sum^K_{k=1}y_k^{(i)}\log \left(h_\Theta\left(x^{(i)}\right)\right)_k+\left(1-y_k^{(i)}\right)\log\left(1-h_\Theta \left(x^{(i)}\right)\right)_k\right] \\
-&+\frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}}\left(\Theta_{ji}^{(l)}\right)^2
+& W^{[1]} \in \mathbb{R}^{(n^{[1]}, n^{[0]})} \\
+& b^{[1]} \in \mathbb{R}^{(n^{[1]}, 1)} \\
+& W^{[2]} \in \mathbb{R}^{(n^{[2]}, n^{[1]})} \\
+& b^{[2]} \in \mathbb{R}^{(n^{[2]}, 1)}
 \end{align}
-\label{eq:neuralnetcost} \tag{1}
 $$
 
-we want to find the parameters $\Theta$ that minimize the $\eqref{eq:neuralnetcost}$
+The cost function ($J$) is defined as the average over the training examples of the loss function ($\mathcal{L}$) for a single example:
 
 $$
-\min_{\Theta}J(\Theta)
+J(W^{[1]},b^{[1]}, W^{[2]}, b^{[2]}) = \frac{1}{m} \sum_{i=1}^m \mathcal{L}\left(\hat{y}, y \right)
 $$
 
-So in order to use gradient descent or other optimization algorithms we need to compute the cost function $\eqref{eq:neuralnetcost}$ and its partial derivative respect to $\Theta \; \eqref{eq:partdev}$ 
+where, if the network is used for binary classification, $\mathcal{L}$ can be exactly the same as in logistic regression.
+
+In order to train the network, we will need to perform gradient descent, so:
+
+* For each iteration until convergence:
+
+    1. compute the prediciton $\hat{y}$
+    2. compute the derivatives $\frac{\partial J}{\partial W^{[1]}}, \frac{\partial J}{\partial b^{[1]}},\frac{\partial J}{\partial W^{[2]}}, \frac{\partial J}{\partial b^{[2]}}$
+    3. update the parameters $W^{[1]}=W^{[1]}-\alpha \frac{\partial J}{\partial W^{[1]}},\cdots$
+
+
+# Backpropagation
+In order to compute the derivatives in a neural network, we use a technique called **backpropagation**, where we proceed step by step backwards in the computation of the contribution to $J$ from weights of the different layers from the rightmost to the leftmost taking advantage of the [chain rule](https://en.wikipedia.org/wiki/Chain_rule).
+
+The derivative $dW^{[2]}= \frac{\partial J}{\partial W^{[2]}}$ and $db^{[2]}= \frac{\partial J}{\partial b^{[2]}}$ are esaily calculated in two steps:
 
 $$
-\begin{equation}
-\frac{\partial}{\partial\theta_{ij}^{(l)}}J(\Theta)
-\end{equation}
-\label{eq:partdev} \tag{2}
+\begin{aligned}
+&dZ^{[2]}=A^{[2]} - Y\\
+&dW^{[2]}= \frac{1}{m}dZ^{[2]}A^{[1]T}\\
+&db^{[2]}= \frac{1}{m}\sum_{i=1}^m dZ^{[2]}
+\end{aligned}
 $$
 
-Where $\theta_{ij}^{(l)} \in \mathbb{R}$
+We can see that in order to calculate $dW^{[2]}$ and $db^{[2]}$, we need to calculate the term $dZ^{[2]}$, that represents the error a layer.
 
-## Gradient computation
+To calculate $dW^{[1]}$ and $db^{[1]}$, we need $dZ^{[2]}$, which is calculated building on the the calculation in the previous layer
 
+$$
+\begin{aligned}
+&dZ^{[1]}= W^{[2]T} dZ^{[2]} \odot g' (Z^{[1]})\\
+&dW^{[1]}= \frac{1}{m}dZ^{[2]}\\
+&db^{[1]}= \frac{1}{m}\sum_{i=1}^m dZ^{[1]}
+\end{aligned}
+$$
+
+
+```python
+dot = Digraph(node_attr={'fontsize':'9'}, edge_attr={'arrowsize': '0.5', 'fontsize':'9'}, engine='dot')
+dot.attr(rankdir='LR', packmode='graph')
+
+with dot.subgraph() as sg:
+    sg.attr(rank='equal')
+    sg.node('x', shape='plaintext', margin='0')
+    sg.node('w', label='W[1]', shape='plaintext', margin='0')
+    sg.node('b', label='b[1]', shape='plaintext', margin='0')
+
+
+    
+dot.node('z', shape='rect', label='z[1] = W[1] x + b[1]', margin='0')
+
+dot.node('h', shape='rect', label='z[2] = W2 a[1] + b[2]', margin='0')
+dot.node('y', shape='rect', label='a[2] = g(z[2])', margin='0')
+dot.node('l', shape='rect', label='L(a[2], y)', margin='0')
+
+with dot.subgraph() as sg:
+    sg.node('j', label='W[2]', shape='plaintext', margin='0')
+    sg.node('k', label='b[2]', shape='plaintext', margin='0')
+    sg.node('a', shape='rect', label='a[1] = g(z[1])', margin='0')
+    
+dot.edges(['xz', 'wz', 'bz', 'za', 'ah', 'hy', 'yl', 'jh', 'kh'])
+dot.edge('l', 'y', headport='s', tailport='s', color='red', label='da[2]', fontcolor='red')
+dot.edge('y', 'h', headport='s', tailport='s', color='red', label='dz[2]', fontcolor='red')
+dot.edge('h', 'j', headport='s', tailport='s', color='red', label='dz[2]', fontcolor='red')
+dot.edge('h', 'j', color='red', label='dz[2]', fontcolor='red')
+dot
+```
+
+
+
+
+    
+![svg](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_2_0.svg)
+    
+
+
+
+# The following section is deprecated and will be dropped 
 ### Gradient for a single example
 Suppose that we have only one training example $(x, y)$ and the neural network in the picture below
 
 
     
-![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_2_0.png)
+![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_4_0.png)
     
 
 
@@ -120,7 +186,7 @@ To try and understand back-porpagation let's first see exactly what is happening
 
 
     
-![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_6_0.png)
+![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_8_0.png)
     
 
 
@@ -128,7 +194,7 @@ Let's take the network depicted above, the count of units (excluding the bias) a
 
 
     
-![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_8_0.png)
+![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_10_0.png)
     
 
 
@@ -178,7 +244,7 @@ And they are a measuer of how much we would like to change the neural networks w
 
 
     
-![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_11_0.png)
+![png](ML-13-NeuralNetworkOptimization_files/ML-13-NeuralNetworkOptimization_13_0.png)
     
 
 

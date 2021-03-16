@@ -20,10 +20,9 @@ img {
 
 
 figure {
-    background-color: #fff;
+    background-color: none;
     padding: 5px;
     font-size: .875em;
-    /*display: table;*/
     margin: 0 auto;
     display: block;
 }
@@ -36,9 +35,6 @@ table {
     width: auto;
     margin: 2rem auto;
     font-size: .8rem;
-    /*border: none;*/
-    /*border-spacing: 0 0;*/
-    /*border-collapse: separate;*/
 }
 
 table td {

@@ -259,7 +259,7 @@ $$
 $$
 
 ### Third step of vetorization across multiple examples
-The process in $\eqref{eq:vectanneqs}$ must be repeated for each training example $x^{(m)}$ and will produce $m$ outputs $a^{[2](m)} = \hat{y}^{(m)}$
+The process in $\eqref{eq:vectanneqs}$ must be repeated for each training example $x^{(m)}$ and will produce $m$ outputs $a^{(m)[2]} = \hat{y}^{(m)}$
 
 In a non-vectorized implementation you would have something along the lines of:
 
