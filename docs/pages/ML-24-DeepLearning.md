@@ -12,7 +12,7 @@ While the concept of deep learning has been around since many years, it really t
 
 So in one word **scale** has been driving deep learning, scale of labeled data, of computational power and of the algorithm.
 
-Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#sigmoidrelu">Figure 36</a>).
+Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#sigmoidrelu">Figure 36</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
 
 
     
@@ -22,8 +22,22 @@ Incidentally many new technologies (i.e. types of neural networks) have been inv
     <figcaption>Figure 36. Comparison between sigmoid function and ReLU</figcaption>
 </figure>
 
-This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
+## Notation
+Let's take the deep neural network in <a href=#deepann>the figure below</a>
 
+
+```python
+ax, *_ = ann([3, 5, 5, 3, 1], width=1.5, radius=2, node_labels=True)
+ax.set_aspect('equal')
+```
+
+
+    
+![png](ML-24-DeepLearning_files/ML-24-DeepLearning_4_0.png)
+    
+
+
+# The next section will be moved among the first sections
 ## Derivatives
 Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#derivative">Figure 37</a>).
 
@@ -35,7 +49,7 @@ For a straight line (<a href="#derivative">Figure 37</a>, panel A) the derivativ
     
 
 <figure id="derivative">
-    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_4_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_6_0.png" alt="png">
     <figcaption>Figure 37. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
 </figure>
 
@@ -54,7 +68,7 @@ We can draw these steps in a computational graph
 
 
     
-![svg](ML-24-DeepLearning_files/ML-24-DeepLearning_6_0.svg)
+![svg](ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.svg)
     
 
 
@@ -75,7 +89,7 @@ In the terminology of backpropagation if we want to compute $\frac{dJ}{dv}$ we t
 
 
     
-![svg](ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.svg)
+![svg](ML-24-DeepLearning_files/ML-24-DeepLearning_10_0.svg)
     
 
 
@@ -103,7 +117,7 @@ In calculus this is called the **chain rule** where $a$ affects $v$ that affects
 
 
     
-![svg](ML-24-DeepLearning_files/ML-24-DeepLearning_10_0.svg)
+![svg](ML-24-DeepLearning_files/ML-24-DeepLearning_12_0.svg)
     
 
 

@@ -81,11 +81,5 @@
 <path fill="none" stroke="black" d="M256.17,-114C265.81,-114 276.54,-114 286.73,-114"/>
 <polygon fill="black" stroke="black" points="287,-115.75 292,-114 287,-112.25 287,-115.75"/>
 </g>
-<!-- j&#45;&gt;v -->
-<g id="edge6" class="edge">
-<title>j:s&#45;&gt;v:s</title>
-<path fill="none" stroke="red" d="M319,-95C319,-54.17 231.07,-52.41 223.52,-89.74"/>
-<polygon fill="red" stroke="red" points="221.75,-89.85 223,-95 225.23,-90.19 221.75,-89.85"/>
-</g>
 </g>
 </svg>
