@@ -8,7 +8,7 @@ comments: true
 ---
 
 # Neural networks learn their own features
-Let's take the network <a href="{{site.basurl}}/ML/ML10#simpleann">Figure 5</a> and focus on the last two layers
+Let's take the network <a href="ML10#simpleann">the previous lesson</a> and focus on the last two layers
 
 
     

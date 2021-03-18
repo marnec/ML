@@ -70,8 +70,3 @@ w1
 where `constant` is typically $0.01$, the reason being that if the wigths are too large, the activation function $a^{[1]}$ will output large values and gradient descent will be very slow.
 
 When training shallow neural networks `constant=0.01` is ok but when training deep neural networks you might want to chose different `constant`, but usually it wiil end up being a relatively small number.
-
-
-```python
-
-```

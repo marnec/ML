@@ -9,7 +9,7 @@ comments: true
 
 # Gradien Descent
 The aim of a neural network is, to minimize the cost function calculated on its parameters, which, if using the same network as in 
-<a href="{{site.basurl}}/ML/ML10#simpleann">Figure 5</a>, are: 
+<a href="ML10#simpleann">ML-10</a>, are: 
 
 $$
 \begin{align}
@@ -46,7 +46,7 @@ $$
 \begin{aligned}
 &dZ^{[2]}=A^{[2]} - Y\\
 &dW^{[2]}= \frac{1}{m}dZ^{[2]}A^{[1]T}\\
-&db^{[2]}= \frac{1}{m}\sum_{i=1}^m dZ^{[2]}
+&db^{[2]}= \frac{1}{m}\sum dZ^{[2]}
 \end{aligned}
 $$
 
@@ -58,7 +58,7 @@ $$
 \begin{aligned}
 &dZ^{[1]}= W^{[2]T} dZ^{[2]} \odot g' (Z^{[1]})\\
 &dW^{[1]}= \frac{1}{m}dZ^{[2]}\\
-&db^{[1]}= \frac{1}{m}\sum_{i=1}^m dZ^{[1]}
+&db^{[1]}= \frac{1}{m}\sum dZ^{[1]}
 \end{aligned}
 $$
 

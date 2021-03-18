@@ -8,21 +8,25 @@ comments: true
 ---
 
 # Model Representation
-Let's use as an example the housing prices in Portland Oregon and plot them with respect to the surface of the house in square feets
+Let's use as an example the housing prices in Portland Oregon and plot them with respect to the surface of the house in square feets (<a href="#fig:housepricescatter">Figure 5</a>)
 
 
     
-![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_2_0.png)
+
+<figure id="fig:housepricescatter">
+    <img src="{{site.baseurl}}/pages/ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_2_0.png" alt="png">
+    <figcaption>Figure 5. Scatterplot of house prices as a function of the living area in square foots</figcaption>
+</figure>
+
+Let's say that you want to know the possible price of an house given its surface. One thing that you could do is to draw a straight line that describes the growth of prices with surface (<a href="#fig:linreghouseprices">Figure 6</a>).
+
+
     
 
-
-Let's say that you want to know the possible price of an house given its surface. One thing that you could do is to draw a straight line that describes the growth of prices with surface.
-
-
-    
-![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_4_0.png)
-    
-
+<figure id="fig:linreghouseprices">
+    <img src="{{site.baseurl}}/pages/ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_4_0.png" alt="png">
+    <figcaption>Figure 6. A possible description of the dependence of house prices from square foots</figcaption>
+</figure>
 
 This is an example of supervised learning since we know the answer for each example in the dataset and it is also an example of regression problem, where we try to predict a contnuous value.
 
@@ -32,28 +36,28 @@ In supervised learning we have a training set that contains examples $(x, y)$ an
 
 
 <style  type="text/css" >
-#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col1,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col0,#T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col1{
+#T_3ddd7_row0_col0,#T_3ddd7_row0_col1,#T_3ddd7_row1_col0,#T_3ddd7_row1_col1,#T_3ddd7_row2_col0,#T_3ddd7_row2_col1,#T_3ddd7_row3_col0,#T_3ddd7_row3_col1,#T_3ddd7_row4_col0,#T_3ddd7_row4_col1{
             text-align:  left;
-        }</style><table id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
+        }</style><table id="T_3ddd7_" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col0" class="data row0 col0" >2104</td>
-                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row0_col1" class="data row0 col1" >399.900000</td>
+                                <td id="T_3ddd7_row0_col0" class="data row0 col0" >2104</td>
+                        <td id="T_3ddd7_row0_col1" class="data row0 col1" >399.900000</td>
             </tr>
             <tr>
-                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col0" class="data row1 col0" >1600</td>
-                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row1_col1" class="data row1 col1" >329.900000</td>
+                                <td id="T_3ddd7_row1_col0" class="data row1 col0" >1600</td>
+                        <td id="T_3ddd7_row1_col1" class="data row1 col1" >329.900000</td>
             </tr>
             <tr>
-                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col0" class="data row2 col0" >2400</td>
-                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row2_col1" class="data row2 col1" >369.000000</td>
+                                <td id="T_3ddd7_row2_col0" class="data row2 col0" >2400</td>
+                        <td id="T_3ddd7_row2_col1" class="data row2 col1" >369.000000</td>
             </tr>
             <tr>
-                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col0" class="data row3 col0" >1416</td>
-                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row3_col1" class="data row3 col1" >232.000000</td>
+                                <td id="T_3ddd7_row3_col0" class="data row3 col0" >1416</td>
+                        <td id="T_3ddd7_row3_col1" class="data row3 col1" >232.000000</td>
             </tr>
             <tr>
-                                <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col0" class="data row4 col0" >3000</td>
-                        <td id="T_be32fb14_50f3_11eb_9206_b42e9941f9d7row4_col1" class="data row4 col1" >539.900000</td>
+                                <td id="T_3ddd7_row4_col0" class="data row4 col0" >3000</td>
+                        <td id="T_3ddd7_row4_col1" class="data row4 col1" >539.900000</td>
             </tr>
     </tbody></table>
 
