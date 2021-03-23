@@ -11,12 +11,9 @@ comments: true
 Anatomical neurons are cells that are present in the brain in millions. A neuron has a cell body, a number of input wires, called *dendrites* and an output wire called *axon*.
 
 
-
-
     
-![svg](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_2_0.svg)
+![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_2_0.png)
     
-
 
 
 In a simplistic way a neuron is a computational unit that receive some input via dendrites, does some computation and then outputs something via the axon to other neurons in the brain.
