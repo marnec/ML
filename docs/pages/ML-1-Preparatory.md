@@ -37,15 +37,6 @@ To illustrate the computation graph let's use a simpler example than a full blow
 We can draw these steps in a computational graph
 
 
-
-
-    
-![svg](ML-1-Preparatory_files/ML-1-Preparatory_4_0.svg)
-    
-
-
-
-
 ```python
 f = Flow()
 f.node('a', xlabel=5)
@@ -60,7 +51,7 @@ f.edge('a', 'v')
 
 
     
-![png](ML-1-Preparatory_files/ML-1-Preparatory_5_0.png)
+![png](ML-1-Preparatory_files/ML-1-Preparatory_4_0.png)
     
 
 
@@ -77,17 +68,9 @@ $$\frac{dJ}{dv}=\frac{0.003}{0.001}=3$$
 In the terminology of backpropagation if we want to compute $\frac{dJ}{dv}$ we take one step back from $J$ to $v$
 
 
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    <ipython-input-5-f82832dde50f> in <module>
-    ----> 1 dot2 = cp(dot)
-          2 dot2.edge('j', 'v', headport='s', tailport='s', color='red')
-          3 dot2
-
-
-    NameError: name 'cp' is not defined
+    
+![png](ML-1-Preparatory_files/ML-1-Preparatory_6_0.png)
+    
 
 
 We now want to calculate $\frac{dJ}{da}$, in other words the change of value $J$ when $a$ changes
@@ -108,6 +91,12 @@ $$
 
 
 In calculus this is called the **chain rule** where $a$ affects $v$ that affects $J$ ($a\to v \to J$). So that the change of $J$ when $a$ is given by the product $\frac{dJ}{dv}\frac{dv}{da}$. This illustrates how having computed $\frac{dJ}{dv}$ helps in calculating $\frac{dJ}{da}$
+
+
+    
+![png](ML-1-Preparatory_files/ML-1-Preparatory_8_0.png)
+    
+
 
 # Python vectorization
 In the pre-deep-learning era vectorization was optional, in the deep-learning era vectorization absolutely necessary since both the size of networks and of data is vastly increased.
@@ -171,9 +160,23 @@ v
 ```
 
 
+
+
+    array([0.66, 0.62, 0.87, 0.75, 0.36, 0.65, 0.05, 0.51, 0.35, 0.99])
+
+
+
+
 ```python
 np.exp(v).round(2)
 ```
+
+
+
+
+    array([1.93, 1.86, 2.39, 2.12, 1.43, 1.92, 1.05, 1.67, 1.42, 2.69])
+
+
 
 
 ```python
@@ -181,14 +184,36 @@ np.log(v).round(2)
 ```
 
 
+
+
+    array([-0.42, -0.48, -0.14, -0.29, -1.02, -0.43, -3.  , -0.67, -1.05,
+           -0.01])
+
+
+
+
 ```python
 v + 1
 ```
 
 
+
+
+    array([1.66, 1.62, 1.87, 1.75, 1.36, 1.65, 1.05, 1.51, 1.35, 1.99])
+
+
+
+
 ```python
 v * 2
 ```
+
+
+
+
+    array([1.32, 1.24, 1.74, 1.5 , 0.72, 1.3 , 0.1 , 1.02, 0.7 , 1.98])
+
+
 
 ## Broadcasting
 To a complete guide to broadcasting check out [numpy great documentation](https://numpy.org/doc/stable/user/basics.broadcasting.html#:~:text=The%20term%20broadcasting%20describes%20how,that%20they%20have%20compatible%20shapes.&text=NumPy%20operations%20are%20usually%20done,element%2Dby%2Delement%20basis.)
@@ -201,10 +226,74 @@ A
 ```
 
 
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Apples</th>
+      <th>Beef</th>
+      <th>Eggs</th>
+      <th>Potatoes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Carb</th>
+      <td>56.0</td>
+      <td>0</td>
+      <td>4.4</td>
+      <td>6.8</td>
+    </tr>
+    <tr>
+      <th>Protein</th>
+      <td>1.2</td>
+      <td>104</td>
+      <td>52.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>Fat</th>
+      <td>1.8</td>
+      <td>135</td>
+      <td>99.0</td>
+      <td>0.9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
 ```python
 A = A.values
 A
 ```
+
+
+
+
+    array([[ 56. ,   0. ,   4.4,   6.8],
+           [  1.2, 104. ,  52. ,   8. ],
+           [  1.8, 135. ,  99. ,   0.9]])
+
+
 
 
 ```python
@@ -213,14 +302,39 @@ cal
 ```
 
 
+
+
+    array([ 59. , 239. , 155.4,  15.7])
+
+
+
+
 ```python
 (A / cal.reshape(1, 4) * 100)
 ```
 
 
+
+
+    array([[94.91525424,  0.        ,  2.83140283, 43.31210191],
+           [ 2.03389831, 43.51464435, 33.46203346, 50.95541401],
+           [ 3.05084746, 56.48535565, 63.70656371,  5.73248408]])
+
+
+
+
 ```python
 A / cal * 100
 ```
+
+
+
+
+    array([[94.91525424,  0.        ,  2.83140283, 43.31210191],
+           [ 2.03389831, 43.51464435, 33.46203346, 50.95541401],
+           [ 3.05084746, 56.48535565, 63.70656371,  5.73248408]])
+
+
 
 In general if you have a $m, n$ matrix (A) 
 
@@ -239,12 +353,26 @@ a = np.random.rand(5)
 a
 ```
 
+
+
+
+    array([0.56394891, 0.07270631, 0.35467275, 0.35430893, 0.12122665])
+
+
+
 Whose shape is
 
 
 ```python
 a.shape
 ```
+
+
+
+
+    (5,)
+
+
 
 This is called a rank 1 vector in python and it's neither a row vector nor a column vector and its behavior is sometimes unexpected. 
 
@@ -255,12 +383,26 @@ For example, its transpose is equal to itself
 a.T
 ```
 
+
+
+
+    array([0.56394891, 0.07270631, 0.35467275, 0.35430893, 0.12122665])
+
+
+
 and the inner product of `a` and `a.T` is not a matrix instead is a scalar
 
 
 ```python
 np.dot(a, a.T)
 ```
+
+
+
+
+    0.5893480622947215
+
+
 
 So, instead of using rank 1 vectors you may want to use rank 2 vectors, which have a much more predictable behavior.
 
@@ -271,14 +413,43 @@ a
 ```
 
 
+
+
+    array([[0.49893379],
+           [0.72659113],
+           [0.48939898],
+           [0.28151037],
+           [0.54468537]])
+
+
+
+
 ```python
 a.T
 ```
 
 
+
+
+    array([[0.49893379, 0.72659113, 0.48939898, 0.28151037, 0.54468537]])
+
+
+
+
 ```python
 np.dot(a, a.T)
 ```
+
+
+
+
+    array([[0.24893493, 0.36252087, 0.24417769, 0.14045504, 0.27176194],
+           [0.36252087, 0.52793467, 0.35559295, 0.20454294, 0.39576356],
+           [0.24417769, 0.35559295, 0.23951136, 0.13777089, 0.26656846],
+           [0.14045504, 0.20454294, 0.13777089, 0.07924809, 0.15333458],
+           [0.27176194, 0.39576356, 0.26656846, 0.15333458, 0.29668215]])
+
+
 
 rank 1 arrays can always be reshaped in row or columns vectors (or higher dimensional matrices)
 
@@ -289,11 +460,36 @@ a
 ```
 
 
+
+
+    array([0.13968563, 0.81905218, 0.02493872, 0.51290422, 0.90922248])
+
+
+
+
 ```python
 a.reshape(5, 1)
 ```
 
 
+
+
+    array([[0.13968563],
+           [0.81905218],
+           [0.02493872],
+           [0.51290422],
+           [0.90922248]])
+
+
+
+
 ```python
 a.reshape(1, 5)
 ```
+
+
+
+
+    array([[0.13968563, 0.81905218, 0.02493872, 0.51290422, 0.90922248]])
+
+
