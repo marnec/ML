@@ -12,14 +12,14 @@ Anomaly detection describes a class of problems that many consider unsupervised 
 
 Anomaly detection is best explained through an example: suppose you are a aircraft engine manufacturer and, as part of your quality assurance testing, you measure a set of features of your manufactured engines. For this example the heat generated $x_1$ and the vibration intensity $x_2$.
 
-The results of your measurements is a dataset $\left \lbrace x^{(1)}, x^{(2)}, \ldots, x^{(m)} \right \rbrace$ (<a href="#fig:engines">Figure 31</a>)
+The results of your measurements is a dataset $\left \lbrace x^{(1)}, x^{(2)}, \ldots, x^{(m)} \right \rbrace$ (<a href="#fig:engines">Figure 32</a>)
 
 
     
 
 <figure id="fig:engines">
     <img src="{{site.baseurl}}/pages/ML-22-AnomalyDetection_files/ML-22-AnomalyDetection_3_0.png" alt="png">
-    <figcaption>Figure 31. Results of quality assurance measurements performed on newly manufactured engines plotted in their features space $x_1, x_2$ and a new engine $x_\text{test}$</figcaption>
+    <figcaption>Figure 32. Results of quality assurance measurements performed on newly manufactured engines plotted in their features space $x_1, x_2$ and a new engine $x_\text{test}$</figcaption>
 </figure>
 
 Given a new example $x_\text{test}$, anomaly detection tries to answer the question: is the new example anomalous in any way?
@@ -27,14 +27,14 @@ Given a new example $x_\text{test}$, anomaly detection tries to answer the quest
 In order to answer this question we are going to build a model of the probability of $x$ to be in a specific point of the feature space $p(x)$; If $p(x_\text{test}) < \varepsilon$ we will flag it as an anomaly (where $\varepsilon$ is a small number).
 
 ## Gaussian Distribution
-Suppose $x \in \mathbb{R}$. If $x$ distributes as a Gaussian distributions with mean $\mu$ and variance $\sigma^2$, it means that its distributes resembles that in <a href="#fig:gaussian">Figure 32</a>.
+Suppose $x \in \mathbb{R}$. If $x$ distributes as a Gaussian distributions with mean $\mu$ and variance $\sigma^2$, it means that its distributes resembles that in <a href="#fig:gaussian">Figure 33</a>.
 
 
     
 
 <figure id="fig:gaussian">
     <img src="{{site.baseurl}}/pages/ML-22-AnomalyDetection_files/ML-22-AnomalyDetection_6_0.png" alt="png">
-    <figcaption>Figure 32. Gaussian distribution with mean $\mu$ and variance $\sigma^2$</figcaption>
+    <figcaption>Figure 33. Gaussian distribution with mean $\mu$ and variance $\sigma^2$</figcaption>
 </figure>
 
 The function of the Gaussian distribution is
@@ -44,14 +44,14 @@ p(x;\mu, \sigma^2)=\frac{1}{\sigma \sqrt{2 \pi}}  \left( - \frac{(x-\mu)^2}{2\si
 $$
 
 ## Parameter estimation
-Suppose you have a dataset $\lbrace x^{(1)}, x^{(2)}, \ldots, x^{(m)} \rbrace$ with $x^{(i)} \in \mathbb{R}$ (<a href="#fig:paramestim">Figure 33</a>) and you suspect that they are Gaussian distributed with each $x^{(i)} \approx \mathcal{N}(\mu, \sigma^2)$ but I don't know the values of the two parameters $\mu$ and $\sigma^2$
+Suppose you have a dataset $\lbrace x^{(1)}, x^{(2)}, \ldots, x^{(m)} \rbrace$ with $x^{(i)} \in \mathbb{R}$ (<a href="#fig:paramestim">Figure 34</a>) and you suspect that they are Gaussian distributed with each $x^{(i)} \approx \mathcal{N}(\mu, \sigma^2)$ but I don't know the values of the two parameters $\mu$ and $\sigma^2$
 
 
     
 
 <figure id="fig:paramestim">
     <img src="{{site.baseurl}}/pages/ML-22-AnomalyDetection_files/ML-22-AnomalyDetection_10_0.png" alt="png">
-    <figcaption>Figure 33. Data distributed on the $x$ axis and their Gaussian density estimation</figcaption>
+    <figcaption>Figure 34. Data distributed on the $x$ axis and their Gaussian density estimation</figcaption>
 </figure>
 
 The parameters can be estimated from $x$, we will have
@@ -100,40 +100,40 @@ The choice of features included in an anomaly detection model heavily impact its
 
 The most common problem that we want to overcome and is caused by a sub-optimal choice of the features is that $p(x)$ assumes comparable values for normal and anomalous examples.
 
-Usually the best procedure to choose features is by an error analysis, which is best explained in the <a href="#fig:erroranalysis">Figure 34</a>
+Usually the best procedure to choose features is by an error analysis, which is best explained in the <a href="#fig:erroranalysis">Figure 35</a>
 
 
     
 
 <figure id="fig:erroranalysis">
     <img src="{{site.baseurl}}/pages/ML-22-AnomalyDetection_files/ML-22-AnomalyDetection_14_0.png" alt="png">
-    <figcaption>Figure 34. An anomalous example not detected with a single feature $x_1$ and correctly detected in the feature space $x_1, x_2$</figcaption>
+    <figcaption>Figure 35. An anomalous example not detected with a single feature $x_1$ and correctly detected in the feature space $x_1, x_2$</figcaption>
 </figure>
 
 A good practice in choosing features is to choose or combine features so that they take on unusually large or small values in the event of an anomaly.
 
 ## Non-Gaussian features
-Even if a feature has not a Gaussian distribution (<a href="#fig:gaussbetadist">Figure 35</a>), usually the algorithm works fine. However, usually the algorithm will work better if non-Gaussian data is **transformed to Gaussian**.
+Even if a feature has not a Gaussian distribution (<a href="#fig:gaussbetadist">Figure 36</a>), usually the algorithm works fine. However, usually the algorithm will work better if non-Gaussian data is **transformed to Gaussian**.
 
 
     
 
 <figure id="fig:gaussbetadist">
     <img src="{{site.baseurl}}/pages/ML-22-AnomalyDetection_files/ML-22-AnomalyDetection_16_0.png" alt="png">
-    <figcaption>Figure 35. Histogram of data drawn from a Gaussian (A) and Beta (B) distributions and from the Beta distribution transformed to Gaussian (C)</figcaption>
+    <figcaption>Figure 36. Histogram of data drawn from a Gaussian (A) and Beta (B) distributions and from the Beta distribution transformed to Gaussian (C)</figcaption>
 </figure>
 
 ## Multivariate Gaussian Distribution
 When calculating the probability $p(x)$ of an example being drawn from a normal distribution, we make an important assumption: that all features $x_j$ are independent.
 
-When there is some dependency between two or more features (e.g. linear dependency) the model might not be able to correctly identify anomalous examples. For example in the <a href="#fig:multivar">Figure 36</a>, features $x_1$ and $x_2$ are linearly dependent and the new example, while being intuitively anomalous is not detected as such (panel A) since it is in the acceptable range of values of both $x_1$ (panel B) and $x_2$ (panel C) Gaussian distributions.
+When there is some dependency between two or more features (e.g. linear dependency) the model might not be able to correctly identify anomalous examples. For example in the <a href="#fig:multivar">Figure 37</a>, features $x_1$ and $x_2$ are linearly dependent and the new example, while being intuitively anomalous is not detected as such (panel A) since it is in the acceptable range of values of both $x_1$ (panel B) and $x_2$ (panel C) Gaussian distributions.
 
 
     
 
 <figure id="fig:multivar">
     <img src="{{site.baseurl}}/pages/ML-22-AnomalyDetection_files/ML-22-AnomalyDetection_18_0.png" alt="png">
-    <figcaption>Figure 36. Dependent features and a new anomalous example not correctly classified by the algorithm modeled as an two independent Gaussian models (A); the $x_1$ (B) and $x_2$ (C) Gaussian models</figcaption>
+    <figcaption>Figure 37. Dependent features and a new anomalous example not correctly classified by the algorithm modeled as an two independent Gaussian models (A); the $x_1$ (B) and $x_2$ (C) Gaussian models</figcaption>
 </figure>
 
 Instead of modeling $p(x_1)$ and $p(x_2)$ separately they should have been modeled together. In order to do so we would have to slightly change our system.
@@ -153,14 +153,14 @@ $$
 \mu= \begin{bmatrix}1.5\\1.5\end{bmatrix}  \qquad \qquad \Sigma = \begin{bmatrix}1.0 & 0.5 \\0.5 & 1.0\end{bmatrix}
 $$
 
-we would have a model that correctly identify the anomalous example (<a href="#fig:multivarinclined">Figure 37</a>).
+we would have a model that correctly identify the anomalous example (<a href="#fig:multivarinclined">Figure 38</a>).
 
 
     
 
 <figure id="fig:multivarinclined">
     <img src="{{site.baseurl}}/pages/ML-22-AnomalyDetection_files/ML-22-AnomalyDetection_20_0.png" alt="png">
-    <figcaption>Figure 37. Contour plot of the probability density of function of a multivariate Gaussian distribution</figcaption>
+    <figcaption>Figure 38. Contour plot of the probability density of function of a multivariate Gaussian distribution</figcaption>
 </figure>
 
 ## Multivariate Anomaly detection

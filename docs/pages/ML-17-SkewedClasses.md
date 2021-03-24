@@ -96,14 +96,14 @@ $$
 
 And we will attain higher recall but lower precision.
 
-In general by lowering the threshold we will trade off precision for recall and if we were to plot recall and precision for a number of possible threshold values we would have something like <a href="#fig:prerec">Figure 13</a>:
+In general by lowering the threshold we will trade off precision for recall and if we were to plot recall and precision for a number of possible threshold values we would have something like <a href="#fig:prerec">Figure 14</a>:
 
 
     
 
 <figure id="fig:prerec">
     <img src="{{site.baseurl}}/pages/ML-17-SkewedClasses_files/ML-17-SkewedClasses_6_0.png" alt="png">
-    <figcaption>Figure 13. An ideal precision-recall curve for decreasing values of threshold (lef-to-right) applied to a logistic regression output scores compared to the actual classes.</figcaption>
+    <figcaption>Figure 14. An ideal precision-recall curve for decreasing values of threshold (lef-to-right) applied to a logistic regression output scores compared to the actual classes.</figcaption>
 </figure>
 
 ### A single metric F1-Score

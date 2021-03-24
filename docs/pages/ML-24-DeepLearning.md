@@ -12,29 +12,27 @@ While the concept of deep learning has been around since many years, it really t
 
 So in one word **scale** has been driving deep learning, scale of labeled data, of computational power and of the algorithm.
 
-Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">Figure 38</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
+Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">Figure 39</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
 
 
     
 
 <figure id="fig:sigmoidrelu">
     <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png" alt="png">
-    <figcaption>Figure 38. Comparison between sigmoid function and ReLU</figcaption>
+    <figcaption>Figure 39. Comparison between sigmoid function and ReLU</figcaption>
 </figure>
 
 ## Deep representation
 Why do deep neural networks work well? Deep neural networks build a hierarchical representation of training data.
 
-Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">Figure 39</a>).
-
-
+Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">Figure 40</a>).
 
 
     
 
 <figure id="fig:audioexample">
-    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_5_0.svg" alt="png">
-    <figcaption>Figure 39. An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_5_0.png" alt="png">
+    <figcaption>Figure 40. An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</figcaption>
 </figure>
 
 A result from circuit theory states that:
@@ -61,7 +59,7 @@ ax.set_aspect('equal')
 
 <figure id="fig:deepann">
     <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.png" alt="png">
-    <figcaption>Figure 40. A 4-layers deep neural network</figcaption>
+    <figcaption>Figure 41. A 4-layers deep neural network</figcaption>
 </figure>
 
 We say that this neural network as $L=4$ layers; input layer is included in the number of layers. Each layer has $n^{[l]}$ number of units. In this case:
@@ -145,22 +143,39 @@ Hyperparameters are settings that influence how the neural network learns the pa
 * choice of activation functions
 * other hyperparameters
 
-There currently is no way of determining in advance optimal hyperparameters and the only way to find out what are good values for hyperparameters is to empirically test them.
+There currently is no way of determining in advance optimal hyperparameters and the only way to find out what are good values for hyperparameters is to empirically test them. For this reason, especially nowadays, training a machine learning algorithm is an highly iterative process, where the best performing model is chosen among many others.
+
+## Testing a model
+In order to select the best performing algorithm it becomes essential to have a framework to test machine learning models. The common system is to split the dataset of examples in 3 separate subsets:
+
+* **training set**: the set of examples on which the parameters are fitted
+* **cross-validation set**: (also called hold-out or development set): the set of examples of which different models are tested and hyperparameters are chosen
+* **test set**: the set of examples on which the performance of a model is measured
+
+In early days of machine learning it was widely considered a good practice to split your dataset with a 70/30% or 60/20/20% ratio. And this is fine when the number of examples are in the order of $10^{2-4}$. But for deep-learning problems, where usually the number of examples is in the order of $10^{6}$, the fraction of data in the test and dev sets is much much smaller and a good split would be a 98/1/1%.
+
+### Mismatched train/test distributions
+When dealing with large amount of data it may happen that data in the training set and data in the dev or test set come from different distributions.
+
+For example the training set might be fed by automatic data crawlers while the dev or test set might be fed data from users. This is generally fine as long as the dev and test sets come from the same distribution. 
+
+### Omitting the test set
+Since the goal of the test set is to provide a platform to obtain an un-biased estimate of the performance of the model, it is not required to have one in case we don't need to estimate such performance. The dev set on the other hand is absolutely necessary to chose the best performing model
 
 # The next section will be moved among the first sections
 ## Derivatives
-Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#fig:derivative">Figure 41</a>).
+Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#fig:derivative">Figure 42</a>).
 
 The slope $\frac{\text{height} }{\text{width}}=3$ so we say that the derivative of $f(a)$ at the point $a=2$ is $3$. Height and width are the the vertical and horizontal distances and the slope is also expressed as $\frac{df(a)}{da}$ or as $\frac{d}{da}f(a)$. The reason why $a'$ doesn't appear in this representation is because, formally, the derivative is calculated at a very small increment of $a$ such as $a' \approx a$.
 
-For a straight line (<a href="#fig:derivative">Figure 41</a>, panel A) the derivative is constant along the whole line.
+For a straight line (<a href="#fig:derivative">Figure 42</a>, panel A) the derivative is constant along the whole line.
 
 
     
 
 <figure id="fig:derivative">
     <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_14_0.png" alt="png">
-    <figcaption>Figure 41. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
+    <figcaption>Figure 42. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
 </figure>
 
 ## Computational graph
