@@ -47,7 +47,7 @@ Until now we represented single neurons; a neural network is a group of differen
 
 <figure id="fig:simpleann">
     <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_7_0.png" alt="png">
-    <figcaption>Figure 8. A simple neural network with one hidden layer</figcaption>
+    <figcaption>Figure 9. A simple neural network with one hidden layer</figcaption>
 </figure>
 
 The computational entities in a neural networks are:
@@ -64,7 +64,7 @@ $$
 
 # Forward propagation
 
-The flow of the computation in the network in <a href="#fig:simpleann">Figure 8</a> from input (left) to prediction (right), called forward propagation, is just like that in logistic regression but a lot more times. In fact, each unit in layer $l$ is **densely connected** (namely is connected to all units in layer $l+1$) and we will have to compute a logistic regression for each connection.
+The flow of the computation in the network in <a href="#fig:simpleann">Figure 9</a> from input (left) to prediction (right), called forward propagation, is just like that in logistic regression but a lot more times. In fact, each unit in layer $l$ is **densely connected** (namely is connected to all units in layer $l+1$) and we will have to compute a logistic regression for each connection.
 
 So, for example, the computations that we will have to execute from the input layer to the first layer will be:
 
@@ -150,7 +150,7 @@ That is to say that we compute our hidden units in the first layer as a $3\times
 ## Vectorization
 
 ### First step of vectorization
-Let's see vectorization for $\eqref{eq:neuralnet}$: this process can be then applied to any other layer. In  $\eqref{eq:neuralnet}$ we have the equations $\eqref{eq:l1unit1vect}$ are the operations required to calculate $a^{[1]}_1$ from input $x_1, x_2, x_3$ (<a href="#fig:annfirststeps">Figure 9</a>, panel A).
+Let's see vectorization for $\eqref{eq:neuralnet}$: this process can be then applied to any other layer. In  $\eqref{eq:neuralnet}$ we have the equations $\eqref{eq:l1unit1vect}$ are the operations required to calculate $a^{[1]}_1$ from input $x_1, x_2, x_3$ (<a href="#fig:annfirststeps">Figure 10</a>, panel A).
 
 $$
 \begin{align}
@@ -162,7 +162,7 @@ $$
 
 
 
-Similarly, $\eqref{eq:l1unit2vect}$ are the operations required to calculate $a^{[1]}_2$ from input $x_1, x_2, x_3$ (<a href="#fig:annfirststeps">Figure 9</a>, panel B)
+Similarly, $\eqref{eq:l1unit2vect}$ are the operations required to calculate $a^{[1]}_2$ from input $x_1, x_2, x_3$ (<a href="#fig:annfirststeps">Figure 10</a>, panel B)
 
 $$
 \begin{align}
@@ -172,7 +172,7 @@ $$
 \label{eq:l1unit2vect} \tag{5}
 $$
 
-Finally, $\eqref{eq:l1unit3vect}$  are the operations required to calculate $a^{[1]}_3$ from input $x_1, x_2, x_3$ (<a href="#fig:annfirststeps">Figure 9</a>, panel C)
+Finally, $\eqref{eq:l1unit3vect}$  are the operations required to calculate $a^{[1]}_3$ from input $x_1, x_2, x_3$ (<a href="#fig:annfirststeps">Figure 10</a>, panel C)
 
 $$
 \begin{align}
@@ -187,7 +187,7 @@ $$
 
 <figure id="fig:annfirststeps">
     <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_12_0.png" alt="png">
-    <figcaption>Figure 9. First three steps of forward propagation to calculate the hidden units of the first layer from the input layer.</figcaption>
+    <figcaption>Figure 10. First three steps of forward propagation to calculate the hidden units of the first layer from the input layer.</figcaption>
 </figure>
 
 ### Second step of vectorization

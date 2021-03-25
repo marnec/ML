@@ -12,27 +12,27 @@ While the concept of deep learning has been around since many years, it really t
 
 So in one word **scale** has been driving deep learning, scale of labeled data, of computational power and of the algorithm.
 
-Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">Figure 39</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
+Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">Figure 40</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
 
 
     
 
 <figure id="fig:sigmoidrelu">
     <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png" alt="png">
-    <figcaption>Figure 39. Comparison between sigmoid function and ReLU</figcaption>
+    <figcaption>Figure 40. Comparison between sigmoid function and ReLU</figcaption>
 </figure>
 
 ## Deep representation
 Why do deep neural networks work well? Deep neural networks build a hierarchical representation of training data.
 
-Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">Figure 40</a>).
+Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">Figure 41</a>).
 
 
     
 
 <figure id="fig:audioexample">
     <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_5_0.png" alt="png">
-    <figcaption>Figure 40. An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</figcaption>
+    <figcaption>Figure 41. An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</figcaption>
 </figure>
 
 A result from circuit theory states that:
@@ -53,7 +53,7 @@ Let's take the deep neural network in <a href=#fig:deepann>the figure below</a>
 
 <figure id="fig:deepann">
     <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.png" alt="png">
-    <figcaption>Figure 41. A 4-layers deep neural network</figcaption>
+    <figcaption>Figure 42. A 4-layers deep neural network</figcaption>
 </figure>
 
 We say that this neural network as $L=4$ layers; input layer is included in the number of layers. Each layer has $n^{[l]}$ number of units. In this case:

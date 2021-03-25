@@ -16,7 +16,7 @@ Let's take some data distributed as in the Figure below
     
 
 
-Three models are shown in the figure Below in panels A, B, C:
+Three models are shown in <a href="#biasvariance">the figure Below</a> in panels A, B, C:
 
 * Panel A: We could use linear regression to model this data but this isn't a good model. Looking at the data it seems clear that as $x$ increases, $y$ hits a plateau, while the model implies that $y$ will linearly grow with $x$. We call this problem **underfitting** or we say that the algorithm has **high bias**. It means that the algorithm has a very strong pre-conception (bias) that $y$ are going to behave very linearly.
 
@@ -26,9 +26,11 @@ Three models are shown in the figure Below in panels A, B, C:
 
 
     
-![png](ML-8-Overfitting_files/ML-8-Overfitting_4_0.png)
-    
 
+<figure id="biasvariance">
+    <img src="{{site.baseurl}}/pages/ML-8-Overfitting_files/ML-8-Overfitting_4_0.png" alt="png">
+    <figcaption>Figure 8. Three examples of models that underfit or have high bias (A), overfit or have high variance (C) and are just right (B)</figcaption>
+</figure>
 
 The problem of overfitting comes when we have too many features and the learned hypothesis may fit the training set very well ($J(\theta)\approx0$), but fail to generalize to new examples.
 
