@@ -87,12 +87,6 @@ A first way to imagine the effect of regularization on gradient descent is that 
 Suppose we have a deep neural network as in <a href="#deepnn">the figure below</a>
 
 
-```python
-ax, *_ = ann([3, 3, 3, 3, 1], height=.5)
-ax.set_aspect('equal')
-```
-
-
     
 
 <figure id="deepnn">
