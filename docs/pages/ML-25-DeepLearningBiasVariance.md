@@ -164,17 +164,6 @@ When applying regularization we will add the term $\frac{\lambda}{2m} \sum_{l=1}
 For a sufficiently high value of the regularization parameter $\lambda$, we will have $w^{[l]} \approx 0$. In turn, this will give $a^{[l]} \approx 0$ for some nodes (<a href="#regdeepnn">figure below</a>), reducing the complexity of the functions encoded by the neural network. 
 
 
-```python
-propagate = lambda l, n: list(chain.from_iterable([l]*n))
-
-ax, *_ = ann([3, 3, 3, 3, 1], height=.5, 
-             node_colors=['k']*3 +propagate(['k', 'grey', 'grey'], 3), 
-             edge_colors=propagate(['k']+['lightgrey']*2, 3) + propagate(['k']+['lightgrey']*8, 3))
-
-ax.set_aspect('equal')
-```
-
-
     
 
 <figure id="#regdeepnn">
@@ -188,25 +177,6 @@ A second way to imagine the effect of regularization on gradient descent is that
 Suppose you have an hidden unit with activation function $g(z) = \tanh(z)$. Having a sufficiently high regularization parameter $\lambda$ implies that the values of the parameter matrix $w^{[l]}$ will deviate from extreme values and tend to 0. 
 
 When the activation function (tanh in this case) is applied to $z$, since the latter falls in values close to 0, $g(z)$ will be mostly linear (<a hred="#lintanh">figure below</a>). A combination of any number of linear hidden units will result in a linear model.
-
-
-```python
-x = np.linspace(-4, 4)
-y = np.tanh(x)
-
-ax = plt.gca()
-ax.plot(x, y, label='non linear')
-
-ax.spines['left'].set_position('center')
-ax.spines['bottom'].set_position('center')
-ax.spines['right'].set_color('none')
-ax.spines['top'].set_color('none')
-ax.set_xticks([])
-ax.set_yticks([])
-ax.fill_between(x[21:29], np.ones(8), np.ones(8)*-1, alpha=.12, facecolor='r')
-ax.plot(x[21:29], y[21:29], c='r', label='linear')
-ax.legend();
-```
 
 
     
