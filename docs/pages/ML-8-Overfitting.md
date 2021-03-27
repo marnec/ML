@@ -44,7 +44,7 @@ Until now, in order to choose the degree of the polynomial of our hypothsis we w
 * Regularization: Keep all the features, but reduce the magnitude of parameters $\theta_j$. This method works well when we have many features, each of which contributes to predicting $y$
     
 
-# Regularization
+# Regularization  <!--id=reg-->
 In the example used above we have seen that a quadratic function would be a good fit for the data, while an higher order polynomial would overfit the data and not generalize well.
 
 
