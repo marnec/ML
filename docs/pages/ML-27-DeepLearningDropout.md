@@ -55,3 +55,32 @@ $$
 So by applying $a^{[3]} = \frac{a^{[3]}}{0.8}$ we would bump up the values of $a^{[3]}$ by 20% and counter the reduction produced shutting nodes off. This is called the **inverted dropout** technique and ensures that, independently from the value of $p$, the expected value of $a$ remains the same.
 
 Inverted dropout removes the need to scale up parameters at test time. In fact, at test time you will just forward propagate from input to prediction and, by applying the inverted dropout the activation scale is automatically correct.
+
+# Other regularization methods
+
+## Data augmentation
+When you have a large number of input features, as in the case of image recognition, you will probably never have enough training data and your model is almost guaranteed to overfit. Since the option of getting more data (which would be the best option) is ruled out *a priori*, you can try and get around this problem by artificially producing more data, an approach called **data augmentation**.
+
+The principle of data augmentation is to apply some transform function to the data you have in order to produce a slightly different form of your data that will help to build a more robust (generalized) model. 
+
+For example if you are training an image recognition algorithm, you could flip all images horizontally, rotate and skew the image, add some blur, ... .
+
+## Early stopping
+When training your neural network, you can plot the training and dev set error as a function of the number of iterations to diagnose over- or under-fitting problems. The plots will usually look like that in <a href="#earlystop">the figure below</a>, where the train error will decrease monotonically while the number of iterations increase and the dev set error will decrease up to a certain point where it starts to rise back up. This is due to the fact that after the flex point we are overfitting our model to the training data and this loss of generalization decrease its performance on the dev set.
+
+In early stopping you stop the training when the dev set error flexes back up. The principle behind this is that at the very start of the model training the parameters will be very small ($w \approx 0$ due to random initialization) and they will gradually increase and become bigger and bigger while iterating. With early stopping we obtain mid-size parameters, an effect very similar to $L_2$ regularization ($\| w \|_F^2$)
+
+
+    
+![png](ML-27-DeepLearningDropout_files/ML-27-DeepLearningDropout_9_0.png)
+    
+
+
+Early stopping has the disadvantage to inextricably coupling two processes:
+
+* optimize the cost function $J$: reach the minimum of the cost function by tuning the hyperparameters and bringing gradient descent to convergence
+* reduce overfitting (variance): apply regularization. Once the optimization step is complete you will most likely have an overfitted model, in this step you reduce the overfitting to try to generalize your model.
+
+Keeping this two step separated is called **orthogonalization** and is a recommended approach in most cases, but with early stopping you couple this two tasks and try to both optimize $J$ and prevent overfitting in one go.
+
+On the other hand, by using $L_2$ regularization you need to try many values of the hyperparameter $\lambda$ and this may become computationally heavy, while with early stopping you train and regularize in one go and it's much more computationally efficient.
