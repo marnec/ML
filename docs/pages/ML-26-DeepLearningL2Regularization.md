@@ -10,7 +10,7 @@ comments: true
 ## Regularization
 When your model is overfitting your data (high variance) you can either get more data, which may not always be possible, or apply **regularization**.
 
-We already talked about regularization in <a href="ML8">this lesson</a>, where the cost function of logistic regression is regularized and the regularization is mediated by the regularization parameter $\lambda$
+We already talked about regularization in <a href="{{site.basurl}}/ML/ML8">ML8</a>, where the cost function of logistic regression is regularized and the regularization is mediated by the regularization parameter $\lambda$
 
 $$
 \begin{equation}
@@ -84,24 +84,24 @@ Let's see two ways of intuitively explain why regularization prevents (or reduce
 
 A first way to imagine the effect of regularization on gradient descent is that of thinking of the *weight* of some hidden units in a network being very small and almost null. This simplify the architecture of the neural network rendering it able to represent simpler functions.
 
-Suppose we have a deep neural network as in <a href="#deepnn">the figure below</a>
+Suppose we have a deep neural network as in <a href="#fig:deepnn">Figure 43</a>
 
 
     
 
-<figure id="deepnn">
+<figure id="fig:deepnn">
     <img src="{{site.baseurl}}/pages/ML-26-DeepLearningL2Regularization_files/ML-26-DeepLearningL2Regularization_4_0.png" alt="png">
     <figcaption>Figure 43. A 4 layers neural network</figcaption>
 </figure>
 
 When applying regularization we will add the term $\frac{\lambda}{2m} \sum_{l=1}^L \|w^{[l]}\|^2$ to the cost function $J(w^{[l]}, b^{[l]})$. In this way we will increase the cost for high values of $w^{[l]}$ and bring gradient descent to reduce the values $w^{[l]}$.
 
-For a sufficiently high value of the regularization parameter $\lambda$, we will have $w^{[l]} \approx 0$. In turn, this will give $a^{[l]} \approx 0$ for some nodes (<a href="#regdeepnn">figure below</a>), reducing the complexity of the functions encoded by the neural network. 
+For a sufficiently high value of the regularization parameter $\lambda$, we will have $w^{[l]} \approx 0$. In turn, this will give $a^{[l]} \approx 0$ for some nodes (<a href="#fig:regdeepnn">Figure 44</a>), reducing the complexity of the functions encoded by the neural network. 
 
 
     
 
-<figure id="#regdeepnn">
+<figure id="fig:regdeepnn">
     <img src="{{site.baseurl}}/pages/ML-26-DeepLearningL2Regularization_files/ML-26-DeepLearningL2Regularization_6_0.png" alt="png">
     <figcaption>Figure 44. The effect of regularized gradient descent on the values of parameters ($w$) and hidden units ($a$), where lightgrey represents values $\approx 0$</figcaption>
 </figure>
@@ -116,7 +116,7 @@ When the activation function (tanh in this case) is applied to $z$, since the la
 
     
 
-<figure id="lintanh">
+<figure id="fig:lintanh">
     <img src="{{site.baseurl}}/pages/ML-26-DeepLearningL2Regularization_files/ML-26-DeepLearningL2Regularization_8_0.png" alt="png">
     <figcaption>Figure 45. hyperboloid target function of the range of values (-4, 4) with the central, mostly linear, part highlighted in red</figcaption>
 </figure>

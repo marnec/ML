@@ -8,28 +8,28 @@ comments: true
 ---
 
 #  Dropout
-A very powerful reguralization technique is called dropout. 
+A very powerful regularization technique is called dropout. 
 
-In dropout we will assign for each layer a probability $p$ of retaining each node in the layer (<a href="#dropout">figure below</a>). We will then randomly remove a different set of nodes **for each examples**, according to their layer probabilities. So for each training example you will train the model using a random reduced network.
+In dropout we will assign for each layer a probability $p$ of retaining each node in the layer (<a href="#fig:dropout">Figure 46</a>). We will then randomly remove a different set of nodes **for each examples**, according to their layer probabilities. So for each training example you will train the model using a random reduced network.
 
 
     
-![png](ML-27-DeepLearningDropout_files/ML-27-DeepLearningDropout_2_0.png)
-    
 
-
-<i id ="dropout">A four layers neural network (A) and a random drop of its hidden units according to the probability set for each layer (B)</i>
+<figure id="fig:dropout">
+    <img src="{{site.baseurl}}/pages/ML-27-DeepLearningDropout_files/ML-27-DeepLearningDropout_2_0.png" alt="png">
+    <figcaption>Figure 46. A four layers neural network (A) and a random drop of its hidden units according to the probability set for each layer (B)</figcaption>
+</figure>
 
 The effect of dropout is to **spread the weights** across hidden units during training. Since sometimes some of the hidden units are unavailable, the model is trained not to "rely" on any single unit. The spreading of weights has a similar effect as $L_2$ regularization and, while they have some different implications, they tend to have a pretty similar effect.
 
-The retain probability $p$ can be set at a different value for each layer and usually is set lower for layer that have more risk to suffer from overfitting. For example, suppose we have the neural network represented in <a href="#diffdropout">the figure below</a>: we would retain all nodes in the input layer ($p=1$) and and the first layer ($w \in \mathbb{R}^{7, 1}$); apply a rather low retain probability to the second layer ($w \in \mathbb{R}^{7, 7}$), which is the layer that has the most probability to suffer from overfitting, an higher retain probability to the third layer ($w \in \mathbb{R}^{3, 7}$) and keep all other units.
+The retain probability $p$ can be set at a different value for each layer and usually is set lower for layer that have more risk to suffer from overfitting. For example, suppose we have the neural network represented in <a href="#fig:diffdropout">Figure 47</a>: we would retain all nodes in the input layer ($p=1$) and and the first layer ($w \in \mathbb{R}^{7, 1}$); apply a rather low retain probability to the second layer ($w \in \mathbb{R}^{7, 7}$), which is the layer that has the most probability to suffer from overfitting, an higher retain probability to the third layer ($w \in \mathbb{R}^{3, 7}$) and keep all other units.
 
 
     
 
-<figure id="diffdropout">
+<figure id="fig:diffdropout">
     <img src="{{site.baseurl}}/pages/ML-27-DeepLearningDropout_files/ML-27-DeepLearningDropout_4_0.png" alt="png">
-    <figcaption>Figure 46. Different retain probabilities $p$ applied on different layers $l$ of a neural network based on the size of the parameter matrix $w^{[l]}$</figcaption>
+    <figcaption>Figure 47. Different retain probabilities $p$ applied on different layers $l$ of a neural network based on the size of the parameter matrix $w^{[l]}$</figcaption>
 </figure>
 
 One **downside of dropout** is to render the cost function $J$ undefined: this means that training surveillance methods such as plotting the value of $J$ at each iteration (to ensure that it is decreasing) are no longer valid.  
@@ -66,15 +66,17 @@ The principle of data augmentation is to apply some transform function to the da
 For example if you are training an image recognition algorithm, you could flip all images horizontally, rotate and skew the image, add some blur, ... .
 
 ## Early stopping
-When training your neural network, you can plot the training and dev set error as a function of the number of iterations to diagnose over- or under-fitting problems. The plots will usually look like that in <a href="#earlystop">the figure below</a>, where the train error will decrease monotonically while the number of iterations increase and the dev set error will decrease up to a certain point where it starts to rise back up. This is due to the fact that after the flex point we are overfitting our model to the training data and this loss of generalization decrease its performance on the dev set.
+When training your neural network, you can plot the training and dev set error as a function of the number of iterations to diagnose over- or under-fitting problems. The plots will usually look like that in <a href="#fig:earlystop">Figure 48</a>, where the train error will decrease monotonically while the number of iterations increase and the dev set error will decrease up to a certain point where it starts to rise back up. This is due to the fact that after the flex point we are overfitting our model to the training data and this loss of generalization decrease its performance on the dev set.
 
 In early stopping you stop the training when the dev set error flexes back up. The principle behind this is that at the very start of the model training the parameters will be very small ($w \approx 0$ due to random initialization) and they will gradually increase and become bigger and bigger while iterating. With early stopping we obtain mid-size parameters, an effect very similar to $L_2$ regularization ($\| w \|_F^2$)
 
 
     
-![png](ML-27-DeepLearningDropout_files/ML-27-DeepLearningDropout_9_0.png)
-    
 
+<figure id="fig:earlystop">
+    <img src="{{site.baseurl}}/pages/ML-27-DeepLearningDropout_files/ML-27-DeepLearningDropout_9_0.png" alt="png">
+    <figcaption>Figure 48. Error calculated on the training and dev set as a function of the number of training iterations and optimal point where to apply early stop</figcaption>
+</figure>
 
 Early stopping has the disadvantage to inextricably coupling two processes:
 
