@@ -93,12 +93,6 @@ And while we made this argument for the activation values we can make a similar 
 Let's focus on a single neuron with 4 input features
 
 
-```python
-ax, *_ = ann([4, 1], node_labels=True, radius=2)
-ax.set_aspect('equal')
-```
-
-
     
 
 <figure id="fig:onelayernn">

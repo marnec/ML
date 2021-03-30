@@ -11,6 +11,8 @@ are coded in Python.
 
 See the source code here: [github repository](https://github.com/marnec/ML). 
 
+{% include search-lunr.html %}
+
 {% assign site_pages = site.pages | where_exp: "item", "item.path contains 'ML-'" | sort: "order" %}
 
 {% for page in site_pages %}
