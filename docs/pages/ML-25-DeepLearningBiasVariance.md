@@ -8,14 +8,14 @@ comments: true
 ---
 
 # Bias and Variance
-Bias and Variance in ML (<a href="ML8#biasvariance">check this figure</a>)  are fundamental concepts and expert practitioners usually have a deep understanding of bias/variance related topics. 
+Bias and Variance in ML (<a href="{{site.basurl}}/ML/ML8#fig:biasvariance">Figure 8</a>)  are fundamental concepts and expert practitioners usually have a deep understanding of bias/variance related topics. 
 
 In the deep learning era there is less discussion about the bias/variance trade-off because in the deep learning era there is less trade-off. So the concepts of bias and variance are still central but their trade-off is no more so important.
 
 The reason for this is that in the pred-deep learning era usually you could reduce bias at the cost of increasing variance or vice-versa, but generally it wasn't possible to just reduce bias or just reduce variance. Instead, in deep learning, as long as you get a bigger network (in terms of layers or hidden units) you will generally reduce bias without impacting variance (if regularized properly), and as long as you can get more data you will generally reduce variance without impacting bias.
 
 ## Identify bias/variance from subset error
-When only two features are present we can just look at the model (<a href="ML8#biasvariance">check this figure</a>) and identify situations of high bias (panel A) or high variance (panel C).
+When only two features are present we can just look at the model (<a href="{{site.basurl}}/ML/ML8#fig:biasvariance">Figure 8</a>) and identify situations of high bias (panel A) or high variance (panel C).
 
 When many features are present we can no longer visualize the model but we can employ some metrics that will help us identify these problems.
 
