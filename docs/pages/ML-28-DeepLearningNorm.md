@@ -66,11 +66,7 @@ w^{[l]} =
 1.5 & 0 \\
 0 & 1.5
 \end{bmatrix}
-$$
-
-Then we have
-
-$$
+\qquad \to \qquad 
 \hat{y}=
 \begin{bmatrix}
 1.5 & 0 \\
@@ -78,8 +74,81 @@ $$
 \end{bmatrix}^{L-1}x
 $$
 
-And this means that for large values of $L$ the value of $\hat{y}$ will explode, it will increase exponentially with $1.5^L$.
+$\hat{y}$ will increase exponentially with $1.5^L$. This implies that for large values of $L$ the value of $\hat{y}$ will explode. Conversely the value of $\hat{y}$ will vanish for weights $w^{[l]} < I$ (where $I$ is the identity matrix). 
 
-Conversely the value of $\hat{y}$ will vanish for weights $w^{[l]} < I$ (where $I$ is the identity matrix). So we can say that the activation values (and consequently $\hat{y}$ will explode or vanish, respectively, for $w^{[l]} > I$ or $w^{[l]} < I$.
+In general 
+
+$$
+\hat{y} 
+\begin{cases}
+w^{[l]} > I \qquad \to \text{explode} \\ 
+w^{[l]} < I \qquad \to \text{vanish}
+\end{cases}
+$$
 
 And while we made this argument for the activation values we can make a similar argument for the gradients
+
+## Correct weight initialization to attenuate gradient derive
+
+Let's focus on a single neuron with 4 input features
+
+
+```python
+ax, *_ = ann([4, 1], node_labels=True, radius=2)
+ax.set_aspect('equal')
+```
+
+
+    
+
+<figure id="fig:onelayernn">
+    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_10_0.png" alt="png">
+    <figcaption>Figure 52. A single layer neural network with 4 input features</figcaption>
+</figure>
+
+For the network in <a href="#fig:onelayernn">Figure 52</a>
+
+$$
+z = w_1x_1 + w_2x_2 + \ldots + w_nx_n
+$$
+
+So the larger $n$ is, the smaller we want to set $w_i$ in order to prevent gradient explosion. It would be ideal to set the variance of $w_i$ to be inversely proportional to $n$
+
+$$
+\sigma^2(w_i) = \frac{1}{n}
+$$
+
+So, in order to set the variance for random variables **drawn from a Gaussian distribution** we would write our weights matrix as:
+
+
+```python
+nx = 4
+np.random.randn(1, nx)*np.sqrt(1/nx)
+```
+
+
+
+
+    array([[-0.71975612,  0.02579541, -0.10470933, -0.35934415]])
+
+
+
+where [`randn()`](https://numpy.org/doc/stable/reference/random/generated/numpy.random.randn.html) draws from a Gaussian distribution and the term can vary depending on the activation function used and implementation details:
+
+For a ReLU activation function:
+
+$$
+\sqrt{\frac{2}{n^{[l-1]}}}
+$$
+
+For $\tanh$
+
+$$
+\sqrt{\frac{1}{n^{[l-1]}}}
+$$
+
+Or sometimes this different implementation, also called Xavier initialization:
+
+$$
+\sqrt{\frac{2}{n^{[l-1]}+1}}
+$$

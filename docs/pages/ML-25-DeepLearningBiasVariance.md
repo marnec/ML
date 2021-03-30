@@ -27,20 +27,20 @@ Suppose you fit your model on the training set and then measure the error on bot
 
 
 <style  type="text/css" >
-</style><table id="T_5f5bf_" id="biasvarerror"><caption>Four cases of error (as percentage of miscalssifications) calculated on the train- and test-sets after fitting a model</caption><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >case 1</th>        <th class="col_heading level0 col1" >case 2</th>        <th class="col_heading level0 col2" >case 3</th>        <th class="col_heading level0 col3" >case 4</th>    </tr></thead><tbody>
+</style><table id="T_7e96c_" id="biasvarerror"><caption>Four cases of error (as percentage of miscalssifications) calculated on the train- and test-sets after fitting a model</caption><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >case 1</th>        <th class="col_heading level0 col1" >case 2</th>        <th class="col_heading level0 col2" >case 3</th>        <th class="col_heading level0 col3" >case 4</th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_5f5bf_level0_row0" class="row_heading level0 row0" >train set</th>
-                        <td id="T_5f5bf_row0_col0" class="data row0 col0" >1%</td>
-                        <td id="T_5f5bf_row0_col1" class="data row0 col1" >15%</td>
-                        <td id="T_5f5bf_row0_col2" class="data row0 col2" >15%</td>
-                        <td id="T_5f5bf_row0_col3" class="data row0 col3" >0.5%</td>
+                        <th id="T_7e96c_level0_row0" class="row_heading level0 row0" >train set</th>
+                        <td id="T_7e96c_row0_col0" class="data row0 col0" >1%</td>
+                        <td id="T_7e96c_row0_col1" class="data row0 col1" >15%</td>
+                        <td id="T_7e96c_row0_col2" class="data row0 col2" >15%</td>
+                        <td id="T_7e96c_row0_col3" class="data row0 col3" >0.5%</td>
             </tr>
             <tr>
-                        <th id="T_5f5bf_level0_row1" class="row_heading level0 row1" >dev set</th>
-                        <td id="T_5f5bf_row1_col0" class="data row1 col0" >11%</td>
-                        <td id="T_5f5bf_row1_col1" class="data row1 col1" >16%</td>
-                        <td id="T_5f5bf_row1_col2" class="data row1 col2" >30%</td>
-                        <td id="T_5f5bf_row1_col3" class="data row1 col3" >1%</td>
+                        <th id="T_7e96c_level0_row1" class="row_heading level0 row1" >dev set</th>
+                        <td id="T_7e96c_row1_col0" class="data row1 col0" >11%</td>
+                        <td id="T_7e96c_row1_col1" class="data row1 col1" >16%</td>
+                        <td id="T_7e96c_row1_col2" class="data row1 col2" >30%</td>
+                        <td id="T_7e96c_row1_col3" class="data row1 col3" >1%</td>
             </tr>
     </tbody></table>
 
