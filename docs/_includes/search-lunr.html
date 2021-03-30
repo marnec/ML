@@ -1,4 +1,5 @@
 <script src="/js/lnur.js"></script>
+
 <script>
 {% assign counter = 0 %}
 var documents = [{% for page in site.pages %}{% if page.url contains '.xml' or page.url contains 'assets' %}{% else %}{
