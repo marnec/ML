@@ -7,9 +7,18 @@ order: 14
 comments: true
 ---
 
+# Gradient checking
+Back-propagation is a tricky algorithm and sometimes a bugged implementation of it might still seem to work properly but it would not ensure a good minimization.
+
+In order to find out bugs in back-propagation a technique called **gradient checking** can be used.
+
+Until now we more or less accepted that provided formulas would compute the derivative of the cost function and numerical gradient checking gives us a method to verify that your implementation actually computes the derivative of the cost function $J(\Theta)$.
+
+Suppose that out cost function looks like this and that $\Theta \in \mathbb{R}$
+
 
     
-![png](ML-14-NeuralNetworkOptimization2_files/ML-14-NeuralNetworkOptimization2_1_0.png)
+![png](ML-14-NeuralNetworkOptimization2_files/ML-14-NeuralNetworkOptimization2_2_0.png)
     
 
 
@@ -37,7 +46,7 @@ When performing optimization (e.g. gradient descent) we need to choose some init
 
 
     
-![png](ML-14-NeuralNetworkOptimization2_files/ML-14-NeuralNetworkOptimization2_4_0.png)
+![png](ML-14-NeuralNetworkOptimization2_files/ML-14-NeuralNetworkOptimization2_5_0.png)
     
 
 
