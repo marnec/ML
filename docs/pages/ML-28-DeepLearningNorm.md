@@ -10,40 +10,40 @@ comments: true
 # Training set normalization
 Training set normalization is a technique that speeds up the learning process. Typically, input features come in range that differ of some order of magnitude. One feature might come in range $[0, 1000]$ and another in range $[0, 1]$. 
 
-Difference in the scale of input features might make training very slow and for this reason input features are usually normalized. In <a href="#fig:meannorm">Figure 49</a> the effect of the two steps of **mean normalization** are shown.
+Difference in the scale of input features might make training very slow and for this reason input features are usually normalized. In <a href="#fig:meannorm">the figure below</a> the effect of the two steps of **mean normalization** are shown.
 
 
     
+![png](ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_2_0.png)
+    
 
-<figure id="fig:meannorm">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_2_0.png" alt="png">
-    <figcaption>Figure 49. mean normalization effect on feature space $X \in \mathbb{R}^{2}$. Raw feature space (A); $X - \mu$ (B); $\frac{X}{\sigma^2}$ (C)</figcaption>
-</figure>.
+
+<i id="fig:meannorm">mean normalization effect on feature space $X \in \mathbb{R}^{2}$. Raw feature space (A); $X - \mu$ (B); $\frac{X}{\sigma^2}$ (C)</i>.
 
 To intuitively understand why mean normalization speeds up training the values, <a href="#costnorm">figure below</a> shown a simplified view of how the space of the values assumed by the cost function $J$ change with un-normalized (panels A,C) and normalized inputs (panels B,D)
 
 
     
+![png](ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_4_0.png)
+    
 
-<figure id="costnorm">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_4_0.png" alt="png">
-    <figcaption>Figure 50. Representative shape of $J$ for un-normalized (A, C) and normalized (B, D) feature space</figcaption>
-</figure>
+
+<i id="costnorm">Representative shape of $J$ for un-normalized (A, C) and normalized (B, D) feature space</i>
 
 ## Vanishing or Exploding gradients
 Under some circumstances it may happen, especially in very deep neural networks, that gradients (derivatives) assume very small (vanishing) or big (exploding) values.
 
 This problem can be drastically reduced through a careful choice of the random weight initialization.
 
-Suppose we have a very deep network as in the <a href="#fig:superdeep">Figure 51</a>. This network has many hidden layers and consequently a series of parameters matrices $(w^{[1]}, w^{[2]}, \dots w^{[L]})$. For the sake of simplicity let's say that this network has linear activation function ($g(z) = z$) and that $b^{[l]}=0$
+Suppose we have a very deep network as in the <a href="#fig:superdeep">figure below</a>. This network has many hidden layers and consequently a series of parameters matrices $(w^{[1]}, w^{[2]}, \dots w^{[L]})$. For the sake of simplicity let's say that this network has linear activation function ($g(z) = z$) and that $b^{[l]}=0$
 
 
     
+![png](ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_7_0.png)
+    
 
-<figure id="fig:superdeep">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_7_0.png" alt="png">
-    <figcaption>Figure 51. A very deep neural network that can suffer from either exploding or vanishing gradients depending on the values of $w^{[l]}$</figcaption>
-</figure>
+
+<i id="fig:superdeep">A very deep neural network that can suffer from either exploding or vanishing gradients depending on the values of $w^{[l]}$</i>
 
 For this network
 
@@ -94,13 +94,13 @@ Let's focus on a single neuron with 4 input features
 
 
     
+![png](ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_10_0.png)
+    
 
-<figure id="fig:onelayernn">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_10_0.png" alt="png">
-    <figcaption>Figure 52. A single layer neural network with 4 input features</figcaption>
-</figure>
 
-For the network in <a href="#fig:onelayernn">Figure 52</a>
+<i id="fig:onelayernn">A single layer neural network with 4 input features</i>
+
+For the network in <a href="#fig:onelayernn">the figure above</a>
 
 $$
 z = w_1x_1 + w_2x_2 + \ldots + w_nx_n

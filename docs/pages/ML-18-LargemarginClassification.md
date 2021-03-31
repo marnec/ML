@@ -45,17 +45,17 @@ $$
 \label{eq:logcost} \tag{1}
 $$
 
-When $y=1$, the contribution to the cost function is given by the left factor in $\eqref{eq:logcost}$, a single example will have a very small contribution to the cost function for large values of $z$ (<a href="#fig:costterms">Figure 16</a>. As we will see later, this make the SVM behave similarly to logistic regression while giving a computational advantage by simplifying the optimization problem.
+When $y=1$, the contribution to the cost function is given by the left factor in $\eqref{eq:logcost}$, a single example will have a very small contribution to the cost function for large values of $z$ (<a href="#fig:costterms">Figure below</a>, panel A, blue line). To build a SVM, we will build a cost function such that its behavior will be like that of the orange line in panel A of <a href="#fig:costterms">the Figure below</a>. As we will see later, this make the SVM behave similarly to logistic regression while giving a computational advantage by simplifying the optimization problem.
 
-When $y=0$, the SVM will be very similar with a semi-step behavior at 1 in reversed direction (<a href="#fig:costterms">Figure 16</a>, panel B, orange line)
+When $y=0$, the SVM will be very similar with a semi-step behavior at 1 in reversed direction (<a href="#fig:costterms">Figure below</a>, panel B, orange line)
 
 
     
+![png](ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_5_0.png)
+    
 
-<figure id="fig:costterms">
-    <img src="{{site.baseurl}}/pages/ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_5_0.png" alt="png">
-    <figcaption>Figure 16. Cost term for a single example in logistic regression as a function of $z$ in the cases of $y=1$ (A, blue) and $y=0$ (B); and their versions in an SVM (A, B, orange lines).</figcaption>
-</figure>
+
+<i id="fig:costterms">Cost term for a single example in logistic regression as a function of $z$ in the cases of $y=1$ (A, blue) and $y=0$ (B); and their versions in an SVM (A, B, orange lines).</i>
 
 So, where the optimization problem in logistic regression is:
 
@@ -89,7 +89,7 @@ $$
 Sometimes SVMs are referred to as large margin classifiers. In this section we will see why and we will introduce the hypothesis representation of SVMs.
 
 ### Large margin classification - intuition
-By looking at <a href="#fig:svmcost">Figure 17</a>, we can see that if we want to minimize the cost of a training example, we need to have:
+By looking at <a href="#fig:svmcost">the figure below</a>, we can see that if we want to minimize the cost of a training example, we need to have:
 
 * If we have $y=1$ (panel A), then to have $\text{Cost}_1(z)=0$, we need to have $z \equiv (\theta^Tx) \geq 1$ and not just $\geq 0$
 * If we have $y=0$ (panel B), then to have $\text{Cost}_1(z)=0$, we need to have $z \equiv (\theta^Tx) \leq -1$ and not just $< 0$
@@ -98,11 +98,11 @@ This builds in an extra safety **margin** for correct classification in SVMs.
 
 
     
+![png](ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_8_0.png)
+    
 
-<figure id="fig:svmcost">
-    <img src="{{site.baseurl}}/pages/ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_8_0.png" alt="png">
-    <figcaption>Figure 17. Cost of a single example in a SVM as a function of $z \equiv \theta^Tx$, for the case of $y=1$ (A) and $y=0$ (B).</figcaption>
-</figure>
+
+<i id="fig:svmcost">Cost of a single example in a SVM as a function of $z \equiv \theta^Tx$, for the case of $y=1$ (A) and $y=0$ (B).</i>
 
 Consider a case where we set the regularization parameter $C$ to a very large value. This will allow us to see a simplified and more intuitive version of the working of an SVM, which however does not reflect their entire complexity. When $C$ is very large then the optimization process declared in $\eqref{eq:svmcost}$ will chose the values so that the sum of the cost of all examples is $=0$
 
@@ -124,17 +124,17 @@ $$
 \end{align}
 $$
 
-When solving this opimization problem you obtain a very interesting **decision boundary**. Let's take a training set like that in <a href="#fig:decbound">Figure 18</a>. This data is linearly separable and multiple decision boundary would separate positive and negative examples perfectly (panel A). But none of those, while minimizing the cost function, look like sensible choices, since the data hints at a pattern that is not picked up by those decision boundaries.
+When solving this opimization problem you obtain a very interesting **decision boundary**. Let's take a training set like that in <a href="#fig:decbound">the Figure below</a>. This data is linearly separable and multiple decision boundary would separate positive and negative examples perfectly (panel A). But none of those, while minimizing the cost function, look like sensible choices, since the data hints at a pattern that is not picked up by those decision boundaries.
 
 An SVM instead would set its decision boundary as in panel B (black line). In order to achieve that decision boundary, the SVM tries to maximize the distance between the closest points to the decision boundary itself: it tries to maximize its **margins**.
 
 
     
+![png](ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_10_0.png)
+    
 
-<figure id="fig:decbound">
-    <img src="{{site.baseurl}}/pages/ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_10_0.png" alt="png">
-    <figcaption>Figure 18. Linear decision boundaries obtained by logistic regression with equivalent cost (A). Linear decision boundary obtained through large margin classification (B).</figcaption>
-</figure>
+
+<i id="fig:decbound">Linear decision boundaries obtained by logistic regression with equivalent cost (A). Linear decision boundary obtained through large margin classification (B).</i>
 
 The SVM tries to separate the data with the largest margin possible, for this reason the SVM is sometimes called large margin classifier.
 
@@ -168,15 +168,15 @@ $$
 \end{align}
 $$
 
-where $p^{(i)}$ is the projection of $x^{(i)}$ on $\theta$ as shown in <a href="#fig:vectproj">Figure 19</a>. $\eqref{eq:innerproj}$ and $\eqref{eq:innerdot}$ are equivalent and equally valid ways to calculate $\theta^Tx$: $\eqref{eq:innerproj}$ is the inner product $\langle \theta, x^{(i)} \rangle$ and $\eqref{eq:innerdot}$ is the vector multiplication $\theta \times x^{(i)}$.
+where $p^{(i)}$ is the projection of $x^{(i)}$ on $\theta$ as shown in <a href="#fig:vectproj"> the figure below</a>. $\eqref{eq:innerproj}$ and $\eqref{eq:innerdot}$ are equivalent and equally valid ways to calculate $\theta^Tx$: $\eqref{eq:innerproj}$ is the inner product $\langle \theta, x^{(i)} \rangle$ and $\eqref{eq:innerdot}$ is the vector multiplication $\theta \times x^{(i)}$.
 
 
     
+![png](ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_13_0.png)
+    
 
-<figure id="fig:vectproj">
-    <img src="{{site.baseurl}}/pages/ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_13_0.png" alt="png">
-    <figcaption>Figure 19. Vector $x^{(i)} = [x_1^{(i)}, x_2^{(i)}]$ representing a single example $i$,  where the number of features $n=2$; Parameters vector $\theta = [\theta_0, \theta_1, \theta_2]$ with $\theta_0 = 0$; Vector projection $p^{(i)}$ of $x^{(i)}$ on $\theta$.</figcaption>
-</figure>
+
+<i id="fig:vectproj">Vector $x^{(i)} = [x_1^{(i)}, x_2^{(i)}]$ representing a single example $i$,  where the number of features $n=2$; Parameters vector $\theta = [\theta_0, \theta_1, \theta_2]$ with $\theta_0 = 0$; Vector projection $p^{(i)}$ of $x^{(i)}$ on $\theta$.</i>
 
 This means that we can express the constraints defined in $\eqref{eq:constraints}$ as:
 
@@ -188,7 +188,7 @@ p^{(i)} \cdot \| \theta \| \leq &-1 & \mathrm{if} \; y^{(i)}=0 \\
 \label{eq:constraintsproj} \tag{7}
 $$
 
-Now let's see how this reflects on the decision boundary selection in a SVM. Let's take the very simple example depicted in <a href="#fig:decboundsvmsimpleex">Figure 20</a>.
+Now let's see how this reflects on the decision boundary selection in a SVM. Let's take the very simple example depicted in <a href="#fig:decboundsvmsimpleex">the Figure below</a>.
 
 In panel A, the decision boundary is not very good because it's very close to the training examples: it has small **margins**. Let's see why the SVM will not chose this: (it can be shown that) the parameter vector $\theta$ is orthogonal to the decision boundary and starts at origin simply because we chose to set $\theta_0=0$. If we look at the projections of $x^{(1)}, x^{(2)}$ on $\theta : p^{(1)},p^{(2)}$ we will see that they are pretty small numbers, as $x^{(1)}$ and $x^{(2)}$ are close to the decision boundary. Given $\eqref{eq:constraintsproj}$, in order to have $p^{(i)} \cdot \| \theta \| \geq  1$, if $p^{(i)}$ is small then $\cdot \| \theta \|$ must be large, but since $\eqref{eq:objectfun}$, this is not the wanted direction for $\| \theta \|$.
 
@@ -196,11 +196,11 @@ In panel B the decision boundary maximizes the margins $p^{(1)},p^{(2)}$, which 
 
 
     
+![png](ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_15_0.png)
+    
 
-<figure id="fig:decboundsvmsimpleex">
-    <img src="{{site.baseurl}}/pages/ML-18-LargemarginClassification_files/ML-18-LargemarginClassification_15_0.png" alt="png">
-    <figcaption>Figure 20. Bad (A) and good (B) decision boundaries that correctly separate the training data.</figcaption>
-</figure>
+
+<i id="fig:decboundsvmsimpleex">Bad (A) and good (B) decision boundaries that correctly separate the training data.</i>
 
 ## Multi-class classification
 Many SVM packages already have built-in modules for multi-class classification. Otherwise, SVMs are entirely compatible with the one-vs-all strategy that we have seen before used with logistic regression. 

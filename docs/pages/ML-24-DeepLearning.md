@@ -12,34 +12,34 @@ While the concept of deep learning has been around since many years, it really t
 
 So in one word **scale** has been driving deep learning, scale of labeled data, of computational power and of the algorithm.
 
-Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">Figure 40</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
+Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">figure below</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
 
 
     
+![png](ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png)
+    
 
-<figure id="fig:sigmoidrelu">
-    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png" alt="png">
-    <figcaption>Figure 40. Comparison between sigmoid function and ReLU</figcaption>
-</figure>
+
+<i id="fig:sigmoidrelu">Comparison between sigmoid function and ReLU</i>
 
 ## Deep representation
 Why do deep neural networks work well? Deep neural networks build a hierarchical representation of training data.
 
-Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">Figure 41</a>).
+Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">the figure below</a>).
 
 
     
+![png](ML-24-DeepLearning_files/ML-24-DeepLearning_5_0.png)
+    
 
-<figure id="fig:audioexample">
-    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_5_0.png" alt="png">
-    <figcaption>Figure 41. An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</figcaption>
-</figure>
+
+<i id="fig:audioexample">An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</i>
 
 A result from circuit theory states that:
 
 > there are functions you can compute with a "small" L-layer deep neural network that shallower networks require exponentially more hidden units to compute.
     
-Let's try to illustrate this with an example: as we have seen in <a href="{{site.basurl}}/ML/ML11">ML11</a> we can calculate logical functions with neural networks. Let's say we want to calculate the combined $\text{XOR}$ of our input vector $x$.
+Let's try to illustrate this with an example: as we have seen in <a href="page:ML11">ML-11</a> we can calculate logical functions with neural networks. Let's say we want to calculate the combined $\text{XOR}$ of our input vector $x$.
 
 $$y=x_1 \text{XOR} x_2 \text{XOR} x_3 \text{XOR} \dots \text{XOR} x_n$$
 
@@ -50,11 +50,11 @@ Let's take the deep neural network in <a href=#fig:deepann>the figure below</a>
 
 
     
+![png](ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.png)
+    
 
-<figure id="fig:deepann">
-    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.png" alt="png">
-    <figcaption>Figure 42. A 4-layers deep neural network</figcaption>
-</figure>
+
+<i id="fig:deepann">A 4-layers deep neural network</i>
 
 We say that this neural network as $L=4$ layers; input layer is included in the number of layers. Each layer has $n^{[l]}$ number of units. In this case:
 
@@ -76,7 +76,7 @@ where $z^{[l]}$ is calculated from parameters $W^{[l]}$ and bias $b^{[l]}$.
 The input layer is referred to as $x = a^{[0]}$ and the output layer as $a^{[L]} = \hat{y}$
 
 ## Forward propagation
-Forward propagation for a deep neural network follows the same process as for a shallow network, which is explained in detail in <a href="{{site.basurl}}/ML/ML10">ML10</a>. The process follows the general rule:
+Forward propagation for a deep neural network follows the same process as for a shallow network, which is explained in detail in <a href="page:ML10">ML-10</a>. The process follows the general rule:
 
 $$
 \begin{aligned}
