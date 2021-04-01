@@ -26,11 +26,11 @@ Whereas in batches you expect the value of the cost function $J$ to monotonicall
 
 
     
-![png](ML-29-DeepLearningOptimization_files/ML-29-DeepLearningOptimization_2_0.png)
-    
 
-
-<i id="minibatchcost">The value of J over many epochs and over many mini-batches</i>
+<figure id="minibatchcost">
+    <img src="{{site.baseurl}}/pages/ML-29-DeepLearningOptimization_files/ML-29-DeepLearningOptimization_2_0.png" alt="png">
+    <figcaption>Figure 55. The value of J over many epochs and over many mini-batches</figcaption>
+</figure>
 
 
 ```python
