@@ -30,17 +30,17 @@ $$
 &v_2 = 0.9v_1 + 0.1 \theta_2 \\
 &v_3 = 0.9v_3 + 0.1 \theta_3 \\
 & \vdots \\
-&v_t = 0.9v_{t-1} + 0.1 \theta_t \\
+&v_t = 0.9v_{\tau-1} + 0.1 \theta_\tau \\
 \end{aligned}
 $$
 
-where $\theta_i$ is current temperature.
+where $\theta_i$ is current temperature and $\tau$ is the current day.
 
 Let's rewrite the generalization as:
 
 $$
 \begin{equation}
-v_t = \beta v_{t-1} + (1-\beta) \theta_t
+v_t = \beta v_{\tau-1} + (1-\beta) \theta_\tau
 \end{equation}
 \label{eq:ewa} \tag{1}
 $$
@@ -59,7 +59,7 @@ We can think of $v_t$ as approximately averaging over $\frac{1}{1-\beta}$ days, 
     <figcaption>Figure 56. Exponentially weighted average applied to raw data with different values of $\beta$</figcaption>
 </figure>
 
-As we can see in <a href="#fig:ewa">Figure 56</a>, increasing values of $\beta$ will produce smoother trends but on the flipside, we can notice that the smoothest trend is also shifted towards the right, since the rolling windows (the number of days on which each point is averaged on) is bigger and adapts more slowly to how the temperature changes. In fact, by setting a large $\beta$, we are giving a greater weight to the temperatures that have come before ($v_t$) and a smaller weight to the current temperature.
+As we can see in <a href="#fig:ewa">Figure 56</a>, increasing values of $\beta$ will produce smoother trends but on the flipside, we can notice that the smoothest trend is also shifted towards the right, since the rolling windows (the number of days on which each point is averaged on) is bigger and adapts more slowly to how the temperature changes. In fact, by setting a large $\beta$, we are giving a greater weight to the temperatures that have come before ($v_\tau$) and a smaller weight to the current temperature.
 
 The equation in $\eqref{eq:ewa}$ is how you implement an **exponentially weighted moving average** or exponentially weighted average for short. The reason why they are called exponentially weighted averages become clear if we look at how $v_n$ is computed, let's take $v_{100}$:
 
@@ -93,11 +93,13 @@ In order to say that $\beta = 0.9$ corresponds to averaging over around 10 days 
 
 All the terms $(1-\beta) \cdot \beta^x \approx 1$ up to a detail called bias correction. Especially around the first values of $v$, the approximation will be greatly underestimating the data since it cannot base on the full size of the window.
 
-In order to reduce that error we use a corrected version of $v_t$
+In order to reduce that error we use a corrected version of $v_\tau$
 
 $$
-\frac{v_t}{1-\beta^t}
+\frac{v_\tau}{1-\beta^\tau}
 $$
+
+where $\tau$ is the current day
 
 ## Gradient descent with momentum
 Gradient descent with momentum (aka just momentum) works almost always faster than regular gradient descent. The basic idea of momentum is to compute the exponentially weighted average of your gradients to update the weights.
@@ -177,10 +179,10 @@ Correction is applied
 
 $$
 \begin{split}
-& v_{dw} & = \frac{v_{dw}}{1-\beta_1^t}\\
-& v_{db} & = \frac{v_{db}}{1-\beta_1^t}\\
-& s_{dw} & = \frac{s_{dw}}{1-\beta_2^t}\\
-& s_{db} & = \frac{b_{db}}{1-\beta_2^t}\\
+& v_{dw} & = \frac{v_{dw}}{1-\beta_1^\tau}\\
+& v_{db} & = \frac{v_{db}}{1-\beta_1^\tau}\\
+& s_{dw} & = \frac{s_{dw}}{1-\beta_2^\tau}\\
+& s_{db} & = \frac{b_{db}}{1-\beta_2^\tau}\\
 \end{split}
 $$
 
