@@ -130,48 +130,12 @@ b & := b - \alpha v_{db}\\
 \end{split}
 $$
 
-The effect of this is to smooth out the direction of your gradient descent. Usually bias correction is not necessary.
+The effect of this is to smooth out the direction of your gradient descent. Usually bias correction is not necessary. This algorithm requires setting two hyperparameters: $\beta$ and $\alpha$. Normally $\beta$ is set to 0.9 which is a value that generally works well and $\alpha$ is left to be tuned.
 
 ##  RMSprop
-Root mean square prop is another algorithm that will speed up learning. To illustrate how RMSprop works let's consider the feature space in <a href="#fig:rmsprop">Figure 59</a>, where we set the $x$ axis as $w$ and the $y$ axis as $b$ (but they could also be $w_1, w_2$)
+Root mean square prop is another algorithm that will speed up learning. To illustrate how RMSprop works let's consider the feature space in <a href="#fig:momentum">Figure 58</a>, where we set the $x$ axis as $w$ and the $y$ axis as $b$ (but they could also be $w_1, w_2$)
 
-
-```python
-fig, ax = plt.subplots(figsize=(10, 4))
-x, y = np.mgrid[-2:2:.01, -2:2:.01]
-pos = np.dstack((x, y))
-rv = multivariate_normal([0, 0], [[1, .05], [0, .7]])
-ax.contour(x, y, -rv.pdf(pos))
-ax.set_xticks([])
-ax.set_yticks([])
-ax.set_xlabel('w')
-ax.set_ylabel('b')
-
-x = np.linspace(-2, 0)
-y = np.zeros(50)
-y[::2] = 1
-y = (np.sin(y)-.5)*(np.arange(1, 100)[::-2]/75)
-sy = pd.Series(y).ewm(alpha=.1).mean().values
-ax.plot(x, y, marker='o', markersize=3, alpha=.5, label='gradient descent')
-# ax.plot(x, sy, label='gradient descent w/ momentum', marker='o', markersize=3)
-```
-
-
-
-
-    [<matplotlib.lines.Line2D at 0x7f4dd56f7880>]
-
-
-
-
-    
-
-<figure id="fig:rmsprop">
-    <img src="{{site.baseurl}}/pages/ML-30-DeepLearningSofisticatedOpt_files/ML-30-DeepLearningSofisticatedOpt_13_1.png" alt="png">
-    <figcaption>Figure 59. RMSprop</figcaption>
-</figure>
-
-In RMSProp, for each iteration $t$ we will compute $s_{dw}$, that are the exponentially weighted average **of the square** of the derivatives.
+In RMSprop, for each iteration $t$ we will compute $s_{dw}$, that are the exponentially weighted average **of the square** of the derivatives.
 
 $$
 \begin{split}
@@ -192,3 +156,41 @@ $$
 Where $\epsilon=10^{-8}$ is added for numerical stability.
 
 In order for RMSprop to work we hope that $db$ is large and $dw$ is small, and in fact if we look at <a href="fig:rmsprop">the figure above</a> we can see that the derivatives of the standard gradient descent are much larger in the vertical direction than in the horizontal direction.
+
+This algorithm requires setting two hyperparameters: $\beta$ and $\alpha$. Normally $\beta$ is set to 0.9 which is a value that generally works well and $\alpha$ is left to be tuned.
+
+## Adam optimization
+Among the many optimization algorithms proposed by the machine learning researcher community, the **ADAM** (ADAptive Moment estimation) optimization algorithm is one of the few that works well in a wide range of deep learning applications. The ADAM optimization algorithm combines RMSprop and momentum.
+
+In ADAM optimization, for each iteration $t$ we will compute both $v_{dw}$ and $s_{dw}$ and combine them at update time:
+
+$$
+\begin{split}
+& v_{dw} & = \beta_1 v_{dw} + (1-\beta_1)dw \\
+& v_{db} & = \beta_1 v_{db} + (1-\beta_1)db \\
+& s_{dw} & = \beta_2 s_{dw} + (1-\beta_2)dw^2 \\
+& s_{db} & = \beta_2 s_{db} + (1-\beta_2)db^2 \\
+\end{split}
+$$
+
+Correction is applied
+
+$$
+\begin{split}
+& v_{dw} & = \frac{v_{dw}}{1-\beta_1^t}\\
+& v_{db} & = \frac{v_{db}}{1-\beta_1^t}\\
+& s_{dw} & = \frac{s_{dw}}{1-\beta_2^t}\\
+& s_{db} & = \frac{b_{db}}{1-\beta_2^t}\\
+\end{split}
+$$
+
+and the parameters update combines momentum and RMSprop
+
+$$
+\begin{split}
+w & := w - \alpha \frac{v_{dw}}{\sqrt{s_{dw}}+\epsilon}\\
+b & := b - \alpha \frac{v_{db}}{\sqrt{s_{db}}+\epsilon}\\
+\end{split}
+$$
+
+This algorithm requires setting three hyperparameters: $\beta_1$ (for momentum), $\beta_2$ (for RMSprop) and $\alpha$. Normally $\beta_1$ and $\beta_2$ is set the default values and $\alpha$ is left to be tuned.

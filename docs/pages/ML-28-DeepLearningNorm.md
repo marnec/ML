@@ -20,12 +20,12 @@ Difference in the scale of input features might make training very slow and for 
     <figcaption>Figure 50. mean normalization effect on feature space $X \in \mathbb{R}^{2}$. Raw feature space (A); $X - \mu$ (B); $\frac{X}{\sigma^2}$ (C)</figcaption>
 </figure>.
 
-To intuitively understand why mean normalization speeds up training the values, <a href="#costnorm">figure below</a> shown a simplified view of how the space of the values assumed by the cost function $J$ change with un-normalized (panels A,C) and normalized inputs (panels B,D)
+To intuitively understand why mean normalization speeds up training the values, <a href="#fig:costnorm">Figure 51</a> shown a simplified view of how the space of the values assumed by the cost function $J$ change with un-normalized (panels A,C) and normalized inputs (panels B,D)
 
 
     
 
-<figure id="costnorm">
+<figure id="fig:costnorm">
     <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_4_0.png" alt="png">
     <figcaption>Figure 51. Representative shape of $J$ for un-normalized (A, C) and normalized (B, D) feature space</figcaption>
 </figure>
@@ -123,7 +123,7 @@ np.random.randn(1, nx)*np.sqrt(1/nx)
 
 
 
-    array([[-0.71975612,  0.02579541, -0.10470933, -0.35934415]])
+    array([[-0.13061448, -0.59629756,  0.59564903, -0.53558851]])
 
 
 
