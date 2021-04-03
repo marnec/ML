@@ -7,27 +7,72 @@ order: 28
 comments: true
 ---
 
-# Training set normalization
+# Optimization and speeding learning up
+In early days of machine learning, a lot of concern revolved around the idea of our optimization process finding a local optimum of the target function. This was due to intuitions of the highly dimensional feature space that was transferred from observations in low-dimensional space. These intuitions brought researcher to believe that highly dimensional space could have many crevices of local optima like in panel A of <a href="#fig:featurespaceintuition">Figure 50</a>, where most points in the feature space are so called **saddle points**. 
+
+The reason why finding local optima is very unlikely in highly dimensional space is because for a local minimum to be such, the local values of the function must be concave in all dimensions. Since a function (locally) can either be concave or convex (2 degrees of freedom), this means that the probability of each point to be in a local minimum is $2^{-d}$, where $d$ is the number of dimensions. With many thousands of dimensions, as often happens in deep learning, this probability is extremely small. It is instead much more likely that some dimensions will be locally concave and some locally convex, thus giving a saddle point.
+
+
+```python
+fig = plt.figure(figsize=(13, 6))
+ax1 = fig.add_subplot(1, 2, 1, projection='3d')
+ax2 = fig.add_subplot(1, 2, 2, projection='3d')
+
+x = np.linspace(-3, 3)
+x, y = np.meshgrid(x, x)
+z = -np.sinc(x)*np.sinc(y)
+
+ax1.set_box_aspect([1, 1, .5])
+ax1.plot_surface(x, y, z, cmap='viridis')
+ax1.text2D(-.1, .9, 'A', transform=ax1.transAxes, fontsize=15)
+
+z2 = x**2-y**2
+ax2.plot_surface(x, y, z2, cmap='viridis')
+ax2.set_box_aspect([1, 1, .5])
+ax2.text2D(-.1, .9, 'B', transform=ax2.transAxes, fontsize=15);
+```
+
+
+    
+
+<figure id="fig:featurespaceintuition">
+    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_2_0.png" alt="png">
+    <figcaption>Figure 50. Representation of feature space given by low-dimensional space intuitions (A) and by high-dimension intuitions (B)</figcaption>
+</figure>
+
+In this highly dimensional space, what turns out to be a serious problem are instead **plateau** (<a href="#fig:plateau">Figure 51</a>), a zone of a multi-dimensional function where the derivatives are 0 or close to 0, slowing down the learning process.
+
+
+    
+
+<figure id="fig:plateau">
+    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_4_0.png" alt="png">
+    <figcaption>Figure 51. A plateau, a zone of a multi-dimensional function where the derivatives are 0 or close to 0</figcaption>
+</figure>
+
+This is why many optimization techniques of the deep-learning era are focused on speeding-up the learning process, which due to the high-dimensional space from which deep neural network take advantage, tends to be extremely slow. 
+
+## Training set normalization
 Training set normalization is a technique that speeds up the learning process. Typically, input features come in range that differ of some order of magnitude. One feature might come in range $[0, 1000]$ and another in range $[0, 1]$. 
 
-Difference in the scale of input features might make training very slow and for this reason input features are usually normalized. In <a href="#fig:meannorm">Figure 50</a> the effect of the two steps of **mean normalization** are shown.
+Difference in the scale of input features might make training very slow and for this reason input features are usually normalized. In <a href="#fig:meannorm">Figure 52</a> the effect of the two steps of **mean normalization** are shown.
 
 
     
 
 <figure id="fig:meannorm">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_2_0.png" alt="png">
-    <figcaption>Figure 50. mean normalization effect on feature space $X \in \mathbb{R}^{2}$. Raw feature space (A); $X - \mu$ (B); $\frac{X}{\sigma^2}$ (C)</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_6_0.png" alt="png">
+    <figcaption>Figure 52. mean normalization effect on feature space $X \in \mathbb{R}^{2}$. Raw feature space (A); $X - \mu$ (B); $\frac{X}{\sigma^2}$ (C)</figcaption>
 </figure>.
 
-To intuitively understand why mean normalization speeds up training the values, <a href="#fig:costnorm">Figure 51</a> shown a simplified view of how the space of the values assumed by the cost function $J$ change with un-normalized (panels A,C) and normalized inputs (panels B,D)
+To intuitively understand why mean normalization speeds up training the values, <a href="#fig:costnorm">Figure 53</a> shown a simplified view of how the space of the values assumed by the cost function $J$ change with un-normalized (panels A,C) and normalized inputs (panels B,D)
 
 
     
 
 <figure id="fig:costnorm">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_4_0.png" alt="png">
-    <figcaption>Figure 51. Representative shape of $J$ for un-normalized (A, C) and normalized (B, D) feature space</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_8_0.png" alt="png">
+    <figcaption>Figure 53. Representative shape of $J$ for un-normalized (A, C) and normalized (B, D) feature space</figcaption>
 </figure>
 
 ## Vanishing or Exploding gradients
@@ -35,14 +80,14 @@ Under some circumstances it may happen, especially in very deep neural networks,
 
 This problem can be drastically reduced through a careful choice of the random weight initialization.
 
-Suppose we have a very deep network as in the <a href="#fig:superdeep">Figure 52</a>. This network has many hidden layers and consequently a series of parameters matrices $(w^{[1]}, w^{[2]}, \dots w^{[L]})$. For the sake of simplicity let's say that this network has linear activation function ($g(z) = z$) and that $b^{[l]}=0$
+Suppose we have a very deep network as in the <a href="#fig:superdeep">Figure 54</a>. This network has many hidden layers and consequently a series of parameters matrices $(w^{[1]}, w^{[2]}, \dots w^{[L]})$. For the sake of simplicity let's say that this network has linear activation function ($g(z) = z$) and that $b^{[l]}=0$
 
 
     
 
 <figure id="fig:superdeep">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_7_0.png" alt="png">
-    <figcaption>Figure 52. A very deep neural network that can suffer from either exploding or vanishing gradients depending on the values of $w^{[l]}$</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_11_0.png" alt="png">
+    <figcaption>Figure 54. A very deep neural network that can suffer from either exploding or vanishing gradients depending on the values of $w^{[l]}$</figcaption>
 </figure>
 
 For this network
@@ -96,11 +141,11 @@ Let's focus on a single neuron with 4 input features
     
 
 <figure id="fig:onelayernn">
-    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_10_0.png" alt="png">
-    <figcaption>Figure 53. A single layer neural network with 4 input features</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-28-DeepLearningNorm_files/ML-28-DeepLearningNorm_14_0.png" alt="png">
+    <figcaption>Figure 55. A single layer neural network with 4 input features</figcaption>
 </figure>
 
-For the network in <a href="#fig:onelayernn">Figure 53</a>
+For the network in <a href="#fig:onelayernn">Figure 55</a>
 
 $$
 z = w_1x_1 + w_2x_2 + \ldots + w_nx_n
