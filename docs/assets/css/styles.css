@@ -21,10 +21,8 @@ img {
 
 figure {
     background-color: none;
-    padding-top: 1rem
-    padding-bottom: 1rem
     font-size: .875em;
-    margin: 0 auto;
+    margin: 2rem 0;
     display: block;
 }
 

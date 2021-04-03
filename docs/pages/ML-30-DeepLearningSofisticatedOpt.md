@@ -157,7 +157,7 @@ $$
 
 Where $\epsilon=10^{-8}$ is added for numerical stability.
 
-In order for RMSprop to work we hope that $db$ is large and $dw$ is small, and in fact if we look at <a href="fig:rmsprop">the figure above</a> we can see that the derivatives of the standard gradient descent are much larger in the vertical direction than in the horizontal direction.
+In order for RMSprop to work we hope that $db$ is large and $dw$ is small, and in fact if we look at <a href="#fig:momentum">Figure 58</a> we can see that the derivatives of the standard gradient descent are much larger in the vertical direction than in the horizontal direction.
 
 This algorithm requires setting two hyperparameters: $\beta$ and $\alpha$. Normally $\beta$ is set to 0.9 which is a value that generally works well and $\alpha$ is left to be tuned.
 
