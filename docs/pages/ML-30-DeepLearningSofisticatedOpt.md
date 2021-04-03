@@ -196,3 +196,34 @@ b & := b - \alpha \frac{v_{db}}{\sqrt{s_{db}}+\epsilon}\\
 $$
 
 This algorithm requires setting three hyperparameters: $\beta_1$ (for momentum), $\beta_2$ (for RMSprop) and $\alpha$. Normally $\beta_1$ and $\beta_2$ is set the default values and $\alpha$ is left to be tuned.
+
+## Learning rate decay
+Learning rate decay is a technique where you slowly reduce the learning rate over the training iterations.
+
+The intuition behind learning rate decay is represented in <a href="#fig:lrdecay">Figure 59</a>. When approaching the optimum during gradient descent, if the learning rate remains constant, it may diverge from the optimum. Instead, we want gradient descent to take larger steps when we are far from the optimum and smaller steps when we are close to the optimum, so that even if the model never converges, it can hover close enough to the optimum to give good results.
+
+
+    
+
+<figure id="fig:lrdecay">
+    <img src="{{site.baseurl}}/pages/ML-30-DeepLearningSofisticatedOpt_files/ML-30-DeepLearningSofisticatedOpt_16_0.png" alt="png">
+    <figcaption>Figure 59. A bidimensional feature space with contours of iso-values of the cost $J$ with gradient descent steps taken with constant learning rate (blue) and decaying learning rate (orange).</figcaption>
+</figure>
+
+In learning rate decay, our learning rate $\alpha$ becomes smaller each epoch, according to a system. There are different systems, among the most common way of computing $\alpha$ we have
+
+$$
+\begin{aligned}
+& \alpha = \frac{1}{1+d \cdot \tau} \alpha_0 \\
+& \\
+& \alpha = 0.95^\tau \cdot \alpha_0 \\
+& \\
+& \alpha = \frac{k}{\sqrt{\tau}} \cdot \alpha_0 \\
+& \\
+& \alpha = \frac{k}{\sqrt{t}} \cdot \alpha_0 \\
+\end{aligned}
+$$
+
+where $k$ is a constant, $t$ is the mini-batch number and $\tau$ is the epoch-number.
+
+Sometimes instead **manual decay** is applied. This means that while the algorithm is training, you can evaluate the the learning rate needs to be tuned down and setting it manually.

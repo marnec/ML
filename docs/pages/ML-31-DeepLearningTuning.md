@@ -9,37 +9,6 @@ comments: true
 
 # Hyperparameter tuning
 
-## Learning rate decay
-Learning rate decay is a technique where you slowly reduce the learning rate over the training iterations.
-
-The intuition behind learning rate decay is represented in <a href="#fig:lrdecay">Figure 59</a>. When approaching the optimum during gradient descent, if the learning rate remains constant, it may diverge from the optimum. Instead, we want gradient descent to take larger steps when we are far from the optimum and smaller steps when we are close to the optimum, so that even if the model never converges, it can hover close enough to the optimum to give good results.
-
-
-    
-
-<figure id="fig:lrdecay">
-    <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_2_0.png" alt="png">
-    <figcaption>Figure 59. A bidimensional feature space with contours of iso-values of the cost $J$ with gradient descent steps taken with constant learning rate (blue) and decaying learning rate (orange).</figcaption>
-</figure>
-
-In learning rate decay, our learning rate $\alpha$ becomes smaller each epoch, according to a system. There are different systems, among the most common way of computing $\alpha$ we have
-
-$$
-\begin{aligned}
-& \alpha = \frac{1}{1+d \cdot \tau} \alpha_0 \\
-& \\
-& \alpha = 0.95^\tau \cdot \alpha_0 \\
-& \\
-& \alpha = \frac{k}{\sqrt{\tau}} \cdot \alpha_0 \\
-& \\
-& \alpha = \frac{k}{\sqrt{t}} \cdot \alpha_0 \\
-\end{aligned}
-$$
-
-where $k$ is a constant, $t$ is the mini-batch number and $\tau$ is the epoch-number.
-
-Sometimes instead **manual decay** is applied. This means that while the algorithm is training, you can evaluate the the learning rate needs to be tuned down and setting it manually.
-
 ## Tuning process
 How to organize your hyperparameters tuning process. In deep-learning you come across many hyper-parameters: We have seen:
 
@@ -66,20 +35,61 @@ In many cases, if sorted by their importance the list would be:
 
 However it is very difficult to give a general rule for the importance of hyperparameters and each model tend to behave differently.
 
+### Approaches to hyperparameter tuning
+When approaching hyperparameter tuning there two choices, which are based on the amount of computational power available and the complexity (in terms of size of the network and training data) of the model: 
+
+* If computational resources are scarce relatively to the complexity of the model, then one tends to babysit one model. A single model is trained and its hyperparameters are tuned day by day based on the progress of the training (<a href="#fig:tuneapproach">Figure 60</a>, panel A).
+
+* If computational resources are abundant, it is always better to train many models in parallel, each with a different set of hyperparameters (<a href="#fig:tuneapproach">Figure 60</a>, panel B).
+
+
+    
+
+<figure id="fig:tuneapproach">
+    <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_4_0.png" alt="png">
+    <figcaption>Figure 60. Approaches to hyperparameter tuning</figcaption>
+</figure>
+
 ### Hyperparameter exploration
-In early days of machine learning, practitioners would sample the space of hyperparameters systematically, by testing combinations of intervals of hyperparameters (<a href="#fig:hypertune">Figure 60</a>, panel B), since it is almost impossible to know in advance which hyperparameter will have more impact on the model, but at the same time some hyperparameters tend to be much more important than others
+In early days of machine learning, practitioners would sample the space of hyperparameters systematically, by testing combinations of intervals of hyperparameters (<a href="#fig:hypertune">Figure 61</a>, panel B), since it is almost impossible to know in advance which hyperparameter will have more impact on the model, but at the same time some hyperparameters tend to be much more important than others
 
 
     
 
 <figure id="fig:hypertune">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_6_0.png" alt="png">
-    <figcaption>Figure 60. Hyperparameter space sampling in early days of machine learning (A) and in modern days of deep-learning (B)</figcaption>
+    <figcaption>Figure 61. Hyperparameter space sampling in early days of machine learning (A) and in modern days of deep-learning (B)</figcaption>
 </figure>
 
-This is done because when sampling the hyperparameter space as in <a href="#fig:hypertune">Figure 60</a> panel B, is a different set of Hyperparameters 1 and 2.
+This is done because when sampling the hyperparameter space as in <a href="#fig:hypertune">Figure 61</a> panel B, is a different set of Hyperparameters 1 and 2.
+
+### Scale of hyperparameters
+Choosing hyperparameters at random doesn't mean that they all need to be randomly picked from a uniform distribution, each parameter should have the appropriate scale (<a href="#fig:scales">Figure 62</a>). The number of hidden layers $n^{[l]}$ can be sampled from a uniform random distribution between 50 and 100, but for the number of hidden layers $L$ it is more sensible to maybe explore all the values between 2 and 4. For the learning rate $\alpha$ a uniform random sampling would waste many computational resources since we want to sample a much bigger range [0.0001, 1], and a logarithmic random sampling would be more appropriate.
 
 
-```python
+    
 
-```
+<figure id="fig:scales">
+    <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_9_0.png" alt="png">
+    <figcaption>Figure 62. Random sampling in appropriate ranges and scales for different parameters. Uniform random sampling of no. of hidden units $^{[l]}$ in the range $[50, 100]$ (A); Complete exploration of integer no. of hidden layers $L$ in the range $[2, 4]$ (B); Logarithmic random sampling of learning rate $\alpha$ in the range $\left [10^{-4}, 10^0 \right ]$ (C)</figcaption>
+</figure>.
+
+A different strategy is usually employed when sampling for the hyperparameters for exponentially weighted averages. Common values for $\beta$ range from 0.9 to 0.999 but a linear sampling in this range would be extremely inefficient, since the effect of small changes in $\beta$ is almost null when $\beta \approx 0.9$ and very big when $\beta \approx 0.999$
+
+$$
+\begin{aligned}
+& \beta = 0.9000 \to \frac{1}{1-\beta}\approx 10  \qquad & \to & \qquad \beta = 0.9005 \to \frac{1}{1-\beta}\approx 10 \\
+\\
+& \beta = 0.9990 \to \frac{1}{1-\beta}\approx 1000  \qquad & \to &\qquad  \beta = 0.9995 \to \frac{1}{1-\beta}\approx 2000 \\
+\end{aligned}
+$$
+
+For this reason, usually instead of $\beta$, we sample $\beta - 1$ in a logarithmic random distribution in the range $\left[10^{-1}, 10^{-3} \right]$ (<a href="#fig:samplebeta">Figure 63</a>)
+
+
+    
+
+<figure id="fig:samplebeta">
+    <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_11_0.png" alt="png">
+    <figcaption>Figure 63. Hyperparameter sampling of $1-\beta$ (exponentially weighted average parameter)</figcaption>
+</figure>
