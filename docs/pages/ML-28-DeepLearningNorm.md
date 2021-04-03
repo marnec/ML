@@ -13,26 +13,6 @@ In early days of machine learning, a lot of concern revolved around the idea of 
 The reason why finding local optima is very unlikely in highly dimensional space is because for a local minimum to be such, the local values of the function must be concave in all dimensions. Since a function (locally) can either be concave or convex (2 degrees of freedom), this means that the probability of each point to be in a local minimum is $2^{-d}$, where $d$ is the number of dimensions. With many thousands of dimensions, as often happens in deep learning, this probability is extremely small. It is instead much more likely that some dimensions will be locally concave and some locally convex, thus giving a saddle point.
 
 
-```python
-fig = plt.figure(figsize=(13, 6))
-ax1 = fig.add_subplot(1, 2, 1, projection='3d')
-ax2 = fig.add_subplot(1, 2, 2, projection='3d')
-
-x = np.linspace(-3, 3)
-x, y = np.meshgrid(x, x)
-z = -np.sinc(x)*np.sinc(y)
-
-ax1.set_box_aspect([1, 1, .5])
-ax1.plot_surface(x, y, z, cmap='viridis')
-ax1.text2D(-.1, .9, 'A', transform=ax1.transAxes, fontsize=15)
-
-z2 = x**2-y**2
-ax2.plot_surface(x, y, z2, cmap='viridis')
-ax2.set_box_aspect([1, 1, .5])
-ax2.text2D(-.1, .9, 'B', transform=ax2.transAxes, fontsize=15);
-```
-
-
     
 
 <figure id="fig:featurespaceintuition">
