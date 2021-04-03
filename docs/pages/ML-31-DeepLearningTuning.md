@@ -110,7 +110,7 @@ We have seen that when training a model, normalizing the input features can spee
 ### Implementing Batch Norm
 In batch normalization, we normalize values at each layer $l$ in order to train $w^{[l+1]}, b^{[l+1]}$ faster. There is some debate within the machine learning community about whether values should be normalized before ($z^{[l]}$) or after ($a^{[l]}$) applying the activation function. In practice normalizing $z^{[l]}$ is much more frequent.
 
-Given some intermediate value in a neural network for a layer $l$ $z^{[l](i)}$ in the range from 1 to $m$, $z^{[l](1)}, \dots, z^{[l](m)}$
+Given some intermediate value in a neural network for a layer $l$, ($z^{(i)[l]}$) in the range from 1 to $m$, $z^{(1)[l]}, \dots, z^{(m)[l]}$
 
 $$
 \begin{split}
@@ -120,13 +120,13 @@ $$
 \end{split}
 $$
 
-This way each of the intermediate values $z^{[l](i)}$ will have mean 0 and standard deviation 1. However, for some hidden layers it makes sense that the intermediate levels assume another distribution (forcing them to the normal standard distribution would make the hidden units to always behave linearly for a sigmoid activation function, see <a href="ML263fig:lintanh">relevant figure in ML26</a>), so in order to correct that we compute 
+This way each of the intermediate values $z^{(i)[l]}$ will have mean 0 and standard deviation 1. However, for some hidden layers it makes sense that the intermediate levels assume another distribution (forcing them to the normal standard distribution would make the hidden units to always behave linearly for a sigmoid activation function, see <a href="{{site.basurl}}/ML/ML26#fig:lintanh">Figure 46</a>), so in order to correct that we compute 
 
 $$
 \tilde{z}^{[l](i)} = \gamma z^{[l](i)}_\text{norm} + \beta
 $$
 
-where $\gamma$ and $\beta$ are learnable parameters of the model and get updated during the optimization process. The effect of these parameters is to set the mean whatever it is more appropriate for it to be respect to data. And since
+where $\gamma$ and $\beta$ are learnable parameters of the model and get updated during the optimization process. The effect of these parameters is to set the mean and variance to whatever value is more appropriate, respect to data. In fact, we have
 
 $$
 \begin{split}
@@ -136,7 +136,7 @@ $$
 \qquad \to \qquad  \tilde{z}^{[l](i)} = z^{[l](i)} 
 $$
 
-by adjusting these parameters, we can have standardize mean and variance but the mean and variance are controlled by the learned parameters $\gamma$ and $\beta$
+By adjusting these parameters, we can have standardize mean and variance across one layer $l$, where the actual values of mean and variance are controlled by the learned parameters $\gamma$ and $\beta$
 
 
 ```python
