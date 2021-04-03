@@ -158,29 +158,6 @@ $$
 The process in <a href="#fig:bnproc">Figure 67</a> refers to application of batch normalization to batch gradient descent. Usually, batch normalization is applied to mini-batches, in which case the process is:
 
 
-```python
-f = Flow(figsize=(13, 2))
-f.node(label='$x^{\{1\}}$', fontsize=15)
-f.node(label='$z^{[1]}$', fontsize=15, edgelabel='$w^{[1]}, b^{[1]}$')
-f.node(label='$\\tilde{z}^{[1]}$', fontsize=15, edgelabel='$\\beta^{[1]}, \\gamma^{[1]}$')
-f.node(label='$a^{[1]} = g^{[1]}\\left(\\tilde{z}^{[1]} \\right)$', fontsize=15)
-f.node(label='$z^{[2]}$', fontsize=15, edgelabel='$w^{[2]}, b^{[2]}$')
-f.node(label='$\\tilde{z}^{[2]}$', fontsize=15, edgelabel='$\\beta^{[2]}, \\gamma^{[2]}$')
-f.node(label='$a^{[2]} = g^{[3]}\\left(\\tilde{z}^{[3]} \\right)$', fontsize=15)
-f.node(label='$\\dots$', fontsize=15);
-f.node(label='$x^{\{2\}}$', fontsize=15, travel='s', startpoint=1, connect=False, distance=.2)
-f.node(label='$z^{[1]}$', fontsize=15, edgelabel='$w^{[1]}, b^{[1]}$')
-f.node(label='$\\tilde{z}^{[1]}$', fontsize=15, edgelabel='$\\beta^{[1]}, \\gamma^{[1]}$')
-f.node(label='$a^{[1]} = g^{[1]}\\left(\\tilde{z}^{[1]} \\right)$', fontsize=15)
-f.node(label='$z^{[2]}$', fontsize=15, edgelabel='$w^{[2]}, b^{[2]}$')
-f.node(label='$\\tilde{z}^{[2]}$', fontsize=15, edgelabel='$\\beta^{[2]}, \\gamma^{[2]}$')
-f.node(label='$a^{[2]} = g^{[3]}\\left(\\tilde{z}^{[3]} \\right)$', fontsize=15)
-f.node(label='$\\dots$', fontsize=15);
-f.node(label='$\\dots$', fontsize=15, travel='s', startpoint=9, connect=False, distance=.2)
-f.node(label='$\\dots$', fontsize=15, distance=7);
-```
-
-
     
 ![png](ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_20_0.png)
     
@@ -196,32 +173,6 @@ So the actual parameter of the batch norm are $w^{[l]}, \beta^{[l]}$ and $\gamma
 
 ### Batch Normalization reduces covariate shift
 When training a model on a training set we try to make the model generalize to be robust to changes in the distribution of data (<a href="#fig:covshift">Figure 68</a>). The idea of data distribution changing is called **covariate shift**. Usually if the distribution of our input data changes we may need to retrain our algorithm, even if the target function remains unchanged.
-
-
-```python
-fig, axes = plt.subplots(1, 2, figsize=(10, 4))
-ax1, ax2 = axes
-x = np.linspace(-1, 1)
-y = -x**2
-
-for ax, l in zip(axes, 'AB'):
-    ax.text(-0.05, 1.1, l, transform=ax.transAxes,
-      fontsize=15, va='top', ha='right')
-    ax.plot(x, y, label='target function')
-    ax.set_xticks([])
-    ax.set_yticks([])
-    
-
-noise = np.random.rand(10)*.1
-ax1.plot(x[10:20]+noise, y[10:20]-noise[::-1], marker='o', ls='none')
-ax1.plot(x[10:20]-noise, y[10:20]+noise, marker='o', ls='none')
-ax1.plot([-1, 0], [-.7, .15], label='learned function')
-ax1.legend()
-
-noise = np.random.rand(20)*.1
-ax2.plot(x[20:40]+noise, y[20:40]+noise[::-1], marker='o', ls='none')
-ax2.plot(x[20:40]-noise, y[20:40]-noise, marker='o', ls='none');
-```
 
 
     
