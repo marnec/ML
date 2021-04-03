@@ -93,3 +93,52 @@ For this reason, usually instead of $\beta$, we sample $\beta - 1$ in a logarith
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_11_0.png" alt="png">
     <figcaption>Figure 63. Hyperparameter sampling of $1-\beta$ (exponentially weighted average parameter)</figcaption>
 </figure>
+
+## Batch Normalization
+Batch normalization is a technique that makes the search of hyperparameters much easier because it makes a neural network much more robust to different choice of hyperparameters, increasing the range of hyperparameters that work well with a model and makes the learning speed of deep neural network much faster.
+
+
+    
+
+<figure id="fig:shallowdeep">
+    <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_13_0.png" alt="png">
+    <figcaption>Figure 64. A shallow (equivalent to logistic regression) and a deep neural network</figcaption>
+</figure>
+
+We have seen that when training a model, normalizing the input features can speed up training (<a href="{{site.basurl}}/ML/ML28">ML28</a>).
+
+### Implementing Batch Norm
+In batch normalization, we normalize values at each layer $l$ in order to train $w^{[l+1]}, b^{[l+1]}$ faster. There is some debate within the machine learning community about whether values should be normalized before ($z^{[l]}$) or after ($a^{[l]}$) applying the activation function. In practice normalizing $z^{[l]}$ is much more frequent.
+
+Given some intermediate value in a neural network for a layer $l$ $z^{[l](i)}$ in the range from 1 to $m$, $z^{[l](1)}, \dots, z^{[l](m)}$
+
+$$
+\begin{split}
+& \mu = \frac{1}{m} \sum_i z^{[l](i)} \\
+&\sigma^2 = \frac{1}{m} \sum_i(z^{[l](i)}-\mu)^2 \\
+&z^{[l](i)}_\text{norm} = \frac{z^{[l](i)} - \mu}{\sqrt{\sigma^2+\epsilon}}
+\end{split}
+$$
+
+This way each of the intermediate values $z^{[l](i)}$ will have mean 0 and standard deviation 1. However, for some hidden layers it makes sense that the intermediate levels assume another distribution (forcing them to the normal standard distribution would make the hidden units to always behave linearly for a sigmoid activation function, see <a href="ML263fig:lintanh">relevant figure in ML26</a>), so in order to correct that we compute 
+
+$$
+\tilde{z}^{[l](i)} = \gamma z^{[l](i)}_\text{norm} + \beta
+$$
+
+where $\gamma$ and $\beta$ are learnable parameters of the model and get updated during the optimization process. The effect of these parameters is to set the mean whatever it is more appropriate for it to be respect to data. And since
+
+$$
+\begin{split}
+& \gamma = \sqrt{\sigma^2 + \epsilon}\\
+& \beta = \mu \\
+\end{split}
+\qquad \to \qquad  \tilde{z}^{[l](i)} = z^{[l](i)} 
+$$
+
+by adjusting these parameters, we can have standardize mean and variance but the mean and variance are controlled by the learned parameters $\gamma$ and $\beta$
+
+
+```python
+
+```
