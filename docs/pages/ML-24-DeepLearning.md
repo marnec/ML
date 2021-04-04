@@ -149,7 +149,7 @@ In order to select the best performing algorithm it becomes essential to have a 
 In early days of machine learning it was widely considered a good practice to split your dataset with a 70/30% or 60/20/20% ratio. And this is fine when the number of examples are in the order of $10^{2-4}$. But for deep-learning problems, where usually the number of examples is in the order of $10^{6}$, the fraction of data in the test and dev sets is much much smaller and a good split would be a 98/1/1%.
 
 ### Mismatched train/test distributions
-When dealing with large amount of data it may happen that data in the training set and data in the dev or test set come from different distributions.
+When dealing with large amount of data it may happen that data in the training set and data in the dev or test set come from different distributions. This is generally not advisable in fact the rule if thumb is that train and dev set should **come from the same distribution**.
 
 For example the training set might be fed by automatic data crawlers while the dev or test set might be fed data from users. This is generally fine as long as the dev and test sets come from the same distribution. 
 

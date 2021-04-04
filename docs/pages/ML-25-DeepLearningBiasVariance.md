@@ -53,9 +53,9 @@ Assuming that a person would have an error $\approx 0%$ and that the train and d
 * case 3 is a case of high bias AND high variance (the worst scenario)
 * case 4 is a case of low bias and low variance (the best scenario)
 
-It is important to notice that we detected bias and variance based on the assumption that the **optimal error**, also called **Bayes error** is $\approx 0%$.
+It is important to notice that we detected bias and variance based on the assumption that the **optimal error**, also called **Bayes error** (<a href="{{site.basurl}}/ML/ML33">ML33</a>) is $\approx 0%$. Would the Bayes error $\approx 15%$, then we can say that case 2 is a case of low bias and low variance. 
 
-Would the Bayes error $\approx 15%$, then we can say that case 2 is a case of low bias and low variance.
+The difference between Bayes error and training set error is sometimes called **Avoidable Bias** and the objective is usually that of reducing the gap between train error and Bayes error. in the same way as we define the avoidable bias, we can also define variance, which is the gap between the training set error and the dev set error. 
 
 ## Basic recipe for correct training
 This is a basic recipe to apply when training a model:
