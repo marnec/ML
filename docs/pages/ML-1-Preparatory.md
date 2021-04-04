@@ -37,19 +37,6 @@ To illustrate the computation graph let's use a simpler example than a full blow
 We can draw these steps in a computational graph (<a href="#compgraph">figure below</a>)
 
 
-```python
-f = Flow()
-f.node('a', xlabel=5)
-f.node('b', travel='s', connect=False, xlabel=3)
-f.node('c', travel='s', connect=False, xlabel=2)
-f.node('u', label='$u=bc$', xlabel=6, startpoint='b')
-f.node('v', label='$v=a+u$', xlabel=11)
-f.node('j', label='$J=3v$', xlabel=33)
-f.edge('c', 'u')
-f.edge('a', 'v')
-```
-
-
     
 
 <figure id="compgraph">
@@ -219,13 +206,6 @@ v * 2
 
 ## Broadcasting
 To a complete guide to broadcasting check out [numpy great documentation](https://numpy.org/doc/stable/user/basics.broadcasting.html#:~:text=The%20term%20broadcasting%20describes%20how,that%20they%20have%20compatible%20shapes.&text=NumPy%20operations%20are%20usually%20done,element%2Dby%2Delement%20basis.)
-
-
-```python
-A = pd.DataFrame([[56, 0, 4.4, 6.8], [1.2, 104, 52, 8], [1.8, 135, 99, 0.9]], 
-                        columns=['Apples', 'Beef', 'Eggs', 'Potatoes'], index=['Carb', 'Protein', 'Fat'])
-A
-```
 
 
 

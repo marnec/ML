@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Deep Learning - Speed up learning - Normalization"
+title: "Deep Learning - Optimization - Normalization"
 categories: deeplearning
 permalink: /ML28/
 order: 28

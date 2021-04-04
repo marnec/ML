@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Deep Learning - Speed up learning - Other optimization techinques"
+title: "Deep Learning - Optimization - Rolling techniques"
 categories: deeplearning
 permalink: /ML30/
 order: 30

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Deep Learning - Speed up learning - Tuning"
+title: "Deep Learning - Optimization - Tuning"
 categories: deeplearning
 permalink: /ML31/
 order: 31

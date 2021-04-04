@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Deep Learning - Speed up learning - Mini batch"
+title: "Deep Learning - Optimization - Mini batch"
 categories: deeplearning
 permalink: /ML29/
 order: 29
