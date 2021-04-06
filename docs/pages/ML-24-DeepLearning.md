@@ -151,7 +151,140 @@ In early days of machine learning it was widely considered a good practice to sp
 ### Mismatched train/test distributions
 When dealing with large amount of data it may happen that data in the training set and data in the dev or test set come from different distributions. This is generally not advisable in fact the rule if thumb is that train and dev set should **come from the same distribution**.
 
-For example the training set might be fed by automatic data crawlers while the dev or test set might be fed data from users. This is generally fine as long as the dev and test sets come from the same distribution. 
+For example the training set might be fed by automatic data crawlers while the dev or test set might be fed data from users. This is generally fine as long as the dev and test sets come from the same distribution. It is extremely important that dev and test set come from the same distribution, since you are using the dev set to analyze if your algorithm generalizes well the problem.
 
 ### Omitting the test set
 Since the goal of the test set is to provide a platform to obtain an un-biased estimate of the performance of the model, it is not required to have one in case we don't need to estimate such performance. The dev set on the other hand is absolutely necessary to chose the best performing model
+
+## Transfer Learning
+One of the most powerful ideas in deep learning is that sometimes you can take knowledge that was learned from one task and apply that knowledge to another task, in other words to **transfer learning**.
+
+Suppose we trained the neural network in <a href="#fig:transf">Figure 44</a> on object detection and we now want to transfer that knowledge to radiology diagnosis. We can transfer learning, by dropping the output layer and the layer before it, which feeds the processed-input directly in the output layer, and retrain by swapping the dataset with a new $x, y$ where $x$ is radiology images and $y$ is the diagnosis. In order to achieve that, we initialize the last layer weights ($w^{[L]} ,b^{[L]}$) randomly and retraining the neural network on the new dataset. Sometimes we can decide not only to retrain the dropped layers with new data, but to change the architecture of the dropped layers, maybe adding some more hidden layers between the trained layers and the output layer.
+
+
+```python
+A = [3, 5, 5, 3, 3, 3, 1]
+ax, *_ = ann(A, width=2, node_colors=['k']*(sum(A)-4) + ['r']*4, radius=2)
+ax.set_aspect('equal')
+```
+
+
+    
+
+<figure id="fig:transf">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_14_0.png" alt="png">
+    <figcaption>Figure 44. A deep neural network trained for a specific task and repurposed for a different task by dropping the hidden units of the last two layers (red) and retrain only those.</figcaption>
+</figure>
+
+The rule of thumb to know how many layers to retrain is that if your new dataset is small, you should only retrain the hidden layer. The bigger your new dataset, the more hidden layers you can go back to retrain. In case you have enough data to retrain the entire network, then your first training is called **pre-training**, which becomes a step where you initialize the weights of the network with a learning process on a separate dataset, and your second training is called **fine-tuning**, in which the network is optimized for the target task.
+
+Transfer learning makes sense when
+
+* You have a lot of data from the task you are transferring from (task A) and relatively little data from the task you are transferring to (task B). If the opposite is true, then transfer learning doesn't make sense.
+* Task A and task B have the same input $x$
+* Low level features from task A could be helpful for learning task B.
+
+## Multitask Learning
+Whereas in transfer learning you have a sequential process: you learn task A and then transfer to task B; in **multitask learning** you start off by learning simultaneously with multiple tasks, with the rationale that each of the tasks should help all the other tasks.
+
+Suppose you are building a self driving car system that needs to detect several different targets (e.g. pedestrians, cars, stop signs, traffic lights, ...). A typical image fed as input of the neural network will contain some of the object that need to be detected and lack some other. So the label vector $y^{(i)}$ associated to the input image $x{(i)}$ will be a (#targets, $1$) column vector and $Y$ will be a (#targets, $m$) matrix
+
+$$
+y^{(i)} = 
+\begin{bmatrix}
+0 \\ 1 \\ 1 \\ 0 \\ \vdots
+\end{bmatrix} \qquad \qquad
+Y = 
+\begin{bmatrix}
+| & | & & | \\
+y^{(1)} & y^{(2)} & \dots & y^{(m)} \\
+| & |  & & | 
+\end{bmatrix} 
+$$
+
+In case our multitask neural network has 4 target tasks, it will look like that in <a href="#fig:multitasknn">Figure 45</a>, with 4 units in the output layer.
+
+
+```python
+ax, *_ = ann([3, 4, 5, 5, 3, 4], width=2, radius=2)
+ax.set_aspect('equal')
+```
+
+
+    
+
+<figure id="fig:multitasknn">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_17_0.png" alt="png">
+    <figcaption>Figure 45. A multitask neural network with 4 output units</figcaption>
+</figure>
+
+Since $\hat{y}^{(i)} \in \mathbb{R}^{4 \times 1}$, also the Loss function $\mathcal{L}\left(\hat{y}^{(i)}_j, y^{(i)}_j \right) \in \mathbb{R}^{4 \times 1}$ (where $\mathcal{L}$ is usual logistic loss) and the loss averaged over the whole dataset (Cost function) becomes
+
+$$
+\frac{1}{m} \sum_{i=1}^m \sum_{j=1}^4 \mathcal{L}\left(\hat{y}^{(i)}_j, y^{(i)}_j \right)
+$$
+
+Unlike softmax regression, in which one image is associated with one label chosen among many, in multitask learning a single image can have multiple labels. The same result can in principle be achieved by training 4 different neural networks, one for each target task, however if any of the earlier layers of the neural network are in common, than one multitask neural network will have better performance than 4 single task neural network. 
+
+A multitask neural network can even be trained on incompletely label examples.
+
+$$
+Y = 
+\begin{bmatrix}
+0 & 1 & & 0 & & ?\\ 1 & 1 & \ldots & 1 & \ldots & 1 \\ ? & ? & & 1 & & ? \\ ? & ? & & 0 & & ?
+\end{bmatrix}
+$$
+
+where the sum $\sum_{j=1}^4$ will only sum over defined values of $j$
+
+Multitask learning makes sense when
+
+* training on a set of tasks that could benefit from having shared lower-level features
+* the amount of data for each task is similar
+* you can train a big enough neural network to do well on all the tasks (the only situation in which multitask learning will hurt performance compared to single neural networks for each task is when the model is not big enough)
+
+## End-to-End Learning
+One of the most recent development of deep learning is end-to-end deep learning, that summarizes a learning system that requires multiple stages of processing into a single neural network.
+
+Let's take an example in speech recognition, where from an audio source $x$ we obtain a transcript $y$. Traditionally, this requires multiple stages:
+
+1. Manual feature extraction with MFCC
+2. ML model for low level features, usually phonemes.
+3. ML model for building words from phonemes
+4. ML model for building a transcript from words.
+
+End-to-end learning maps directly from audio to transcript (<a href="#fig:e2elearn">Figure 46</a>).
+
+
+    
+
+<figure id="fig:e2elearn">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_20_0.png" alt="png">
+    <figcaption>Figure 46. An example of a task faced with a early machine learning approach and with end-to-end learning</figcaption>
+</figure>
+
+End-to-end learning is able to map directly the audio source $x$ to the transcript $y$, only if a lot of data is available. For example, if only 3000 hours of audio source are available, then the traditional approach will perform better; but if 10000 or more hours of audio source are available then end-to-end learning might be a better approach.
+
+### Whether to use end-to-end learning
+The key question to ask yourself when deciding if applying end-to-end learning is:
+
+> Do you have sufficient data to learn a function of the complexity needed to map $x$ to $y$?
+
+A real-world example where end-to-end learning is **not** applied is identity confirmation systems. Some companies have replaced badge pass with identification through pictures. Some pictures of you are taken at the gate and, if your identity is confirmed, you can pass. The problem is that the picture taken can have many different angles, lighting conditions, and subject positioning. What is done today to solve this problem is to split it in two steps:
+
+1. An algorithm detects, isolates and centers the portion of the picture that contains the face of the person
+2. The face picture is fed into a model trained on the task to compare two pictures and tell if they are of the same person. The taken picture is the compared with a database of allowed personnel.
+
+The reason why end-to-end learning is not applied for this task, is that we have a lot of data to train models on the single tasks, but very little data to train the model on the complete task. So a split approach is better in this case.
+
+On the other side of the coin, end-to-end learning performs very well on machine translation problems. These problems used to pass through very complicated steps of language analysis, however, nowadays we have a large amount of data in the form of: sentence in language A ($x$), its translation in language B ($y$). This is an ideal setting to apply end-to-end learning and in fact it works quite well in this field.
+
+#### end-to-end learning advantages
+
+* end-to-end learning let the data speak. If you have enough data mappging from $x \to y$ than it is better to let the neural network figure out the representation that most suits the task and avoid forcing human preconception upon learning. An example of human preconception in speech recognition are phonemes that work for people to represent basic sound features but they are not necessarily the best representation of speech for the task of speech recognition. 
+* less hand-designing of components needed. This also simplify the design workflow.
+
+#### end-to-end learning disadvantages 
+
+* end-to-end learning may need a large amount of data. Usually it's easier to obtain large amount of data for subtasks and harder to directly mapping far away $x$ and $y$
+* excludes potentially useful hand-designed components. Sometimes, especially when you have little data, hand-designed components or features might be very useful.

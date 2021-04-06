@@ -84,26 +84,26 @@ Let's see two ways of intuitively explain why regularization prevents (or reduce
 
 A first way to imagine the effect of regularization on gradient descent is that of thinking of the *weight* of some hidden units in a network being very small and almost null. This simplify the architecture of the neural network rendering it able to represent simpler functions.
 
-Suppose we have a deep neural network as in <a href="#fig:deepnn">Figure 44</a>
+Suppose we have a deep neural network as in <a href="#fig:deepnn">Figure 48</a>
 
 
     
 
 <figure id="fig:deepnn">
     <img src="{{site.baseurl}}/pages/ML-26-DeepLearningL2Regularization_files/ML-26-DeepLearningL2Regularization_4_0.png" alt="png">
-    <figcaption>Figure 44. A 4 layers neural network</figcaption>
+    <figcaption>Figure 48. A 4 layers neural network</figcaption>
 </figure>
 
 When applying regularization we will add the term $\frac{\lambda}{2m} \sum_{l=1}^L \|w^{[l]}\|^2$ to the cost function $J(w^{[l]}, b^{[l]})$. In this way we will increase the cost for high values of $w^{[l]}$ and bring gradient descent to reduce the values $w^{[l]}$.
 
-For a sufficiently high value of the regularization parameter $\lambda$, we will have $w^{[l]} \approx 0$. In turn, this will give $a^{[l]} \approx 0$ for some nodes (<a href="#fig:regdeepnn">Figure 45</a>), reducing the complexity of the functions encoded by the neural network. 
+For a sufficiently high value of the regularization parameter $\lambda$, we will have $w^{[l]} \approx 0$. In turn, this will give $a^{[l]} \approx 0$ for some nodes (<a href="#fig:regdeepnn">Figure 49</a>), reducing the complexity of the functions encoded by the neural network. 
 
 
     
 
 <figure id="fig:regdeepnn">
     <img src="{{site.baseurl}}/pages/ML-26-DeepLearningL2Regularization_files/ML-26-DeepLearningL2Regularization_6_0.png" alt="png">
-    <figcaption>Figure 45. The effect of regularized gradient descent on the values of parameters ($w$) and hidden units ($a$), where lightgrey represents values $\approx 0$</figcaption>
+    <figcaption>Figure 49. The effect of regularized gradient descent on the values of parameters ($w$) and hidden units ($a$), where lightgrey represents values $\approx 0$</figcaption>
 </figure>
 
 #### Forcing hidden units to linearity
@@ -118,5 +118,5 @@ When the activation function (tanh in this case) is applied to $z$, since the la
 
 <figure id="fig:lintanh">
     <img src="{{site.baseurl}}/pages/ML-26-DeepLearningL2Regularization_files/ML-26-DeepLearningL2Regularization_8_0.png" alt="png">
-    <figcaption>Figure 46. hyperboloid target function of the range of values (-4, 4) with the central, mostly linear, part highlighted in red</figcaption>
+    <figcaption>Figure 50. hyperboloid target function of the range of values (-4, 4) with the central, mostly linear, part highlighted in red</figcaption>
 </figure>

@@ -8,17 +8,17 @@ comments: true
 ---
 
 # Softmax regression
-Softmax regression allow multi-class classification. A multi-class classifier is able to discriminate among $C$ different classes. So our neural network will have $C$ hidden units in its output layer $n^{[L]}=C$. For example in <a href="#fig:multiclassnn">Figure 69</a> we have a 4 class classifier.
+Softmax regression allow multi-class classification. A multi-class classifier is able to discriminate among $C$ different classes. So our neural network will have $C$ hidden units in its output layer $n^{[L]}=C$. For example in <a href="#fig:multiclassnn">Figure 73</a> we have a 4 class classifier.
 
 
     
 
 <figure id="fig:multiclassnn">
     <img src="{{site.baseurl}}/pages/ML-32-DeepLearningSoftmax_files/ML-32-DeepLearningSoftmax_2_0.png" alt="png">
-    <figcaption>Figure 69. </figcaption>
+    <figcaption>Figure 73. </figcaption>
 </figure>
 
-In general, we expect that each of the output unit will give the probability that an input belong to each class. For the neural network in <a href="#fig:multiclassnn">Figure 69</a>:
+In general, we expect that each of the output unit will give the probability that an input belong to each class. For the neural network in <a href="#fig:multiclassnn">Figure 73</a>:
 
 $$
 \begin{aligned}
@@ -47,14 +47,14 @@ $$
 where $t=e^{\left(z^{[L]}\right)}$. Differently from other activation functions, the softmax activation takes as input a $(C, 1)$ vector and outputs a $(C, 1)$ vector instead of a single value as the activation functions that we have seen until now.
 
 ### Softmax regression generalizes logistic regression
-Suppose we have a very simple neural network as in panel A of <a href="#fig:softmaxboundary">Figure 70</a> how the learned decision boundaries (calculated by assigning each pixel in the feature space to one of the tree classes) are linear. Linearity is due to the low complexity of the neural network that has no hidden layers.
+Suppose we have a very simple neural network as in panel A of <a href="#fig:softmaxboundary">Figure 74</a> how the learned decision boundaries (calculated by assigning each pixel in the feature space to one of the tree classes) are linear. Linearity is due to the low complexity of the neural network that has no hidden layers.
 
 
     
 
 <figure id="fig:softmaxboundary">
     <img src="{{site.baseurl}}/pages/ML-32-DeepLearningSoftmax_files/ML-32-DeepLearningSoftmax_5_0.png" alt="png">
-    <figcaption>Figure 70. Softmax regression with 2 input features and 3 output layers (A) and its linear decision boundaries (B)</figcaption>
+    <figcaption>Figure 74. Softmax regression with 2 input features and 3 output layers (A) and its linear decision boundaries (B)</figcaption>
 </figure>
 
 ## Loss function

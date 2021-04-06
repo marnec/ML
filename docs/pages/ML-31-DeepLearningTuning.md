@@ -38,40 +38,40 @@ However it is very difficult to give a general rule for the importance of hyperp
 ### Approaches to hyperparameter tuning
 When approaching hyperparameter tuning there two choices, which are based on the amount of computational power available and the complexity (in terms of size of the network and training data) of the model: 
 
-* If computational resources are scarce relatively to the complexity of the model, then one tends to babysit one model. A single model is trained and its hyperparameters are tuned day by day based on the progress of the training (<a href="#fig:tuneapproach">Figure 62</a>, panel A).
+* If computational resources are scarce relatively to the complexity of the model, then one tends to babysit one model. A single model is trained and its hyperparameters are tuned day by day based on the progress of the training (<a href="#fig:tuneapproach">Figure 66</a>, panel A).
 
-* If computational resources are abundant, it is always better to train many models in parallel, each with a different set of hyperparameters (<a href="#fig:tuneapproach">Figure 62</a>, panel B).
+* If computational resources are abundant, it is always better to train many models in parallel, each with a different set of hyperparameters (<a href="#fig:tuneapproach">Figure 66</a>, panel B).
 
 
     
 
 <figure id="fig:tuneapproach">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_4_0.png" alt="png">
-    <figcaption>Figure 62. Approaches to hyperparameter tuning</figcaption>
+    <figcaption>Figure 66. Approaches to hyperparameter tuning</figcaption>
 </figure>
 
 ### Hyperparameter exploration
-In early days of machine learning, practitioners would sample the space of hyperparameters systematically, by testing combinations of intervals of hyperparameters (<a href="#fig:hypertune">Figure 63</a>, panel B), since it is almost impossible to know in advance which hyperparameter will have more impact on the model, but at the same time some hyperparameters tend to be much more important than others
+In early days of machine learning, practitioners would sample the space of hyperparameters systematically, by testing combinations of intervals of hyperparameters (<a href="#fig:hypertune">Figure 67</a>, panel B), since it is almost impossible to know in advance which hyperparameter will have more impact on the model, but at the same time some hyperparameters tend to be much more important than others
 
 
     
 
 <figure id="fig:hypertune">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_6_0.png" alt="png">
-    <figcaption>Figure 63. Hyperparameter space sampling in early days of machine learning (A) and in modern days of deep-learning (B)</figcaption>
+    <figcaption>Figure 67. Hyperparameter space sampling in early days of machine learning (A) and in modern days of deep-learning (B)</figcaption>
 </figure>
 
-This is done because when sampling the hyperparameter space as in <a href="#fig:hypertune">Figure 63</a> panel B, is a different set of Hyperparameters 1 and 2.
+This is done because when sampling the hyperparameter space as in <a href="#fig:hypertune">Figure 67</a> panel B, is a different set of Hyperparameters 1 and 2.
 
 ### Scale of hyperparameters
-Choosing hyperparameters at random doesn't mean that they all need to be randomly picked from a uniform distribution, each parameter should have the appropriate scale (<a href="#fig:scales">Figure 64</a>). The number of hidden layers $n^{[l]}$ can be sampled from a uniform random distribution between 50 and 100, but for the number of hidden layers $L$ it is more sensible to maybe explore all the values between 2 and 4. For the learning rate $\alpha$ a uniform random sampling would waste many computational resources since we want to sample a much bigger range [0.0001, 1], and a logarithmic random sampling would be more appropriate.
+Choosing hyperparameters at random doesn't mean that they all need to be randomly picked from a uniform distribution, each parameter should have the appropriate scale (<a href="#fig:scales">Figure 68</a>). The number of hidden layers $n^{[l]}$ can be sampled from a uniform random distribution between 50 and 100, but for the number of hidden layers $L$ it is more sensible to maybe explore all the values between 2 and 4. For the learning rate $\alpha$ a uniform random sampling would waste many computational resources since we want to sample a much bigger range [0.0001, 1], and a logarithmic random sampling would be more appropriate.
 
 
     
 
 <figure id="fig:scales">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_9_0.png" alt="png">
-    <figcaption>Figure 64. Random sampling in appropriate ranges and scales for different parameters. Uniform random sampling of no. of hidden units $^{[l]}$ in the range $[50, 100]$ (A); Complete exploration of integer no. of hidden layers $L$ in the range $[2, 4]$ (B); Logarithmic random sampling of learning rate $\alpha$ in the range $\left [10^{-4}, 10^0 \right ]$ (C)</figcaption>
+    <figcaption>Figure 68. Random sampling in appropriate ranges and scales for different parameters. Uniform random sampling of no. of hidden units $^{[l]}$ in the range $[50, 100]$ (A); Complete exploration of integer no. of hidden layers $L$ in the range $[2, 4]$ (B); Logarithmic random sampling of learning rate $\alpha$ in the range $\left [10^{-4}, 10^0 \right ]$ (C)</figcaption>
 </figure>.
 
 A different strategy is usually employed when sampling for the hyperparameters for exponentially weighted averages. Common values for $\beta$ range from 0.9 to 0.999 but a linear sampling in this range would be extremely inefficient, since the effect of small changes in $\beta$ is almost null when $\beta \approx 0.9$ and very big when $\beta \approx 0.999$
@@ -84,14 +84,14 @@ $$
 \end{aligned}
 $$
 
-For this reason, usually instead of $\beta$, we sample $\beta - 1$ in a logarithmic random distribution in the range $\left[10^{-1}, 10^{-3} \right]$ (<a href="#fig:samplebeta">Figure 65</a>)
+For this reason, usually instead of $\beta$, we sample $\beta - 1$ in a logarithmic random distribution in the range $\left[10^{-1}, 10^{-3} \right]$ (<a href="#fig:samplebeta">Figure 69</a>)
 
 
     
 
 <figure id="fig:samplebeta">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_11_0.png" alt="png">
-    <figcaption>Figure 65. Hyperparameter sampling of $1-\beta$ (exponentially weighted average parameter)</figcaption>
+    <figcaption>Figure 69. Hyperparameter sampling of $1-\beta$ (exponentially weighted average parameter)</figcaption>
 </figure>
 
 ## Batch Normalization
@@ -102,7 +102,7 @@ Batch normalization is a technique that makes the search of hyperparameters much
 
 <figure id="fig:shallowdeep">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_13_0.png" alt="png">
-    <figcaption>Figure 66. A shallow (equivalent to logistic regression) and a deep neural network</figcaption>
+    <figcaption>Figure 70. A shallow (equivalent to logistic regression) and a deep neural network</figcaption>
 </figure>
 
 We have seen that when training a model, normalizing the input features can speed up training (<a href="{{site.basurl}}/ML/ML28">ML28</a>).
@@ -120,7 +120,7 @@ $$
 \end{split}
 $$
 
-This way each of the intermediate values $z^{(i)[l]}$ will have mean 0 and standard deviation 1. However, for some hidden layers it makes sense that the intermediate levels assume another distribution (forcing them to the normal standard distribution would make the hidden units to always behave linearly for a sigmoid activation function, see <a href="{{site.basurl}}/ML/ML26#fig:lintanh">Figure 46</a>), so in order to correct that we compute 
+This way each of the intermediate values $z^{(i)[l]}$ will have mean 0 and standard deviation 1. However, for some hidden layers it makes sense that the intermediate levels assume another distribution (forcing them to the normal standard distribution would make the hidden units to always behave linearly for a sigmoid activation function, see <a href="{{site.basurl}}/ML/ML26#fig:lintanh">Figure 50</a>), so in order to correct that we compute 
 
 $$
 \tilde{z}^{[l](i)} = \gamma z^{[l](i)}_\text{norm} + \beta
@@ -139,14 +139,14 @@ $$
 By adjusting these parameters, we can have standardize mean and variance across one layer $l$, where the actual values of mean and variance are controlled by the learned parameters $\gamma$ and $\beta$
 
 ### Fitting Batch Norm in a neural network
-Suppose you have a $L$ layer neural network. The process of applying batch normalization throughout the neural network would be that depicted in <a href="#fig:bnproc">Figure 67</a>
+Suppose you have a $L$ layer neural network. The process of applying batch normalization throughout the neural network would be that depicted in <a href="#fig:bnproc">Figure 71</a>
 
 
     
 
 <figure id="fig:bnproc">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_17_0.png" alt="png">
-    <figcaption>Figure 67. The process of applying Batch Normalization to subsequent layers of a neural network trained with batch gradient descent</figcaption>
+    <figcaption>Figure 71. The process of applying Batch Normalization to subsequent layers of a neural network trained with batch gradient descent</figcaption>
 </figure>
 
 As the other learned parameters $\beta$ and $\gamma$ are updated during the optimization, for example if using gradient descent:
@@ -155,7 +155,7 @@ $$
 d\beta^{[l]}  \to \beta^{[l]} = \beta^{[l]} - \alpha d\beta^{[l]}
 $$
 
-The process in <a href="#fig:bnproc">Figure 67</a> refers to application of batch normalization to batch gradient descent. Usually, batch normalization is applied to mini-batches, in which case the process is:
+The process in <a href="#fig:bnproc">Figure 71</a> refers to application of batch normalization to batch gradient descent. Usually, batch normalization is applied to mini-batches, in which case the process is:
 
 
     
@@ -172,17 +172,17 @@ But since batch norm is going to first normalize $z^{[l]}$ to $\mu=0, \sigma^2=1
 So the actual parameter of the batch norm are $w^{[l]}, \beta^{[l]}$ and $\gamma^{[l]}$
 
 ### Batch Normalization reduces covariate shift
-When training a model on a training set we try to make the model generalize to be robust to changes in the distribution of data (<a href="#fig:covshift">Figure 68</a>). The idea of data distribution changing is called **covariate shift**. Usually if the distribution of our input data changes we may need to retrain our algorithm, even if the target function remains unchanged.
+When training a model on a training set we try to make the model generalize to be robust to changes in the distribution of data (<a href="#fig:covshift">Figure 72</a>). The idea of data distribution changing is called **covariate shift**. Usually if the distribution of our input data changes we may need to retrain our algorithm, even if the target function remains unchanged.
 
 
     
 
 <figure id="fig:covshift">
     <img src="{{site.baseurl}}/pages/ML-31-DeepLearningTuning_files/ML-31-DeepLearningTuning_23_0.png" alt="png">
-    <figcaption>Figure 68. An example of covariate shift, where our training data distribution shifts. We don't expect a learned function trained on data in (A) to fit well the data in (B), even though a target function exists that generalizes both datasets</figcaption>
+    <figcaption>Figure 72. An example of covariate shift, where our training data distribution shifts. We don't expect a learned function trained on data in (A) to fit well the data in (B), even though a target function exists that generalizes both datasets</figcaption>
 </figure>
 
-In a deep neural network like that in <a href="#fig:shallowdeep">Figure 66</a> parameters $w^{[4]}, b^{[4]}$ map the values of $a^{[3]}$ to $a^{[l]}$ as to minimize the cost function $J$. However the values of $a^{[3]}$ are in turn changing during the next epoch (due to the effect of the update of $w^{[3]}, b^{[3]}$) and the distribution $a^{[3]}$ will change. So, from the perspective of $l=3$, the input values are changing all the time and so they are suffering from the problem covariate shift.
+In a deep neural network like that in <a href="#fig:shallowdeep">Figure 70</a> parameters $w^{[4]}, b^{[4]}$ map the values of $a^{[3]}$ to $a^{[l]}$ as to minimize the cost function $J$. However the values of $a^{[3]}$ are in turn changing during the next epoch (due to the effect of the update of $w^{[3]}, b^{[3]}$) and the distribution $a^{[3]}$ will change. So, from the perspective of $l=3$, the input values are changing all the time and so they are suffering from the problem covariate shift.
 
 Batch norm will reduce the amount that the distribution shifts, because while the values will change, their mean and variance will remain the same. So in other words batch norm limits the amount of which varying the values of the early layers affect the distribution of later layers.
 
