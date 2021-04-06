@@ -162,13 +162,6 @@ One of the most powerful ideas in deep learning is that sometimes you can take k
 Suppose we trained the neural network in <a href="#fig:transf">Figure 44</a> on object detection and we now want to transfer that knowledge to radiology diagnosis. We can transfer learning, by dropping the output layer and the layer before it, which feeds the processed-input directly in the output layer, and retrain by swapping the dataset with a new $x, y$ where $x$ is radiology images and $y$ is the diagnosis. In order to achieve that, we initialize the last layer weights ($w^{[L]} ,b^{[L]}$) randomly and retraining the neural network on the new dataset. Sometimes we can decide not only to retrain the dropped layers with new data, but to change the architecture of the dropped layers, maybe adding some more hidden layers between the trained layers and the output layer.
 
 
-```python
-A = [3, 5, 5, 3, 3, 3, 1]
-ax, *_ = ann(A, width=2, node_colors=['k']*(sum(A)-4) + ['r']*4, radius=2)
-ax.set_aspect('equal')
-```
-
-
     
 
 <figure id="fig:transf">
@@ -203,12 +196,6 @@ y^{(1)} & y^{(2)} & \dots & y^{(m)} \\
 $$
 
 In case our multitask neural network has 4 target tasks, it will look like that in <a href="#fig:multitasknn">Figure 45</a>, with 4 units in the output layer.
-
-
-```python
-ax, *_ = ann([3, 4, 5, 5, 3, 4], width=2, radius=2)
-ax.set_aspect('equal')
-```
 
 
     
