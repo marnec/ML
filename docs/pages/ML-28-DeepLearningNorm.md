@@ -8,7 +8,7 @@ comments: true
 ---
 
 # Optimization and speeding learning up
-In early days of machine learning, a lot of concern revolved around the idea of our optimization process finding a local optimum of the target function. This was due to intuitions of the highly dimensional feature space that was transferred from observations in low-dimensional space. These intuitions brought researcher to believe that highly dimensional space could have many crevices of local optima like in panel A of <a href="#fig:featurespaceintuition">Figure 54</a>, where most points in the feature space are so called **saddle points**. 
+In early days of machine learning, a lot of concern revolved around the idea of the optimization process getting stuck in local optima of the target function. This was due to an intuitive representation of high-dimensional space that reflected our experience with low-dimensional space. In this intuition, highly dimensional space has many crevices of local optima (<a href="#fig:featurespaceintuition">Figure 54</a>, panel B). It is expected that most points in highly-dimensional feature space are **saddle points**. 
 
 The reason why finding local optima is very unlikely in highly dimensional space is because for a local minimum to be such, the local values of the function must be concave in all dimensions. Since a function (locally) can either be concave or convex (2 degrees of freedom), this means that the probability of each point to be in a local minimum is $2^{-d}$, where $d$ is the number of dimensions. With many thousands of dimensions, as often happens in deep learning, this probability is extremely small. It is instead much more likely that some dimensions will be locally concave and some locally convex, thus giving a saddle point.
 
@@ -148,7 +148,7 @@ np.random.randn(1, nx)*np.sqrt(1/nx)
 
 
 
-    array([[-0.13061448, -0.59629756,  0.59564903, -0.53558851]])
+    array([[ 0.23828286,  0.3988794 ,  0.3639038 , -0.00712072]])
 
 
 
