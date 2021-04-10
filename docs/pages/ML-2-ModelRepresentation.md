@@ -36,28 +36,28 @@ In supervised learning we have a training set that contains examples $(x, y)$ an
 
 
 <style  type="text/css" >
-#T_3ddd7_row0_col0,#T_3ddd7_row0_col1,#T_3ddd7_row1_col0,#T_3ddd7_row1_col1,#T_3ddd7_row2_col0,#T_3ddd7_row2_col1,#T_3ddd7_row3_col0,#T_3ddd7_row3_col1,#T_3ddd7_row4_col0,#T_3ddd7_row4_col1{
+#T_9fd42_row0_col0,#T_9fd42_row0_col1,#T_9fd42_row1_col0,#T_9fd42_row1_col1,#T_9fd42_row2_col0,#T_9fd42_row2_col1,#T_9fd42_row3_col0,#T_9fd42_row3_col1,#T_9fd42_row4_col0,#T_9fd42_row4_col1{
             text-align:  left;
-        }</style><table id="T_3ddd7_" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
+        }</style><table id="T_9fd42_" ><thead>    <tr>        <th class="col_heading level0 col0" >sqf</th>        <th class="col_heading level0 col1" >price</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_3ddd7_row0_col0" class="data row0 col0" >2104</td>
-                        <td id="T_3ddd7_row0_col1" class="data row0 col1" >399.900000</td>
+                                <td id="T_9fd42_row0_col0" class="data row0 col0" >2104</td>
+                        <td id="T_9fd42_row0_col1" class="data row0 col1" >399.900000</td>
             </tr>
             <tr>
-                                <td id="T_3ddd7_row1_col0" class="data row1 col0" >1600</td>
-                        <td id="T_3ddd7_row1_col1" class="data row1 col1" >329.900000</td>
+                                <td id="T_9fd42_row1_col0" class="data row1 col0" >1600</td>
+                        <td id="T_9fd42_row1_col1" class="data row1 col1" >329.900000</td>
             </tr>
             <tr>
-                                <td id="T_3ddd7_row2_col0" class="data row2 col0" >2400</td>
-                        <td id="T_3ddd7_row2_col1" class="data row2 col1" >369.000000</td>
+                                <td id="T_9fd42_row2_col0" class="data row2 col0" >2400</td>
+                        <td id="T_9fd42_row2_col1" class="data row2 col1" >369.000000</td>
             </tr>
             <tr>
-                                <td id="T_3ddd7_row3_col0" class="data row3 col0" >1416</td>
-                        <td id="T_3ddd7_row3_col1" class="data row3 col1" >232.000000</td>
+                                <td id="T_9fd42_row3_col0" class="data row3 col0" >1416</td>
+                        <td id="T_9fd42_row3_col1" class="data row3 col1" >232.000000</td>
             </tr>
             <tr>
-                                <td id="T_3ddd7_row4_col0" class="data row4 col0" >3000</td>
-                        <td id="T_3ddd7_row4_col1" class="data row4 col1" >539.900000</td>
+                                <td id="T_9fd42_row4_col0" class="data row4 col0" >3000</td>
+                        <td id="T_9fd42_row4_col1" class="data row4 col1" >539.900000</td>
             </tr>
     </tbody></table>
 
@@ -72,12 +72,15 @@ In supervised learning we have a training set that contains examples $(x, y)$ an
 
 So $x^{(2)}$ is the second (if we count from 1 as it is common in math) or the third (if we count from 0 as it is common in computer science) row of $x$
 
-  
 A pair $\left(x^{(i)} , y^{(i)}\right)$ is called a training example, and the dataset that we’ll be using to learn (a list of $m$ training examples) is called a training set. Note that the superscript $^{(i)}$ in the notation is simply an index into the training set, and has nothing to do with exponentiation. We will also use $X$ to denote the space of input values, and $Y$ to denote the space of output values. In this example, $X = Y = \mathbb{R}$. 
 
 To describe the supervised learning problem slightly more formally, our goal is, given a training set, to learn a function $h : X \to Y$ so that $h(x)$ is a “good” predictor for the corresponding value of $y$. For historical reasons, this function $h$ is called a hypothesis. Seen pictorially, the process is therefore like this:
 
-![ML](./data/img/ML-flowchart.png)
+
+    
+![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_10_0.png)
+    
+
 
 When the target variable that we’re trying to predict is continuous, such as in our housing example, we call the learning problem a regression problem. When $y$ can take on only a small number of discrete values (such as if, given the living area, we wanted to predict if a dwelling is a house or an apartment, say), we call it a classification problem.
 
@@ -90,7 +93,7 @@ Sometimes, we might want to use more complex non-linear functions, but this is t
 
 
     
-![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_11_0.png)
+![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_13_0.png)
     
 
 
