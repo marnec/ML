@@ -61,40 +61,6 @@ We can easily imagine that an **horizontal filter** is just a transposed version
 The vertical filter we have seen is just one of many vertical filters. There has been a fair amount of discussion in the computer vision community on which is the best filter for vertical edge detection. Many filters have been handcrafted to satisfy a variety of needs (not only vertical edge detection) like for example the Sobel filter (<a href="#fig:filters">Figure 78</a>, panel C).
 
 
-```python
-sobel = np.array([[1, 0, -1],
-                   [2, 0, -2],
-                   [1, 0, -1]])
-
-scharr = np.array([[3, 0, -3],
-                   [10, 0, -10],
-                   [3, 0, -3]])
-
-params = np.array(['$w_{}$'.format(i) for i in range(9)]).reshape(3, 3)
-
-fig, axes = plt.subplots(1, 3, figsize=(12, 4))
-ax1, ax2, ax3 = axes
-fig.patch.set_visible(False)
-tabs = []
-tabs.append(ax1.table(sobel.astype(int), loc='center', colWidths=[0.05]*6, cellLoc='center'))
-tabs.append(ax2.table(scharr.astype(int), loc='center', colWidths=[0.05]*6, cellLoc='center'))
-tabs.append(ax3.table(params, loc='center', colWidths=[0.05]*6, cellLoc='center'))
-ax1.set_title('Sobel filter')
-ax2.set_title('Scharr filter')
-
-for ax, tab, l in zip(axes.ravel(), tabs, 'ABC'):
-    ax.text(0, 1, l, transform=ax.transAxes, fontsize=15)
-    tab.auto_set_font_size(False)
-    tab.set_fontsize(13)
-    tab.scale(3, 3)
-    ax.axis('off')
-    ax.axis('tight')
-    ax.set_aspect('equal')
-    
-tabs[2].set_fontsize(17)
-```
-
-
     
 
 <figure id="fig:filters">
@@ -110,7 +76,7 @@ The two downside to this are:
 * each time you apply convolution your image shrinks
 * pixels along the edges and especially pixels in the corners are used much fewer times (contribute less to the output) than pixels in the middle.
 
-With padding, a border of one unit is added to the image to allow the filter to move freely on the edge cells, this preserves the original dimensions of the input image on the convolution result (<a href="#fig:padding">Figure 79</a>).
+With padding, a border of one unit is added to the image so that the side becomes $n+2p$, where $p$ is the amount of padding applied. This allows the filter to move freely on the edge cells, preserving the original dimensions of the input image on the convolution result (<a href="#fig:padding">Figure 79</a>).
 
 
     
@@ -119,3 +85,67 @@ With padding, a border of one unit is added to the image to allow the filter to 
     <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_10_0.png" alt="png">
     <figcaption>Figure 79. A $6 \times 6$ image padded to $8 \times 8$, convoluted with a $3 \times 3$ filter to produce a $6 \times 6$ output image that preserves the original dimension of the input image.</figcaption>
 </figure>
+
+There are two common choices of the amount of padding applied during convolutions, they are called **valid convolutions** and **same convolutions**.
+
+* Valid: no padding $p=0$
+* Same: set the padding size $p$ so that the output size is the same as the input size. In order for this requirement to be satisfied:
+
+$$n+2p - f + 1 = n \qquad \Rightarrow \qquad p = \frac{f-1}{2}$$
+
+This works because the filter, by convention, has always odd dimensions. The reason behind this decision is to have symmetric filtering and to have a central cell of the filter.
+
+## Stride
+Strided convolution is another fundamental building block for implementing convolutional neural networks
+
+
+```python
+import matplotlib.patches as p
+
+canvas = np.array(list(' '*49)).reshape(7, 7)
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+ax1, ax2, ax3 = axes.ravel()
+fig.patch.set_visible(False)
+tabs = []
+tabs.append(ax1.table(canvas, loc='center', colWidths=[0.05]*7, cellLoc='center'))
+tabs.append(ax2.table(np.array(list(' '*9)).reshape(3, 3), loc='center', colWidths=[0.05]*6, cellLoc='center'))
+tabs.append(ax3.table(np.array(list(' '*36)).reshape(6, 6), loc='center', colWidths=[0.05]*6, cellLoc='center'))
+t = ax2.text(0.05, 0.5, '*', va='center', ha='left', transform=ax2.transAxes, fontsize=15)
+t = ax3.text(-.2, 0.5, '=', va='center', ha='left', transform=ax3.transAxes, fontsize=15)
+ax1.text(0.5, -.2, '$8\\times 8 $\n $(n+2p) \\times (n+2p)$', va='top', ha='center', transform=ax1.transAxes, fontsize=13)
+ax2.text(0.5, -.2, '$3\\times 3$\n $f \\times f$', va='top', ha='center', transform=ax2.transAxes, fontsize=13)
+ax3.text(0.5, -.2, '$6\\times 6 $\n $(n+2p-f+1) \\times (n+2p-f+1)$', va='top', ha='center', transform=ax3.transAxes, fontsize=13)
+
+for ax, tab in zip(axes.ravel(), tabs):
+    tab.auto_set_font_size(False)
+    tab.set_fontsize(13)
+    tab.scale(3, 3)
+    ax.axis('off')
+    ax.axis('tight')
+    ax.set_aspect('equal')
+    
+ax1.annotate('', (3/14, 11/14), (7/14, 11/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
+ax1.annotate('', (7/14, 11/14), (11/14, 11/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
+ax1.annotate('', (3/14, 7/14), (7/14, 7/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
+ax1.annotate('', (7/14, 7/14), (11/14, 7/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
+ax1.annotate('', (3/14, 3/14), (7/14, 3/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
+ax1.annotate('', (7/14, 3/14), (11/14, 3/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
+ax1.annotate('', (11/14, 11/14), (3/14, 7/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=0', arrowstyle="<-", edgecolor='cyan'))
+ax1.annotate('', (11/14, 7/14), (3/14, 3/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=0', arrowstyle="<-", edgecolor='cyan'))
+
+canvas = tabs[0].get_celld()
+for i in range(3):
+    for j in range(3):
+        canvas[i, j].set_facecolor('lightcyan')
+```
+
+
+    
+![png](ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_12_0.png)
+    
+
+
+
+```python
+
+```
