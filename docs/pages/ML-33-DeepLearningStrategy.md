@@ -96,54 +96,15 @@ $$n+2p - f + 1 = n \qquad \Rightarrow \qquad p = \frac{f-1}{2}$$
 This works because the filter, by convention, has always odd dimensions. The reason behind this decision is to have symmetric filtering and to have a central cell of the filter.
 
 ## Stride
-Strided convolution is another fundamental building block for implementing convolutional neural networks
-
-
-```python
-import matplotlib.patches as p
-
-canvas = np.array(list(' '*49)).reshape(7, 7)
-fig, axes = plt.subplots(1, 3, figsize=(12, 4))
-ax1, ax2, ax3 = axes.ravel()
-fig.patch.set_visible(False)
-tabs = []
-tabs.append(ax1.table(canvas, loc='center', colWidths=[0.05]*7, cellLoc='center'))
-tabs.append(ax2.table(np.array(list(' '*9)).reshape(3, 3), loc='center', colWidths=[0.05]*6, cellLoc='center'))
-tabs.append(ax3.table(np.array(list(' '*36)).reshape(6, 6), loc='center', colWidths=[0.05]*6, cellLoc='center'))
-t = ax2.text(0.05, 0.5, '*', va='center', ha='left', transform=ax2.transAxes, fontsize=15)
-t = ax3.text(-.2, 0.5, '=', va='center', ha='left', transform=ax3.transAxes, fontsize=15)
-ax1.text(0.5, -.2, '$8\\times 8 $\n $(n+2p) \\times (n+2p)$', va='top', ha='center', transform=ax1.transAxes, fontsize=13)
-ax2.text(0.5, -.2, '$3\\times 3$\n $f \\times f$', va='top', ha='center', transform=ax2.transAxes, fontsize=13)
-ax3.text(0.5, -.2, '$6\\times 6 $\n $(n+2p-f+1) \\times (n+2p-f+1)$', va='top', ha='center', transform=ax3.transAxes, fontsize=13)
-
-for ax, tab in zip(axes.ravel(), tabs):
-    tab.auto_set_font_size(False)
-    tab.set_fontsize(13)
-    tab.scale(3, 3)
-    ax.axis('off')
-    ax.axis('tight')
-    ax.set_aspect('equal')
-    
-ax1.annotate('', (3/14, 11/14), (7/14, 11/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
-ax1.annotate('', (7/14, 11/14), (11/14, 11/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
-ax1.annotate('', (3/14, 7/14), (7/14, 7/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
-ax1.annotate('', (7/14, 7/14), (11/14, 7/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
-ax1.annotate('', (3/14, 3/14), (7/14, 3/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
-ax1.annotate('', (7/14, 3/14), (11/14, 3/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=.2', arrowstyle="<-", edgecolor='cyan'))
-ax1.annotate('', (11/14, 11/14), (3/14, 7/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=0', arrowstyle="<-", edgecolor='cyan'))
-ax1.annotate('', (11/14, 7/14), (3/14, 3/14), xycoords=tabs[0], textcoords=tabs[0], va='center', ha='center', arrowprops=dict(connectionstyle='arc3,rad=0', arrowstyle="<-", edgecolor='cyan'))
-
-canvas = tabs[0].get_celld()
-for i in range(3):
-    for j in range(3):
-        canvas[i, j].set_facecolor('lightcyan')
-```
+Strided convolution is another fundamental building block for implementing convolutional neural networks. The **stride** of a convolution, is the amount of cell traveled by the kernel while it moves across the input image. The convolutions that we have seen until now all had a stride of 1. When the stride = 2, the kernel will skip one cell in traveling east and will also skip one cell in traveling south, this means that, with a *valid padding*, the output image will shrink even more than when the stride =1. For a $7 \times 7$ input image convoluted with a $3 \times 3$ kernel, a stride = 2 will produce a $3 \times 3$ output image (<a href="fig:stride">figure below</a>).
 
 
     
-![png](ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_12_0.png)
-    
 
+<figure id="fig:stride">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_12_0.png" alt="png">
+    <figcaption>Figure 80. The result of a strided convolution on a $7 \times 7$ input image</figcaption>
+</figure>
 
 
 ```python
