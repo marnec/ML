@@ -57,15 +57,26 @@ Convolving the same kernel with a mirrored input image (<a href="#fig:vertedgede
 
 We can easily imagine that an **horizontal filter** is just a transposed version of the vertical filter that we have seen until now. In reality, many different filters exist that perform a number of operations.
 
+### Caveat on convolution vs cross-correlation
+In strict mathematical terms, the operation that we have described is not convolution and should by rigor be called cross-correlation. The reason why, strictly speaking the operation described is not convolution is because it is missing a step. When performing convolutions, before rolling the kernel over the input image, the kernel is flipped (<a href="#fig:kernelflip">Figure 78</a>). This operation ensures the associate property of convolutions where $(A \cdot B) \cdot C = A \cdot (B \cdot C)$. The associative property however, is not required in deep neural networks and for this reason the step is skipped to make the computations easier.
+
+
+    
+
+<figure id="fig:kernelflip">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_8_0.png" alt="png">
+    <figcaption>Figure 78. Flipping step of a kernel required to ensure the associative property of convolutions</figcaption>
+</figure>
+
 ## Learning to detect edges
-The vertical filter we have seen is just one of many vertical filters. There has been a fair amount of discussion in the computer vision community on which is the best filter for vertical edge detection. Many filters have been handcrafted to satisfy a variety of needs (not only vertical edge detection) like for example the Sobel filter (<a href="#fig:filters">Figure 78</a>, panel C).
+The vertical filter we have seen is just one of many vertical filters. There has been a fair amount of discussion in the computer vision community on which is the best filter for vertical edge detection. Many filters have been handcrafted to satisfy a variety of needs (not only vertical edge detection) like for example the Sobel filter (<a href="#fig:filters">Figure 79</a>, panel C).
 
 
     
 
 <figure id="fig:filters">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_8_0.png" alt="png">
-    <figcaption>Figure 78. Two hand designed filters, the Sobel (A) and Scharr (B) filters, and a filter made of the learned parameters (C)</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_10_0.png" alt="png">
+    <figcaption>Figure 79. Two hand designed filters, the Sobel (A) and Scharr (B) filters, and a filter made of the learned parameters (C)</figcaption>
 </figure>
 
 ## Padding
@@ -76,14 +87,14 @@ The two downside to this are:
 * each time you apply convolution your image shrinks
 * pixels along the edges and especially pixels in the corners are used much fewer times (contribute less to the output) than pixels in the middle.
 
-With padding, a border of one unit is added to the image so that the side becomes $n+2p$, where $p$ is the amount of padding applied. This allows the filter to move freely on the edge cells, preserving the original dimensions of the input image on the convolution result (<a href="#fig:padding">Figure 79</a>).
+With padding, a border of one unit is added to the image so that the side becomes $n+2p$, where $p$ is the amount of padding applied. This allows the filter to move freely on the edge cells, preserving the original dimensions of the input image on the convolution result (<a href="#fig:padding">Figure 80</a>).
 
 
     
 
 <figure id="fig:padding">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_10_0.png" alt="png">
-    <figcaption>Figure 79. A $6 \times 6$ image padded to $8 \times 8$, convoluted with a $3 \times 3$ filter to produce a $6 \times 6$ output image that preserves the original dimension of the input image.</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_12_0.png" alt="png">
+    <figcaption>Figure 80. A $6 \times 6$ image padded to $8 \times 8$, convoluted with a $3 \times 3$ filter to produce a $6 \times 6$ output image that preserves the original dimension of the input image.</figcaption>
 </figure>
 
 There are two common choices of the amount of padding applied during convolutions, they are called **valid convolutions** and **same convolutions**.
@@ -96,14 +107,14 @@ $$n+2p - f + 1 = n \qquad \Rightarrow \qquad p = \frac{f-1}{2}$$
 This works because the filter, by convention, has always odd dimensions. The reason behind this decision is to have symmetric filtering and to have a central cell of the filter.
 
 ## Stride
-Strided convolution is another fundamental building block for implementing convolutional neural networks. The **stride** of a convolution, is the amount of cell traveled by the kernel while it moves across the input image. The convolutions that we have seen until now all had a stride of 1. When the stride = 2, the kernel will skip one cell in traveling east and will also skip one cell in traveling south, this means that, with a *valid padding*, the output image will shrink even more than when the stride =1. For a $7 \times 7$ input image convoluted with a $3 \times 3$ kernel, a stride = 2 will produce a $3 \times 3$ output image (<a href="fig:stride">figure below</a>).
+Strided convolution is another fundamental building block for implementing convolutional neural networks. The **stride** ($s$) of a convolution, is the amount of cell traveled by the kernel each step of its movement across the input image. The convolutions that we have seen until now all had a stride of 1. When the stride = 2, the kernel will skip one cell in traveling east and will also skip one cell in traveling south, this means that, with a *valid padding* ($p=0$), the output image will have each side of dimension $\lfloor \frac{n+2p-f}{s}+1 \rfloor$, where $\lfloor z \rfloor $ denotes the floor approximation of $z$. For a $7 \times 7$ input image convoluted with a $3 \times 3$ kernel, a stride = 2 will produce a $3 \times 3$ output image (<a href="fig:stride">figure below</a>).
 
 
     
 
 <figure id="fig:stride">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_12_0.png" alt="png">
-    <figcaption>Figure 80. The result of a strided convolution on a $7 \times 7$ input image</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_14_0.png" alt="png">
+    <figcaption>Figure 81. The result of a strided convolution on a $7 \times 7$ input image</figcaption>
 </figure>
 
 
