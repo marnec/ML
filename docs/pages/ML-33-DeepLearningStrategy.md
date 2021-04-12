@@ -118,46 +118,7 @@ Strided convolution is another fundamental building block for implementing convo
 </figure>
 
 ## Convolutions over volumes
-Until now, we have seen convolutions over grayscale images. Grayscale images can be represented as 2D arrays where each value is the intensity (or gradation) of gray. Suppose that we want to apply convolution on RGB images, which are composed of three layers (channels) of values. We will need to deal with 3D arrays, for example a $6 \times 6$ image will become a $6 \times 6 \times 3$ image (<a href="#fig:volconv">Figure 82</a>).
-
-
-```python
-# prepare some coordinates
-x, y, z = np.indices((6, 19, 6))
-
-# draw cuboids in the top left and bottom right corners, and a link between them
-r = (x < 6) & (y == 0) & (z < 6)
-g = (x < 6) & (y == 1) & (z < 6)
-b = (x < 6) & (y == 2) & (z < 6)
-
-k = (x > 0) & (x < 4) & (9 < y) & (y < 13) & (z < 3)
-o = (x > 0) & (x < 5) & (y == 18) & (z < 4)
-
-# combine the objects into a single boolean array
-voxels = r | g | b | k | o
-
-# set the colors of each object
-colors = np.empty(voxels.shape, dtype=object)
-colors[r] = 'C3'
-colors[g] = 'C2'
-colors[b] = 'C0'
-colors[k] = 'w'
-colors[o] = 'gray'
-
-# and plot everything
-fig = plt.figure(figsize=(12, 8))
-ax = fig.gca(projection='3d')
-ax.set_axis_off()
-ax.view_init(elev=20, azim=-10)
-ax.voxels(voxels, edgecolor='k', facecolors=colors, shade=True);
-ax.set_box_aspect([6, 19, 6])
-ax.text(2, 6.5, 1.5, '*', fontsize=25, va='center', ha='center')
-ax.text(2, 15.5, 1.5, '=', fontsize=25, va='center', ha='center')
-fig.tight_layout()
-ax.text2D(3.5/19, .25, '6 x 6 x 3', transform=ax.transAxes, ha='center', fontsize=13)
-ax.text2D(11.5/19, .25, '3 x 3 x 3', transform=ax.transAxes, ha='center', fontsize=13)
-ax.text2D(17/19, .25, '4 x 4 x 1', transform=ax.transAxes, ha='center', fontsize=13);
-```
+Until now, we have seen convolutions over grayscale images. Grayscale images can be represented as 2D arrays where each value is the intensity (or gradation) of gray. Suppose that we want to apply convolution on RGB images, which are composed of three layers (channels) of values. We will need to deal with 3D arrays, for example a $6 \times 6$ image will become a $6 \times 6 \times 3$ image. By convention the third dimension is called **channels** (as in the RGB channels of an image) or **depth**. By convention, the filter has the same number of channels as the input image, which might be a $3 \times 3 \times 3$ filter. This convolution will produce a 2D $4 \times 4$ image. (<a href="#fig:volconv">Figure 82</a>).
 
 
     
@@ -165,4 +126,26 @@ ax.text2D(17/19, .25, '4 x 4 x 1', transform=ax.transAxes, ha='center', fontsize
 <figure id="fig:volconv">
     <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_16_0.png" alt="png">
     <figcaption>Figure 82. A simple example of convolution over volume, Where a 3D input and 3D filter produce a 2D output</figcaption>
+</figure>
+
+### Values in filter channels
+Since the kernel has the same number of channels as the input image, it will convolve only in two directions, producing a 2D output image. The content of each channel of the 3D channel can be different. For example you could apply a vertical edge detection to the Red channel and not to the other channels (<a href="#fig:3dkernel">Figure 83</a>).
+
+
+    
+
+<figure id="fig:3dkernel">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_18_0.png" alt="png">
+    <figcaption>Figure 83. The Red, Green and Blue channels of a 3D kernel. This filter detects vertical edges only in the Red channel</figcaption>
+</figure>
+
+### Multiple filters
+A 3 channels input image can be convoluted with multiple 3-channels filters at the same time. This produces as many output channels as the number of filters convoluted (<a href="#fig:multifilter">Figure 84</a>).
+
+
+    
+
+<figure id="fig:multifilter">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningStrategy_files/ML-33-DeepLearningStrategy_20_0.png" alt="png">
+    <figcaption>Figure 84. Two filters convoluted with a single input image produce a 2-channels output image</figcaption>
 </figure>
