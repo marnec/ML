@@ -29,7 +29,7 @@ The convolution operation is one of the fundamental building blocks of convoluti
     
 
 <figure id="fig:edgedet">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_2_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_2_0.svg" alt="png">
     <figcaption>Figure 75. The image of a rectangle (A) and the result of applying a vertical edge-detection filter (B) and an horizontal edge-detection filter (B)</figcaption>
 </figure>
 
@@ -39,7 +39,7 @@ The convolution operation is based on rolling a filter (sometimes called kernel)
     
 
 <figure id="fig:convolution">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_4_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_4_0.svg" alt="png">
     <figcaption>Figure 76. One step of convolution of a $3\times 3$ vertical edge detection filter over a $6 \times 6$ image, resulting in a $4 \times 4$ convolved feature.</figcaption>
 </figure>
 
@@ -51,7 +51,7 @@ Convolving the same kernel with a mirrored input image (<a href="#fig:vertedgede
     
 
 <figure id="fig:vertedgedet">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_6_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_6_0.svg" alt="png">
     <figcaption>Figure 77. Vertical edge detection applied to an image with its left half bright and its right half dark (A), and to its mirrored version (B)</figcaption>
 </figure>
 
@@ -64,7 +64,7 @@ In strict mathematical terms, the operation that we have described is not convol
     
 
 <figure id="fig:kernelflip">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_8_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_8_0.svg" alt="png">
     <figcaption>Figure 78. Flipping step of a kernel required to ensure the associative property of convolutions</figcaption>
 </figure>
 
@@ -75,7 +75,7 @@ The vertical filter we have seen is just one of many vertical filters. There has
     
 
 <figure id="fig:filters">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_10_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_10_0.svg" alt="png">
     <figcaption>Figure 79. Two hand designed filters, the Sobel (A) and Scharr (B) filters, and a filter made of the learned parameters (C)</figcaption>
 </figure>
 
@@ -93,7 +93,7 @@ With padding, a border of one unit is added to the image so that the side become
     
 
 <figure id="fig:padding">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_12_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_12_0.svg" alt="png">
     <figcaption>Figure 80. A $6 \times 6$ image padded to $8 \times 8$, convoluted with a $3 \times 3$ filter to produce a $6 \times 6$ output image that preserves the original dimension of the input image.</figcaption>
 </figure>
 
@@ -113,7 +113,7 @@ Strided convolution is another fundamental building block for implementing convo
     
 
 <figure id="fig:stride">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_14_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_14_0.svg" alt="png">
     <figcaption>Figure 81. The result of a strided convolution on a $7 \times 7$ input image</figcaption>
 </figure>
 
@@ -124,7 +124,7 @@ Until now, we have seen convolutions over grayscale images. Grayscale images can
     
 
 <figure id="fig:volconv">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_16_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_16_0.svg" alt="png">
     <figcaption>Figure 82. A simple example of convolution over volume, Where a 3D input and 3D filter produce a 2D output</figcaption>
 </figure>
 
@@ -135,7 +135,7 @@ Since the kernel has the same number of channels as the input image, it will con
     
 
 <figure id="fig:3dkernel">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_18_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_18_0.svg" alt="png">
     <figcaption>Figure 83. The Red, Green and Blue channels of a 3D kernel. This filter detects vertical edges only in the Red channel</figcaption>
 </figure>
 
@@ -146,6 +146,6 @@ A 3 channels input image can be convoluted with multiple 3-channels filters at t
     
 
 <figure id="fig:multifilter">
-    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_20_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_20_0.svg" alt="png">
     <figcaption>Figure 84. Two filters convoluted with a single input image produce a 2-channels output image</figcaption>
 </figure>
