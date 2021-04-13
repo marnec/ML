@@ -54,4 +54,30 @@ Weights from all filters combined have dimensions $f^{[l]} \times f^{[l]} \times
 The bias will be a number for each filter, so a vector of $n_c^{[l]}$ elements
 
 ## Simple convolutional network
+Suppose we want to build a classifier that is able to recognize if an input image is the picture of a cat (<a href="#fig:cnn">Figure 86</a>). For the sake of this example we will use small input images with dimensions: $39 \times 39 \times 3$. By convolving 10 $3 \times 3 \times 3$ filters with *valid* padding and stride $s^{[1]}=1$, we will obtain an output $a^{[1]} \in 37 \times 37 \times 10$.
+
+A second convolutional layer with 20 $3\times 3 \times 3$ filters with *valid* padding and stride $s^{[2]}=2$ will give $a^{[2]} \in 17 \times 17 \times 20$. And a further layer with 40 $3 \times 3 \times 3$ filters with *valid* padding and stride $s^{[3]}=2$ will give an output $a^{[3]} \in 7 \times 7 \times 40$.
+
+The last output layer $a^{[3]}$ can be reshaped into a $1960 \times 1$ array and fed into a logistic and softmax activation function to obtain the prediction $\hat{y}$.
+
+
+    
+
+<figure id="fig:cnn">
+    <img src="{{site.baseurl}}/pages/ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_6_0.svg" alt="png">
+    <figcaption>Figure 86. A simple convolutional neural network with 3 convolutional layers and one final dense layer.</figcaption>
+</figure>
+
+As shown in this example, the typical trend of a convolutional neural network is that the width and height of the activation matrices will generally shrink, while the number of channels will generally grow as we advance deeper in the network. At each convolutional step, the values $f^{[l]}, s^{[l]}, p^{[l]}$ add themselves to the list of hyperparameters that need to be set. Different values of these hyperparameters can give fundamentally different results.
+
+## Types of layer in a convolutional network
+In a typical convolutional network there are usually three types of layer:
+
+* Convolutional layer (CONV): this is the type of layer that we just described 
+* Pooling layer (POOL)
+* Fully connected layer (FC)
+
+Although it is possible to design good neural networks that just use CONV layers, most architectures will use combinations of the three.
+
+### Pooling layers
 
