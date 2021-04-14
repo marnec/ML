@@ -81,35 +81,31 @@ Although it is possible to design good neural networks that just use CONV layers
 
 ### Pooling layers
 Pooling layers are used to reduce the size of the representation, to speed up the computation as well as make the features detected more robust.
+A pooling layer is a layer that performs an operation on a window of cells of dimensions $f \times f$. In **Max pooling** for example, the operation is taking the max value of the value in the $f \times f$ window (<a href="fig:maxpool">figure below</a>).
+
+
+    
+
+<figure id="fig:maxpool">
+    <img src="{{site.baseurl}}/pages/ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_8_0.svg" alt="png">
+    <figcaption>Figure 87. Max pooling on a $4 \times 4$ input with a $2\times 2$ window with stride $s=2$</figcaption>
+</figure>
+
+The inutition behind max pooling is to "de-noise" the feature detected in the input feature, which should be represented by high values in the input, and exclude low values. Despite this the widely accepted intuition of max pooling, to the best of my knowledge I don't know if anyone 
 
 
 ```python
-canvas = [[1,3,2,1],[2,9,1,1],[1,3,2,3],[5,6,1,2]]
-kernel = [[9,2],[6,3]]
-canvascol = np.array([f'C{i}' for i in '0011001122332233']).reshape(4,4)
-kernelcol = np.array([f'C{i}' for i in '0123']).reshape(2,2)
-fig, axes = plt.subplots(1, 2, figsize=(8, 4))
-ax1, ax2 = axes.ravel()
-fig.patch.set_visible(False)
-
-tabs = []
-tabs.append(ax1.table(canvas, loc='center', colWidths=[0.05]*4, cellLoc='center', cellColours=canvascol))
-tabs.append(ax2.table(kernel, loc='center', colWidths=[0.05]*2, cellLoc='center', cellColours=kernelcol))
-ann = plt.annotate('', (0.2, 0.5), (1, 0.5), xycoords=ax2.transAxes, textcoords=ax1.transAxes, arrowprops=dict(arrowstyle='->'))
-plt.annotate('$f=2$\n$s=2$', (0, 0), (0.5, -1), xycoords=ann, fontsize=15, va='top', ha='center')
+company = 'Porcia Magazzino'
+people = 117
+postazioni_rot = 29
+postazioni_fix = 24
+task = 'pianificare persone in postazioni con rotazione settimanale'
 
 
-for ax, tab in zip(axes.ravel(), tabs):
-    tab.auto_set_font_size(False)
-    tab.set_fontsize(13)
-    tab.scale(3, 3)
-    ax.axis('off')
-    ax.axis('tight')
-#     ax.set_aspect('equal')
+
 ```
 
 
-    
-![svg](ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_8_0.svg)
-    
+```python
 
+```
