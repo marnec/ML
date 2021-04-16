@@ -112,54 +112,54 @@ By looking at the number of parameters in the different layers, we can notice ho
 
 
 <style  type="text/css" >
-</style><table id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1" ><caption>Architecture parameters and sizes of the LeNet-5</caption><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Activation shape</th>        <th class="col_heading level0 col1" >Activation size</th>        <th class="col_heading level0 col2" ># parameters</th>    </tr></thead><tbody>
+</style><table id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3" ><caption>Architecture parameters and sizes of the LeNet-5</caption><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Activation shape</th>        <th class="col_heading level0 col1" >Activation size</th>        <th class="col_heading level0 col2" ># parameters</th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row0" class="row_heading level0 row0" >Input</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row0_col0" class="data row0 col0" >(32, 32, 3)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row0_col1" class="data row0 col1" >3072</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row0_col2" class="data row0 col2" >0</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row0" class="row_heading level0 row0" >Input</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row0_col0" class="data row0 col0" >(32, 32, 3)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row0_col1" class="data row0 col1" >3072</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row0_col2" class="data row0 col2" >0</td>
             </tr>
             <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row1" class="row_heading level0 row1" >CONV1 (f=5, s=1)</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row1_col0" class="data row1 col0" >(28, 28, 8)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row1_col1" class="data row1 col1" >6272</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row1_col2" class="data row1 col2" >208</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row1" class="row_heading level0 row1" >CONV1 (f=5, s=1)</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row1_col0" class="data row1 col0" >(28, 28, 8)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row1_col1" class="data row1 col1" >6272</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row1_col2" class="data row1 col2" >208</td>
             </tr>
             <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row2" class="row_heading level0 row2" >POOL1</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row2_col0" class="data row2 col0" >(14, 14, 8)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row2_col1" class="data row2 col1" >1568</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row2_col2" class="data row2 col2" >0</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row2" class="row_heading level0 row2" >POOL1</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row2_col0" class="data row2 col0" >(14, 14, 8)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row2_col1" class="data row2 col1" >1568</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row2_col2" class="data row2 col2" >0</td>
             </tr>
             <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row3" class="row_heading level0 row3" >CONV2 (f=5, s=1)</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row3_col0" class="data row3 col0" >(10, 10, 16)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row3_col1" class="data row3 col1" >1600</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row3_col2" class="data row3 col2" >416</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row3" class="row_heading level0 row3" >CONV2 (f=5, s=1)</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row3_col0" class="data row3 col0" >(10, 10, 16)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row3_col1" class="data row3 col1" >1600</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row3_col2" class="data row3 col2" >416</td>
             </tr>
             <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row4" class="row_heading level0 row4" >POOL2</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row4_col0" class="data row4 col0" >(5, 5, 16)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row4_col1" class="data row4 col1" >400</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row4_col2" class="data row4 col2" >0</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row4" class="row_heading level0 row4" >POOL2</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row4_col0" class="data row4 col0" >(5, 5, 16)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row4_col1" class="data row4 col1" >400</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row4_col2" class="data row4 col2" >0</td>
             </tr>
             <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row5" class="row_heading level0 row5" >FC3</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row5_col0" class="data row5 col0" >(120, 1)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row5_col1" class="data row5 col1" >120</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row5_col2" class="data row5 col2" >48001</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row5" class="row_heading level0 row5" >FC3</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row5_col0" class="data row5 col0" >(120, 1)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row5_col1" class="data row5 col1" >120</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row5_col2" class="data row5 col2" >48001</td>
             </tr>
             <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row6" class="row_heading level0 row6" >FC4</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row6_col0" class="data row6 col0" >(84, 1)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row6_col1" class="data row6 col1" >84</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row6_col2" class="data row6 col2" >10801</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row6" class="row_heading level0 row6" >FC4</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row6_col0" class="data row6 col0" >(84, 1)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row6_col1" class="data row6 col1" >84</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row6_col2" class="data row6 col2" >10801</td>
             </tr>
             <tr>
-                        <th id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1level0_row7" class="row_heading level0 row7" >Softmax</th>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row7_col0" class="data row7 col0" >(10, 1)</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row7_col1" class="data row7 col1" >10</td>
-                        <td id="T_6ff56dfe_9e2a_11eb_ab63_8c1645111fa1row7_col2" class="data row7 col2" >841</td>
+                        <th id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3level0_row7" class="row_heading level0 row7" >Softmax</th>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row7_col0" class="data row7 col0" >(10, 1)</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row7_col1" class="data row7 col1" >10</td>
+                        <td id="T_b404674e_9efb_11eb_b9b4_40a3cc65d4e3row7_col2" class="data row7 col2" >841</td>
             </tr>
     </tbody></table>
 

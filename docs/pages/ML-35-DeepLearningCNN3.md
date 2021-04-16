@@ -29,3 +29,16 @@ The goal of the network was to recognize handwritten digits, its architecture is
     <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_2_0.svg" alt="png">
     <figcaption>Figure 90. Architecture of the LeNet-5 classic network</figcaption>
 </figure>
+
+The LeNet-5 network is small by today's standard with approximately 60.000 thousand parameters in total, where nowadays we see networks in the range of 10-100 million parameters. Some other differences in the LeNet-5 architecture from modern standard in CNNs and neural networks in general is the activation function, where the sigmoid and tanh were used back then while we now almost always use ReLU. Furthermore the activation function was applied after pooling, while we now usually apply it before pooling. A couple of things are still designed in the same way in modern networks: as you go deeper in the network, there is a gradual shrink in height and width and the growth in the number of channels; convolutional and pooling layers alternate, even if not always with a 1:1 ratio. 
+
+### AlexNet
+The AlexNet has a similar architecture to LeNet-5 (<a href="#fig:alexnet">Figure 91</a>), in the sense that it alternates pooling layers to convolutional layers with the latest layers being fully connected. It is also similar in the fact that the number of channels grows further down in the network. However it has also many differences. AlexNet uses ReLU activation functions and makes use of *same* padding to prevent excessive shrinking in the width and height dimension. AlexNet has 1000 output classes assigned with a final softmax classifier layer. It has 60 million total parameters and this, together with the possibility of being trained on much more data were the reasons behind its remarkable performance.
+
+
+    
+
+<figure id="fig:alexnet">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_5_0.svg" alt="png">
+    <figcaption>Figure 91. The AlexNet architecture</figcaption>
+</figure>
