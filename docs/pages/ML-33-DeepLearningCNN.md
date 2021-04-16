@@ -149,3 +149,22 @@ A 3 channels input image can be convoluted with multiple 3-channels filters at t
     <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_20_0.svg" alt="png">
     <figcaption>Figure 84. Two filters convoluted with a single input image produce a 2-channels output image</figcaption>
 </figure>
+
+## Why convolution
+The reason why convolutional neural networks, and in particular convolutions, work well with ML applied to images (and other fields) is mainly because convolutions allow to train huge networks with a small number of parameters. In fact suppose you have a $32 \times 32 \times 3$ input image, convolved with 6 $f=5$ filters to give a $28 \times 28 \times 6$ output representation. The number of parameters in a CNN would be $(5 \cdot 5 + 1)\cdot 6= 156$ parameters (<a href="#fig:CONVvsFC">Figure 85</a>, panel B). While a network with this number of parameters is trainable with today's computers, it would be unfeasible with a $1000 \times 1000$ input image, where a CNN would have exactly the same number ($156$) of parameters, regardless of the input and output sizes.
+
+Training with fewer parameters means that CNN can be trained with a smaller training set and are less prone to overfitting. The fact that CNN have few parameters is due to two properties: **parameter sharing** and **sparsity of connection**:
+
+
+    
+
+<figure id="fig:CONVvsFC">
+    <img src="{{site.baseurl}}/pages/ML-33-DeepLearningCNN_files/ML-33-DeepLearningCNN_22_0.svg" alt="png">
+    <figcaption>Figure 85. A CONV layer compared with the same number of input and hidden units reshaped into a FC layer</figcaption>
+</figure>
+
+### Parameter sharing
+With parameter sharing we refer to the property that a feature detector (such as a vertical edge detector) that is useful in one part of the image, is probably useful in other parts of the image. Parameter sharing is also the reason why CNN tend to be very good at capturing **translation invariance**, the observation that a picture of an object shifted of some pixels in a direction is still a picture of that object.
+
+### Sparsity of connections
+When convolving a filter over an input to obtain an output representation, each element of the output matrix is connected to only some elements of the input matrix. This is clearly visible in <a href="#fig:convolution">Figure 76</a>, where we can see that the $o_1,1$ element of the output matrix $O$, is populated by convolving the filter with a window (of size $f \times f$) of elements of the input matrix.
