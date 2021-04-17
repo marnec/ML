@@ -42,3 +42,16 @@ The AlexNet has a similar architecture to LeNet-5 (<a href="#fig:alexnet">Figure
     <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_5_0.svg" alt="png">
     <figcaption>Figure 91. The AlexNet architecture</figcaption>
 </figure>
+
+The AlexNet has a fairly complicated architecture with many hyperparameters. This contrasts with the next classic network, the VGG-16
+
+### VGG-16
+A remarkable difference in the design of the VGG-16 network is that, compared to other networks it has a relatively simple architecture (<a href="#fig:vgg16">Figure 92</a>). When designing the VGG-16 network, the decision was taken to only employ convolutional layers with $f=3,s=1$ and *same* padding, and max-pooling layers with $f=2,s=2$. This really simplify the network architecture. The VGG-16 is deeper than the LeNet-5 and the AlexNet; it has 16 layers with parameters and a $\approx 138 M$ parameters in total, which makes it a large network even for today's standards. The VGG-16 architecture alternates 2 or 3 convolutional layers to a max-pooling layer, gradually increasing the number of channels and decreasing in height and width the representation. The number of channels increases in powers of 2, from 64 to 128, to 256 and finally to 512.
+
+
+    
+
+<figure id="fig:vgg16">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_7_0.svg" alt="png">
+    <figcaption>Figure 92. Architecture of the VGG-16 network, representations are only shown as their dimensions since the aspect of most of them would make the figure unreadable.</figcaption>
+</figure>
