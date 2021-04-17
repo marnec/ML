@@ -46,7 +46,7 @@ The AlexNet has a similar architecture to LeNet-5 (<a href="#fig:alexnet">Figure
 The AlexNet has a fairly complicated architecture with many hyperparameters. This contrasts with the next classic network, the VGG-16
 
 ### VGG-16
-A remarkable difference in the design of the VGG-16 network is that, compared to other networks it has a relatively simple architecture (<a href="#fig:vgg16">Figure 92</a>). When designing the VGG-16 network, the decision was taken to only employ convolutional layers with $f=3,s=1$ and *same* padding, and max-pooling layers with $f=2,s=2$. This really simplify the network architecture. The VGG-16 is deeper than the LeNet-5 and the AlexNet; it has 16 layers with parameters and a $\approx 138 M$ parameters in total, which makes it a large network even for today's standards. The VGG-16 architecture alternates 2 or 3 convolutional layers to a max-pooling layer, gradually increasing the number of channels and decreasing in height and width the representation. The number of channels increases in powers of 2, from 64 to 128, to 256 and finally to 512.
+A remarkable difference in the design of the VGG-16 network is that, compared to other networks it has a relatively simple architecture (<a href="#fig:vgg16">Figure 92</a>). When designing the VGG-16 network, the decision was taken to only employ convolutional layers with $f=3,s=1$ and *same* padding, and max-pooling layers with $f=2,s=2$. This really simplify the network architecture. The VGG-16 is deeper than the LeNet-5 and the AlexNet; it has 16 layers with parameters and a $\approx 138 M$ parameters in total, which makes it a large network even for today's standards. The VGG-16 architecture alternates 2 or 3 convolutional layers to a max-pooling layer, gradually increasing the number of channels and decreasing in height and width the representation. The number of channels increases in powers of 2, from 64 to 128, to 256 and finally to 512. Another even deeper version exists, the VGG-19 with 19 layer with parameters, but since it performs in most cases as the VGG-16, the latter is preferred since it has fewer parameters and it is thus faster to train. 
 
 
     
@@ -55,3 +55,63 @@ A remarkable difference in the design of the VGG-16 network is that, compared to
     <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_7_0.svg" alt="png">
     <figcaption>Figure 92. Architecture of the VGG-16 network, representations are only shown as their dimensions since the aspect of most of them would make the figure unreadable.</figcaption>
 </figure>
+
+## ResNets
+Very deep neural networks are difficult to train because they tend to suffer from vanishing or exploding gradients (<a href="{{site.basurl}}/ML/ML28">ML28</a>). With **skip connection**, units in a layers are connected directly to units in much deeper (or shallower) layers skipping all intermediate layers. **Residual networks** (ResNets) are built with skip connections and they allow to train very deep neural networks with up to hundred of layers).
+
+ResNets are built off of **residual blocks**. In a normal neural network for information to flow from an activation unit $a^{[l]}$ to $a^{[l+2]}$ it would need to undergo two linear and two non-linear transformations (<a href="#fig:resblock">Figure 93</a>), in a residual block $a^{[l]}$ takes a short cut and it is plainly added to $z^{[l+2]}$ before applying the second non-linearity function, so that $a^{[l+2]}=g(z^{[l+2]}+a^{[l]})$
+
+
+    
+
+<figure id="fig:resblock">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_9_0.svg" alt="png">
+    <figcaption>Figure 93. Concept of skip connection in a residual block. The flow of information in a normal neural network and the shortcut took by a residual block</figcaption>
+</figure>
+
+What the inventors of residual networks proved, was that by stacking many residual blocks into a residual network, it was possible to train much deeper networks compared to "plain networks" as they refer to into their manuscript. While training a deep neural network, as you increase the number of layers the error on the training set tends to decrease until a certain point. After a certain number of layers the training error tends to go back up, where in theory the deeper the network, the better the training error. In practice, due to vanishing or exploding gradient (<a href="{{site.basurl}}/ML/ML28">ML28</a>, panel A). With a Resnet, even if number of layers get deeper the training error keeps getting lower as we expect, even with networks 100 layers deep. Recent research employed residual networks 1000 layers deep not suffering from performance deterioration despite the large number of layers. 
+
+
+    
+
+<figure id="fig:resnetperf">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_11_0.svg" alt="png">
+    <figcaption>Figure 94. Error on the training set as a function of the number of layers in a plain network (A) and in a residual network (B)</figcaption>
+</figure>
+
+The reason why ResNet allow very deep networks to not loose performance stands in their ability to easily represent the identity function, rendering the network simple when the data requires it. Let's see what that means: when $a^{[l]}$ skips the connection it is injected in the computation of $a^{[l+2]}$:
+
+$$
+\begin{split}
+a^{[l+2]} & = g \left( z^{[l+2]} + a^{[l]}\right) \\
+&=g(W^{[l+2]} a^{[l+1]} + b^{[l+2]} + a^{[l]})
+\end{split}
+$$
+
+If we are using $L_2$ regularization weight decay that would tend to shrink the value of $W^{[l+2]}$ and, less importantly, of $b^{[l+2]}$. If both those elements tend to zero, then
+
+$$
+a^{[l+2]} = g (a^{[l]})
+$$
+
+Since we are using ReLU activation function, then $g (a^{[l]}) = a^{[l]}$, which means
+
+$$
+a^{[l+2]} = a^{[l]}
+$$
+
+This means that the identity function is easy for a residual block to learn. This, in turn means that having the two layers between $a^{[l]}$ and $a^{[l+2]}$ doesn't hurt performance, because when the data requires it, it will be easy for the network to just ignore those two layers. On the contrary, if the data is complex and requires a more complex representation, those layers can learn different and relevant parameters for the output representation. In fact, what goes wrong in very deep plain networks is that in deeper layers it becomes increasingly different to learn even identity functions and so the performance will decay if the network is too complex compared to the target function.
+
+### ResNet requires dimension uniformity
+One requirement of residual blocks is for $z^{[l+2]}$ and $a^{[l]}$ to have the same dimensions since they are added together. In order to achieve dimension uniformity usually *same* padding is used between convolutional layers.
+
+
+    
+![svg](ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_13_0.svg)
+    
+
+
+
+```python
+
+```
