@@ -103,11 +103,22 @@ $$
 This means that the identity function is easy for a residual block to learn. This, in turn means that having the two layers between $a^{[l]}$ and $a^{[l+2]}$ doesn't hurt performance, because when the data requires it, it will be easy for the network to just ignore those two layers. On the contrary, if the data is complex and requires a more complex representation, those layers can learn different and relevant parameters for the output representation. In fact, what goes wrong in very deep plain networks is that in deeper layers it becomes increasingly different to learn even identity functions and so the performance will decay if the network is too complex compared to the target function.
 
 ### ResNet requires dimension uniformity
-One requirement of residual blocks is for $z^{[l+2]}$ and $a^{[l]}$ to have the same dimensions since they are added together. In order to achieve dimension uniformity usually *same* padding is used between convolutional layers.
+One requirement of residual blocks is for $z^{[l+2]}$ and $a^{[l]}$ to have the same dimensions since they are added together. In order to achieve dimension uniformity usually *same* padding is used between convolutional layers. Pooling layers are positioned after the first, eight, sixteenth and twenty-eighth convolution. Each time a pooling layer is applied an adjustment to representation dimensions is required, in order to achieve the required dimension uniformity. To do that, a parameter matrix $W_s$ is multiplied to $a^{[l]}$. If $a^{[l+2]}$ has a side of $256$ and $a^{[l}$ a side of $128$, than $W_s \in \mathbb{R}^{256\times 128}$ so that $a^{[l]}$ will have side $256$. the parameter matrix $W_s$ could either be a matrix of learned parameters or a fixed matrix that just implements zero padding.
 
 
     
-![svg](ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_13_0.svg)
+
+<figure id="fig:resarchitecture">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_13_0.svg" alt="png">
+    <figcaption>Figure 95. A plain CNN and a ResNet of 34 layers. All $3 \times 3$ convolutions have *same* padding so that dimensionality is uniform between $z^{[l+2]}$ and $a^{[l]}$. Pooling layers are positioned after the first, eight, sixteenth and twenty-eighth convolution. Pooling layers have the dimensions of the representation and are thus shown as $/2$ in the label of the convolutional layer to which they are applied.</figcaption>
+</figure>
+
+## Inception network
+When designing CNN architecture, an idea that opens a new range of possibilities, is using a $1 \times 1$ convolution. It could seem that such a convolution would be like multiplying a matrix by a number, but the effect of $1 \times 1$ convolution are quite different.
+
+
+    
+![svg](ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_16_0.svg)
     
 
 
