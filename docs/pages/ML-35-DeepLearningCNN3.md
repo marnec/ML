@@ -116,11 +116,17 @@ One requirement of residual blocks is for $z^{[l+2]}$ and $a^{[l]}$ to have the 
 ## Inception network
 When designing CNN architecture, an idea that opens a new range of possibilities, is using a $1 \times 1$ convolution. It could seem that such a convolution would be like multiplying a matrix by a number, but the effect of $1 \times 1$ convolution are quite different.
 
+A $1 \times 1$ filter produces a representation with the same width and height of the input image, but the number of channels of the output representation is equal to the number of filters convolved. So, when convolving a $6 \times 6 \times 8$ input with one $1 \times 1$ filter, we will obtain a $6 \times 6 \times 1$ output representation. This means that when dealing with an input with more than one channel, all values in the channels at coordinates $i,j$ are linearly combined in a new value. When convolving a $6 \times 6 \times 8$ input with two $1 \times 1$ filters, we obtain a $6 \times 6 \times 2$ output representation (<a href="#fig:metanet">Figure 96</a>). 
+
+Imagine that the convolution of the two $1 \times 1$ filters happens is performed in parallel. At each step of the convolution, each filter is moved to a new position and two values (one for each filter) are computed by linearly combining all values in the channels of the input representation with the single value of each filter. This operation can be represented as a fully connected network, with 8 input units (more generally, $n_c$ input units) and 2 output units (more generally, as many output units as the number of filters). This **inner network** outputs the values for the channels of a single position of the output representation and these outputs depend on a parameter matrix $W_\text{inner} \in \mathbb{R}^{ \text{#filters} \times n_c}$  
+
 
     
-![svg](ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_16_0.svg)
-    
 
+<figure id="fig:metanet">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_16_0.svg" alt="png">
+    <figcaption>Figure 96. Network in network concept represented for a single step of the convolution of a $6 \times 6 \times 8$ input with a pair of $1 \times 1$ filters, producing an network in the network, a fully connected layer with parameters $W \in \mathbb{R}^{2\times 8}$. The value of each output unit of this inner network is one position of one of the channels of the $6 \times 6 \times 2$ output representation</figcaption>
+</figure>
 
 
 ```python
