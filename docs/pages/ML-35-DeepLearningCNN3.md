@@ -140,12 +140,12 @@ When designing a layer for a CNN you have to take decision on how to structure t
 
 The concept behind the inception network is to apply all relevant options to an input and let the optimization process decide what combination of filters or pooling better fits the data. 
 
-Suppose we have a $28 \times 28 \times 192$ input. Instead of choosing the design of the layer that takes this input, combines multiple options in the same output representation by stacking them in different channel blocks. For example we could apply 64 $1 \times 1$ filters, which output a $28 \times  28 \times 64$ volume, 128  $ 3 \times 3 $ filters with *same* padding, which outputs a $28 \times 28 \times 128$ volume, 64  $ 5 \times 5 $ filters with *same* padding, which outputs a $28 \times 28 \times 64$ volume, and max-pooling which outputs a $28 \times 28 \times 32$ volume, granted that a *same* padding and a stride $s=1$ are used (<a href="#fig:incnet">Figure 97</a>)
+Suppose we have a $28 \times 28 \times 192$ input. Instead of choosing the design of the layer that takes this input, combines multiple options in the same output representation by stacking them in different channel blocks. For example we could apply 64 $1 \times 1$ filters, which output a $28 \times  28 \times 64$ volume, 128  $ 3 \times 3 $ filters with *same* padding, which outputs a $28 \times 28 \times 128$ volume, 64  $ 5 \times 5 $ filters with *same* padding, which outputs a $28 \times 28 \times 64$ volume, and max-pooling which outputs a $28 \times 28 \times 32$ volume, granted that a *same* padding and a stride $s=1$ are used (<a href="#fig:inclayer">Figure 97</a>)
 
 
     
 
-<figure id="fig:incnet">
+<figure id="fig:inclayer">
     <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_19_0.svg" alt="png">
     <figcaption>Figure 97. An inception layer. An input representation with 192 channels is subject to 3 filters and a pooling; the results of all the operations are stacked in a single output representation</figcaption>
 </figure>
@@ -153,14 +153,29 @@ Suppose we have a $28 \times 28 \times 192$ input. Instead of choosing the desig
 ### Computational cost of an inception layer
 The inception layer as formulated above has a problem of computational cost: just the cost of the volume resulting by the convolution of the $5 \times 5$ filters is to compute $120 \cdot 10^6$ multiplications. In fact, each cell of the $28 \times 28 \times 32$ output volume is computed by computing the convolution a $5 \times 5 \times 192$ filter. Luckily the concept of $1 \times 1$ convolution helps reduce the necessary computations by a factor of 10.
 
-Instead of convolving the $5 \times 5$ filter directly, we could reduce the input volume (and consequently the computational cost of the operation) to $28 \times 28 \times 16$ by applying 16 $1 \times 1$ filters. This intermediate reduced volume, sometimes called the **bottleneck layer**, can be then used as input for the original series of 32 $5 \times 5$ filters, which still produces a $28 \times 28 \times 32$ volume. The input and output dimensions have remained unchanged but the computational cost has drastically reduced: we now have to perform $[28 \cdot 28 \cdot 16 \cdot (1 \cdot 1) 192] + [28 \cdot 28 \cdot 32 \cdot 5 \cdot 5 \cdot 16]=12.4 \cdot 10^6$.
+Instead of convolving the $5 \times 5$ filter directly, we could reduce the input volume (and consequently the computational cost of the operation) to $28 \times 28 \times 16$ by applying 16 $1 \times 1$ filters. This intermediate reduced volume, sometimes called the **bottleneck layer** (<a href="#fig:bottleneck">Figure 98</a>), can be then used as input for the original series of 32 $5 \times 5$ filters, which still produces a $28 \times 28 \times 32$ volume. The input and output dimensions have remained unchanged but the computational cost has drastically reduced: we now have to perform $[28 \cdot 28 \cdot 16 \cdot (1 \cdot 1) 192] + [28 \cdot 28 \cdot 32 \cdot 5 \cdot 5 \cdot 16]=12.4 \cdot 10^6$.
 
 
     
 
-<figure id="fig:comptrick">
+<figure id="fig:bottleneck">
     <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_21_0.svg" alt="png">
-    <figcaption>Figure 98. $1 \times 1$ convolution used to reduce the computational cost of a larger convolution</figcaption>
+    <figcaption>Figure 98. A bottleneck layer, a $1 \times 1$ convolution used to reduce the computational cost of a larger convolution</figcaption>
 </figure>
 
 It turns out that by implementing a bottleneck layer you can shrink down the representation significantly without apparently compromising the performance of the neural network.
+
+### Building an inception network
+The inception module takes as input the representation volume from a previous layer. Building upon the inception layer example used up until this point, to build a complete inception module a bottleneck layer is applied before the $3 \times 3$ and $5 \times 5$ convolutions to reduce the computational cost of the operation. The 64 $1 \times 1$ filters that produce the 64 channels in the final output don't require a bottleneck layer (they already are $1 \times 1$ filters). Finally, max-pooling is applied directly to the input volume, with the unusual configuration of *same* padding and stride $s=1$. This max-pooling layer produces a $28 \times 28 \times 192$ volume (where 192 is the $n_c$ of the input volume), that is shrunk to $28 \times 28 \times 32$ by applying 32 $1 \times 1$ filters. Finally all intermediates output volumes are concatenated together in a unique volume, which is the output of the inception module (<a href="#fig:incmod">Figure 99</a>) 
+
+
+    
+
+<figure id="fig:incmod">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_23_0.svg" alt="png">
+    <figcaption>Figure 99. An inception module A more detailed description of the inception module architecture for the inception layer in <a href="#fig:inclayer">Figure 97</a>. Bottleneck layers are shown in white. The $1 \times 1$ convolution applied after the max-pooling layer, is used to shrink its channels, which would be equal to the $n_c$ of the input layer (192), but are reduced to 32 in the final output volume.</figcaption>
+</figure>
+
+multiple inception modules are chained together to build an inception network, where the output of a module is the input of the following module. In a full inception network sometimes, some additional pooling layers are placed immediately after an input of an inception module. The final layer of an inception network is usually a softmax layer. However there may be other softmax layers along a full inception network that branch out of the flow of the network to produce intermediate predictions. This is done to check if predictions produced by a smaller network are good enough or even better than those produced by the full network. In fact, branching out softmax layers can have a regularizing effect on predictions, since it produces output from smaller, less complex (sub-)networks. 
+
+The inception network has been first proposed by Google with the name of GoogLeNet (in honor of the LeNet-5 network) in this [research article](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43022.pdf) from 2015. From its publication newer versions of the inception network were published and (at least)  one of these versions combine the inception network and the ResNet, implementing skip-connections in the inception module.  
