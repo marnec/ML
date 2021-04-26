@@ -86,12 +86,14 @@ In order to obtain an object detection capable neural network, we need to train 
     <figcaption>Figure 103. Training set for an object detection algorithm with closely cropped images of the object of interest</figcaption>
 </figure>
 
-The next would be to train a CNN that takes as input a picture and tells if the picture is  a car $\hat{y}=1$ or not $\hat{y}=0$. Once trained, this CNN is used in a **sliding window detection** system, the CNN is fed a n image bound by a box that rolls over the image from left to right and from top to bottom.
+The next step, would be to train a CNN that takes as input a picture and tells if the picture is  a car $\hat{y}=1$ or not $\hat{y}=0$. Once trained, this CNN is used in a **sliding window detection** system, the CNN is fed an image bound by a box that rolls over the image from left to right and from top to bottom. While in <a href="#fig:slidingwindow">Figure 104</a> a rather large stride is used in reality the stride is small enough to be able to pass to the CNN each portion of the image that can contain a car and so the stride will be much smaller. The process of rolling the window over the whole image is repeated with windows of different sizes
 
 
 
 
-<video width="1000" height="400" controls autoplay loop>
+
+        <figure id="fig:slidingwindow">
+            <video width="1000" height="400" controls autoplay loop>
   <source type="video/mp4" src="data:video/mp4;base64,AAAAHGZ0eXBNNFYgAAACAGlzb21pc28yYXZjMQAAAAhmcmVlAAXcY21kYXQAAAKtBgX//6ncRem9
 5tlIt5Ys2CDZI+7veDI2NCAtIGNvcmUgMTUyIHIyODU0IGU5YTU5MDMgLSBILjI2NC9NUEVHLTQg
 QVZDIGNvZGVjIC0gQ29weWxlZnQgMjAwMy0yMDE3IC0gaHR0cDovL3d3dy52aWRlb2xhbi5vcmcv
@@ -6860,10 +6862,12 @@ AAAAAAAAAAAtaWxzdAAAACWpdG9vAAAAHWRhdGEAAAABAAAAAExhdmY1Ny44My4xMDA=
 ">
   Your browser does not support the video tag.
 </video>
+            <figcaption>Figure 104. A sliding window system with a box (window) sliding through an image used as a bounding box for producing crops of the image that cover its entirety. These crops are fed into a specialized CNN that evaluates the presence $y=1$ or absence $y=0$ of an object.</figcaption>
+        </figure>
 
+An approach like that described above would have a huge computational cost. In general, sliding window detection systems are very computationally heavy, since you need to run the model for each crop produced by the sliding window. So, with a small enough stride to have an acceptable granularity and an adequate number of window sizes, the number of prediction would be very large. When the sliding window technique was invented, the models run through each step were mostly linear, so the computational cost could be contained, but running a CNN this many times would take too much time for a real time application like that needed by a self-driving system. In order to surpass this issue, a convolutional implementation of the sliding window is employed in place of this traditional implementation.
 
-
-<i id="fig:slidingwindow">A sliding window system with a box (window) sliding through an image used as a bounding box for producing crops of the image that cover its entirety. These crops are fed into a specialized CNN that evaluates the presence $y=1$ or absence $y=0$ of an object.</i>
+## Convolutional implementation of the sliding window
 
 
 ```python
