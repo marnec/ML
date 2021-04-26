@@ -33,13 +33,13 @@ def insert_videocaption(md, baseurl_subpath=''):
     def repl_and_count(mobj):
         global i
         global figregs
-        print('hi there mofo', len(mobj.groups()))
+
         video, _, _, iid, caption = mobj.groups()
         repl = textwrap.dedent("""
         <figure id="{}">
-            {}
+                {}
             <figcaption>Figure {}. {}</figcaption>
-        </figure>""".format(iid, video, i, caption))
+        </figure>""".format(iid, textwrap.indent(video, ' '*12), i, caption))
         figrefs.setdefault(permalink, {})[iid] = i
         i +=1
         return repl
