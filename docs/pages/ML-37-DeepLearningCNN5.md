@@ -86,7 +86,7 @@ In order to obtain an object detection capable neural network, we need to train 
     <figcaption>Figure 103. Training set for an object detection algorithm with closely cropped images of the object of interest</figcaption>
 </figure>
 
-The next step, would be to train a CNN that takes as input a picture and tells if the picture is  a car $\hat{y}=1$ or not $\hat{y}=0$. Once trained, this CNN is used in a **sliding window detection** system, the CNN is fed an image bound by a box that rolls over the image from left to right and from top to bottom. While in <a href="#fig:slidingwindow">Figure 104</a> a rather large stride is used in reality the stride is small enough to be able to pass to the CNN each portion of the image that can contain a car and so the stride will be much smaller. The process of rolling the window over the whole image is repeated with windows of different sizes
+The next step, would be to train a CNN that takes as input a picture and tells if the picture is  a car $\hat{y}=1$ or not $\hat{y}=0$. Once trained, this CNN is used in a **sliding window detection** system, the CNN is fed an image bound by a box that rolls over the image from left to right and from top to bottom. While in <a href="#fig:slidingwindow">Figure 105</a> a rather large stride is used in reality the stride is small enough to be able to pass to the CNN each portion of the image that can contain a car and so the stride will be much smaller. The process of rolling the window over the whole image is repeated with windows of different sizes
 
 
 
@@ -6862,14 +6862,31 @@ The next step, would be to train a CNN that takes as input a picture and tells i
     ">
       Your browser does not support the video tag.
     </video>
-    <figcaption>Figure 104. A sliding window system with a box (window) sliding through an image used as a bounding box for producing crops of the image that cover its entirety. These crops are fed into a specialized CNN that evaluates the presence $y=1$ or absence $y=0$ of an object.</figcaption>
+    <figcaption>Figure 105. A sliding window system with a box (window) sliding through an image used as a bounding box for producing crops of the image that cover its entirety. These crops are fed into a specialized CNN that evaluates the presence $y=1$ or absence $y=0$ of an object.</figcaption>
 </figure>
 
 An approach like that described above would have a huge computational cost. In general, sliding window detection systems are very computationally heavy, since you need to run the model for each crop produced by the sliding window. So, with a small enough stride to have an acceptable granularity and an adequate number of window sizes, the number of prediction would be very large. When the sliding window technique was invented, the models run through each step were mostly linear, so the computational cost could be contained, but running a CNN this many times would take too much time for a real time application like that needed by a self-driving system. In order to surpass this issue, a convolutional implementation of the sliding window is employed in place of this traditional implementation.
 
 ## Convolutional implementation of the sliding window
+The classic implementation of the sliding window would be too slow if the function applied to the sliding window is a CNN. The convolutional implementation of the sliding window is much more efficient. To build towards it let's explore how to convert fully connected layers into convolutional layers. Suppose you have a CNN as in panel A of <a href="#fig:">the figure below</a>, with some convolutional early layers and some fully connected late layers. In order to convert the fully connected layers to a convolutional representation, a number of filters ($=n_c^{[l]} = w^{[l]} = h^{[l]}$, that will perform a single step of convolution (thus stride is irrelevant) with the whole input volume (<a href="#fig:">the figure below</a>, panel B). The output volume of all these filters will have the dimensions $1 \times 1 \times n_c^{[l]}$. By following this strategy all fully connected layers can be converted to convolutional representations with the same number of units as their fully connected counterparts.
 
 
-```python
+    
 
-```
+<figure id="fig:convslidingwin">
+    <img src="{{site.baseurl}}/pages/ML-37-DeepLearningCNN5_files/ML-37-DeepLearningCNN5_16_0.svg" alt="png">
+    <figcaption>Figure 104. A Classic CNN that takes as input a $14 \times 14 \times 3$ image, with a few convolutional early layers and some final fully connected layers (A); the same network with fully connected layers converted in convolutional volumes with the same number of units of their fully connected counterparts (B); A slightly bigger input than anticipated ($16 \times 16 \times 3$) is fed to the network in panel B (surplus shown as orange cells) and how the surplus propagates in the network (C)</figcaption>
+</figure>
+
+Suppose we have a classic CNN (<a href="#fig:convslidingwin">Figure 104</a>, panel C); Analogously, the top-right corner in the output volume corresponds to a window in the top-right corner of the input image; and so on.
+
+We can visualize how the activations values of a $14 \times 14$ window propagate across the CNN layers in panel C of <a href="#fig:convslidingwin">Figure 104</a>. The blue portion of the volume face in the $16 \times 16$ input will activate exactly the blue windows in all the other layers up to the blue portion of the output layer. By Moving the blue window with a stride $s=2$ to the right we will produce the top-right corner in the output layer and the same applies for the bottom left and the bottom right blue windows producing the bottom left and bottom right output cells, respectively
+
+Instead of running the CNN $n$ times on $n$ windows of the input image and independently produce $n$ predictions, this implementation combines all forward-propagations in 1 single computation, it shares most of the computations in the regions that are common to all $n$ windows and outputs $n$ predictions. 
+
+In panel C of <a href="#fig:convslidingwin">Figure 104</a> is defined by the $f=2$ of the max-pooling layer.
+
+One of the problems of this approach is that the position of the bounding boxes is not going to be accurate. This problem can be fixed with an approach called **intersection over union**
+
+## Intersection over union
+

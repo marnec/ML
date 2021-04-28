@@ -1,15 +1,18 @@
 import re
 from sys import argv
 import textwrap
+import inspect
 
 i = 1
 figrefs = {}
 
 def insert_figcaption(md, baseurl_subpath=''):
+    print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
     pattern = r'!\[\w+\]\((.*)\)(\n\s*)+<i id=\"(\S+)\">(.*)</i>'
     matches = list(re.finditer(pattern, md))
 
     def repl_and_count(mobj):
+        print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
         global i
         global figregs
         url, _, iid, caption = mobj.groups()
@@ -27,14 +30,16 @@ def insert_figcaption(md, baseurl_subpath=''):
         return re.sub(pattern, repl_and_count, md)
 
 def insert_videocaption(md, baseurl_subpath=''):
-    pattern = r'(<video.*>\n(\w|\d|\n|\W)+</video>)(\n\s*)+<i id=\"(\S+)\">(.*)</i>'
+    print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
+    pattern = r'(<video[^\n]+>[^§]*</video>)(\n\s*)+<i id=\"(\S+)\">(.*)</i>'
     matches = list(re.finditer(pattern, md))
 
     def repl_and_count(mobj):
+        print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
         global i
         global figregs
 
-        video, _, _, iid, caption = mobj.groups()
+        video, _, iid, caption = mobj.groups()
         repl = textwrap.dedent("""
         <figure id="{}">
                 {}
@@ -50,9 +55,11 @@ def insert_videocaption(md, baseurl_subpath=''):
 
 
 def insert_figrefs(md):
+    print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
     pattern = r'<a href="(ML\d+)?#(fig:\S+)">.*</a>'
 
     def repl_figrefs(mobj):
+        print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
         global figrefs
         # iid = mobj.group(1)
         plink, iid = mobj.groups()
@@ -73,9 +80,11 @@ def insert_figrefs(md):
 
 
 def insert_pagerefs(md):
+    print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
     pattern = r'<a href="page:(ML\d+)(#\S+)?">.*</a>'
 
     def repl_pagerefs(mobj):
+        print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
         print(mobj.groups())
         plink, anchor = mobj.groups()
         href = '{{{{site.basurl}}}}/ML/{}'.format(plink)
@@ -88,6 +97,7 @@ def insert_pagerefs(md):
 
 
 def update_md(md, func_call):
+    print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
     if func_call is not None:
         md = func_call
     return md
@@ -98,7 +108,7 @@ if __name__ == "__main__":
 
     for mdfile in sorted(argv[1:], key=lambda fn: int(getnum(fn)[1])):
 
-        print(mdfile)
+        print(f'[{argv[0]}] input file: {mdfile}')
         permalink = ''.join(getnum(mdfile))
         with open(mdfile) as f:
             md = f.read()
