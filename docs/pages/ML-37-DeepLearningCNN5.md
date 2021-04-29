@@ -6886,7 +6886,4 @@ Instead of running the CNN $n$ times on $n$ windows of the input image and indep
 
 In panel C of <a href="#fig:convslidingwin">Figure 104</a> is defined by the $f=2$ of the max-pooling layer.
 
-One of the problems of this approach is that the position of the bounding boxes is not going to be accurate. This problem can be fixed with an approach called **intersection over union**
-
-## Intersection over union
-
+One of the problems of this approach is that the position of the bounding boxes is not going to be accurate. This problem can be fixed with an approach called **YOLO**
