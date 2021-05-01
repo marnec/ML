@@ -7,7 +7,7 @@ order: 38
 comments: true
 ---
 
-# YOLO
+# You Only Look Once
 While the convolutional implementation of the sliding window is more computationally efficient that running a CNN independently for each step of a classic sliding window approach, it has the problem of outputting inaccurate bounding boxes. Suppose our convolutional localization algorithm takes as input a series of windows but none of them really matches ground truth (A) and maybe the best one (B) is as the one in <a href="#fig:bboxes">Figure 106</a>. The [**YOLO**](https://arxiv.org/abs/1506.02640) algorithm allows to increase the accuracy of predicted bounding boxes. 
 
 
@@ -18,19 +18,26 @@ While the convolutional implementation of the sliding window is more computation
     <figcaption>Figure 106. Labelled (A) and predicted (B) bounding boxes localizing a car in a picture</figcaption>
 </figure>
 
-The YOLO (**You Only Look Once**) algorithm functions by applying a grid to the input image. In <a href="#fig:yologrid">Figure 107</a> we divide the input image in a $4 \times 4$ grid although in an actual implementation a finer grid is usually employed as for example a $19 \times 19$ grid. The basic idea of the YOLO algorithm is to apply the image classification and localization algorithm seen before and apply it to each cell in the grid. 
+The YOLO (**You Only Look Once**) algorithm functions by applying a grid to the input image. In <a href="#fig:yologrid">Figure 107</a> we divide the input image in a $4 \times 4$ grid although in an actual implementation a finer grid is usually employed as for example a $19 \times 19$ grid. The basic idea of the YOLO algorithm is to apply the image classification and localization algorithm to each cell in the grid. 
 
 
     
 
 <figure id="fig:yologrid">
     <img src="{{site.baseurl}}/pages/ML-38-DeepLearningCNN6_files/ML-38-DeepLearningCNN6_4_0.svg" alt="png">
-    <figcaption>Figure 107. yolo</figcaption>
+    <figcaption>Figure 107. An image subdivided in a $4 \times 4$ grid for the YOLO algorithm. A cell contains a bounding box only if it hosts its midpoint</figcaption>
 </figure>
 
-As we have seen for the localization object detection algorithm, the label vector $y$ for each grid cell for training the YOLO algorithm will be
+For each grid cell you will have an output vector  $\hat{y} \in \mathbb{R}^{8 \times 1}$. The whole grid will define an output volume whose shape (given a $4 \times 4$ grid) will be $4 \times 4 \times 8$.
+
+A neural network with YOLO architecture will have an input image (suppose a $100 
+\times 100 \times 3$), fed to a typical convolutional network with an alternance of CONV layers and POOL layers (usually max-pooling ones), which processes the input up to the point of obtaining a $4 \times 4 \times 8$ output volume (or any other grid-size), so that it can be trained with images labeled as in $\eqref{eq:yolotrain}$.
+
+This approach tries to simplify the object detection problem back to the object localization problem by splitting it in sub-problems.
+As we have seen for the localization object detection algorithm, to train each grid cell the label vector $y \in \mathbb{R}^{8 \times 1}$
 
 $$
+\begin{equation}
 y = 
 \begin{bmatrix} 
 P_c \\
@@ -42,9 +49,11 @@ c_1 \\
 c_2 \\ 
 c_3 \\
 \end{bmatrix}
+\end{equation}
+\label{eq:yolotrain} \tag{1}
 $$
 
-where $p_c$ is a label indicating the presence ($p_c=1$) or absence ($p_c=0$) of any object in the grid cell, $b_x$, $b_y$ are the coordinates of the middle-point of the bounding box, $b_h, b_w$ are the height and width of the bounding box and $c_1, c_2, c_3$ are three different object classes (e.g. car, motorcycle pedestrian). An object is assigned to a cell ($p_c=1$) if the midpoint of its bounding box falls in that cell. So, if a cell contains a portion of a bounding box but not its midpoint it is labeled as background ($p_c=0$). For example the label vectors for grid cells in <a href="#fig:yologrid">Figure 107</a> are
+where $p_c$ is a label indicating the presence ($p_c=1$) or absence ($p_c=0$) of any object in the grid cell, $b_x$, $b_y$ are the coordinates of the middle-point of the bounding box, $b_h, b_w$ are the height and width of the bounding box and $c_1, c_2, c_3$ are three different object classes (e.g. car, motorcycle or pedestrian). An object is assigned to a cell ($p_c=1$) if the midpoint of its bounding box falls in that cell. So, if a cell contains a portion of a bounding box but not its midpoint it is labeled as background ($p_c=0$). For example the label vectors for grid cells in <a href="#fig:yologrid">Figure 107</a> are
 
 $$
 y_{0,n} = y_{1, 1} = y_{1, 3} = y_{2,n} = y_{3,n} =
@@ -61,10 +70,10 @@ y_{0,n} = y_{1, 1} = y_{1, 3} = y_{2,n} = y_{3,n} =
 y_{1, 0} = 
 \begin{bmatrix} 
 1 \\
-\color{blue}{b_x \\
-b_y \\
-b_h \\
-b_w \\}
+\color{blue}{b_x} \\
+\color{blue}{b_y} \\
+\color{blue}{b_h} \\
+\color{blue}{b_w} \\
 1 \\
 0 \\ 
 0 \\
@@ -73,15 +82,56 @@ b_w \\}
 y_{1, 3} = 
 \begin{bmatrix} 
 1 \\
-\color{orange}{b_x \\
-b_y \\
-b_h \\
-b_w \\}
+\color{orange}{b_x} \\
+\color{orange}{b_y} \\
+\color{orange}{b_h} \\
+\color{orange}{b_w} \\
 1 \\
 0 \\ 
 0 \\
 \end{bmatrix}
-$$ 
+$$
+
+The way bounding box dimensions ($b_w, b_h$) and position ($b_x, b_y$) are encoded is fractional and relative to the grid where the bounding box is in. Coordinates are defined by setting the top-left corner as the origin ($0,0$) and the bottom-right corner as the maximum ($1,1$). Width and height are defined as fraction of the overall width and overall height of the grid cell respectively. So, for the bounding box in <a href="#fig:bboxcoords">Figure 108</a>, the label vector $y$ is:
+
+$$
+y_{1, 3} = 
+\begin{bmatrix} 
+1 \\
+\color{orange}{b_x} \\
+\color{orange}{b_y} \\
+\color{orange}{b_h} \\
+\color{orange}{b_w} \\
+1 \\
+0 \\ 
+0 \\
+\end{bmatrix}
+= 
+\begin{bmatrix} 
+1 \\
+\color{orange}{0.74} \\
+\color{orange}{0.43} \\
+\color{orange}{0.80} \\
+\color{orange}{0.66} \\
+1 \\
+0 \\ 
+0 \\
+\end{bmatrix}
+$$
+
+
+    
+
+<figure id="fig:bboxcoords">
+    <img src="{{site.baseurl}}/pages/ML-38-DeepLearningCNN6_files/ML-38-DeepLearningCNN6_9_0.svg" alt="png">
+    <figcaption>Figure 108. The coordinate system for a bounding box are relative to the grid in which it is detected</figcaption>
+</figure>
+
+This coordinate system implies that the coordinates of the midpoint of the bounding box must be between 0 and 1 ($0 \leq b_x, b_y \leq 1$) but the size of the bounding box could be greater than 1, if the bounding box is bigger than the grid cell. This ensures that the size of the bounding box is independent of the size of the grid, which in turn allows to use a finer grid that is necessary for identifying a larger number of object in the same input image. 
+
+While there are some more complex parametrization for bounding boxes that ensure better performance, this parametrization is reasonable in terms of simplicity and performance.
+
+The advantage of this method is that the neural network outputs **precise bounding boxes**. For each grid cell, the algorithm will predict if there is or isn't an object ($p_c$), and the bounding box of the object. As long as each grid cell contains one object this algorithm will work well and a finer grid (as a typical $19 \times 19$ grid) drastically reduces the probability of having multiple objects in the same cell. Since the algorithm explicitly outputs the bounding box coordinates and dimensions enables to have precise coordinates and bounding boxes of any aspect ratio. Furthermore, this is a single convolutional implementation with a lot of shared computation that can output the precise location of multiple object in one single run.
 
 ## Intersection over union
 Intersection over union can be used to evaluate an object detection algorithm and it is also instrumental to **nonmax suppression**. Suppose you have dataset of pictures labelled with the location of some objects (e.g. cars). Suppose that you develop a CNN that localizes cars trained on that dataset and once run, you have a ground truth bounding box (A) and a predicted bounding box (B) as in <a href="#fig:bboxes">Figure 106</a>. How do you compare a predicted bounding box (B) against the ground truth (A)?
@@ -93,3 +143,6 @@ $$
 $$
 
 By convention many localization tasks will evaluate an answer as correct if $\text{IoU} \geq 0.5$.
+
+## Nonmax suppression
+One of the problems of object detection is that your algorithm may detect the same object multiple times; non-max suppression ensures that each object is detected only once
