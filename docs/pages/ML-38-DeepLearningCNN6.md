@@ -133,6 +133,12 @@ While there are some more complex parametrization for bounding boxes that ensure
 
 The advantage of this method is that the neural network outputs **precise bounding boxes**. For each grid cell, the algorithm will predict if there is or isn't an object ($p_c$), and the bounding box of the object. As long as each grid cell contains one object this algorithm will work well and a finer grid (as a typical $19 \times 19$ grid) drastically reduces the probability of having multiple objects in the same cell. Since the algorithm explicitly outputs the bounding box coordinates and dimensions enables to have precise coordinates and bounding boxes of any aspect ratio. Furthermore, this is a single convolutional implementation with a lot of shared computation that can output the precise location of multiple object in one single run.
 
+The YOLO algorithm explained until now can be improved, by introducing 3 concepts:
+
+* intersection over union
+* nonmax suppression
+* anchor boxes
+
 ## Intersection over union
 Intersection over union can be used to evaluate an object detection algorithm and it is also instrumental to **nonmax suppression**. Suppose you have dataset of pictures labelled with the location of some objects (e.g. cars). Suppose that you develop a CNN that localizes cars trained on that dataset and once run, you have a ground truth bounding box (A) and a predicted bounding box (B) as in <a href="#fig:bboxes">Figure 106</a>. How do you compare a predicted bounding box (B) against the ground truth (A)?
 
@@ -145,4 +151,36 @@ $$
 By convention many localization tasks will evaluate an answer as correct if $\text{IoU} \geq 0.5$.
 
 ## Nonmax suppression
-One of the problems of object detection is that your algorithm may detect the same object multiple times; non-max suppression ensures that each object is detected only once
+One of the problems of object detection is that your algorithm may detect the same object multiple times; non-max suppression ensures that each object is detected only once.
+
+Since the image classification and localization algorithm is virtually running for each cell, it is possible that the value of $p_c$ for many of them is above threshold for triggering detection. Non-max suppression cleans up these multiple detections preventing multiple detections per objects: for each object it only keeps the bounding box with the highest probability, where the probability is $p_c$ multiplied by the probability of the specific object $c_n$ (in our example $c_1$, $c_2$ or $c_3$).
+
+
+    
+
+<figure id="fig:nonmax">
+    <img src="{{site.baseurl}}/pages/ML-38-DeepLearningCNN6_files/ML-38-DeepLearningCNN6_14_0.svg" alt="png">
+    <figcaption>Figure 109. Multiple grid cells with predicted bounding middle-points in them (A). Multiple bounding box with their associated $p_c$ (B): only the one with the highest value $p_c$ (red edge) is kept while the others (gray edge) are suppressed by non-max suppression</figcaption>
+</figure>
+
+Non-max suppression works by processing the $19 \times 19 \times 8$ output volume of the YOLO network, where each $8 \times 1$ vector is as in $\eqref{eq:yolotrain}$). For this example we will simplify the output to the case where the network only detects one object so that we can get rid of the $c_1, c_2, c_3$ values and only consider the output vector
+
+$$
+\hat{y}=\begin{bmatrix}
+p_c\\ b_x\\ b_y\\ b_h\\ b_w
+\end{bmatrix}
+$$
+
+Non-max suppression works by first removing all bounding boxes with $p_c \leq t$, where $t$ is some threshold (usually $0.6$). For each bounding box that hasn't been either selected or suppressed:
+
+* Pick the bounding box with the largest $p_c$
+* Discard any other bounding boxes with $\text{IoU} \geq 0.5$ with the bounding box picked in the previous step
+
+In this example we used the simpler case in which there only is one object class, when multiple object classes are present, the non-max suppression algorithm needs to be run independently for each class, to prevent suppression to discard bounding boxes of other classes respect to the one evaluated. Furthermore, when multiple object classes are present, the bounding box selection is based on $p_c \cdot c$, where $c$ is the probability of detection of the individual class evaluated. 
+
+## Anchor boxes
+
+
+```python
+
+```
