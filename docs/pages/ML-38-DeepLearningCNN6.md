@@ -179,8 +179,120 @@ Non-max suppression works by first removing all bounding boxes with $p_c \leq t$
 In this example we used the simpler case in which there only is one object class, when multiple object classes are present, the non-max suppression algorithm needs to be run independently for each class, to prevent suppression to discard bounding boxes of other classes respect to the one evaluated. Furthermore, when multiple object classes are present, the bounding box selection is based on $p_c \cdot c$, where $c$ is the probability of detection of the individual class evaluated. 
 
 ## Anchor boxes
+The YOLO architecture seen until this point enables each grid cell to detect only one object. In order to render a single cell to detect multiple objects **anchor boxes** are employed.
+
+Consider the example in panel A of <a href="#fig:anchorboxes">Figure 110</a> two anchor boxes are defined, where in an actual implementation 5 or more anchor boxes are usually employed. In early times of anchor boxes, they were usually manually selected, while more advanced techniques involve clustering by k-means algorithm the type of anchor boxes and associated each cluster to the most common class that it represent. 
+
+
+    
+
+<figure id="fig:anchorboxes">
+    <img src="{{site.baseurl}}/pages/ML-38-DeepLearningCNN6_files/ML-38-DeepLearningCNN6_17_0.svg" alt="png">
+    <figcaption>Figure 110. Two objects (belonging to different classes) have their bounding box midpoints in the same grid cell (A). Two anchor boxes, with aspect ratio similar to that of the man and of the car respectively, are defined to allow detection of multiple objects in the same grid cell (B).</figcaption>
+</figure>
+
+To define anchor boxes the label vector $y$ needs to repeat the values in $\eqref{eq:yolotrain}$ for each anchor box. So, for two anchor boxes, predicting 3 classes of objects ($c_1, c_2, c_3$), $y$ is defined as
+
+$$
+y = \begin{bmatrix} 
+p_c \\ b_x \\ b_y \\ b_w \\ b_h \\ c_1 \\ c_2 \\ c_3 \\
+p_c \\ b_x \\ b_y \\ b_w \\ b_h \\ c_1 \\ c_2 \\ c_3 \\
+\end{bmatrix}
+\begin{array}{r}
+\left. \begin{array}{r}
+\\ \\ \\ \\ \\ \\ \\ \\
+\end{array}
+\right\}\text{Anchor box 1} \\
+\left. \begin{array}{r}
+\\ \\ \\ \\ \\ \\ \\ \\
+\end{array}
+\right\}\text{Anchor box 2}
+\end{array}
+$$
+
+
+where the first set of 8 values will encode for one anchor box and the second set for another anchor box. So where previously each object in a training image was just assigned to the grid that contains the object bounding box midpoint, when the concept of anchor boxes is added to the architecture, training images also need to be labeled for anchor boxes: each object is assigned to the anchor box with the highest $\text{IoU}$ with the object bounding box. So whereas before each object was assigned to a grid cell, now **each object is assigned to the pair (grid cell,anchor box)**. So, given a $3 \times 3$ grid, 2 anchor boxes and 3 classes, the label $y$ and output $\hat{y}$ is going to be $3 \times 3 \times 2 \times 8$ (or $3 \times 3 \times 16$).
+
+So for the example in panel A of <a href="#fig:anchorboxes">Figure 110</a>, the label vector $y$ would be along the lines of
+
+$$
+y = \begin{bmatrix} 
+1 \\ b_x \\ b_y \\ b_w \\ b_h \\ 1 \\ 0 \\ 0 \\
+1 \\ b_x \\ b_y \\ b_w \\ b_h \\ 0 \\ 1 \\ 0 \\
+\end{bmatrix}
+\begin{array}{r}
+\left. \begin{array}{r}
+\\ \\ \\ \\ \\ \\ \\ \\
+\end{array}
+\right\}\text{Anchor box 1} \\
+\left. \begin{array}{r}
+\\ \\ \\ \\ \\ \\ \\ \\
+\end{array}
+\right\}\text{Anchor box 2}
+\end{array}
+$$
+
+while in case one of the object types is not in the grid cell, the portion of $y$ corresponding to the anchor box that is most similar to that class $p_c=0$. Suppose the person is missing, we would have:
+
+$$
+y = \begin{bmatrix} 
+0 \\ ? \\ ? \\ ? \\ ? \\ ? \\ ? \\ ? \\
+1 \\ b_x \\ b_y \\ b_w \\ b_h \\ 0 \\ 1 \\ 0 \\
+\end{bmatrix}
+\begin{array}{r}
+\left. \begin{array}{r}
+\\ \\ \\ \\ \\ \\ \\ \\
+\end{array}
+\right\}\text{Anchor box 1} \\
+\left. \begin{array}{r}
+\\ \\ \\ \\ \\ \\ \\ \\
+\end{array}
+\right\}\text{Anchor box 2}
+\end{array}
+$$
+
+## YOLO algorithm
+We now have all the instrument to fully define the YOLO algorithm. Suppose that we have a $4 \times 4$ grid as in <a href="#fig:yologrid">Figure 107</a>, that we want to detect 3 classes: pedestrian ($c_1$), car ($c_2$) and motorcycle ($c_3$), and that we define 2 anchor boxes. We would then have a $4 \times 4 \times 2 \times 8$ label vector $y$ that can also be represented as a $4 \times 4 \times 16$ vector. For our labeled training set, we define one of these vectors for each grid cell, for each input image. To train our network we input $100 \times 100 \times 3$ input images and fed them to a convolutional network whose final output has shape $4 \times 4 \times 16$.
+
+Once trained, given an image the algorithm produces a $4 \times 4 \times 16$ volume. Then nonmax suppression is applied to the output: since we have 2 anchor boxes, for each grid cell, the algorithm produces 2 bounding boxes. Some of them will have very low $p_c$ but will be outputted anyway. All bounding boxes with $p_c$ below a pre-defined threshold are discarded. Finally for each class ($c_1, c_2 ,c_3$) we independently run nonmax suppression to generate the final prediction.
+
+# Region Proposal
+In the body of work about object detection an influential idea that has been proposed but is somehow overshadowed by YOLO-related implementations is **region proposal**. One of the classic region proposal algorithm is called R-CNN.
+
+In a classic sliding window algorithm we would roll a sliding window across the whole input image, starting from the top-left corner all the way to the bottom-right corner. While we have seen that a convolutional implementation of the sliding window exists, it remains the problem that most of the windows analyzed will contain uninteresting data. 
+
+In an R-CNN a segmentation filter is first applied to the input image to detect different areas on the image (panel B of <a href="#fig:semseg">Figure 111</a>). This segmentation step produces a number of blobs (usually some thousands). Bounding box are draw around each of these blobs and an object detection algorithm tries to detect objects inside the bounding box.
 
 
 ```python
-
+fig, ax = plt.subplots(figsize=(10, 6))
+img=plt.imread('./data/img/semseg.jpg')
+ax.imshow(img)
+ax.set_axis_off()
+ax.text(-0.02, 1, "A", va='bottom', transform=ax.transAxes, fontsize=15)
+ax.text(-0.02, .47, "B", va='bottom', transform=ax.transAxes, fontsize=15)
+ax.add_artist(Rectangle((1, 1), 40, 40, fc='none', ec='r', lw=2))
+ax.add_artist(Rectangle((180, 80), 80, 80, fc='none', ec='b', lw=2))
+ax.add_artist(Rectangle((180, 275), 110, 90, fc='none', ec='b', lw=2))
 ```
+
+
+
+
+    <matplotlib.patches.Rectangle at 0x7fc66c210d68>
+
+
+
+
+    
+
+<figure id="fig:semseg">
+    <img src="{{site.baseurl}}/pages/ML-38-DeepLearningCNN6_files/ML-38-DeepLearningCNN6_21_1.svg" alt="png">
+    <figcaption>Figure 111. An example of a very precise semantic segmentation (B) achieved using 3D-data from a LiDAR and a video feed from a moving car (A). In a classic sliding window approach (convolutional or not) most of the windows will contain uninteresting data (red bounding box), while only some areas will actually contain an object (blue bounding box)</figcaption>
+</figure>
+
+This method hugely reduces the number of analyzed windows compared to running a sliding window algorithm (even convolutional), however it is still rather slow and there has been much work to create faster region proposal algorithms:
+
+* The [R-CNN](https://arxiv.org/abs/1311.2524) propose regions and classify each region on at a time. It produce the output label and a bounding box. In fact R-CNN doesn't trust the bounding box that it is provided with and instead tries to define its own. Its downside is that it is slow and computationally heavy
+* [Fast R-CNN](https://arxiv.org/abs/1504.08083) is a faster implementation of the R-CNN algorithm that also propose regions but, contrary to the classic R-CNN method, uses a convolutional implementation of the sliding window to classify all the proposed regions. While being faster than R-CNN, the region proposal step still is slow
+* [Faster R-CNN](https://arxiv.org/pdf/1506.01497) uses convolutional netwrok to propose regions instead of a semantic segmentation algorithm. While being significantly faster than the Fast R-CNN method, it still is slower than the YOLO algorithm.
