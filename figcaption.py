@@ -53,6 +53,31 @@ def insert_videocaption(md, baseurl_subpath=''):
         baseurl = '{{site.baseurl}}' + '/' + baseurl_subpath.lstrip('/').rstrip('/')
         return re.sub(pattern, repl_and_count, md)
 
+def insert_scriptcaption(md, baseurl_subpath=''):
+    print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
+    pattern = r'(<script[^\n]+>[^§]*</script>)(\n\s*)+<i id=\"(\S+)\">(.*)</i>'
+    matches = list(re.finditer(pattern, md))
+
+    def repl_and_count(mobj):
+        print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
+        global i
+        global figregs
+
+        video, _, iid, caption = mobj.groups()
+        repl = textwrap.dedent("""
+        <figure id="{}">
+                {}
+            <figcaption>Figure {}. {}</figcaption>
+        </figure>""".format(iid, textwrap.indent(video, ' '*12), i, caption))
+        figrefs.setdefault(permalink, {})[iid] = i
+        i +=1
+        return repl
+
+    if matches:
+        baseurl = '{{site.baseurl}}' + '/' + baseurl_subpath.lstrip('/').rstrip('/')
+        return re.sub(pattern, repl_and_count, md)
+
+
 
 def insert_figrefs(md):
     print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
@@ -115,6 +140,7 @@ if __name__ == "__main__":
         md = update_md(md, insert_pagerefs(md))
         md = update_md(md, insert_figcaption(md, 'pages'))
         md = update_md(md, insert_videocaption(md))
+        md = update_md(md, insert_scriptcaption(md))
         md = update_md(md, insert_figrefs(md))
 
         if md:

@@ -54,7 +54,78 @@ So in a segmentation algorithm the output that we want to train the network to p
 </figure>
 
 ## Transpose convolutions
+The transpose convolution is a key part of semantic segmentation architectures that is used to upscale a volume to a larger width and height. For example taking the $2 \times 2$ input in panel B of <a href="#fig:transposeconv">Figure 114</a>, we can achieve a $4 \times 4$ output by applying a $3 \times 3$ filter with padding $p=1$ and stride $s=2$. Transpose convolution achieve this by mechanically applying the filter on the output instead than on the input as in classic convolution.
 
+
+    
+
+<figure id="fig:transposeconv">
+    <img src="{{site.baseurl}}/pages/ML-39-DeepLearningCNN7_files/ML-39-DeepLearningCNN7_9_0.svg" alt="png">
+    <figcaption>Figure 114. The variation of dimensionality in a normal convolution that (with valid padding) reduces the width and height of the input representation (A). The variation of dimensionality of transpose convolution increases (or upscales) the width and height of the input representation (B)</figcaption>
+</figure>
+
+A single cell of the input is multiplied with the filter and this processed filter is applied to the output representation. Looking at the example in panel B of <a href="#fig:transposeconv">Figure 114</a>, we can notice that with a stride $s=2$ we will have some overlapping cells at each convolutions; values resulting from overlapping portions of the filter in different steps on the transpose convolution are summed together in the final output.
+
+Transpose convolution is not the only method to upscale a matrix, however it turns out to be the best performing in the context of semantic segmentation and especially for **U-nets**.
+
+## U-net
+In <a href="#fig:unetarch">Figure 113</a>, we have seen the general architecture of a U-net, with the input volume being downscaled and then upscaled again to give an output with one channel and large values of width and height.
+
+One modification to the architecture in <a href="#fig:unetarch">Figure 113</a>. This way, activations from early layers (layer 1 in the figure) are directly copied to late layers (layer 3 in the figure). 
+
+
+```python
+fig = plt.figure(figsize=(12, 4))
+gs = fig.add_gridspec(1, 5)
+ax1 = fig.add_subplot(gs[0, 0], projection='3d')
+ax2 = fig.add_subplot(gs[0, 1], projection='3d')
+ax3 = fig.add_subplot(gs[0, 2], projection='3d')
+ax4 = fig.add_subplot(gs[0, 3], projection='3d')
+ax5 = fig.add_subplot(gs[0, 4], projection='3d')
+
+x, y, z = np.indices((1,1,1))
+voxels = (x >= 0) & (y >= 0) & (z >= 0)
+
+ax1.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
+ax1.set_box_aspect([30, 3, 30])
+
+ax2.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
+ax2.set_box_aspect([5, 12, 5])
+
+ax3.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
+ax3.set_box_aspect([3, 16, 3])
+
+ax4.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
+ax4.set_box_aspect([5, 12, 5])
+
+ax5.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
+ax5.set_box_aspect([30, 3, 30])
+
+plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax1.transAxes, textcoords=ax2.transAxes, arrowprops=dict(arrowstyle='<-'))
+plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax2.transAxes, textcoords=ax3.transAxes, arrowprops=dict(arrowstyle='<-'))
+plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax3.transAxes, textcoords=ax4.transAxes, arrowprops=dict(arrowstyle='<-'))
+plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax4.transAxes, textcoords=ax5.transAxes, arrowprops=dict(arrowstyle='<-'))
+arr = plt.annotate('', (.5, .9), (.5, .9), xycoords=ax2.transAxes, textcoords=ax4.transAxes, 
+             arrowprops=dict(arrowstyle='<-', connectionstyle='bar,armA=0,armB=0,fraction=0.1,angle=0'))
+plt.annotate('skip connections', (0, 0), (0.5, .5), textcoords=arr.arrow_patch, ha='center')
+
+for ax in [ax1, ax2, ax3, ax4, ax5]:
+    ax.view_init(elev=10, azim=-60)
+    ax.set_axis_off()
+```
+
+
+    
+
+<figure id="fig:unetarchcomplete">
+    <img src="{{site.baseurl}}/pages/ML-39-DeepLearningCNN7_files/ML-39-DeepLearningCNN7_12_0.svg" alt="png">
+    <figcaption>Figure 115. Typical U-net architecture</figcaption>
+</figure>
+
+The reason for U-net benefiting from skip-connections is that, for next-to-final layers to decide which regions of the representation is the object to detect, two pieces of information are useful:
+
+* high-level spatial/contextual information provided by the immediately previous layer, which should have detected the object class in the approximate region where it is placed in the input image
+* Fine-grain spatial information: since late layers have low resolution (low height and width) this is provided activations from early layers, obtained through skip-connections
 
 
 ```python
