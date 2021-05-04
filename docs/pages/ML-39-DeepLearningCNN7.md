@@ -8,6 +8,7 @@ comments: true
 ---
 
 # U-Net
+The U-net architecture is one of the more important and foundational neural network for object detection today
 
 ## Region proposal
 In the body of work about object detection an influential idea that has been proposed is **region proposal**. One of the classic region proposal algorithm is called R-CNN.
@@ -126,6 +127,39 @@ The reason for U-net benefiting from skip-connections is that, for next-to-final
 
 * high-level spatial/contextual information provided by the immediately previous layer, which should have detected the object class in the approximate region where it is placed in the input image
 * Fine-grain spatial information: since late layers have low resolution (low height and width) this is provided activations from early layers, obtained through skip-connections
+
+
+```python
+f = Flow(figsize=(12, 6))
+vpad=4
+hpad=0
+
+nodes = []
+for i in range(1, 28):
+    dst=.1
+    drc='e'
+    if i != 1 and i % 3 == 1:
+        dst=1
+        drc = 's'
+        level = -1
+        if i >= 15:
+            drc = 'n'
+            level = 1
+        vpad += level
+        hpad -= level
+    
+    nodes.append(f.node(label=' '*hpad+'\n'*vpad, bbox=dict(boxstyle='square'), travel=drc, distance=dst))
+    
+    if i >= 16:
+        if i % 3 == 0:
+            f.edge(nodes[i-3][0], nodes[((9-(i//3-1))-1)*3+2][0], arrowprops=dict(arrowstyle='->'))
+```
+
+
+    
+![svg](ML-39-DeepLearningCNN7_files/ML-39-DeepLearningCNN7_14_0.svg)
+    
+
 
 
 ```python
