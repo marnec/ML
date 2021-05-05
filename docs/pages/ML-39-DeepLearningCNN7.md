@@ -75,47 +75,6 @@ In <a href="#fig:unetarch">Figure 113</a>, we have seen the general architecture
 One modification to the architecture in <a href="#fig:unetarch">Figure 113</a>. This way, activations from early layers (layer 1 in the figure) are directly copied to late layers (layer 3 in the figure). 
 
 
-```python
-fig = plt.figure(figsize=(12, 4))
-gs = fig.add_gridspec(1, 5)
-ax1 = fig.add_subplot(gs[0, 0], projection='3d')
-ax2 = fig.add_subplot(gs[0, 1], projection='3d')
-ax3 = fig.add_subplot(gs[0, 2], projection='3d')
-ax4 = fig.add_subplot(gs[0, 3], projection='3d')
-ax5 = fig.add_subplot(gs[0, 4], projection='3d')
-
-x, y, z = np.indices((1,1,1))
-voxels = (x >= 0) & (y >= 0) & (z >= 0)
-
-ax1.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
-ax1.set_box_aspect([30, 3, 30])
-
-ax2.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
-ax2.set_box_aspect([5, 12, 5])
-
-ax3.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
-ax3.set_box_aspect([3, 16, 3])
-
-ax4.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
-ax4.set_box_aspect([5, 12, 5])
-
-ax5.voxels(voxels, edgecolor='none', facecolors='w', alpha=.3)
-ax5.set_box_aspect([30, 3, 30])
-
-plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax1.transAxes, textcoords=ax2.transAxes, arrowprops=dict(arrowstyle='<-'))
-plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax2.transAxes, textcoords=ax3.transAxes, arrowprops=dict(arrowstyle='<-'))
-plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax3.transAxes, textcoords=ax4.transAxes, arrowprops=dict(arrowstyle='<-'))
-plt.annotate('', (.9, 0.5), (.1, 0.5), xycoords=ax4.transAxes, textcoords=ax5.transAxes, arrowprops=dict(arrowstyle='<-'))
-arr = plt.annotate('', (.5, .9), (.5, .9), xycoords=ax2.transAxes, textcoords=ax4.transAxes, 
-             arrowprops=dict(arrowstyle='<-', connectionstyle='bar,armA=0,armB=0,fraction=0.1,angle=0'))
-plt.annotate('skip connections', (0, 0), (0.5, .5), textcoords=arr.arrow_patch, ha='center')
-
-for ax in [ax1, ax2, ax3, ax4, ax5]:
-    ax.view_init(elev=10, azim=-60)
-    ax.set_axis_off()
-```
-
-
     
 
 <figure id="fig:unetarchcomplete">
@@ -128,32 +87,7 @@ The reason for U-net benefiting from skip-connections is that, for next-to-final
 * high-level spatial/contextual information provided by the immediately previous layer, which should have detected the object class in the approximate region where it is placed in the input image
 * Fine-grain spatial information: since late layers have low resolution (low height and width) this is provided activations from early layers, obtained through skip-connections
 
-
-```python
-f = Flow(figsize=(12, 6))
-vpad=4
-hpad=0
-
-nodes = []
-for i in range(1, 28):
-    dst=.1
-    drc='e'
-    if i != 1 and i % 3 == 1:
-        dst=1
-        drc = 's'
-        level = -1
-        if i >= 15:
-            drc = 'n'
-            level = 1
-        vpad += level
-        hpad -= level
-    
-    nodes.append(f.node(label=' '*hpad+'\n'*vpad, bbox=dict(boxstyle='square'), travel=drc, distance=dst))
-    
-    if i >= 16:
-        if i % 3 == 0:
-            f.edge(nodes[i-3][0], nodes[((9-(i//3-1))-1)*3+2][0], arrowprops=dict(arrowstyle='->'))
-```
+More in detail the U-net architecture, whose shape looks like a U (<a></a>) hence the name, takes as input a large image with 3 channels
 
 
     
