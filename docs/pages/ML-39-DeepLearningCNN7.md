@@ -87,15 +87,12 @@ The reason for U-net benefiting from skip-connections is that, for next-to-final
 * high-level spatial/contextual information provided by the immediately previous layer, which should have detected the object class in the approximate region where it is placed in the input image
 * Fine-grain spatial information: since late layers have low resolution (low height and width) this is provided activations from early layers, obtained through skip-connections
 
-More in detail the U-net architecture, whose shape looks like a U (<a></a>) hence the name, takes as input a large image with 3 channels
+More in detail the U-net architecture, whose shape looks like a U (<a href="fig:unetarchdetail">figure below</a>) hence the name, takes as input a large image with 3 channels. The first layers are classic CONV layer with same pooling that maintain the height and width of the input while increasing the number of channels. Then a max-pooling layer and another set of CONV layers is applied. By repeating this process we gradually shrink the width and height and increase the channels. This process is then inverted by applying transpose convolutions in place of max-pooling. The representation is scaled back up to the original dimensions of the input image. Furthermore, skip connections link early to late layers each time the transpose convolution is applied. Finally the last layer, which is fed a volume already the dimension of the input image, is a $1 \times 1$ convolution that produces the segmentation output. The dimensions of the output layer is $h \times w \times n_c$, where $w,h$ are the widht and height of the input image and $n_c$ is the number of classes on which the network is trained.
 
 
     
-![svg](ML-39-DeepLearningCNN7_files/ML-39-DeepLearningCNN7_14_0.svg)
-    
 
-
-
-```python
-
-```
+<figure id="fig:unetarchdetail">
+    <img src="{{site.baseurl}}/pages/ML-39-DeepLearningCNN7_files/ML-39-DeepLearningCNN7_14_0.svg" alt="png">
+    <figcaption>Figure 116. Detailed architecture of the U-net. Each block represents a layer of the U-net seen along the width axis ($y=$height, $x=$channels). Horizontal arrows represent convolutions with ReLU activation function, red arrows (downwards) represent max-pooling that shrink the width and height of the representation. Green arrows (upwards) represent transpose convolution that upscale the width and height of the representation. Gray horizontal arrows represent skip connections that add the early layers activations (blue) to late layers activations (cyan)</figcaption>
+</figure>
