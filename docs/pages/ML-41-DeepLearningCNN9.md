@@ -60,11 +60,11 @@ $$
 ## Style cost function
 As for the content encoding, let's say you use layer $l$'s activation to measure "style" and suppose we define the style as the covariance between activations across channels in a layer. Layer $l$ has three dimensions $n_H$, $n_W$ and $n_C$; Consider Layer 2 of <a href="#fig:cnnencoding">Figure 121</a> and focus on pixel space: saying that activations display covariance means that a unit is activates together with another one. For example, an unit that detects vertical stripes activates together with a unit that detects shades of orange. When found together (co-varying) these features define the style of an image that will have vertical orange stripes .
 
-To calculate covariance of unit activation in layer $l$ we compute what is called **gram matrix**, although we will refer to it as the style matrix. Let $a_{i,j,k}^{[l]}$ be the activation at position $i,j,k$ at hidden layer $l$. We calculate the matrix $G^{[l]}$ which is an $n_c^{[l]} \times n_c^{[l]}$ matrix, that compares all channels between themselves. For example, $G^{[l]}_{kk'}$ will measure the covariance between the activations in channel $k$ and those in channel $k'$ where $k,k' \in [1,\dots,n_c]$. The gram matrix $G^{[l]}_{kk'}$ is computed as 
+To calculate covariance of unit activation in layer $l$ we compute what is called **gram matrix**, although we will refer to it as the style matrix. Let $a_{i,j,k}^{[l]}$ be the activation at position $i,j,k$ at hidden layer $l$. We calculate the matrix $G^{[l]}$ which is an $n_c^{[l]} \times n_c^{[l]}$ matrix, that compares all channels between themselves. For example, $G_{kk'}^{[l]}$ will measure the covariance between the activations in channel $k$ and those in channel $k'$ where $k,k' \in [1,\dots,n_c]$. The gram matrix $G^{[l]}_{kk'}$ is computed as 
 
 $$G^{[l]}_{kk'} = \sum_{i=1}^{n_H^{[l]}} \sum_{j=1}^{n_W^{[l]}} a^{[l]}_{ijk} a^{[l]}_{ijk'}$$
 
-Since we multiply $a^{[l]}_{ijk} \cdot a^{[l]}_{ijk'}$ the value in the style matrix will be large if they display covariance and small if they do not. In order to compare the style ($s$) and generated image ($g$) we need to compare the style matrix for both of them
+Since we multiply $a_{ijk}^{[l]} \cdot a_{ijk}^{[l]}$ the value in the style matrix will be large if they display covariance and small if they do not. In order to compare the style ($s$) and generated image ($g$) we need to compare the style matrix for both of them
 
 $$
 \begin{split}
