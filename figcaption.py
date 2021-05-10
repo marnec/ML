@@ -8,14 +8,16 @@ figrefs = {}
 
 def insert_figcaption(md, baseurl_subpath=''):
     print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
-    pattern = r'!\[\w+\]\((.*)\)(\n\s*)+<i id=\"(\S+)\">(.*)</i>'
+    # pattern = r'!\[\w+\]\((.*)\)(\n\s*)+<i id=\"(\S+)\">(.*)</i>'
+    pattern = r'!\[\w+\]\(([^\)]*)\)[\n\s]*<i id=\"([^\"]*)\">(.*)</i>'
     matches = list(re.finditer(pattern, md))
+
 
     def repl_and_count(mobj):
         print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
         global i
         global figregs
-        url, _, iid, caption = mobj.groups()
+        url, iid, caption = mobj.groups()
         repl = textwrap.dedent("""
         <figure id="{}">
             <img src="{}/{}" alt="png">
@@ -100,7 +102,6 @@ def insert_figrefs(md):
             href = '#{}'.format(iid)
 
         return "<a href=\"{}\">Figure {}</a>".format(href, figrefs[plink][iid])
-
     return re.sub(pattern, repl_figrefs, md)
 
 
@@ -146,3 +147,4 @@ if __name__ == "__main__":
         if md:
             with open(mdfile, 'w') as markdown_file:
                 markdown_file.write(md)
+        # break
