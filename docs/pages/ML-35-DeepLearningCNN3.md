@@ -178,4 +178,150 @@ The inception module takes as input the representation volume from a previous la
 
 multiple inception modules are chained together to build an inception network, where the output of a module is the input of the following module. In a full inception network sometimes, some additional pooling layers are placed immediately after an input of an inception module. The final layer of an inception network is usually a softmax layer. However there may be other softmax layers along a full inception network that branch out of the flow of the network to produce intermediate predictions. This is done to check if predictions produced by a smaller network are good enough or even better than those produced by the full network. In fact, branching out softmax layers can have a regularizing effect on predictions, since it produces output from smaller, less complex (sub-)networks. 
 
-The inception network has been first proposed by Google with the name of GoogLeNet (in honor of the LeNet-5 network) in this [research article](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43022.pdf) from 2015. From its publication newer versions of the inception network were published and (at least)  one of these versions combine the inception network and the ResNet, implementing skip-connections in the inception module.  
+The inception network has been first proposed by Google with the name of GoogLeNet (in honor of the LeNet-5 network) in this [research article](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43022.pdf) from 2015. From its publication newer versions of the inception network were published and (at least)  one of these versions combine the inception network and the ResNet, implementing skip-connections in the inception module.
+
+## MobileNets
+MobileNet are andother foundational convolutional neural network architecture. Using MobileNets allows to built and deploy netwroks in low compute environments, such as mobile phones. In fact, most of the architectures seen until now are very computationally expensive. The key idea behind MobileNts is that of Normal vs **depthwise separable convolutions**.
+
+### Depthwise separable convolution
+In a normal convolution we have an input image with dimensions $n \times n \times n_c$, where $n_c$ is the number of channels, which is convolved with a filter of dimensions $f \times f \times n_c$. Given a $6 \times 6 \times 3$ image and a $3 \times 3 \times 3$ filter, to convolve them the filter is slid in all 16 possible positions to produce a $4 \times 4$ output (<a href="{{site.basurl}}/ML/ML33#fig:volconv">Figure 82</a>). If we have $n_c'=5$ filters, our output will be $4 \times 4 \times 5$. The total number of computations necessary for this convolution is #filter parameters times #filter positions times #filters: $(3 \cdot 3 \cdot 3) \cdot (4 \cdot 4) \cdot 5 = 2160$.
+
+
+    
+
+<figure id="fig:depthconv">
+    <img src="{{site.baseurl}}/pages/ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_26_0.svg" alt="png">
+    <figcaption>Figure 100. A classic convolution of a $3 \times 3 \times 3$ filter over a $6 \times 6 \times 3$ input image.</figcaption>
+</figure>
+
+In contrast to the normal convolution, the depth-wise separable convolution works in two steps: a depthwise convolution followed by a pointwise convolution
+
+* Depth-wise convolution starts with a $n \times n \times n_c$ input as in a normal convolution. However, instead of having a number of $f \times f \times n_c$ filters, we have $n_c$ filters of dimensions $f \times f \times 1$. Each filter is applied to only one input channel. In <a href="#fig:depthconv">Figure 100</a> we have a $6 \times 6 \times 3$ input image and three $3 \times 3$ filters. Filter color reflects on which input channel they are applied. This approach produce $n_\text{out} \times n_\text{out} \times n_c$ output, in this example a $4 \times 4 \times 3$ volume. The number of computations required for this step are: #filter params times #filter positions times #filter. In this example $(3 \cdot 3) \cdot (4 \cdot 4) \cdot 3=432$
+
+* Point-wise convolution starts with the output of depth-wise convolution with dimensions $n_\text{out} \times n_\text{out} \times n_c$ ($4 \times 4 \times 3$ volume in the example) and convolve it with $n_c'$ filters with dimensions a $1 \times 1 \times n_c$. This produces a $n_\text{out} \times n_\text{out} \times n_c'$ volume, which is the exact result of normal convolution. The computational cost of pointwise convolution is #filter params times #filter positions #filters; in the example $(1 \cdot 1 \cdot 3) \cdot (4 \cdot 4) \cdot 5=240$
+
+So, for our example, in the case of a normal convolution the cost is $2160$ computations while in the case of a depthwise separable convolution the cost is  $432 + 240 = 672$ computations, in other words 31% of the computations required by a normal convolution. In general the ratio of the computational cost of depthwise separable convolution to normal convolution is given by
+
+$$
+\frac{1}{n_c'}+\frac{1}{f^2}
+$$
+
+which for a more typical $n_c'=512$ and $f=3$ would give a depthwise separable convolution needing 10% of the computations needed by a normal convolution.
+
+### MobileNet architecture
+The idea of MobileNet is to replace any normal convolutional operation with a depthwise separable convolutional operation. The MobileNet v1 has a specific architecture where 13 blocks of depthwise separable convolution operations were chained from the input, followed by a pooling layer, a fully connected layer and a softmax classifier. 
+
+
+```python
+fig = plt.figure(figsize=(12, 6))
+gs = fig.add_gridspec(2, 7, width_ratios=[4,1,1,1,1,1,1])
+
+ax1 = fig.add_subplot(gs[0, 0], projection='3d')
+ax2 = fig.add_subplot(gs[0, 2:4], projection='3d')
+ax3 = fig.add_subplot(gs[0, 4:6], projection='3d')
+ax4 = fig.add_subplot(gs[1, 0], projection='3d')
+ax5 = fig.add_subplot(gs[1, 1:3], projection='3d')
+ax6 = fig.add_subplot(gs[1, 3:5], projection='3d')
+ax7 = fig.add_subplot(gs[1, 5:7], projection='3d')
+
+x, y, z = np.indices((6, 3, 6))
+r = (x >= 0) & (y == 2) & (z >= 0)
+g = (x >= 0) & (y == 1) & (z >= 0)
+b = (x >= 0) & (y == 0) & (z >= 0)
+voxels = r | g | b 
+colors = np.empty(voxels.shape, dtype=object)
+colors[r] = 'r'
+colors[g] = 'g'
+colors[b] = 'b'
+ax1.voxels(voxels, edgecolor='none', facecolors=colors, alpha=.3)
+ax1.set_box_aspect([6, 3, 6])
+
+x, y, z = np.indices((6, 5, 6))
+r = (x < 3) & (y == 4) & (z < 3)
+g = (x < 3) & (y == 2) & (z < 3)
+b = (x < 3) & (y == 0) & (z < 3)
+voxels = r | g | b
+colors = np.empty(voxels.shape, dtype=object)
+colors[r] = 'r'
+colors[g] = 'g'
+colors[b] = 'b'
+ax2.voxels(voxels, edgecolor='w', lw=.1, facecolors=colors, alpha=.3)
+ax2.set_box_aspect([6, 5, 6])
+ax2.text2D(0.6, 0, 'Depthwise', transform=ax2.transAxes, ha='center')
+
+x, y, z = np.indices((6, 3, 6))
+voxels = (x == 2 ) & (y >= 0) & (z == 2)
+ax3.voxels(voxels, edgecolor='w', lw=.1, facecolors='magenta', alpha=.4)
+ax3.set_box_aspect([6, 3, 6])
+ax3.text2D(0.6, 0, 'Pointwise', transform=ax3.transAxes, ha='center')
+
+t = ax3.text2D(1.1, .7, ' '*70+'\n'*8, transform=ax2.transAxes, bbox=dict(boxstyle='round', fc='none', ls='--'), va='top', ha='center')
+plt.annotate('', (1, .35), (0, .5), xycoords=ax1.transAxes, textcoords=t, arrowprops=dict(arrowstyle='<-'), va='center')
+plt.annotate('', (1, .5), (1.65, .5), xycoords=t, textcoords=t, arrowprops=dict(arrowstyle='<-'), va='center')
+plt.annotate('', (1, .4), (.3, .4), xycoords=ax2.transAxes, textcoords=ax3.transAxes, arrowprops=dict(arrowstyle='<-'), va='center')
+
+x, y, z = np.indices((6, 3, 6))
+r = (x >= 0) & (y == 2) & (z >= 0)
+g = (x >= 0) & (y == 1) & (z >= 0)
+b = (x >= 0) & (y == 0) & (z >= 0)
+voxels = r | g | b 
+colors = np.empty(voxels.shape, dtype=object)
+colors[r] = 'r'
+colors[g] = 'g'
+colors[b] = 'b'
+ax4.voxels(voxels, edgecolor='none', facecolors=colors, alpha=.3)
+ax4.set_box_aspect([6, 3, 6])
+
+x, y, z = np.indices((6, 3, 6))
+voxels = (x == 2 ) & (y >= 0) & (z == 2)
+ax5.voxels(voxels, edgecolor='w', lw=.1, facecolors='C6', alpha=.6)
+ax5.set_box_aspect([6, 3, 6])
+ax5.text2D(0.6, 0, 'Expansion', transform=ax5.transAxes, ha='center')
+
+
+x, y, z = np.indices((6, 5, 6))
+r = (x < 3) & (y == 4) & (z < 3)
+g = (x < 3) & (y == 2) & (z < 3)
+b = (x < 3) & (y == 0) & (z < 3)
+voxels = r | g | b
+colors = np.empty(voxels.shape, dtype=object)
+colors[r] = 'r'
+colors[g] = 'g'
+colors[b] = 'b'
+ax6.voxels(voxels, edgecolor='w', lw=.1, facecolors=colors, alpha=.3)
+ax6.set_box_aspect([6, 5, 6])
+ax6.text2D(0.6, 0, 'Depthwise', transform=ax6.transAxes, ha='center')
+
+
+x, y, z = np.indices((6, 3, 6))
+voxels = (x == 2 ) & (y >= 0) & (z == 2)
+ax7.voxels(voxels, edgecolor='w', lw=.1, facecolors='magenta', alpha=.4)
+ax7.set_box_aspect([6, 3, 6])
+t = ax7.text2D(.2, .9, ' '*130+'\n'*10, transform=ax5.transAxes, bbox=dict(boxstyle='round', fc='none', ls='--'), va='top', ha='left')
+a1 = plt.annotate('', (1, .4), (.05, .45), xycoords=ax4.transAxes, textcoords=t, arrowprops=dict(arrowstyle='<-'), va='center')
+a2 = plt.annotate('', (.9, .45), (1.1, .45), xycoords=t, textcoords=t, arrowprops=dict(arrowstyle='<-'), va='center')
+a3 = plt.annotate('', (0.9, 1), (0.1, 1), xycoords=a1.arrow_patch, 
+             textcoords=a2.arrow_patch, arrowprops=dict(arrowstyle='<-', connectionstyle='bar,armA=1.0,armB=1.0,fraction=0.1,angle=0'), va='center')
+plt.annotate('Residual connection', (0, 0), (0.5, 1), textcoords=a3.arrow_patch, va='bottom', ha='center')
+
+ax7.text2D(0.55, 0, 'Projection', transform=ax7.transAxes, ha='center')
+plt.annotate('', (.9, .4), (.2, .4), xycoords=ax5.transAxes, textcoords=ax6.transAxes, arrowprops=dict(arrowstyle='<-'), va='center')
+plt.annotate('', (1, .4), (.3, .4), xycoords=ax6.transAxes, textcoords=ax7.transAxes, arrowprops=dict(arrowstyle='<-'), va='center')
+
+
+
+for i, ax in enumerate([ax1, ax2, ax3, ax4, ax5, ax6, ax7], 1):
+    ax.view_init(elev=10, azim=120)
+    ax.set_axis_off()
+```
+
+
+    
+![svg](ML-35-DeepLearningCNN3_files/ML-35-DeepLearningCNN3_29_0.svg)
+    
+
+
+
+```python
+
+```
