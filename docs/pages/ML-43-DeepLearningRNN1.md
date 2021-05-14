@@ -21,8 +21,9 @@ Models like Recurrent Neural Networks (RNNs) have transformed many fields, as fo
 ## Notation
 Suppose you want a sequence model that extract character names from a sentence $x$ and classifies each word as character name (1) or not (0). This is an example of **Natural Language Processing**.
 
-> $x$: ```Rand is a friend of Perrin and they both live in the twin rivers```<br>
-$y$:   ```1    0  0 0      0  1      0   0    0    0    0  0   0    0     ```
+    x:	Rand is a friend of Perrin and they both live in the twin rivers
+    y:	1    0  0 0      0  1      0   0    0    0    0  0   0    0
+
 
 The input is a sequence of 13 words ($T_x=13$). They are represented by a set of 13 features to which we will refer as $x^{\langle 1 \rangle}, \dots ,x^{\langle 13 \rangle}$ or more in general they will be referred to as $x^{\langle t \rangle}$ where $t$ implies that they are temporal sequences regardless whether the sequence is temporal or not.
 
@@ -65,6 +66,51 @@ A RNN has none of these problems: When modelling this data in a recurrent neural
     
 
 <figure id="fig:rnn">
-    <img src="{{site.baseurl}}/pages/ML-43-DeepLearningRNN1_files/ML-43-DeepLearningRNN1_3_0.svg" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-43-DeepLearningRNN1_files/ML-43-DeepLearningRNN1_5_0.svg" alt="png">
     <figcaption>Figure 125. Representation of a recurrent neural network model. The representation of each element in the input sequence $x^{\langle t \rangle}$ is fed to its layer, which takes as an additional input the activations of the previous layer $a^{\langle t-1 \rangle}$. Each layer produces as output a vector $y^{\langle t \rangle}$</figcaption>
 </figure>.
+
+In an RNN a single set of parameters ($W_{ax}$) for every time-step governs the connection from $x^{\langle i \rangle}$ to the hidden layer for every time step. A single set of parameters ($W_{aa}$) governs the connection from one time-step to the next and a single set of parameters ($W_{ya}$) governs the connection from the hidden layer to the output $\hat{y}^{\langle i \rangle}$.
+
+A weakness of the architecture of the RNN depicted in <a href="#fig:rnn">Figure 125</a> is that it only uses the information that is earlier in the sequence to make predictions. For example, when predicting $\hat{y}^{\langle 3 \rangle}$ it does't use information from $x^{\langle 4 \rangle}, \dots x^{\langle T_x \rangle}$. Suppose we have the sentences:
+
+    He said, Teddy Roosevelt was a great president
+    He said, Teddy bears are one sale!
+
+
+In order to decide whether the words `Teddy` is a person's name it would be much more useful to consider information from the last words rather than only information from the first two words.
+
+This is amended by Bidirectional RNN (BRNN) but this simpler Uni-direction RNN architecture considers only information from earlier time-steps.
+
+### Forward propagation
+The calculation performed in the RNN architecture in discussed up to this point start with the all-zero vector $a^{\langle 0 \rangle}$. The computation than proceeds through the computation of $a^{\langle 1 \rangle}$ and $\hat{y}^{\langle 1 \rangle}$ and so on.
+
+$$
+\begin{split}
+&a^{\langle 0 \rangle} = \vec{0}\\
+&a^{\langle 1 \rangle} = g\left(W_{aa}a^{\langle 0 \rangle} + W_{ax}x^{\langle 1 \rangle} + b_a\right) \\
+&\hat{y}^{\langle 1 \rangle} =g\left(W_{ya}a^{\langle 1 \rangle} + b_y \right )
+\end{split}
+$$
+
+Where $W_{ax}$ is the matrix of parameters that map input $x$ to activation $a$; $W_{ya}$ is the matrix of parameters that map activation $a$ to output $\hat{y}$; $W_{aa}$ is the matrix of parameters that map activation in the previous step $a$ to activation in the current step $a$. The activation functions $g$ applied to the $a$ and $y$ are usually different, a $\tanh$ or $\text{ReLU}$ is used for activations $a$, while for the output $\hat{y}$ a sigmoid (for binary classification) or softmax (for multiclass classification) is used. More generally, at each time step:
+
+$$
+\begin{split}
+&a^{\langle t \rangle} = g\left(W_{aa}a^{\langle t-1 \rangle} + W_{ax}x^{\langle t \rangle} + b_a\right) \\
+&\hat{y}^{\langle t \rangle} =g\left(W_{ya}a^{\langle t \rangle} + b_y \right )
+\end{split}
+$$
+
+Or, in a slightly simplified form
+
+$$
+\begin{split}
+&a^{\langle t \rangle} = g\left(W_a \left [a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_a\right) \\
+&\hat{y}^{\langle t \rangle} =g\left(W_{y}a^{\langle t \rangle} + b_y \right )
+\end{split}
+$$
+
+Where $W_a = [W_{aa} | W_{ax}]$ (horizontal stack of the matrices) and $\left [a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ]$ is a vertical stack of the two matrices.
+
+### Backpropagation through time
