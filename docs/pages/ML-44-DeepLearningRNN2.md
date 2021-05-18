@@ -135,4 +135,18 @@ The sequence sampling can stop when a EOS is sampled or at a specific number of 
 This sequence sample model example is built on a word-level language model but these principle applies to other applications of sequence generative models. For example, we could also build a character-level sampling model (based on a language model trained at character-level) which would sample from a distribution of probability of occurrence of characters instead of words. Such a model would have the advantage of not having to deal with unknown words, but on the other hand it would not be able to capture the relationship between distant ends of a sentence as well as a word-level language model. These distant relationships, or **long-term dependencies**, which tend to be very important in natural language (as well as in many other sequence models), while being better captured by a word-level model, still pose a problem for the simple RNN architecture that we have seen so far.
 
 ## Long-term dependencies
-Long-term dependencies tend to be very important in many sequence models:
+Long-term dependencies tend to be very important in many sequence models: consider the following long sentences:
+
+> The **hero**, who can barely stand on his feet after the uncanny and ravenous attack of his foe, **has** an idea
+
+> The **heroes**, who can barely stand on his feet after the uncanny and ravenous attack of his foe, **have** an idea
+
+The word `hero` and the word `has` are at opposing ends of the sentence but they need to be in accordance. And this is just one example of language having very long-term dependencies were an early word affects what needs to come much later in a sentence. The basic RNN architecture that we have seen so far however, is not very good at capturing long-term dependencies due to **vanishing gradients**.
+
+### Vanishing gradients with RNNs
+
+
+
+```python
+
+```
