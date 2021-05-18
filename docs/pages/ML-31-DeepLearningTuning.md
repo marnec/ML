@@ -105,7 +105,7 @@ Batch normalization is a technique that makes the search of hyperparameters much
     <figcaption>Figure 70. A shallow (equivalent to logistic regression) and a deep neural network</figcaption>
 </figure>
 
-We have seen that when training a model, normalizing the input features can speed up training (<a href="{{site.basurl}}/ML/ML28">ML28</a>).
+We have seen that when training a model, normalizing the input features can speed up training (<a href="{{site.basurl}}/ML/ML28Deep Learning - Speed up learning - Normalization">ML28</a>). Normalizing the input feature values works in a shallow neural network, but in a deep neural network we no longer have just input feature, but also a series of activation values for each layer (<a href="#fig:shallowdeep">Figure 70</a>).
 
 ### Implementing Batch Norm
 In batch normalization, we normalize values at each layer $l$ in order to train $w^{[l+1]}, b^{[l+1]}$ faster. There is some debate within the machine learning community about whether values should be normalized before ($z^{[l]}$) or after ($a^{[l]}$) applying the activation function. In practice normalizing $z^{[l]}$ is much more frequent.

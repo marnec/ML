@@ -53,7 +53,7 @@ Assuming that a person would have an error $\approx 0%$ and that the train and d
 * case 3 is a case of high bias AND high variance (the worst scenario)
 * case 4 is a case of low bias and low variance (the best scenario)
 
-It is important to notice that we detected bias and variance based on the assumption that the **optimal error**, also called **Bayes error** (<a href="{{site.basurl}}/ML/ML33">ML33</a>) is $\approx 0%$. Would the Bayes error $\approx 15%$, then we can say that case 2 is a case of low bias and low variance. 
+It is important to notice that we detected bias and variance based on the assumption that the **optimal error**, also called **Bayes error** (<a href="{{site.basurl}}/ML/ML33ML33">ML33</a>) is $\approx 0%$. Would the Bayes error $\approx 15%$, then we can say that case 2 is a case of low bias and low variance. 
 
 The difference between Bayes error and training set error is sometimes called **Avoidable Bias** and the objective is usually that of reducing the gap between train error and Bayes error. in the same way as we define the avoidable bias, we can also define variance, which is the gap between the training set error and the dev set error. 
 
@@ -76,7 +76,7 @@ Interestingly, usually performance increase, really slows down after surpassing 
 * So long as ML is worse than humans there are certain things that we can do to improve performance:
     * get labeled data from humans
     * gain insight from manual error analysis (why did a person get this right?)
-    * better analysis of bias/variance (<a href="{{site.basurl}}/ML/ML25">ML25</a>)
+    * better analysis of bias/variance (<a href="{{site.basurl}}/ML/ML25ML25">ML25</a>)
 
 ### Define human level performance
 The first step towards understanding the human level error for a certain task is to decide what purpose would serve its definition.
@@ -232,10 +232,10 @@ In machine learning, the effects that you want to orthogonalize are:
 3. Fit test set well on cost function: e.g. tune by getting a bigger dev set
 4. Performs well in real world: e.g. tune by changing cost function
 
-An action that doesn't fit well with orthogonalization is early stopping (<a href="{{site.basurl}}/ML/ML27">ML27</a>), since it tries to simultaneously tune train set and dev set performance.
+An action that doesn't fit well with orthogonalization is early stopping (<a href="{{site.basurl}}/ML/ML27ML-27">ML27</a>), since it tries to simultaneously tune train set and dev set performance.
 
 ## Satisficing and Optimizing metrics
-We have talked in <a href="{{site.basurl}}/ML/ML17">ML17</a> about the importance of having a single real-number evaluation metric. However, it is not always easy to combine all the desired properties of a model in a single metric. In those cases it is useful to set satisficing and optimizing metrics.
+We have talked in <a href="{{site.basurl}}/ML/ML17ML-17">ML17</a> about the importance of having a single real-number evaluation metric. However, it is not always easy to combine all the desired properties of a model in a single metric. In those cases it is useful to set satisficing and optimizing metrics.
 
 Let's say that for an image classifier we care about the classification accuracy and about the running time. Suppose we have three classifiers as in the <a href="#satopt">the table below</a>
 

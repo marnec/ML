@@ -107,12 +107,13 @@ def insert_figrefs(md):
 
 def insert_pagerefs(md):
     print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
-    pattern = r'<a href="page:(ML\d+)(#\S+)?">.*</a>'
+    # pattern = r'<a href="page:(ML\d+)(#\S+)?">.*</a>'
+    pattern = r'<a href=\"(page:[^\"]+)\">(.+?)</a>'
 
     def repl_pagerefs(mobj):
         print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
-        print(mobj.groups())
         plink, anchor = mobj.groups()
+        plink = plink.split(':')[1]
         href = '{{{{site.basurl}}}}/ML/{}'.format(plink)
 
         if anchor:

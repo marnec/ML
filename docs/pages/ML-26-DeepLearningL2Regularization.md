@@ -10,7 +10,7 @@ comments: true
 ## Regularization
 When your model is overfitting your data (high variance) you can either get more data, which may not always be possible, or apply **regularization**.
 
-We already talked about regularization in <a href="{{site.basurl}}/ML/ML8">ML8</a>, where the cost function of logistic regression is regularized and the regularization is mediated by the regularization parameter $\lambda$
+We already talked about regularization in <a href="{{site.basurl}}/ML/ML8this lesson">ML8</a>, where the cost function of logistic regression is regularized and the regularization is mediated by the regularization parameter $\lambda$
 
 $$
 \begin{equation}

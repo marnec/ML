@@ -39,7 +39,7 @@ A result from circuit theory states that:
 
 > there are functions you can compute with a "small" L-layer deep neural network that shallower networks require exponentially more hidden units to compute.
     
-Let's try to illustrate this with an example: as we have seen in <a href="{{site.basurl}}/ML/ML11">ML11</a> we can calculate logical functions with neural networks. Let's say we want to calculate the combined $\text{XOR}$ of our input vector $x$.
+Let's try to illustrate this with an example: as we have seen in <a href="{{site.basurl}}/ML/ML11ML-11">ML11</a> we can calculate logical functions with neural networks. Let's say we want to calculate the combined $\text{XOR}$ of our input vector $x$.
 
 $$y=x_1 \text{XOR} x_2 \text{XOR} x_3 \text{XOR} \dots \text{XOR} x_n$$
 
@@ -76,7 +76,7 @@ where $z^{[l]}$ is calculated from parameters $W^{[l]}$ and bias $b^{[l]}$.
 The input layer is referred to as $x = a^{[0]}$ and the output layer as $a^{[L]} = \hat{y}$
 
 ## Forward propagation
-Forward propagation for a deep neural network follows the same process as for a shallow network, which is explained in detail in <a href="{{site.basurl}}/ML/ML10">ML10</a>. The process follows the general rule:
+Forward propagation for a deep neural network follows the same process as for a shallow network, which is explained in detail in <a href="{{site.basurl}}/ML/ML10ML-10">ML10</a>. The process follows the general rule:
 
 $$
 \begin{aligned}

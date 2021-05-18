@@ -8,10 +8,10 @@ comments: true
 ---
 
 # RNN architectures
-In <a href="{{site.basurl}}/ML/ML43">ML43</a>  can be modified to map sequence-related $x$ and $y$ with different shapes.
+In <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a> we have seen an RNN architecture where $T_x = T_y$. For most applications, this is not the case and the basic RNN architecture that we have seen in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a> can be modified to map sequence-related $x$ and $y$ with different shapes.
 
 ## IO relationship
-The basic RNN architecture that we have seen in <a href="{{site.basurl}}/ML/ML43">ML43</a> maps many input to as many outputs and it is therefore called a Many-to-Many architecture. Furthermore, in that architecture $T_x = T_y$. This condition is not always the case and other relationship balances exist: additionally to the many-to-may we have one-to-one, one-to-many and many-to-one.
+The basic RNN architecture that we have seen in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a> maps many input to as many outputs and it is therefore called a Many-to-Many architecture. Furthermore, in that architecture $T_x = T_y$. This condition is not always the case and other relationship balances exist: additionally to the many-to-may we have one-to-one, one-to-many and many-to-one.
 
 ### One-to-One
 A one-to-one architecture maps an input $x$ to an output $y$ in a single time-step and it is a limit case, which is identical to a classical (non-recurrent) neural network <a href="#fig:oto">Figure 126</a>)
@@ -36,7 +36,7 @@ Suppose we want to train an RNN for a sentiment classification task where, given
 </figure>
 
 ### One-to-Many
-Suppose we want to create a music generation algorithm, where the goal is for the RNN to output a set of notes from a single number input, representing for example the music genre. One-to-many RNN, also called **sequence generation** algorithms, usually feed the output of a time-step $\hat{y}^{\langle t \rangle}$ to the next time-step (<a href="fig:otm">figure below</a>). Sequence generative models have some more subtlety to them that are better explained in a dedicated section.
+Suppose we want to create a music generation algorithm, where the goal is for the RNN to output a set of notes from a single number input, representing for example the music genre. One-to-many RNN, also called **sequence generation** algorithms, usually feed the output of a time-step $\hat{y}^{\langle t \rangle}$ to the next time-step (<a href="#fig:otm">Figure 128</a>). Sequence generative models have some more subtlety to them that are better explained in a dedicated section.
 
 
     
@@ -47,7 +47,7 @@ Suppose we want to create a music generation algorithm, where the goal is for th
 </figure>
 
 ### Many-to-Many
-We have already seen a Many-to-Many RNN in <a href="{{site.basurl}}/ML/ML43">ML43</a>, panel B). In this architecture input and output are temporally separated: a series of time-steps $[1, T_x]$ only take inputs and another series of time-steps $[1, T_y]$ only produce outputs. Since there is this clear distinction from input and output time-steps they are also referred to as the **encoder** and **decoder**, respectively: the encoder encodes the input and decoder maps the encoded input to the output.
+We have already seen a Many-to-Many RNN in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a>, which we used as a basic example of RNN architecture (<a href="fig:mtm">figure below</a>, panel A). Another case exists of many to many architecture, where $T_x \neq T_y$ (<a href="fig:mtm">figure below</a>, panel B). In this architecture input and output are temporally separated: a series of time-steps $[1, T_x]$ only take inputs and another series of time-steps $[1, T_y]$ only produce outputs. Since there is this clear distinction from input and output time-steps they are also referred to as the **encoder** and **decoder**, respectively: the encoder encodes the input and decoder maps the encoded input to the output.
 
 
     
