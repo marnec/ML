@@ -137,14 +137,51 @@ This sequence sample model example is built on a word-level language model but t
 ## Long-term dependencies
 Long-term dependencies tend to be very important in many sequence models: consider the following long sentences:
 
-> The **hero**, who can barely stand on his feet after the uncanny and ravenous attack of his foe, **has** an idea
+> The **hero**, who can barely stand after  the ravenous attack of an uncanny foe, **has** an idea
 
-> The **heroes**, who can barely stand on his feet after the uncanny and ravenous attack of his foe, **have** an idea
+> The **heroes**, who can barely stand after the ravenous attack of an uncanny foe, **have** an idea
 
 The word `hero` and the word `has` are at opposing ends of the sentence but they need to be in accordance. And this is just one example of language having very long-term dependencies were an early word affects what needs to come much later in a sentence. The basic RNN architecture that we have seen so far however, is not very good at capturing long-term dependencies due to **vanishing gradients**.
 
 ### Vanishing gradients with RNNs
+One of the problems of the basic RNN architecture is that it runs into the problem of vanishing gradients which we have seen, together with exploding gradients in <a href="{{site.basurl}}/ML/ML28ML-28">ML28</a>. Tu summarize, in very deep neural networks with tens of layers it is very difficult for error in late layers to backpropagate to early layers and affect the beginning of the sequence. For this reason, outputs in an RNN have strong local influences and weak long-range influences. Although exploding gradients are a much less frequent problem on RNNs, their occurrence can be disruptive; usually to prevent exploding gradients **gradient clipping** is used, where gradients are rescaled if they are larger than some threshold. Vanishing gradients, which are much more frequent, are also much harder to address; a great solution for addressing this problem is Gated Recurrent Units (GRUs).
 
+### Gated Recurrent Unit (GRU)
+GRU is a modification of RNN hidden layer that enables it to capture long-range dependencies and reduce the problem of vanishing gradients.
+
+As we have seen in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a>, the computation of an RNN unit (represented in <a href="fig:rnnunit">the figure below</a>), can be written as
+
+$$
+\begin{split}
+&a^{\langle t \rangle} = g\left(W_a \left [a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_a\right) \\
+\end{split}
+$$
+
+The GRU, formulated in [Cho et al. 2014](https://arxiv.org/abs/1409.1259) and [Chung et al 2014](https://arxiv.org/abs/1412.3555), outputs a new variable $c^{\langle t \rangle}$, a **memory cell** that provides memory for properties in earlier layers. In the GRU $c^{\langle t \rangle} = a^{\langle t \rangle}$, however we are going to use this notation because in the upcoming LSTM architecture, $c^{\langle t \rangle} \neq a^{\langle t \rangle}$. 
+The memory cell $c^{\langle t \rangle}$ memorizes encodes an important property of the sequence that must affect later steps, for example we could have $c^{\langle t \rangle}=1$ for a singular word (hero) and $c^{\langle t \rangle}=0$ for a plural word (heroes). At each time-step we will *consider* updating $c^{\langle t \rangle}$ with a candidate value $\tilde{c}^{\langle t \rangle}$ based on a gate $\Gamma_u$ that decides if the memory cell should be overwritten or not.
+
+$$
+\begin{split}
+& \tilde{c}^{\langle t \rangle} = \tanh \left( W_c \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_c \right) \\
+& \Gamma_u = \sigma \left(  W_u \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_u \right) \\
+& c^{\langle t \rangle} = \Gamma_u \cdot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \cdot c^{\langle t-1 \rangle}
+\end{split}
+$$
+
+
+
+
+    (<mpl_flow.Node at 0x7fd9edcfbef0>, <mpl_flow.Edge at 0x7fd9edcfb5f8>)
+
+
+
+
+    
+
+<figure id="fig:rnnunit">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_16_1.svg" alt="png">
+    <figcaption>Figure 131. RNN unit</figcaption>
+</figure>
 
 
 ```python
