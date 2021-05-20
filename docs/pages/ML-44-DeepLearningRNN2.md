@@ -157,33 +157,46 @@ $$
 \end{split}
 $$
 
-The GRU, formulated in [Cho et al. 2014](https://arxiv.org/abs/1409.1259) and [Chung et al 2014](https://arxiv.org/abs/1412.3555), outputs a new variable $c^{\langle t \rangle}$, a **memory cell** that provides memory for properties in earlier layers. In the GRU $c^{\langle t \rangle} = a^{\langle t \rangle}$, however we are going to use this notation because in the upcoming LSTM architecture, $c^{\langle t \rangle} \neq a^{\langle t \rangle}$. 
+#### Simplified GRU
+The GRU, formulated in [Cho et al. 2014](https://arxiv.org/abs/1409.1259) and [Chung et al 2014](https://arxiv.org/abs/1412.3555), outputs a new variable $c^{\langle t \rangle}$, a **memory cell** that provides memory for properties in earlier layers. In the GRU $c^{\langle t \rangle} = a^{\langle t \rangle}$ and we could just use $a^{\langle t \rangle}$ to refer to the memory cell. However we use the $c^{\langle t \rangle}$ notation for consistency with the LSTM architecture, in which $c^{\langle t \rangle} \neq a^{\langle t \rangle}$ and hence there is necessity to define two different variables.
+
 The memory cell $c^{\langle t \rangle}$ memorizes encodes an important property of the sequence that must affect later steps, for example we could have $c^{\langle t \rangle}=1$ for a singular word (hero) and $c^{\langle t \rangle}=0$ for a plural word (heroes). At each time-step we will *consider* updating $c^{\langle t \rangle}$ with a candidate value $\tilde{c}^{\langle t \rangle}$ based on a gate $\Gamma_u$ that decides if the memory cell should be overwritten or not.
 
 $$
 \begin{split}
 & \tilde{c}^{\langle t \rangle} = \tanh \left( W_c \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_c \right) \\
 & \Gamma_u = \sigma \left(  W_u \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_u \right) \\
-& c^{\langle t \rangle} = \Gamma_u \cdot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \cdot c^{\langle t-1 \rangle}
+& c^{\langle t \rangle} = \underbrace{\Gamma_u \cdot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \cdot c^{\langle t-1 \rangle}}_{u}
 \end{split}
 $$
-
-
-
-
-    (<mpl_flow.Node at 0x7fd9edcfbef0>, <mpl_flow.Edge at 0x7fd9edcfb5f8>)
-
-
 
 
     
 
 <figure id="fig:rnnunit">
-    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_16_1.svg" alt="png">
-    <figcaption>Figure 131. RNN unit</figcaption>
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_16_0.svg" alt="png">
+    <figcaption>Figure 131. RNN unit (A) and simplified GRU unit (B)</figcaption>
 </figure>
 
+When the gate $\Gamma_u \approx 0$, then the value of the memory cell $c^{\langle t \rangle} = c^{\langle t -1 \rangle}$ and so $c^{\langle t \rangle}$ will retain *memory* of its value as long as $\Gamma_u \approx 0$. Furthermore, since the gate when can be a very small value ($\Gamma_u \to 0$) it doesn't suffer from vanishing gradient problems. In fact, for $\lim_{ \Gamma_u \to 0} c^{\langle t \rangle} = c^{\langle t -1 \rangle}$. This allow an RNN to learn even very long-range dependencies.
 
-```python
+As stated earlier, the memory cell $c^{\langle t \rangle}$ provides memory for properties in early layers and propagate them throughout the steps of an RNN. Usually $c^{\langle t \rangle}$ is a vector of values representing multiple properties (e.g. singular/plural of the subject, we are talking about heroic deeds, we are talking about food, ...); The gate $\Gamma_u$ is also a vector of the same dimension of the memory cell, where each element governs the update of an element of the memory cell.
 
-```
+#### Full GRU
+The full GRU contain an additional gate $\Gamma_r$, where $r$ stands for relevance. The relevance gates encode for how *relevant* is $c^{\langle t-1 \rangle}$
+
+$$
+\begin{split}
+& \tilde{c}^{\langle t \rangle} = \tanh \left( W_c \left [\color{red}{\Gamma_r}, \color{black}c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_c \right) \\
+& \Gamma_u = \sigma \left(  W_u \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_u \right) \\
+& \color{red}{\Gamma_r = \sigma \left(  W_r \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_r \right)} \\
+& \color{black }c^{\langle t \rangle} = \underbrace{\Gamma_u \cdot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \cdot c^{\langle t-1 \rangle}}_{u}
+\end{split}
+$$
+
+#### About Notation
+In literature $c^{\langle t \rangle}$ and $\tilde{c}^{\langle t \rangle}$ are referred to as $h$ and $\tilde{h}$ respectively. For consistency with the notation of the basic RNN seen before and with the notation of LTSM in the next section, we instead used the $c^{\langle t \rangle}$ notation.
+
+Furthermore, in literature the gates $\Gamma_u$ and $\Gamma_r$ are usually just referred to as $u$ and $r$. However, for the sake of clarity we use the greek letter $\Gamma$, which in the greek alphabet reads like an hard $G$ and thus reminds of the word *gate*.
+
+## LSTM
