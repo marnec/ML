@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Deep Learning - RNN architectures"
+title: "Deep Learning - RNN - RNN architectures"
 categories: deeplearning
 permalink: /ML44/
 order: 44
@@ -166,7 +166,7 @@ $$
 \begin{split}
 & \tilde{c}^{\langle t \rangle} = \tanh \left( W_c \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_c \right) \\
 & \Gamma_u = \sigma \left(  W_u \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_u \right) \\
-& c^{\langle t \rangle} = \underbrace{\Gamma_u \cdot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \cdot c^{\langle t-1 \rangle}}_{u}
+& c^{\langle t \rangle} = \underbrace{\Gamma_u \odot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \odot c^{\langle t-1 \rangle}}_{u}
 \end{split}
 $$
 
@@ -190,7 +190,8 @@ $$
 & \tilde{c}^{\langle t \rangle} = \tanh \left( W_c \left [\color{red}{\Gamma_r}, \color{black}c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_c \right) \\
 & \Gamma_u = \sigma \left(  W_u \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_u \right) \\
 & \color{red}{\Gamma_r = \sigma \left(  W_r \left [ c^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_r \right)} \\
-& \color{black }c^{\langle t \rangle} = \underbrace{\Gamma_u \cdot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \cdot c^{\langle t-1 \rangle}}_{u}
+& \color{black }c^{\langle t \rangle} = \underbrace{\Gamma_u \odot \tilde{c}^{\langle t \rangle} + (1 - \Gamma_u) \odot c^{\langle t-1 \rangle}}_{u} \\
+& a^{\langle t \rangle} = c^{\langle t \rangle}
 \end{split}
 $$
 
@@ -200,3 +201,23 @@ In literature $c^{\langle t \rangle}$ and $\tilde{c}^{\langle t \rangle}$ are re
 Furthermore, in literature the gates $\Gamma_u$ and $\Gamma_r$ are usually just referred to as $u$ and $r$. However, for the sake of clarity we use the greek letter $\Gamma$, which in the greek alphabet reads like an hard $G$ and thus reminds of the word *gate*.
 
 ## LSTM
+The LTSM is a more powerful unit architecture than the GRU that enables an RNN to learn long-term dependencies, first proposed in [Hochreiter & Schmidhuber, 1997](https://dl.acm.org/doi/10.1162/neco.1997.9.8.1735). Differently from GRU, we have to remember that $c^{\langle t \rangle} \neq a^{\langle t \rangle}$ and this is reflected in the fact that now we explicitly refer to $a^{\langle t \rangle}$ in its computations. In the most common variation of the LSTM the relevance gate $\Gamma_r$ is absent and is instead present atwo new gates: the **forget gate** $\Gamma_f$ and the **output  gate** $\Gamma_o$. The forget gate replaces $(1-\Gamma_u)$ in governing the probability of forgetting the memory cell of the previous step $c^{\langle t-1 \rangle}$ and in doing that decouples the update-rate $\Gamma_u$ from the forget-rate $\Gamma_f$.
+
+$$
+\begin{split}
+& \tilde{c}^{\langle t \rangle} = \tanh \left( W_c \left [a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_c \right) \\
+& \Gamma_u = \sigma \left(  W_u \left [ a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_u \right) \\
+& \Gamma_f = \sigma \left(  W_f \left [ a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_f \right) \\
+& \Gamma_o = \sigma \left(  W_o \left [ a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ] + b_o \right) \\
+& c^{\langle t \rangle} = \Gamma_u \odot \tilde{c}^{\langle t \rangle} + \Gamma_f \odot c^{\langle t-1 \rangle} \\
+& a^{\langle t \rangle} = \Gamma_o \odot c^{\langle t \rangle}
+\end{split}
+$$
+
+
+    
+
+<figure id="fig:lstm">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_19_0.svg" alt="png">
+    <figcaption>Figure 132. LSTM unit</figcaption>
+</figure>
