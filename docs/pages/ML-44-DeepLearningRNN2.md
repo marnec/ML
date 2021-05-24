@@ -233,3 +233,62 @@ When temporally linking LSTM units (<a href="fig:lstmlink">figure below</a>) we 
     <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_22_0.svg" alt="png">
     <figcaption>Figure 133. Temporally linked LSTM units</figcaption>
 </figure>
+
+## Information from the Future
+All the RNN architectures seen up to this point produce a prediction $\hat{y}^{\langle t \rangle}$ taking into account information from previous steps: they are called **uni-directional RNN**. However, there are many situations in sequence analysis in which information from later steps is relevant or necessary to produce an accurate output.
+
+Consider the task of telling if a word in a sentence is a name or part of a name and consider the two sentences:
+
+> He said, "Teddy bears are one sale!"
+
+> He said, "Teddy Roosevelt was a great president!"
+
+### Bidirectional RNN
+It is not sufficient to take into account the words before "Teddy", to determine its output. A **Bi-directional RNN** (BRNN) fixes this issue by taking into account information from both previous and following steps. To do that it employs a **forward recurrent component** and a **backwards recurring component** (green elements in <a href="#fig:brnn">Figure 134</a>). They both act during forward propagation: the forward component propagates the information forward in the sequence from the first to the last step and it is the component employed in the architectures seen until now; the backwards component propagates information backwards from the last to the first element of the sequence. The two components combine in an acyclic graph where $\hat{y}$ receives information from both $\overrightarrow{a}$ and $\overleftarrow{a}$.
+
+$$
+\hat{y}^{\langle t \rangle} = g\left (W_y \left[\overrightarrow{a}^{\langle t \rangle}, \overleftarrow{a}^{\langle t \rangle} \right] + b_y \right) 
+$$
+
+
+    
+
+<figure id="fig:brnn">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_24_0.svg" alt="png">
+    <figcaption>Figure 134. Bidirectional RNN architecture on a 4-steps sequence. The black elements show the forward recurring component, the green elements show the backwards recurring component. The $a$ blocks can represent any of the GRU or LSTM block</figcaption>
+</figure>
+
+The recurrent units represented as boxes in <a href="#fig:brnn">Figure 134</a> can refer to any RNN unit, like GRU or LSTM. It is in fact common for NLP problems to use BRNNs with LSTM units. Using BRNNS has the advantage that predictions on each element of a sequence can be made taking into account the entire sequence. The **disadvantage** of BRNNs is that it needs to know the entire sequence to produce an output. This poses a problem with real-time tasks like speech-recognition, where a simple BRNN model like that shown here would have to wait for a person to stop talking before it could process the audio source.
+
+##  Deep RNNs
+The different RNN units seen so far rely on a single classification layer. Form many tasks, these architectures are already good-performer, however some mappings require more complex functions to be modeled. This can be achieved by stacking multiple layers of RNNs together and build a **deep-RNNs**. In <a href="#fig:deeprnn">Figure 135</a>, a possible uni-directional deep-rnn is shown.
+
+
+    
+
+<figure id="fig:deeprnn">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_27_0.svg" alt="png">
+    <figcaption>Figure 135. A deep uni-directional RNN architecture with 3 layers and 4 steps</figcaption>
+</figure>
+
+Taking into account the network shown in  <a href="#fig:deeprnn">Figure 135</a>, an activation vector at layer $l$ and time-step $t$ has the input coming from the previous layer ($l-1$) and the input coming from the precious time-step ($t-1$). So the activation value $a^{[l]\langle t \rangle}$ will be
+
+$$
+a^{[l]\langle t \rangle} = g \left( W_a^{[l]} \left [ a^{[l]\langle t-1 \rangle} , a^{[l-1]\langle t \rangle} \right ] + b_a^{[l]} \right)
+$$
+
+so for example for $a^{[2]\langle 3 \rangle}$ we will have
+
+$$
+a^{[2]\langle 3 \rangle} = g \left( W_a^{[2]} \left [ a^{[2]\langle 2 \rangle} , a^{[1]\langle 3 \rangle} \right ] + b_a^{[2]} \right)
+$$
+
+Each recurrent unit $a$ in a deep RNN can of course be any of the GRU, LSTM or BRNN unit, however due to RNN being computationally intensive to train, deep-BRNN are less employed. For the same reason, recurrent layers are usually not stacked in huge numbers. However, in some implementations many deep non-recurrent layers are stacked on top of recurrent layers (<a href="#fig:deepmixedrnn">Figure 136</a>).
+
+
+    
+
+<figure id="fig:deepmixedrnn">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_30_0.svg" alt="png">
+    <figcaption>Figure 136. A deep RNN architecture with 4 time-steps, 3 recurrent layers and 2 non-recurrent layers</figcaption>
+</figure>
