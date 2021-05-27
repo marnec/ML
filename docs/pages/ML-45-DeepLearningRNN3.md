@@ -10,7 +10,8 @@ comments: true
 # Word embeddings in NLP
 One of the field of machine learning being revolutionized by RNN is Natural Language Processing (NLP), a classically complex task due to the very changeling nature of language and the nuances in its meaning. One the key concepts helping with NLP-related tasks is **word embeddings**, a representation for words that let an algorithm learn analogies (e.g. man is to woman, as king is to queen).
 
-## Word representation
+## Word embedding intuition
+### Word representation
 Up until this point we have been representing words with a vocabulary vector $V$ of a fixed size (let's say 10,000 words) with a word represented by a one-hot vector of size $|V|$
 
 $$
@@ -61,13 +62,13 @@ Behind the concept of word embedding, the one-hot representation is replaced by 
 
 We can now notice that the representation for *Apple* $e_{456}$ and for the word *Orange* $e_{6257}$ are very similar. We expect some of the features to be different but in general their representation should be consistently close. This increases the odds of a learning algorithm to generalize the probability associated to a sentence containing the word *Orange* to the same sentence with the word *Apple*. Learned features are not easily interpretable as the ones used in this example and their exact representation is often hard to figure out.
 
-## Visualizing word embeddings
+### Visualizing word embeddings
 Once a high-dimensional featurized representation (embedding) is built for each word in a vocabulary, each word will be represented by a high-dimensional vector of feature components. This reflects the reason why they are called embeddings: they are imagined as points *embedded* in a high-dimensional feature-space. It could be useful to visualize the embeddings but it is impossible to represent more than 2-3 dimensions in a plot. To visualize them the high-dimensional space is compressed to a 2D space. The compression method commonly used is the **t-SNE** algorithm ([van der Maaten and Hinton, 2008](https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf))
 
-## Relation of word embeddings to face encodings
+### Relation of word embeddings to face encodings
 In face verification and face recognition tasks, input images of faces are represented in vectors called **encodings** (<a href="{{site.basurl}}/ML/ML40ML-40">ML40</a>). The concept of face encoding and word embedding is very close (not equal) and in the literature the two terms are sometimes used interchangeably.
 
-## Using word embeddings
+### Using word embeddings
 Let's apply the concept of word embeddings to the named entity recognition example that we have followed throughout <a href="{{site.basurl}}/ML/ML44ML-44">ML44</a>. Suppose we have the sentences
 
 ```
@@ -88,14 +89,14 @@ Suppose now to replace the words `apple farmer` with the much less common words 
     <figcaption>Figure 137. An example of a simplified RNN taking variations of a sequence and producing an output.</figcaption>
 </figure>
 
-## Transfer learning of word embeddings
+### Transfer learning of word embeddings
 The example in the previous section implies that the word embedding model *knows more* (aka as been trained on a bigger dataset) than the named entity recognition model. In fact, to make full use of word embeddings, they are usually trained on extremely large text corpus, in the range of 1 billion to 100 billion words. On the contrary, a named entity recognition model can be trained on a much smaller dataset, for example 100 thousands words. 
 
 Word embeddings and named entity recognition models don't need to be trained at the same time and are in fact usually trained separately. Pre-trained word embeddings are also freely available with permissive licenses. The knowledge learned by the word embedding model is then **transferred** to the named entity recognition task. 
 
 It is even possible to **finetune** the word embeddings in the task it has ben transferred to, but this is usually done only if such task is trained on a sufficiently big dataset.
 
-## Analogies
+### Analogies
 Suppose we have a 4-dimensional word embedding as shown in this table and the task and the task of finding an analogy `Man -> Woman as King -> ?`
 
 |          | Man  | Woman | King  | Queen | Apple | Orange |
@@ -136,10 +137,31 @@ $$
 \arg\max_w \; \text{sim}(e_w, e_\text{King} - e_\text{Man} + e_\text{Woman})
 $$
 
-The similarity function $\sim$ most commonly used is the **cosine similarity**, defined as:
+The similarity function $\text{sim}$ most commonly used is the **cosine similarity**, defined as:
 
 $$
 \text{sim}(u,v) = \frac{u^Tv}{\| u \|_2 \| v \|_2}
 $$
 
-which is basically the inner product between $u$ and $v$
+where the numerator is basically the inner product between $u$ and $v$ ($u^Tv = \langle u, v \rangle$). If $u$ and $v$ are very similar (parallel) the inner product will tend to be large; if they are very different (orthogonal) the inner product will tend to 0. This similarity function is called cosine similarity because it computes the cosine between the vectors $u$ and $v$ (<a href="#fig:cosine">Figure 139</a>): 
+
+* $\cos = 1$ when the angle $\phi=0$ (parallel, same direction)
+* $\cos = 0$ when the angle $\phi=90^{\circ}$ (orthogonal)
+* $\cos = -1$ when the angle $\phi=180^{\circ}$ (parallel, opposite direction)
+
+
+    
+
+<figure id="fig:cosine">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_7_0.svg" alt="png">
+    <figcaption>Figure 139. Cosine function for values of the angle $\phi$ between to vectors in the range $[0, \pi]$</figcaption>
+</figure>
+
+## Learning Word embeddings
+### Embedding matrix
+The task 
+
+
+```python
+
+```
