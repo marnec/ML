@@ -158,8 +158,31 @@ where the numerator is basically the inner product between $u$ and $v$ ($u^Tv = 
 </figure>
 
 ## Learning Word embeddings
+
 ### Embedding matrix
-The task 
+The task of learning word embeddings produces an **embedding matrix**. Supposing to have a corpus of $m$ words and and learning $n$ features for each word. We would have an $n \times m$ embedding matrix $E$. Each column of $E$ is the embedding of one word in the vocabulary. 
+
+$$
+\small
+\begin{aligned}[b]
+& \begin{matrix} &&& \text{a} & \dots & \text{orange}\; & \dots & \text{zulu} & \end{matrix}\\ 
+&E = \begin{bmatrix}
+E_{1,1}       & \cdots    & E_{1,6257} & \cdots  & E_{1,10000}  \\ &&\vdots&&\\ \\ \\ 
+\end{bmatrix} \\ 
+\end{aligned} \qquad
+O = 
+\begin{bmatrix}
+0\\ \vdots \\ 1 \\ \vdots \\ 0 
+\end{bmatrix}
+$$
+
+Multiplying the embedding matrix $E$ with the one-hot vector representation of one word $j$ the vocabulary $O$ will have the effect of selecting the embedding for word $j$ from the embedding matrix.
+
+$$
+E \cdot O_j = E_j
+$$
+
+The embedding matrix is $n \times m$ dimensional and the one-hot vector $O_j$ is $m \times 1$ dimensional. The multiplication will produce an $n \times 1$ vector which just reports the column $j$ of matrix $E$, since $j$ is the only at which $O_j$ has non-zero value.
 
 
 ```python
