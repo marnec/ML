@@ -179,12 +179,43 @@ $$
 Multiplying the embedding matrix $E$ with the one-hot vector representation of one word $j$ the vocabulary $O$ will have the effect of selecting the embedding for word $j$ from the embedding matrix.
 
 $$
-E \cdot O_j = E_j
+E \cdot o_j = e_j
 $$
 
-The embedding matrix is $n \times m$ dimensional and the one-hot vector $O_j$ is $m \times 1$ dimensional. The multiplication will produce an $n \times 1$ vector which just reports the column $j$ of matrix $E$, since $j$ is the only at which $O_j$ has non-zero value.
+The embedding matrix is $n \times m$ dimensional and the one-hot vector $O_j$ is $m \times 1$ dimensional. The multiplication will produce an $n \times 1$ vector which just reports the column $j$ of matrix $E$, since $j$ is the only at which $o_j$ has non-zero value.
+
+### Embedding learning intuition
+Deep learning models regarding word embedding started off as rather complicated algorithms and, along the years, have been gradually simplified without sacrificing their performance, especially when trained on large datasets. Mirroring this process, it is maybe easier to get an intuition of word embedding algorithms starting from more complex formulations and gradually simplifying them to get to modern standards.
 
 
-```python
+#### Neural language model
+Given the task of predicting the missing word from a sentence, as for example
 
 ```
+I want a glass of orange ______.
+```
+
+the authors of [Benjo et. al., 2003](https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf) built a language model. They would codify each word as a one-hot vector $o_j$ and obtain the word embedding $e_j$. This produces a series of high-dimensional embeddings, which are fed into a neural network layer, which in turn feeds to a softmax classifier (<a href="#fig:neurallanguagemodel">Figure 140</a>). The softmax clasifier outputs a vector with the same dimension as the training vocabulary, so that it can select any word from it to fill the missing word. The neural network layer has its own parameters ($W^{[1]}, b^{[1]}$) as well as the softmax layer ($W^{[2]}, b^{[2]}$)
+
+
+    
+
+<figure id="fig:neurallanguagemodel">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_10_0.svg" alt="png">
+    <figcaption>Figure 140. The architecture of a neural language model applied to a sentence.</figcaption>
+</figure>
+
+Looking at the example in <a href="#fig:neurallanguagemodel">Figure 140</a>, given 300 dimensional word embeddings the input fed to the neural network will be a 1800 input vector, composed by the 6 embedding vectors (one per word) stacked together. 
+
+A common alternative is that of using a **fixed historical window**, where a fixed number of past time-steps (words in this case) are fed to the neural network layer to produce a prediction for the current time-step. The width of the window would be an additional hyperparameter that needs to be set manually, however this approach allow to process arbitrarily long sentences without changing the computation time.
+
+The model represented in <a href="#fig:neurallanguagemodel">Figure 140</a>, can be used to train word embeddings. In this model, the parameters are the embedding matrix $E$, the parameters of the neural network $W^{[1]}, b^{[1]}$ and those of the softmax layer $W^{[2]}, b^{[2]}$. For each word in your text corpus, backpropagation can be used to perform gradient descent to maximize the likelihood to that word given the preceding word in the window. 
+
+For the task of building a language model, upon which we built our example, using as context a few preceding words is natural. However, if the task is to learn word embeddings various contexts can be used and researchers have experimented with various context combinations:
+
+* A few preceding words: the earliest approach, shown in the example  
+* A few preceding and following words: this approach gives context from later part of the sentence respect to the target word
+* A single immediately preceding word: a much simpler model
+* A single nearby word: a skip-gram model; a simple model that works surprising well
+
+## Word2Vec 
