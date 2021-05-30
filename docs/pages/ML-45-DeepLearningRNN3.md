@@ -289,7 +289,7 @@ $$
 \label{eq:skipgram} \tag{1}
 $$
 
-where the softmax layer, which returns the probability of the target given the context $p(t|c)$ defined as
+where the softmax layer, which returns the probability of the target given the context $p(t \vert c)$ defined as
 
 $$
 \underset{\small\text{softmax}}{\bigcirc}: p(t \vert c) = \frac{e^{\theta_t^Te_c}}
