@@ -288,7 +288,7 @@ $$
 where the softmax layer, which returns the probability of the target given the context $p(t|c)$ defined as
 
 $$
-\underset{\small\text{softmax}}{\bigcirc}: p(t | c) = \frac{e^{\theta_t^Te_c}}
+\underset{\small\text{softmax}}{\bigcirc}: p(t \vert c) = \frac{e^{\theta_t^Te_c}}
 {\sum_{j=1}^{n}e^{\theta_j^Te_c}}
 $$
 
