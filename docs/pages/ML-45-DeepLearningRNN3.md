@@ -219,9 +219,12 @@ For the task of building a language model, upon which we built our example, usin
 * A single nearby word: a **skip-gram model**; a simple model that works surprising well
 
 ## Word2Vec
-The Word2Vec algorithm ([Mikolov et al., 2013](https://arxiv.org/abs/1301.3781)) is a simpler and thus more computationally efficient way of learning word embeddings compared to the algorithm examined so far.
+The Word2Vec algorithm ([Mikolov et al., 2013](https://arxiv.org/abs/1301.3781)) is a simpler and thus more computationally efficient way of learning word embeddings compared to the algorithm examined so far. The Word2Vec algorithm is built on two alternative models the **skip-gram** model and the **CBow model** (Continuous Backwards model).
 
-The Word2Vec algorithm is based on the concept of the **skip-grams** model, which generates a number of context-to-target pairs. Suppose we have the following sentence in our training text corpus
+The skip-gram model generates a number of context-to-target pairs. The CBow model uses the surrounding context from a middle word.
+
+### Skip-gram model
+Suppose we have the following sentence in our training text corpus
 
 `I want a glass of orange juice to go along with my cereal`
 
@@ -276,6 +279,7 @@ The skip-gram model randomly picks a word to be the *Context* and a word to be t
 
 So we set up a supervised learning problem where, given a context word, the algorithm is asked to predict a randomly chosen word in a $\pm w$ window of input context words, where $w$ is the size of the window. While this is a very hard learning problem, the goal of setting up this supervised learning problem is not to optimize the performance on *this* learning problem per se, instead this learning problem is used to learn word-embeddings.
 
+
 Given a vocabulary of size $n$, we want to map the context ($c \equiv x$) to the target ($t \equiv y$). Supposing that the representation of the context and the target are tow one-hot vectors $o_c, o_t$, encoding for their position in the vocabulary, we have
 
 $$
@@ -301,6 +305,28 @@ $$
 with $y$ (target $t$) being represented as a one-hot vector encoding for the position of the target $t$ in the vocabulary and similarly $\hat{y}$ being a $n$-dimensional vector produced by the softmax layer, containing the probabilities for each word in the vocabulary.
 
 The overall skip-gram model $\eqref{eq:skipgram}$ will have the embedding parameters $E$ and the softmax unit parameters $\theta_t$. The optimization of the loss function $\mathcal{L}({\hat{y}, y})$ with respect to all parameters ($E, \theta_t$), the skip-gram model will learn surprisingly good embeddings.
+
+#### Computational cost of softmax
+There are problems with the computational speed of the skip-gram model with softmax, in particular, each time the probability $p(t \vert c)$ is evaluated, a sum over $n$ elements needs to be carried out, with $n$ possibly reaching millions.
+
+To resolve this issue, an laternative approach to the standard softmax is applied, called **hirearchical softmax**. A hierarchical softmax classifier is built of many binary classifiers organized hierarchically, where each binary classifier tells if the target $t$ is in the first or the second half of the previous input (<a href="#fig:hirearchicalsoftmax">Figure 141</a>). This scales the computational cost to $\log \vert n \vert$. 
+
+
+    
+
+<figure id="fig:hirearchicalsoftmax">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_15_0.svg" alt="png">
+    <figcaption>Figure 141. Hierarchical softmax. Each node is a binary classifier that splits its input in two halves and determines if the target $t$ is the first or second half </figcaption>
+</figure>
+
+Acutal implementation of a hierarchical softmax classifier would not split the input in halves but it would have more common words (word encountered more frequently in the corpus) in shallow layers and more rare words in deep layers. This detail increase the likelyhood of stopping in early layers without traversing all layers of the tree and has the effect of further speeding up computation for the majority of words.
+
+#### Sampling the context
+Once $c$ is sampled, $t$ is sampled in a $\pm w$ window. But how is $c$ chosen? One possibility is to have a uniformly random sample. This will have the effect of sampling frequent words more frequently, where frequent words also tend to be less informative words like `the`, `of`, `a`, `and` and so on.
+
+In practice this is not desirable because it means that many training steps will be spent updating $e_c$ on a $c \to t$ mapping where the context $c$ is not so relevant. To balance out the frequency of these words, the distribution $P(c)$ is not taken uniformly random from the corpus but heuristics are used to balance out sampling from common words versus sampling from less common words.
+
+
 
 
 ```python
