@@ -160,7 +160,7 @@ where the numerator is basically the inner product between $u$ and $v$ ($u^Tv = 
 ## Learning Word embeddings
 
 ### Embedding matrix
-The task of learning word embeddings produces an **embedding matrix**. Supposing to have a corpus of $m$ words and and learning $n$ features for each word. We would have an $n \times m$ embedding matrix $E$. Each column of $E$ is the embedding of one word in the vocabulary. 
+The task of learning word embeddings produces an **embedding matrix**. Supposing to have a corpus of $n$ words and and learning $m$ features for each word. We would have an $m \times n$ embedding matrix $E$. Each column of $E$ is the embedding of one word in the vocabulary. 
 
 $$
 \small
@@ -182,7 +182,7 @@ $$
 E \cdot o_j = e_j
 $$
 
-The embedding matrix is $n \times m$ dimensional and the one-hot vector $O_j$ is $m \times 1$ dimensional. The multiplication will produce an $n \times 1$ vector which just reports the column $j$ of matrix $E$, since $j$ is the only at which $o_j$ has non-zero value.
+The embedding matrix is $m \times n$ dimensional and the one-hot vector $O_j$ is $n \times 1$ dimensional. The multiplication will produce an $m \times 1$ vector which just reports the column $j$ of matrix $E$, since $j$ is the only at which $o_j$ has non-zero value.
 
 ### Embedding learning intuition
 Deep learning models regarding word embedding started off as rather complicated algorithms and, along the years, have been gradually simplified without sacrificing their performance, especially when trained on large datasets. Mirroring this process, it is maybe easier to get an intuition of word embedding algorithms starting from more complex formulations and gradually simplifying them to get to modern standards.
@@ -216,6 +216,93 @@ For the task of building a language model, upon which we built our example, usin
 * A few preceding words: the earliest approach, shown in the example  
 * A few preceding and following words: this approach gives context from later part of the sentence respect to the target word
 * A single immediately preceding word: a much simpler model
-* A single nearby word: a skip-gram model; a simple model that works surprising well
+* A single nearby word: a **skip-gram model**; a simple model that works surprising well
 
-## Word2Vec 
+## Word2Vec
+The Word2Vec algorithm ([Mikolov et al., 2013](https://arxiv.org/abs/1301.3781)) is a simpler and thus more computationally efficient way of learning word embeddings compared to the algorithm examined so far.
+
+The Word2Vec algorithm is based on the concept of the **skip-grams** model, which generates a number of context-to-target pairs. Suppose we have the following sentence in our training text corpus
+
+`I want a glass of orange juice to go along with my cereal`
+
+The skip-gram model randomly picks a word to be the *Context* and a word to be the *Target*. So for example, we could have
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Context</th>
+      <th>Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Example 1</th>
+      <td>orange</td>
+      <td>juice</td>
+    </tr>
+    <tr>
+      <th>Example 2</th>
+      <td>orange</td>
+      <td>glass</td>
+    </tr>
+    <tr>
+      <th>Example 3</th>
+      <td>orange</td>
+      <td>my</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+So we set up a supervised learning problem where, given a context word, the algorithm is asked to predict a randomly chosen word in a $\pm w$ window of input context words, where $w$ is the size of the window. While this is a very hard learning problem, the goal of setting up this supervised learning problem is not to optimize the performance on *this* learning problem per se, instead this learning problem is used to learn word-embeddings.
+
+Given a vocabulary of size $n$, we want to map the context ($c \equiv x$) to the target ($t \equiv y$). Supposing that the representation of the context and the target are tow one-hot vectors $o_c, o_t$, encoding for their position in the vocabulary, we have
+
+$$
+\begin{equation}
+\begin{array} \\ E \\ o_c \end{array} \to E \cdot o_c \to e_c \to \underset{\small\text{softmax}}{\bigcirc} \to \hat{y}
+\end{equation}
+\label{eq:skipgram} \tag{1}
+$$
+
+where the softmax layer, which returns the probability of the target given the context $p(t|c)$ defined as
+
+$$
+\underset{\small\text{softmax}}{\bigcirc}: p(t | c) = \frac{e^{\theta_t^Te_c}}
+{\sum_{j=1}^{n}e^{\theta_j^Te_c}}
+$$
+
+where $\theta_t$ is the parameter associated with the output $t$ (the probability of $t$) and the bias were omitted for clarity. The loss function $\mathcal{L}$ of this model would be the usual loss for softmax: 
+
+$$
+\mathcal{L}(\hat{y},y)=-\sum_{i+1}^n y_i \log \hat{y}_i 
+$$
+
+with $y$ (target $t$) being represented as a one-hot vector encoding for the position of the target $t$ in the vocabulary and similarly $\hat{y}$ being a $n$-dimensional vector produced by the softmax layer, containing the probabilities for each word in the vocabulary.
+
+The overall skip-gram model $\eqref{eq:skipgram}$ will have the embedding parameters $E$ and the softmax unit parameters $\theta_t$. The optimization of the loss function $\mathcal{L}({\hat{y}, y})$ with respect to all parameters ($E, \theta_t$), the skip-gram model will learn surprisingly good embeddings.
+
+
+```python
+
+```
