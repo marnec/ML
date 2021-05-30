@@ -11,6 +11,7 @@ comments: true
 One of the field of machine learning being revolutionized by RNN is Natural Language Processing (NLP), a classically complex task due to the very changeling nature of language and the nuances in its meaning. One the key concepts helping with NLP-related tasks is **word embeddings**, a representation for words that let an algorithm learn analogies (e.g. man is to woman, as king is to queen).
 
 ## Word embedding intuition
+The term **word embedding** and **word vector** are used interchangeably in the literature and they both refer to encoding a word as a series of coordinates that position the word close to thematically related words and far from thematically unrelated words in a high-dimensional feature space.
 ### Word representation
 Up until this point we have been representing words with a vocabulary vector $V$ of a fixed size (let's say 10,000 words) with a word represented by a one-hot vector of size $|V|$
 
@@ -219,7 +220,7 @@ For the task of building a language model, upon which we built our example, usin
 * A single nearby word: a **skip-gram model**; a simple model that works surprising well
 
 ## Word2Vec
-The Word2Vec algorithm ([Mikolov et al., 2013](https://arxiv.org/abs/1301.3781)) is a simpler and thus more computationally efficient way of learning word embeddings compared to the algorithm examined so far. The Word2Vec algorithm is built on two alternative models the **skip-gram** model and the **CBow model** (Continuous Backwards model).
+The Word2Vec algorithm ([Mikolov et al., 2013](https://arxiv.org/abs/1301.3781)) is a simpler and thus more computationally efficient way of learning word embeddings compared to the algorithm examined so far. The Word2Vec algorithm is built on two alternative models the **skip-gram** model and the **CBow model** (Continuous Bag Of Words model).
 
 The skip-gram model generates a number of context-to-target pairs. The CBow model uses the surrounding context from a middle word.
 
@@ -306,6 +307,11 @@ with $y$ (target $t$) being represented as a one-hot vector encoding for the pos
 
 The overall skip-gram model $\eqref{eq:skipgram}$ will have the embedding parameters $E$ and the softmax unit parameters $\theta_t$. The optimization of the loss function $\mathcal{L}({\hat{y}, y})$ with respect to all parameters ($E, \theta_t$), the skip-gram model will learn surprisingly good embeddings.
 
+#### Sampling the context
+Once $c$ is sampled, $t$ is sampled in a $\pm w$ window. But how is $c$ chosen? One possibility is to have a uniformly random sample. This will have the effect of sampling frequent words more frequently, where frequent words also tend to be less informative words like `the`, `of`, `a`, `and` and so on.
+
+In practice this is not desirable because it means that many training steps will be spent updating $e_c$ on a $c \to t$ mapping where the context $c$ is not so relevant. To balance out the frequency of these words, the distribution $P(c)$ is not taken uniformly random from the corpus but heuristics are used to balance out sampling from common words versus sampling from less common words.
+
 #### Computational cost of softmax
 There are problems with the computational speed of the skip-gram model with softmax, in particular, each time the probability $p(t \vert c)$ is evaluated, a sum over $n$ elements needs to be carried out, with $n$ possibly reaching millions.
 
@@ -315,20 +321,109 @@ To resolve this issue, an laternative approach to the standard softmax is applie
     
 
 <figure id="fig:hirearchicalsoftmax">
-    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_15_0.svg" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_17_0.svg" alt="png">
     <figcaption>Figure 141. Hierarchical softmax. Each node is a binary classifier that splits its input in two halves and determines if the target $t$ is the first or second half </figcaption>
 </figure>
 
 Acutal implementation of a hierarchical softmax classifier would not split the input in halves but it would have more common words (word encountered more frequently in the corpus) in shallow layers and more rare words in deep layers. This detail increase the likelyhood of stopping in early layers without traversing all layers of the tree and has the effect of further speeding up computation for the majority of words.
 
-#### Sampling the context
-Once $c$ is sampled, $t$ is sampled in a $\pm w$ window. But how is $c$ chosen? One possibility is to have a uniformly random sample. This will have the effect of sampling frequent words more frequently, where frequent words also tend to be less informative words like `the`, `of`, `a`, `and` and so on.
+## Negative Sampling
+The downside of the Word2Vec algorithms is the computational cost of the softmax layer. The **Negative sampling** modifies the learning problem to have a very similar results as the skip-gram model but  with a much more efficient learning algorithm.
 
-In practice this is not desirable because it means that many training steps will be spent updating $e_c$ on a $c \to t$ mapping where the context $c$ is not so relevant. To balance out the frequency of these words, the distribution $P(c)$ is not taken uniformly random from the corpus but heuristics are used to balance out sampling from common words versus sampling from less common words.
+Negative sampling ([Mikolov et. al. 2013](https://papers.nips.cc/paper/2013/file/9aa42b31882ec039965f3c4923ce901b-Paper.pdf)), by Google, poses a different learning problem: given a pair of words (`orange`, `juice`), is this a context-target pair?
 
-
-
-
-```python
+To train a model on this problem, given a sentence
 
 ```
+I want a glass of orange juice to go along with my cereal
+```
+
+we build a training set by selecting a context word $c$, and associating it to a target word $t$ by labeling the pair as 1 $(y=1)$. Then we would randomly pick $k$ words ($t$) from the corpus text and always labeling these pair $(c, t)$ as $y=0$, where $k$ is in the range $[5, 20]$ for smaller datasets and $[2, 5]$ for very large datasets.
+
+
+
+
+<style  type="text/css" >
+    #T_6b75f042_c160_11eb_85a2_8c1645111fa1 th {
+          text-align: center;
+    }</style><table id="T_6b75f042_c160_11eb_85a2_8c1645111fa1" ><thead>    <tr>        <th class="col_heading level0 col0" colspan=2>$x$</th>        <th class="col_heading level0 col2" >$y$</th>    </tr>    <tr>        <th class="col_heading level1 col0" >context $(c)$</th>        <th class="col_heading level1 col1" >word $(t)$</th>        <th class="col_heading level1 col2" >target?</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row0_col0" class="data row0 col0" >orange</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row0_col1" class="data row0 col1" >juice</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row0_col2" class="data row0 col2" >1</td>
+            </tr>
+            <tr>
+                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row1_col0" class="data row1 col0" >orange</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row1_col1" class="data row1 col1" >king</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row1_col2" class="data row1 col2" >0</td>
+            </tr>
+            <tr>
+                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row2_col0" class="data row2 col0" >orange</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row2_col1" class="data row2 col1" >book</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row2_col2" class="data row2 col2" >0</td>
+            </tr>
+            <tr>
+                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row3_col0" class="data row3 col0" >orange</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row3_col1" class="data row3 col1" >the</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row3_col2" class="data row3 col2" >0</td>
+            </tr>
+            <tr>
+                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row4_col0" class="data row4 col0" >orange</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row4_col1" class="data row4 col1" >of</td>
+                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row4_col2" class="data row4 col2" >0</td>
+            </tr>
+    </tbody></table>
+
+
+
+The supervised learning problem predicts if an input pair of words ($x$) is a context-target pair ($\hat{y}$). In other words the learning algorithm needs to distinguish between the two distribution of manually labeled positive target words and randomly picked negative target words.
+
+The model to learn the mapping $x \to y$ is basically a logistic regression model that outputs the probability of $y=1$, given the pair $c,t$ (<a href="#fig:negsamp">Figure 142</a>)
+
+$$
+P(y=1 \vert c,t) = \sigma \left(\theta^T_te_c \right )
+$$
+
+
+    
+
+<figure id="fig:negsamp">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_22_0.svg" alt="png">
+    <figcaption>Figure 142. Negative sampling model architecture. The context word $o_c$ selects its embedding $e_c$ and feeds to $n$ logistic regression units where $n$ is the size of the vocabulary. Each binary classifier elects the pair $(c,t)$ to a context-target pair</figcaption>
+</figure>
+
+The context word $c$, represented as a one-hot vector $o_c$ selects its embedding representation $e_c$ from the embedding matrix $E$ and then feeds to as many logistic regression units as the number of words in the vocabulary ($n$). Each logistic regression unit produce a binary classification that tells if the the pair $(c,t)$ is a context-target pair. However, instead of training all $n$ binary classifiers at every iteration, only $k+1$ of them are trained, where $k$ is the number of **negative samples** drawn from the text corpus and the $+1$ is the known positive example.
+
+Negatives examples sampling suffer from the same problem as the context sampling in the skip-gram model. The authors of [Mikolov et. al. 2013](https://papers.nips.cc/paper/2013/file/9aa42b31882ec039965f3c4923ce901b-Paper.pdf) empirically determined that a good sampling distribution is an heuristic value in-between sampling from the observed distribution in the corpus and sampling from a uniformly random distribution. Their sampling is proportional to the frequency of the word to the power of $3/4$
+
+$$
+P(w_i) = \frac{f(w_i)^{\frac{3}{4}}}{\sum_{j=1}^nf(w_j)^{\frac{3}{4}}}
+$$
+
+where $f(w_i)$ is the frequency of the word in the text corpus.
+
+## GloVe word vectors
+A very simple algorithm for calculating word embedding is the **GloVe** (GLObal VEctor) algorithm, from [Pennington et. al., 2014](https://nlp.stanford.edu/pubs/glove.pdf).
+
+In the GloVe algorithm, given two words $i$ and $j$, we define $X_{ij}$ as the number of times $j$ appears in the context of $i$. 
+
+In the GloVe algorithm, the context is defined as a window of size $\pm w$ and it is, thus, symmetrical. This leads to $X_{ij}=X_{ji}$, which would not be true if the context were not symmetrical, for example if the context were defined as $w$ following or preceding words. Since the relation is symmetrical,  we are dropping the notation $c, t$ (which implies a directionality) in favor of the notation of the original work $i, j$. However the two notations can be used interchangeably.
+
+The GloVe model optimization objective is to minimize a loss function that revolves around the difference between $\theta^T_ie_j$ minus $-\log X_{ij}$, where the first term is the inner product of the two vectors and the second term is their co-occurrence frequency. So the loss function is measuring how much the inner product $\langle i, j \rangle$ is a good predictor of the co-occurrence frequency of $i$ and $j$.
+
+$$
+J = \sum_{i=1}^n \sum_{j=1}^n f\left(X_{ij}\right)\left(\theta_i^Te_j+b_i + b_j' - \log X_{ij}\right)^2
+$$
+
+where $(f{X_ij})$ is a weighting term that plays two roles:
+ 
+* it assumes the value 0 if $X_{ij}=0$, in order to prevent the computation of $\log 0$, which is undefined
+* it shrink the frequency of stop-words (`this`, `of`, ...) while increasing the frequency of rare non stop-words in the corpus
+
+The original work contains further detail on how the heuristic function $f(X_{ij})$ is set to achieve similar results and how different implementations affect the algorithm.
+
+Since the relationship between $i$ and $j$ is symmetrical (unlinke what we have seen in previous algorithm for $c$ and $t$), the final embedding vector for a certain word $z$, is calculated taking the average between $e_z$ and $\theta_z$
+
+$$
+e_z^{\text{final}} = \frac{e_z+\theta_z}{2} 
+$$
