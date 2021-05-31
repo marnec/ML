@@ -512,38 +512,6 @@ The sentiment associated to this sentence is clearly negative, however the word 
 To encode for the order of words in a sentence a sentiment classification model can be built by feeding embedding vectors to an RNN
 
 
-```python
-sentence = 'Completely lacking in good ... ambience'.split()
-idxs = [1852, 4966, 4427, 3882, 0, 330]
-
-fig, ax = plt.subplots(figsize=(8, 4.5))
-f = Flow(ax=ax, bbox=dict(ec='none', fc='none', boxstyle='square'), fontsize=13)
-
-for t, (word, idx) in enumerate(zip(sentence, idxs)):
-    connect=True if t != 4 else False
-    distance=.5
-    f.node(f'w{t}', label=f'$\\mathrm{{{word}}}$', 
-           travel='e', startpoint=f'w{t-1}', connect=False)
-    f.node(f'E{t}', label='$E$' if t != 4 else '', connect=connect,
-           startpoint=f'o{t}', travel='n', distance=distance)
-    f.node(f'e{t}', label=f'$e_{{{idx}}}$' if t != 4 else '', 
-           startpoint=f'E{t}', travel='n', connect=connect, distance=distance)
-    f.node(f'a{t}', startpoint=f'e{t}', travel='n', distance=distance, 
-           label=f'$a^{{\\langle {t+1 if t != 5 else 10} \\rangle}}$' if t != 4 else '$\\mathrm{...}$', 
-           connect=connect, bbox=dict(ec='k' if t != 4 else 'w'))
-
-f.node('s', label=' ', travel='n', bbox=dict(ec='k', boxstyle='circle'), 
-       xlabel='softmax', xlabel_xy=(0.5, -0.5), distance=.7,
-       edge_kwargs=dict(arrowprops=dict(shrinkA=15)))
-f.node('y', label='$\\hat{y}$', travel='n', distance=.5)
-f.node(f'a-1', label='$a^{{\\langle 0 \\rangle}}$', startpoint='a0', travel='w', 
-       connect=False, bbox=dict(ec='k'))
-
-for t in range(len(sentence)):
-    f.edge(f'a{t-1}', f'a{t}', tailport='e', headport='w')
-```
-
-
     
 ![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_30_0.svg)
     
