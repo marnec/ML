@@ -344,33 +344,33 @@ we build a training set by selecting a context word $c$, and associating it to a
 
 
 <style  type="text/css" >
-    #T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1 th {
+    #T_6e929e38_c1f6_11eb_9f57_8c1645111fa1 th {
           text-align: center;
-    }</style><table id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1" ><thead>    <tr>        <th class="col_heading level0 col0" colspan=2>$x$</th>        <th class="col_heading level0 col2" >$y$</th>    </tr>    <tr>        <th class="col_heading level1 col0" >context $(c)$</th>        <th class="col_heading level1 col1" >word $(t)$</th>        <th class="col_heading level1 col2" >target?</th>    </tr></thead><tbody>
+    }</style><table id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1" ><thead>    <tr>        <th class="col_heading level0 col0" colspan=2>$x$</th>        <th class="col_heading level0 col2" >$y$</th>    </tr>    <tr>        <th class="col_heading level1 col0" >context $(c)$</th>        <th class="col_heading level1 col1" >word $(t)$</th>        <th class="col_heading level1 col2" >target?</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row0_col0" class="data row0 col0" >orange</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row0_col1" class="data row0 col1" >juice</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row0_col2" class="data row0 col2" >1</td>
+                                <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row0_col0" class="data row0 col0" >orange</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row0_col1" class="data row0 col1" >juice</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row0_col2" class="data row0 col2" >1</td>
             </tr>
             <tr>
-                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row1_col0" class="data row1 col0" >orange</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row1_col1" class="data row1 col1" >king</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row1_col2" class="data row1 col2" >0</td>
+                                <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row1_col0" class="data row1 col0" >orange</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row1_col1" class="data row1 col1" >king</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row1_col2" class="data row1 col2" >0</td>
             </tr>
             <tr>
-                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row2_col0" class="data row2 col0" >orange</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row2_col1" class="data row2 col1" >book</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row2_col2" class="data row2 col2" >0</td>
+                                <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row2_col0" class="data row2 col0" >orange</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row2_col1" class="data row2 col1" >book</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row2_col2" class="data row2 col2" >0</td>
             </tr>
             <tr>
-                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row3_col0" class="data row3 col0" >orange</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row3_col1" class="data row3 col1" >the</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row3_col2" class="data row3 col2" >0</td>
+                                <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row3_col0" class="data row3 col0" >orange</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row3_col1" class="data row3 col1" >the</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row3_col2" class="data row3 col2" >0</td>
             </tr>
             <tr>
-                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row4_col0" class="data row4 col0" >orange</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row4_col1" class="data row4 col1" >of</td>
-                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row4_col2" class="data row4 col2" >0</td>
+                                <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row4_col0" class="data row4 col0" >orange</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row4_col1" class="data row4 col1" >of</td>
+                        <td id="T_6e929e38_c1f6_11eb_9f57_8c1645111fa1row4_col2" class="data row4 col2" >0</td>
             </tr>
     </tbody></table>
 
@@ -509,10 +509,12 @@ Completely lacking in good taste, good service and good ambience
 The sentiment associated to this sentence is clearly negative, however the word `good` appears a lot and a model as the one explained above would associate this sentence with a positive sentiment.
 
 ### RNN sentiment classification model
-To encode for the order of words in a sentence a sentiment classification model can be built by feeding embedding vectors to an RNN
+To encode for the order of words in a sentence a sentiment classification model can be built by feeding embedding vectors to an RNN (<a href="#fig:sentclassrnn">Figure 144</a>), which takes into account the order of the words and, if trained correctly, should correctly classify sentences as the one cited above.
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_30_0.svg)
-    
 
+<figure id="fig:sentclassrnn">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_30_0.svg" alt="png">
+    <figcaption>Figure 144. An RNN based sentiment classification algorithm. This architecture takes into account the order of the embeddings instead of just the embedding themselves</figcaption>
+</figure>
