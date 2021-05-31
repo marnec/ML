@@ -344,33 +344,33 @@ we build a training set by selecting a context word $c$, and associating it to a
 
 
 <style  type="text/css" >
-    #T_6b75f042_c160_11eb_85a2_8c1645111fa1 th {
+    #T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1 th {
           text-align: center;
-    }</style><table id="T_6b75f042_c160_11eb_85a2_8c1645111fa1" ><thead>    <tr>        <th class="col_heading level0 col0" colspan=2>$x$</th>        <th class="col_heading level0 col2" >$y$</th>    </tr>    <tr>        <th class="col_heading level1 col0" >context $(c)$</th>        <th class="col_heading level1 col1" >word $(t)$</th>        <th class="col_heading level1 col2" >target?</th>    </tr></thead><tbody>
+    }</style><table id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1" ><thead>    <tr>        <th class="col_heading level0 col0" colspan=2>$x$</th>        <th class="col_heading level0 col2" >$y$</th>    </tr>    <tr>        <th class="col_heading level1 col0" >context $(c)$</th>        <th class="col_heading level1 col1" >word $(t)$</th>        <th class="col_heading level1 col2" >target?</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row0_col0" class="data row0 col0" >orange</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row0_col1" class="data row0 col1" >juice</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row0_col2" class="data row0 col2" >1</td>
+                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row0_col0" class="data row0 col0" >orange</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row0_col1" class="data row0 col1" >juice</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row0_col2" class="data row0 col2" >1</td>
             </tr>
             <tr>
-                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row1_col0" class="data row1 col0" >orange</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row1_col1" class="data row1 col1" >king</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row1_col2" class="data row1 col2" >0</td>
+                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row1_col0" class="data row1 col0" >orange</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row1_col1" class="data row1 col1" >king</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row1_col2" class="data row1 col2" >0</td>
             </tr>
             <tr>
-                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row2_col0" class="data row2 col0" >orange</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row2_col1" class="data row2 col1" >book</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row2_col2" class="data row2 col2" >0</td>
+                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row2_col0" class="data row2 col0" >orange</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row2_col1" class="data row2 col1" >book</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row2_col2" class="data row2 col2" >0</td>
             </tr>
             <tr>
-                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row3_col0" class="data row3 col0" >orange</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row3_col1" class="data row3 col1" >the</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row3_col2" class="data row3 col2" >0</td>
+                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row3_col0" class="data row3 col0" >orange</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row3_col1" class="data row3 col1" >the</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row3_col2" class="data row3 col2" >0</td>
             </tr>
             <tr>
-                                <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row4_col0" class="data row4 col0" >orange</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row4_col1" class="data row4 col1" >of</td>
-                        <td id="T_6b75f042_c160_11eb_85a2_8c1645111fa1row4_col2" class="data row4 col2" >0</td>
+                                <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row4_col0" class="data row4 col0" >orange</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row4_col1" class="data row4 col1" >of</td>
+                        <td id="T_b75dd9c6_c1d2_11eb_bad1_8c1645111fa1row4_col2" class="data row4 col2" >0</td>
             </tr>
     </tbody></table>
 
@@ -415,7 +415,7 @@ $$
 J = \sum_{i=1}^n \sum_{j=1}^n f\left(X_{ij}\right)\left(\theta_i^Te_j+b_i + b_j' - \log X_{ij}\right)^2
 $$
 
-where $(f{X_ij})$ is a weighting term that plays two roles:
+where $f(X_{ij})$ is a weighting term that plays two roles:
  
 * it assumes the value 0 if $X_{ij}=0$, in order to prevent the computation of $\log 0$, which is undefined
 * it shrink the frequency of stop-words (`this`, `of`, ...) while increasing the frequency of rare non stop-words in the corpus
@@ -427,3 +427,124 @@ Since the relationship between $i$ and $j$ is symmetrical (unlinke what we have 
 $$
 e_z^{\text{final}} = \frac{e_z+\theta_z}{2} 
 $$
+
+## Sentiment classification
+The sentiment classification task consist in mapping a piece ($x$) of text to a sentiment ($y$). The granularity of the sentiment classification can be binary, where the sentiment assumes only two values: like or dislike. Alternatively, the sentiment can be encoded in a range of values.
+
+One of the challenges of sentiment classification is that the labeled training set is usually small but word embeddings allow for a sentiment classification algorithm to work relatively well even with a modest-size training set.
+
+Let's see different models learn this mapping.
+
+### Averaging sentiment classification model
+Given a sentence and a rating
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Sentence</th>
+      <td>The</td>
+      <td>dessert</td>
+      <td>is</td>
+      <td>excellent</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>idx</th>
+      <td>8928</td>
+      <td>2468</td>
+      <td>4694</td>
+      <td>3180</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+The one hot vector representation of each word $o_i$ selects the column of an embedding matrix $E$ trained on a much bigger training set to select the embedding of each word $e_i$.
+The embeddings are the simply averaged or summed together and fed to a softmax layer that outputs a vector $\hat{y}$ of the same dimension as the granularity of the sentiment classification (<a href="#fig:sentclass1">Figure 143</a>). 
+
+
+    
+
+<figure id="fig:sentclass1">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_28_0.svg" alt="png">
+    <figcaption>Figure 143. A simple sentiment classification algorithm transfering knowledge from a word embedding pre-trained model. The model feeds the average (or sum) of the embeddings of words from a sentence to a softmax classifier</figcaption>
+</figure>
+
+The combination step uses simple operations (average or sum) that maintain the dimensionality of a single embedding vector; this allows for this model to work for input sentences of any size. On the downside however, this step lose the information about the order of words, which in some cases can be fundamental. Take for example a sentence like 
+
+```
+Completely lacking in good taste, good service and good ambience
+```
+
+The sentiment associated to this sentence is clearly negative, however the word `good` appears a lot and a model as the one explained above would associate this sentence with a positive sentiment.
+
+### RNN sentiment classification model
+To encode for the order of words in a sentence a sentiment classification model can be built by feeding embedding vectors to an RNN
+
+
+```python
+sentence = 'Completely lacking in good ... ambience'.split()
+idxs = [1852, 4966, 4427, 3882, 0, 330]
+
+fig, ax = plt.subplots(figsize=(8, 4.5))
+f = Flow(ax=ax, bbox=dict(ec='none', fc='none', boxstyle='square'), fontsize=13)
+
+for t, (word, idx) in enumerate(zip(sentence, idxs)):
+    connect=True if t != 4 else False
+    distance=.5
+    f.node(f'w{t}', label=f'$\\mathrm{{{word}}}$', 
+           travel='e', startpoint=f'w{t-1}', connect=False)
+    f.node(f'E{t}', label='$E$' if t != 4 else '', connect=connect,
+           startpoint=f'o{t}', travel='n', distance=distance)
+    f.node(f'e{t}', label=f'$e_{{{idx}}}$' if t != 4 else '', 
+           startpoint=f'E{t}', travel='n', connect=connect, distance=distance)
+    f.node(f'a{t}', startpoint=f'e{t}', travel='n', distance=distance, 
+           label=f'$a^{{\\langle {t+1 if t != 5 else 10} \\rangle}}$' if t != 4 else '$\\mathrm{...}$', 
+           connect=connect, bbox=dict(ec='k' if t != 4 else 'w'))
+
+f.node('s', label=' ', travel='n', bbox=dict(ec='k', boxstyle='circle'), 
+       xlabel='softmax', xlabel_xy=(0.5, -0.5), distance=.7,
+       edge_kwargs=dict(arrowprops=dict(shrinkA=15)))
+f.node('y', label='$\\hat{y}$', travel='n', distance=.5)
+f.node(f'a-1', label='$a^{{\\langle 0 \\rangle}}$', startpoint='a0', travel='w', 
+       connect=False, bbox=dict(ec='k'))
+
+for t in range(len(sentence)):
+    f.edge(f'a{t-1}', f'a{t}', tailport='e', headport='w')
+```
+
+
+    
+![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_30_0.svg)
+    
+
