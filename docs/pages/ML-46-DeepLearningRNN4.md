@@ -102,3 +102,35 @@ However to explore the translation sentence space exahustively would the computa
 For this reason **approximate search** algorithms are used that find near-optimal solutions quickly. One of the most common approximate search algorithsm is called **Beam search**
 
 ## Beam Search
+Beam search scans the distribution in $\eqref{eq:transl}$ and tries to select the most likely sentence. in Beam search we start by finding the best first word, but instead of selecting one word (as in a greedy search), we select multiple most likely words for position $\langle 1 \rangle$. 
+
+$$
+P \left ( y^{\langle 1 \rangle} \vert x \right)
+$$
+
+The number of first words to pick is determined by an hyperparameter called **beam width** ($B$). At each step of Beam search, a number of possible options equal to the beam width are selected. A beam width of 3 means that the 3 most likely first words are used to build a sentence.
+
+Once the array of first words is selected, for each of them the whole vocabulary is scanned to find the most likely following words, given the input $x$ and the first word $y^{\langle 1 \rangle}$
+
+$$
+\begin{equation}
+P \left ( y^{\langle 1 \rangle},y^{\langle 2 \rangle} \vert x \right) = P \left ( y^{\langle 1 \rangle} \vert x \right)P \left ( y^{\langle 2 \rangle} \vert x,  y^{\langle 1 \rangle} \right)
+\end{equation} \label{eq:beam2} \tag{3}
+$$
+
+Supposing $B=3$ and vocabulary size $n=10000$, we would have to compute $\eqref{eq:beam2}$ 30000 times. During this second step, exactly $B$ most likely sentences are kept and brought forward. Any sentence whose first word is one of the second words in the $B$ selected sentences, is discarded.
+
+Beam search then proceeds by computing the third word in the translation $y^{\langle 3 \rangle}$ given its first two words and the input.
+
+$$
+P \left (  y^{\langle 3 \rangle} \vert x , y^{\langle 1 \rangle}, y^{\langle 2 \rangle} \right )
+$$
+
+$B$ options are selected and the process is repeated until the sequence is complete. In the case of a machine translation algorithm, this usually happens when a $\small\text{<EOF>}$ token is reached. The entire process of Beam search can be written as
+
+$$
+\arg \max_y \prod_{t=1}^{T_y} P \left( y^{\langle t \rangle} \vert x, y^{\langle 1 \rangle}, \dots, y^{\langle t-1 \rangle} \right)
+$$
+
+### Length normalization
+Length normalization applied to Beam search will produce much better results.
