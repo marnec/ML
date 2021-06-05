@@ -169,7 +169,7 @@ Another side effect of the objective function $\eqref{eq:beamsearch}$ (and $\eqr
 $$
 \begin{equation}
 \frac{1}{T_y^\alpha} \sum_{t=1}^{T_y} \log P \left( y^{\langle t \rangle} \vert x, y^{\langle 1 \rangle}, \dots, y^{\langle t-1 \rangle} \right)
-\end{equation} \label{eq:logbeamsearch} \tag{6}
+\end{equation} \label{eq:lengthbeamsearch} \tag{6}
 $$
 
 Where if the hyperparameter $\alpha=0$, we are maximizing the sum of the logs of probabilities exactly as in $\eqref{eq:logbeamsearch}$ (no normalization), whereas if $\alpha=1$, we are maximizing the average of logs of probabilities (full normalization). Commonly, a value of $\alpha$ in the range $[0, 1]$ is applied to have non-full normalization and a value that has been empirically found to work well for most applications is $\alpha = 0.7$.
