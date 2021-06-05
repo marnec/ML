@@ -102,7 +102,7 @@ However to explore the translation sentence space exahustively would the computa
 For this reason **approximate search** algorithms are used that find near-optimal solutions quickly. One of the most common approximate search algorithsm is called **Beam search**
 
 ## Beam Search
-Beam search scans the distribution in $\eqref{eq:transl}$ and tries to select the most likely sentence. in Beam search we start by finding the best first word, but instead of selecting one word (as in a greedy search), we select multiple most likely words for position $\langle 1 \rangle$. 
+Beam search is an heuristic algorithm that scans the distribution in $\eqref{eq:transl}$ and tries to select the most likely sentence. Differently from exact search algorithms like [BFS](https://en.wikipedia.org/wiki/Breadth-first_search) and [DFS](https://en.wikipedia.org/wiki/Depth-first_search), Beam search is not guaranteed to find the best $P(y \vert x)$ .In Beam search we start by finding the best first word, but instead of selecting one word (as in a greedy search), we select multiple most likely words for position $\langle 1 \rangle$. 
 
 $$
 P \left ( y^{\langle 1 \rangle} \vert x \right)
@@ -123,14 +123,60 @@ Supposing $B=3$ and vocabulary size $n=10000$, we would have to compute $\eqref{
 Beam search then proceeds by computing the third word in the translation $y^{\langle 3 \rangle}$ given its first two words and the input.
 
 $$
-P \left (  y^{\langle 3 \rangle} \vert x , y^{\langle 1 \rangle}, y^{\langle 2 \rangle} \right )
+P \left ( y^{\langle 1 \rangle},y^{\langle 2 \rangle}, y^{\langle 3 \rangle} \vert x \right) =  P \left ( y^{\langle 1 \rangle} \vert x \right)P \left ( y^{\langle 2 \rangle} \vert x,  y^{\langle 1 \rangle} \right) P \left (  y^{\langle 3 \rangle} \vert x , y^{\langle 1 \rangle}, y^{\langle 2 \rangle} \right )
 $$
 
-$B$ options are selected and the process is repeated until the sequence is complete. In the case of a machine translation algorithm, this usually happens when a $\small\text{<EOF>}$ token is reached. The entire process of Beam search can be written as
+$B$ options are selected and the process is repeated until the sequence is complete. In the case of a machine translation algorithm, this usually happens when a $\small \langle \text{EOF} \rangle$ token is reached.
+At the end of the process the probability to maximize is
 
 $$
+P \left ( y^{\langle 1 \rangle}, \dots, y^{\langle T_y \rangle} \vert x \right) =  P \left ( y^{\langle 1 \rangle} \vert x \right)P \left ( y^{\langle 2 \rangle} \vert x,  y^{\langle 1 \rangle} \right) \dots P \left (  y^{\langle T_y \rangle} \vert x , y^{\langle 1 \rangle}, \dots, y^{\langle T_y-1 \rangle} \right )
+$$
+
+
+which can be written as
+
+$$
+\begin{equation}
 \arg \max_y \prod_{t=1}^{T_y} P \left( y^{\langle t \rangle} \vert x, y^{\langle 1 \rangle}, \dots, y^{\langle t-1 \rangle} \right)
+\end{equation} \label{eq:beamsearch} \tag{4}
 $$
+
+### Log sum
+Given a large enough $T_y$ or small enough $P \left( y \vert x \right)$, $\eqref{eq:beamsearch}$ can produce extremely small numbers that can cause numerical underflow.
+
+So instead of using $\eqref{eq:beamsearch}$ it is common to use its $\log$. Since the log of a product is equivalent to the sum of the logs of its factors we have
+
+$$
+\begin{equation}
+\arg \max_y \sum_{t=1}^{T_y} \log P \left( y^{\langle t \rangle} \vert x, y^{\langle 1 \rangle}, \dots, y^{\langle t-1 \rangle} \right)
+\end{equation} \label{eq:logbeamsearch} \tag{5}
+$$
+
+$\eqref{eq:logbeamsearch}$ is numerically stable and less prone to numerical underflow problems. Since the log function is monotonically increasing (<a href="#fig:log">Figure 146</a>), we know that maximizing $\eqref{eq:beamsearch}$ should give the same results as maximizing $\eqref{eq:logbeamsearch}$
+
+
+    
+
+<figure id="fig:log">
+    <img src="{{site.baseurl}}/pages/ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_7_0.svg" alt="png">
+    <figcaption>Figure 146. Logarithmic function</figcaption>
+</figure>
 
 ### Length normalization
-Length normalization applied to Beam search will produce much better results.
+Another side effect of the objective function $\eqref{eq:beamsearch}$ (and $\eqref{eq:logbeamsearch}$) is that it becomes smaller the longer the sequence. This means that it will tend to unnaturally prefer short over long sequences. To prevent this problem the objective function is usually normalized by length by dividing by the number of elements in the output sequence.
+
+$$
+\begin{equation}
+\frac{1}{T_y^\alpha} \sum_{t=1}^{T_y} \log P \left( y^{\langle t \rangle} \vert x, y^{\langle 1 \rangle}, \dots, y^{\langle t-1 \rangle} \right)
+\end{equation} \label{eq:logbeamsearch} \tag{6}
+$$
+
+Where if the hyperparameter $\alpha=0$, we are maximizing the sum of the logs of probabilities exactly as in $\eqref{eq:logbeamsearch}$ (no normalization), whereas if $\alpha=1$, we are maximizing the average of logs of probabilities (full normalization). Commonly, a value of $\alpha$ in the range $[0, 1]$ is applied to have non-full normalization and a value that has been empirically found to work well for most applications is $\alpha = 0.7$.
+
+### Choice of Beam Width
+The larger $B$ is, the more possible sequences we are exploring and thus the better probability of finding the best output sequence. On the other hand, the larger $B$ is, the more computationally expensive the algorithm.
+
+In production systems is not uncommon the find values of $B$ around 10, whereas $B$ around 100 would be considered very large. However, the choice of $B$ is very domain-dependent and, when necessary $B$ can need to be as large as 1000 or 3000.
+
+It is important to notice that in most cases large values of $B$ gives diminishing returns, so it is expected to see huge gains in performance increasing $B$ at low values ($1 \to 10$) while very small gains in performance when increasing $B$ at large values ($1000 \to 3000$)
