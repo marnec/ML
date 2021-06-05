@@ -234,14 +234,44 @@ The cat is on the mat
 There is a cat on the mat
 ```
 
-The BLEU score works by checking if the type of words in the machine translation appear in at least one of the human generated references.
+The BLEU score works by checking if the type of words in the machine translation appear in at least one of the human generated references. It calculates a modified **precision** score on all **n-grams**, where a unigram is a single word, a bigrmam is a pair of consecutive words and so on.
 
-Suppose the machine translation output is
+To understand how the modified precision is calculated, suppose the machine translation output is
 
 ```
 the the the the the the the
 ```
 
-So the BLEU score will first calculate the **Precision**,  of the translation
+To calculate the modified precision of the unigrams, we compute the ratio of the clipped number of occurrences of a unigram ($\scriptsize\text{Count}_{\text{clip}}$) in the machine translation output ($\hat{y}$) to its unclipped occurrences ($\scriptsize\text{Count}$). Clipped occurrences are calculated by counting how many of the unigram in the output appear in any of the references. The count is clipped to the maximum number of times the unigram appears in any one of the references. In this case all $7$ unigrams of the translation appear in the reference but, since the word `the` is found at most 2 times in the references (first reference), the count is clipped to 2 and the precision for unigrams $p_1 = \frac{2}{7}$. In the general case in which there are more than one word in the machine translation, we can write $p_1$ as
 
-* The precision is calculated by counting how many of the words in the output appears in any of the human references. However the count is clipped to the number of times the word appear in any one of the references. All $7$ words of the translation appear in the reference but, since the word `the` is found at most to times in the references (first reference), the precision is $\frac{2}{7}$
+$$
+p_1 = \frac{\sum_{\small\text{unigram } \in \hat{y}}\small\text{Count}_\text{clip} (\text{unigram})}
+{\sum_{\small\text{unigram } \in \hat{y}}\small\text{Count}(\text{unigram})}
+$$
+
+And this can be extended to the n-gram case
+
+$$
+p_n = \frac{\sum_{\small\text{n-gram } \in \hat{y}}\small\text{Count}_\text{clip} (\text{n-gram})}
+{\sum_{\small\text{n-gram } \in \hat{y}}\small\text{Count}(\text{n-gram})}
+$$
+
+$p_n = 1$ when the sentence is exactly the same of a reference or a combination of references that hopefully still constitutes a good translation.
+
+The combined BLEU score usually assumes values of $p_n \in [1,4]$ and it is defined as
+
+$$
+\text{BP} \exp \left ( \frac{1}{4} \sum_{n=1}^4 p_n \right )
+$$
+
+where $\text{BP}$ stands for **brevity penalty** which penalizes very translations shorter than the references, which would tend to have bigger scores. $\text{BP}$ is defined as
+
+$$
+\text{BP} = 
+\begin{cases}
+1 &\quad \small \text{len}(\hat{y}) > \text{len}(y^*) \\
+\exp \left (1 - \frac{\text{len}(y^*)}{\text{len}(\hat{y})} \right) &\quad \small\text{otherwise} 
+\end{cases}
+$$
+
+## Attention model 
