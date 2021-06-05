@@ -180,3 +180,68 @@ The larger $B$ is, the more possible sequences we are exploring and thus the bet
 In production systems is not uncommon the find values of $B$ around 10, whereas $B$ around 100 would be considered very large. However, the choice of $B$ is very domain-dependent and, when necessary $B$ can need to be as large as 1000 or 3000.
 
 It is important to notice that in most cases large values of $B$ gives diminishing returns, so it is expected to see huge gains in performance increasing $B$ at low values ($1 \to 10$) while very small gains in performance when increasing $B$ at large values ($1000 \to 3000$)
+
+### Error analysis with Beam Search
+Since Beam Search is an heuristic algorithm it doesn't necessarily find an optimal solution. Error analysis of Beam Search can help understand whether it is the Beam Search or the underlying RNN model that needs improving.
+
+Suppose you have the input sentence
+
+```
+Jane visite l'Afrique en septembre
+```
+
+And the following human translation $y^*$ in your development set
+
+```
+Jane visits Africa in September
+```
+
+And the output from Beam searching your RNN model $\hat{y}$ is instead
+
+```
+Jane visited Africa last September
+```
+
+We can't known in *a priori* if the beam width is too small or the RNN model is not performing adequately. Since the RNN is computing $P(y \vert x)$, to understand how well is the model performing we can compare the probability of $y^*$ and $\hat{y}$
+
+$$
+P \left(y^* \vert x \right) - P \left(\hat{y} \vert x \right) 
+\begin{cases}
+> 0 \quad \to \quad \scriptsize\text{improve Beam Search} \\
+\leq 0 \quad \to \quad \scriptsize\text{improve RNN}
+\end{cases}
+$$
+
+* If $P(y^* \vert x) > P(\hat{y} \vert x)$ it means that Beam Search chose $\hat{y}$ but $y^*$ would attain higher $P(y \vert x)$. So Beam Search is failing to find the optimal solution.
+* If $P(y^* \vert x) \leq P(\hat{y} \vert x)$ it means that Beam Search chose $\hat{y}$ *because it attains* a higher $P(y \vert x)$. So Beam Search is working fine but the RNN model is not trained well.
+
+To carry out a comprehensive error analysis we can check the responsibility of all errors in our development set. If Beam Search is at fault for a large fraction of them, increasing the value of $B$ should resolve the issue. If errors are due to a faulty RNN model, then we ca carry out a deeper layer of error analysis as detailed in <a href="{{site.basurl}}/ML/ML15ML-15">ML15</a>.
+
+## BLEU Score
+Unlike in tasks like image recognition, where there's one right answer, in machine translation there might be multiple equally good answers and it becomes impossible to measure accuracy traditionally. Conventionally accuracy in machine translation is measured with the **BiLingual Evaluation Undesrstudy (BLEU) score** ([Papineni et.al. 2002](https://www.aclweb.org/anthology/P02-1040.pdf)).
+
+Suppose we have an input French sentence
+
+```
+Le chat est sur le tapis
+```
+
+and two equally correct human translations
+
+```
+The cat is on the mat
+
+There is a cat on the mat
+```
+
+The BLEU score works by checking if the type of words in the machine translation appear in at least one of the human generated references.
+
+Suppose the machine translation output is
+
+```
+the the the the the the the
+```
+
+So the BLEU score will first calculate the **Precision**,  of the translation
+
+* The precision is calculated by counting how many of the words in the output appears in any of the human references. However the count is clipped to the number of times the word appear in any one of the references. All $7$ words of the translation appear in the reference but, since the word `the` is found at most to times in the references (first reference), the precision is $\frac{2}{7}$
