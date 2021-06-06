@@ -264,7 +264,7 @@ $$
 \text{BP} \exp \left ( \frac{1}{4} \sum_{n=1}^4 p_n \right )
 $$
 
-where $\text{BP}$ stands for **brevity penalty** which penalizes very translations shorter than the references, which would tend to have bigger scores. $\text{BP}$ is defined as
+where $\text{BP}$ stands for **brevity penalty** which penalizes translations shorter than the references, which would tend to have bigger scores. $\text{BP}$ is defined as
 
 $$
 \text{BP} = 
@@ -275,3 +275,56 @@ $$
 $$
 
 ## Attention model 
+The attention model is an alternative to the encoder decoder architecture. 
+
+### Attention model motivation
+The intuition behind attention models is best introduced by looking at machine translation task for a long sentence. Suppose we have the input sentence
+
+```
+Jane s'est rendue en Afrique en septembre dernier, a apprécié la culture et a rencontré beaucoup de gens merveilluex; elle est revenue en parlant comment son voyage était merveilluex, et elle me tente d'y aller aussi.
+```
+
+And its reference translation
+
+```
+Jane went to Africa last Septembre, and enjoyed the culture and met many wonderful people; she came back raving about how wonderful the trip was, and is tempting me to go too.
+```
+
+An encoder-decoder model would take the whole sentence as input, encode it in a $n$-dimensional vector and then pass it to the decoder network to produce a translation. However, this is not how a human translator would proceed. A human translator is likely to translate the sentence one piece a time and proceed until completion. 
+
+And so what we observe for encoder-decoder models is that they work well for short sentences but sentences longer than some tens of words, their performance decay. Attention models don't suffer from this performance decay (<a href="fig:attentionBLEU">figure below</a>).
+
+
+    
+![svg](ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_10_0.svg)
+    
+
+
+<i id ="fig:attentionBLEU">Performance comparison of encoder-decoder and attention models for increasing length of sentences. The performance, calculated as BLEU score, of the encoder-decoder model decays for sentences longer than 25-30 words. Performance of the attention model tends to stay consistently high for longer sentences.</i>
+
+### Attention model
+Suppose we have an input sentence
+
+```
+Jane visite l'Afrique en septembre
+```
+
+And we use a bidirectional RNN (more commonly bidirectional GRU and bidirectional LSTM) to compute features on every word.
+
+
+
+
+    (<mpl_flow.Node at 0x7f603ad8e7f0>, <mpl_flow.Edge at 0x7f603ac3f748>)
+
+
+
+
+    
+![svg](ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_12_1.svg)
+    
+
+
+
+```python
+
+```
