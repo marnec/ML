@@ -309,22 +309,45 @@ Suppose we have an input sentence
 Jane visite l'Afrique en septembre
 ```
 
-And we use a bidirectional RNN (more commonly bidirectional GRU and bidirectional LSTM) to compute features on every word.
+And we use a bidirectional RNN (more commonly bidirectional GRU and bidirectional LSTM) to compute features on every word (<a href="#fig:attentionmodel">Figure 147</a>, bottom network). The notation for this bidirectional network is as follows: each step in the input sequence is $t^\prime$,  we denote with $\overrightarrow{a}^{\langle t^\prime \rangle}$ the forward occurrence and with  $\overleftarrow{a}^{\langle t^\prime \rangle}$ the backward occurrence of the network. For brevity we denote 
 
+$$a^{\langle t^\prime \rangle} = \left(\overrightarrow{a}^{\langle t^\prime \rangle}, \overleftarrow{a}^{\langle t^\prime \rangle} \right)$$
 
+Then we have a forward only RNN with state $s^{\langle t \rangle}$ that produces the output sequence $\hat{y}^{\langle t \rangle}$ (<a href="#fig:attentionmodel">Figure 147</a>, top network). Each step is fed a context $c^{\langle t \rangle}$ and the output from the previous step $\hat{y}^{\langle t-1 \rangle}$. The context of each step is fed the output from all the input activations $a^{\langle t^\prime \rangle}$ weighted by the **attention weights** $\alpha^{\langle t, t^\prime \rangle}$. The **attention weights** modulate how much the context of a step in the output sequence depends on the features ($a^{\langle t^\prime \rangle}$) of each time step in the input sequence. The context is in fact a weighted sum of the features of each time step in the input weighted by its attention weight.
 
-
-    (<mpl_flow.Node at 0x7f603ad8e7f0>, <mpl_flow.Edge at 0x7f603ac3f748>)
-
-
+$$
+c^{\langle t \rangle} = \sum_{t^\prime}\alpha^{\langle t, t^\prime \rangle}a^{\langle t^\prime \rangle}
+$$
 
 
     
-![svg](ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_12_1.svg)
+
+<figure id="fig:attentionmodel">
+    <img src="{{site.baseurl}}/pages/ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_12_0.svg" alt="png">
+    <figcaption>Figure 147. An attention model for a machine translation task. The input sequence is processed by a bi-directional network, which feeds into an forward network passing through a context layer. Each context layer is fed the activation (features) of all time-steps of the bi-directional network, weighted by a set of attention weights, which define how much each activation contributes to the output</figcaption>
+</figure>
+
+The attention weights satisfy the condition
+
+$$
+\begin{equation}
+\sum_{t^\prime} \alpha^{\langle t, t^\prime \rangle} = 1
+\end{equation} \label{eq:attwond} \tag{4}
+$$
+
+This means that the attention weights that modulate the contribution to the output step $t$ of each input steps $t^\prime$, sum to 1. The attention weights definition is built to satisfy $\eqref{eq:attwond}$:
+
+$$
+a ^{\langle t, t^\prime \rangle} = \frac{\exp \left( e^{\langle t, t^\prime \rangle} \right)}
+{\sum_{t^\prime=1}^{T_x}\exp \left( e^{\langle t, t^\prime \rangle} \right)}
+$$
+
+The terms $e^{ \langle t, t^\prime \rangle}$ are usually computed by using a small neural network (usually with 1 hidden layer) that takes as input the state from the previous time step ($s^{\langle t-1 \rangle}$) and the features from the current time step $a^{\langle t^\prime \rangle}$. The intuition behind this process is that if you want to know how much the current step $s^{\langle t \rangle}$ should pay to the activation $a^{\langle t^\prime \rangle}$, it should depend on the previous state  $s^{\langle t-1 \rangle}$ and on the activation itself.
+
+
     
 
-
-
-```python
-
-```
+<figure id="attentionweightnetwork">
+    <img src="{{site.baseurl}}/pages/ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_14_0.svg" alt="png">
+    <figcaption>Figure 148. The network that determines the weighting function for state $s^{\langle t \rangle}$</figcaption>
+</figure>
