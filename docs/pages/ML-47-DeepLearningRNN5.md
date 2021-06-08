@@ -3,7 +3,7 @@ layout: default
 title: "Deep Learning - RNN - Attention Model"
 categories: deeplearning
 permalink: /ML47/
-order: 48
+order: 47
 comments: true
 ---
 
