@@ -82,7 +82,7 @@ $$
 where $\sqrt{d_k}$ is the **scaled dot product** used to prevent exploding gradients, and in fact another name for this model is the **scaled dot product attention** as it is presented in the original transformer architecture paper ([Vaswani et.al.2017](https://arxiv.org/abs/1706.03762))
 
 ## Multi-Head attention
-The multi-head process repeats the self attention mechanism multiple times **in parallel**. Each time we calculate self attention for a sequence it's called a **head**, thus the name multi-head attention. 
+The multi-head attention is a **layer** of the transformer architecture. A multi-head attention layer repeats the self attention mechanism multiple times **in parallel**. Each time we calculate self attention for a sequence it's called a **head**, thus the name multi-head attention. 
 
 Self attention vectors are functions of $q, k, v$ vectors. In turn these vectors are obtained as defined in $\eqref{eq:qkv}$ and they are a function of the parameter matrices $W^Q, W^K, W^V$.
 
@@ -107,3 +107,50 @@ $$
 </figure>
 
 The different heads are independent computations and can thus be calculated **in parallel**; after the computation of all the heads is completed, the self-attention vectors are concatenated and multiplied by a parameter matrix $W_o$.
+
+## Transformer network
+A transformer is made of an **encoder block** and a **decoder block**, each repeated $N$ times (with a typical value being $N=6$). The encoder block produces an encoding of the input sequence, the decoder block maps the encoding to an output sequence.
+
+### Encoder Decoder blocks
+The encoder block has a multi-head attention layer, which is fed the vectors $Q, K, V$ computed for the input sequence. The multi-head attention layer produces a matrix that is passed into a feed-forward neural network, which is the second layer of the encoder block. After repeating $N$ times the encoder feeds the results in the decoder block (<a href="#fig:transbase">Figure 151</a>).
+
+At each time-step $t$ the decoder blocks is fed $[1:t]$ elements from the input sequence. These elements are fed into a multi-head attention layer, whose job is to generate the query matrix $Q$ for the next multi-head attention layer. The key-value pair matrices $K, V$ taken as input in this second multi-head attention layer are instead generated from the output of the encoder.
+This architecture is designed to produce an optimal next word, given the previous words in the translation (the $[1:t]$ elements fed as $Q$) and the input sequence (encoding fed as $K, V$). The second multi-head attention layer feeds into a feed forward neural network producing an output matrix, which is fed in loop to the decoder block for $N$ times.
+
+
+    
+
+<figure id="fig:transbase">
+    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_7_0.svg" alt="png">
+    <figcaption>Figure 151. Simplified representation of a transformer network focusing on the encoder and decoder blocks and their main components</figcaption>
+</figure>
+
+### Positional encoding and skip-connections
+In the self-attention model we didn't talk about any encoding of the position of an element in the sequence. However, position is a fundamental piece of information when treating with sequences. 
+
+In Transformers a **positional-embedding** vector $P$ of the same dimension $d$ of the self-attention embedding vector is function of the numerical position of an element in the sequence ($\small\text{pos}$), $P$ and $d$ (<a href="#fig:posenc">Figure 152</a>).
+
+$$
+\begin{split}
+P(\small\text{pos}, 2t) &= \sin \left( \frac{\small\text{pos}}{10000^{\frac{2t}{d}}} \right) \\
+P(\small\text{pos}, 2t+1)& = \cos \left( \frac{\small\text{pos}}{10000^{\frac{2t}{d}}} \right)
+\end{split}
+$$
+
+
+    
+
+<figure id="fig:posenc">
+    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_9_0.svg" alt="png">
+    <figcaption>Figure 152. Positional embedding $P$ of dimension $d=4$ for elements with positions $\text{pos}=1$ (orange points) and $\text{pos}=3$ (green points) in a sequence</figcaption>
+</figure>
+
+The positional embedding is directly added to the encoder and decoder blocks of the transformer. The information of the positional embedding is then propagated throughout the whole network via **skip-connections**. Skip connections are directed to **normalization layers** placed after each multi-head and feed-forward layer in both encoder and decoder blocks. This normalization layers are called **Add & Norm** layers. Finally, the decoder block feeds to a linear and softmax layer that produce the final output (<a href="#transfarch">figure below</a>).  
+
+
+    
+
+<figure id="fig:transfarch">
+    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_11_0.svg" alt="png">
+    <figcaption>Figure 153. Full transformer architecture with encoder and decoder blocks, positional embeddings, skip connections, normalization and final linear and softmax layers</figcaption>
+</figure>
