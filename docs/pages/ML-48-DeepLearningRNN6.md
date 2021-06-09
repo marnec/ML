@@ -63,9 +63,10 @@ $$
 
 <figure id="fig:selfattention">
     <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_2_0.svg" alt="png">
-    <figcaption>Figure 149. Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word <i id="fig:selfattention">Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word $x^{\langle 3 \rangle}$ as the inner product of query and key $\langle q, k \rangle$. The softmax vector of the inner products is multiplied by the value vector $v$, which summed together constitutes the self-attention representation $A^{\langle 3 \rangle}$</figcaption>
+    <figcaption>Figure 149. Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word id="fig:selfattention">Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word $x^{\langle 3 \rangle}$ as the inner product of query and key $\langle q, k \rangle$. The softmax vector of the inner products is multiplied by the value vector $v$, which summed together constitutes the self-attention representation $A^{\langle 3 \rangle}$ </figcaption>
 </figure>
- 
+
+
 The main advantage of the self-attention mechanism is that the embedding for the word `l'Afrique` is not fixed. The self-attention mechanism realizes that `l'Afrique` is the destination of a `visite` and thus compute a more useful and context-aware representation for this word.
     
 This process is repeated for each word in the sequence to obtain self-attention representations for each of them $A^{\langle i \rangle}$, which in literature is often defined in a vectorized notation
@@ -77,7 +78,7 @@ $$
 where $\sqrt{d_k}$ is the **scaled dot product** used to prevent exploding gradients, and in fact another name for this model is the **scaled dot product attention** as it is presented in the original transformer architecture paper ([Vaswani et.al.2017](https://arxiv.org/abs/1706.03762))
 
 ## Multi-Head attention
-The multi-head process repeats the self attention mechanism multiple times. Each time we calculate self attention for a sequence it's called a **head**, thus the name multi-head attention. 
+The multi-head process repeats the self attention mechanism multiple times **in parallel**. Each time we calculate self attention for a sequence it's called a **head**, thus the name multi-head attention. 
 
 Self attention vectors are functions of $q, k, v$ vectors. In turn these vectors are obtained as defined in $\eqref{eq:qkv}$ and they are a function of the parameter matrices $W^Q, W^K, W^V$.
 
@@ -95,6 +96,10 @@ $$
 
 
     
-![svg](ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_5_0.svg)
-    
 
+<figure id="fig:multihead">
+    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_5_0.svg" alt="png">
+    <figcaption>Figure 150. Processing of multiple heads (self-attention mechanisms). Multiple context-dependent embeddings (self-attention representations or heads) are computed in parallel to answer different queries $q$. The heads are then concatenated in the final output</figcaption>
+</figure>
+
+The different heads are independent computations and can thus be calculated **in parallel**; after the computation of all the heads is completed, the self-attention vectors are concatenated and multiplied by a parameter matrix $W_o$.
