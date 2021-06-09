@@ -38,11 +38,15 @@ where $q^{\langle t \rangle}, k^{\langle t \rangle}, v^{\langle t \rangle}$, cal
 Let's build the self-attention representation for the third word $A^{\langle 3 \rangle}$ `l'Afrique` (<a href="#fig:selfattention">Figure 149</a>)
 
 1. Each word is associated with its query, key, and value vectors, which are defined as
-    $$\begin{split}
+    $$
+    \begin{equation}
+    \begin{split}
     &q^{\langle 3 \rangle}=W^Qx^{\langle 3 \rangle}\\
     &k^{\langle 3 \rangle}=W^Kx^{\langle 3 \rangle}\\
     &v^{\langle 3 \rangle}=W^Vx^{\langle 3 \rangle}
-    \end{split} \label{eq:qkv} \tag{1}
+    \end{split}
+    \end{equation}
+    \label{eq:qkv} \tag{1}
     $$
     where $W^Q, W^K, W^V$ are learned parameter matrices of the algorithm. The query vector $q^{\langle 3 \rangle}$ represents a question about word $x^{\langle 3 \rangle}$ (`l'Afrique`). For example, it may represent the question "*what's happening there?*"
 
@@ -63,7 +67,7 @@ $$
 
 <figure id="fig:selfattention">
     <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_2_0.svg" alt="png">
-    <figcaption>Figure 149. Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word id="fig:selfattention">Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word $x^{\langle 3 \rangle}$ as the inner product of query and key $\langle q, k \rangle$. The softmax vector of the inner products is multiplied by the value vector $v$, which summed together constitutes the self-attention representation $A^{\langle 3 \rangle}$ </figcaption>
+    <figcaption>Figure 149. Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word $x^{\langle 3 \rangle}$ as the inner product of query and key $\langle q, k \rangle$. The softmax vector of the inner products is multiplied by the value vector $v$, which summed together constitutes the self-attention representation $A^{\langle 3 \rangle}$ </figcaption>
 </figure>
 
 
