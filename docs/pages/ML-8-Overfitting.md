@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Overfitting and Underfitting"
+title: "Overfitting and Regularization"
 categories: linearRegression
 permalink: /ML8/
 order: 8
@@ -8,11 +8,16 @@ comments: true
 ---
 
 # The problem of overfitting
+The problem of overfitting is the main problem in machine learning. All of machine learning revolves around the idea of training a model to fit the data. However, we don't want to just fit the data we have trained the model on, we also want fit data that the algorithm has never seen before.
+
+So, the problems becomes, how do we train a model so that it doesn't just fit the training data (i.e. **overfits**) but instead generalizes to data it has not seen during training?
+
+## Overfitting training data
 Let's take some data distributed as in the Figure below
 
 
     
-![png](ML-8-Overfitting_files/ML-8-Overfitting_2_0.png)
+![svg](ML-8-Overfitting_files/ML-8-Overfitting_2_0.svg)
     
 
 
@@ -28,7 +33,7 @@ Three models are shown in <a href="#fig:biasvariance">Figure 9</a> in panels A, 
     
 
 <figure id="fig:biasvariance">
-    <img src="{{site.baseurl}}/pages/ML-8-Overfitting_files/ML-8-Overfitting_4_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-8-Overfitting_files/ML-8-Overfitting_4_0.svg" alt="png">
     <figcaption>Figure 9. Three examples of models that underfit or have high bias (A), overfit or have high variance (C) and are just right (B)</figcaption>
 </figure>
 
@@ -49,7 +54,7 @@ In the example used above we have seen that a quadratic function would be a good
 
 
     
-![png](ML-8-Overfitting_files/ML-8-Overfitting_7_0.png)
+![svg](ML-8-Overfitting_files/ML-8-Overfitting_7_0.svg)
     
 
 
