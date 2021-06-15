@@ -1,3 +1,21 @@
+
+.language-python {
+  background-color: rgb(46, 46, 46) !important;
+  color: #f8f8f2 !important;
+}
+
+.language-plaintext {
+  background-color: #eef !important;
+}
+
+div .language-plaintext {
+  color: black !important;
+}
+
+pre, code, .highlight {
+  background-color: inherit !important;
+}
+
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
@@ -208,7 +226,7 @@
 .highlight .nt {
   color: #f92672;
 }
-.highlight {
+/*.highlight {
   color: #f8f8f2;
   background-color: #49483e;
-}
+}*/
