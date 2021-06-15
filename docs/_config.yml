@@ -26,6 +26,7 @@ baseurl: "/ML" # the subpath of your site, e.g. /blog
 url: "https://marnec.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: marco_nex
 github_username:  marnec
+highlighter: rouge
 
 # Build settings
 theme: minima
