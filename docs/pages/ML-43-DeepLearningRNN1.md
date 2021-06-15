@@ -64,15 +64,15 @@ A RNN has none of these problems: When modelling this data in a recurrent neural
 
 
     
+![svg](ML-43-DeepLearningRNN1_files/ML-43-DeepLearningRNN1_5_0.svg)
+    
 
-<figure id="fig:rnn">
-    <img src="{{site.baseurl}}/pages/ML-43-DeepLearningRNN1_files/ML-43-DeepLearningRNN1_5_0.svg" alt="png">
-    <figcaption>Figure 125. Two equivalent representations of a recurrent neural network (RNN) model. In the left panel (A), each box represents a time step. One element in the input sequence $x^{\langle t \rangle}$ is fed to an hidden layer, which takes as an additional input the activations of the previous step $a^{\langle t-1 \rangle}$. Each step produces as output a vector $y^{\langle t \rangle}$</figcaption>
-</figure>. In the right panel (B) the same process is represented as the layer being fed the input $x$ and weighting it with a set of weights $W$ to produce the output $y$ in a loop for each time step $t$.
+
+<i id="fig:rnn">Two equivalent representations of a recurrent neural network (RNN) model. In the left panel (A), each box represents a time step. One element in the input sequence $x^{\langle t \rangle}$ is fed to an hidden layer, which takes as an additional input the activations of the previous step $a^{\langle t-1 \rangle}$. Each step produces as output a vector $y^{\langle t \rangle}$</i>. In the right panel (B) the same process is represented as the layer being fed the input $x$ and weighting it with a set of weights $W$ to produce the output $y$ in a loop for each time step $t$.
 
 In an RNN a single set of parameters ($W_{ax}$) for every time-step governs the connection from $x^{\langle i \rangle}$ to the hidden layer for every time step. A single set of parameters ($W_{aa}$) governs the connection from one time-step to the next and a single set of parameters ($W_{ya}$) governs the connection from the hidden layer to the output $\hat{y}^{\langle i \rangle}$.
 
-A weakness of the architecture of the RNN depicted in <a href="#fig:rnn">Figure 125</a> is that it only uses the information that is earlier in the sequence to make predictions. For example, when predicting $\hat{y}^{\langle 3 \rangle}$ it does't use information from $x^{\langle 4 \rangle}, \dots x^{\langle T_x \rangle}$. Suppose we have the sentences:
+A weakness of the architecture of the RNN depicted in <a href="#fig:rnn">the figure above</a> is that it only uses the information that is earlier in the sequence to make predictions. For example, when predicting $\hat{y}^{\langle 3 \rangle}$ it does't use information from $x^{\langle 4 \rangle}, \dots x^{\langle T_x \rangle}$. Suppose we have the sentences:
 
     He said, Teddy Roosevelt was a great president
     He said, Teddy bears are one sale!

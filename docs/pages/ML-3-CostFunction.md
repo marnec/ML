@@ -7,22 +7,30 @@ order: 3
 comments: true
 ---
 
-# Cost Function
-We can measure the accuracy of our hypothesis function by using a cost function. The cost function calculates the **distance** of predicted data from observed data, obviously we want our predicted data to be as close as possible to truth values, in other words we want to **minimize** the distance from truth values.
+# Loss and Cost Functions
+In order to train an algorithm we need a way to understand how far its output $\hat{y}_i$ is from labeled examples $y_i$. This distance is calculated through the **Loss function** $\mathcal{L}$. A loss function takes as input $\hat{y}_i$ and $y_i$ and outputs their distance $\mathcal{L}(\hat{y}_i, y_i)$. We can define many, equally valid, loss functions, however one requirement is that $\mathcal{L}$ needs to be sensitive to small changes in its inputs. This means that if it is fed slightly different values of $\hat{y}_i$ and $y_i$, it needs to give different results, so that the we (or better, our optimization method) can easily understand in which direction to stir the hypothesis for it to give better results. In the case of linear regression we use the euclidean distance between $\hat{y}_i$ and $y_i$
 
-This version of cost function takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from $x$ and the actual output $y$.
+$$
+\begin{split}
+\mathcal{L}(\hat{y_i}, y_i) & = \left(\hat{y}_i-y_i\right)^2 \\
+& = \left(h_{\theta}(x_i) - y_i \right)^2 \\
+& = \left(\left(\theta_0 + \theta_{1}x^{(i)}\right) - y_i \right)^2 
+\end{split}
+$$
 
-$$\begin{align}
-J(\theta_0,\theta_1) & = \frac{1}{2m}\sum^m_{i=1}\left(\hat{y}_i-y_i\right)^2 \\
-& = \frac{1}{2m}\sum^m_{i=1}\left(h_{\theta}(x_i) - y_i \right)^2 \\
-& = \frac{1}{2m}\sum^m_{i=1}\left(\left(\theta_0 + \theta_{1}x^{(i)}\right) - y_i \right)^2 
-\end{align}$$
+The loss function $\mathcal{L}(\hat{y}_i, y_i)$ is applied to each single training example and the cumulative results of loss functions applied to all training examples is called a **Cost function** $J$. This version of cost function takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from $x$ and the actual output $y$.
 
-To break it apart, it is $\frac{1}{2} \bar{x}$ where $\bar{x}$ is the mean of the squares of $h_\theta (x_{i}) - y_{i}$ or the difference (**distance**) between the predicted value and the actual value.
+$$
+J(\theta_0,\theta_1) = \frac{1}{2m}\sum^m_{i=1}\mathcal{L}(\hat{y}_i, y_i)
+$$
 
-This function is otherwise called the "Squared error function", or "Mean squared error". The mean is halved $\left(\frac{1}{2}\right)$ as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the $\frac{1}{2}$ term.
+This function is otherwise called the **Squared error function**, or **Mean squared error**. The mean is halved $\left(\frac{1}{2}\right)$ as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the $\frac{1}{2}$ term. To break it apart, it is $\frac{1}{2} \bar{x}$ where $\bar{x}$ is the mean of the squares of $h_\theta (x_{i}) - y_{i}$ or the difference (**distance**) between the predicted value and the actual value.
 
-The idea is to chose $\theta_0, \theta_1$ to so that $h_\theta(x)$ is close to $y$ for each training example $(x,y)$. In other words we want to chose $\theta_0, \theta_1$ to minimize the cost function $J\left(\theta_0, \theta_1 \right)$
+The **objective** of our training process is for our predicted data $\hat{y}$ to be as close as possible to truth values $y$, in other words we want to **minimize** the distance from truth values. The idea is to chose $\theta_0, \theta_1$ to so that $h_\theta(x)$ is close to $y$ for each training example $(x,y)$. In other words we want to chose $\theta_0, \theta_1$ to minimize the cost function $J\left(\theta_0, \theta_1 \right)$. This is called the **objective function**
+
+$$
+\min_\theta J(\theta_0,\theta_1)
+$$
 
 If we try to think of it in visual terms, our training data set is scattered on the $x,y$ plane. We are trying to make a straight line (defined by $h_\theta(x)$) which passes through these scattered data points. 
 
@@ -34,7 +42,7 @@ $$h_\theta(x)=\theta_1x$$
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_8_0.png)
+![png](ML-3-CostFunction_files/ML-3-CostFunction_3_0.png)
     
 
 
@@ -49,7 +57,7 @@ When $\theta_1 = 1$, we get a slope of 1 which goes through every single data po
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_11_0.png)
+![png](ML-3-CostFunction_files/ML-3-CostFunction_6_0.png)
     
 
 
@@ -57,7 +65,7 @@ Plotting 15 $\theta_1$ values in the interval $[-0.5, 2.5]$ yields a bell shaped
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_13_0.png)
+![png](ML-3-CostFunction_files/ML-3-CostFunction_8_0.png)
     
 
 
@@ -68,7 +76,7 @@ Let's take a slightly more complex hypothesis wwhere we have $\theta \in \mathbb
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_15_0.png)
+![png](ML-3-CostFunction_files/ML-3-CostFunction_10_0.png)
     
 
 
@@ -76,7 +84,7 @@ Now we have two parameters so the cost function depends on two variables and its
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_17_0.png)
+![png](ML-3-CostFunction_files/ML-3-CostFunction_12_0.png)
     
 
 
@@ -86,6 +94,6 @@ A more accessible kind of plots are the contour plots, bidimensional plot in whi
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_19_0.png)
+![png](ML-3-CostFunction_files/ML-3-CostFunction_14_0.png)
     
 

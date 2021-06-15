@@ -8,14 +8,14 @@ comments: true
 ---
 
 # Bias and Variance
-Bias and Variance in ML (<a href="{{site.basurl}}/ML/ML8#fig:biasvariance">Figure 9</a>)  are fundamental concepts and expert practitioners usually have a deep understanding of bias/variance related topics. 
+Bias and Variance in ML (<a href="ML8#fig:biasvariance">check this figure</a>)  are fundamental concepts and expert practitioners usually have a deep understanding of bias/variance related topics. 
 
 In the deep learning era there is less discussion about the bias/variance trade-off because in the deep learning era there is less trade-off. So the concepts of bias and variance are still central but their trade-off is no more so important.
 
 The reason for this is that in the pred-deep learning era usually you could reduce bias at the cost of increasing variance or vice-versa, but generally it wasn't possible to just reduce bias or just reduce variance. Instead, in deep learning, as long as you get a bigger network (in terms of layers or hidden units) you will generally reduce bias without impacting variance (if regularized properly), and as long as you can get more data you will generally reduce variance without impacting bias.
 
 ## Identify bias/variance from subset error
-When only two features are present we can just look at the model (<a href="{{site.basurl}}/ML/ML8#fig:biasvariance">Figure 9</a>) and identify situations of high bias (panel A) or high variance (panel C).
+When only two features are present we can just look at the model (<a href="ML8#fig:biasvariance">check this figure</a>) and identify situations of high bias (panel A) or high variance (panel C).
 
 When many features are present we can no longer visualize the model but we can employ some metrics that will help us identify these problems.
 
@@ -53,7 +53,7 @@ Assuming that a person would have an error $\approx 0%$ and that the train and d
 * case 3 is a case of high bias AND high variance (the worst scenario)
 * case 4 is a case of low bias and low variance (the best scenario)
 
-It is important to notice that we detected bias and variance based on the assumption that the **optimal error**, also called **Bayes error** (<a href="{{site.basurl}}/ML/ML33ML33">ML33</a>) is $\approx 0%$. Would the Bayes error $\approx 15%$, then we can say that case 2 is a case of low bias and low variance. 
+It is important to notice that we detected bias and variance based on the assumption that the **optimal error**, also called **Bayes error** (<a href="page:ML33">ML33</a>) is $\approx 0%$. Would the Bayes error $\approx 15%$, then we can say that case 2 is a case of low bias and low variance. 
 
 The difference between Bayes error and training set error is sometimes called **Avoidable Bias** and the objective is usually that of reducing the gap between train error and Bayes error. in the same way as we define the avoidable bias, we can also define variance, which is the gap between the training set error and the dev set error. 
 
@@ -64,11 +64,11 @@ Typically, when designing a ML model, performance will rapidly increase at first
 
 
     
+![png](ML-25-DeepLearningBiasVariance_files/ML-25-DeepLearningBiasVariance_6_0.png)
+    
 
-<figure id="fig:pertrend">
-    <img src="{{site.baseurl}}/pages/ML-25-DeepLearningBiasVariance_files/ML-25-DeepLearningBiasVariance_6_0.png" alt="png">
-    <figcaption>Figure 47. Typical trend of performance of a trained model with human level performance and Bayes optimal performance.</figcaption>
-</figure>
+
+<i id="fig:pertrend">Typical trend of performance of a trained model with human level performance and Bayes optimal performance.</i>
 
 Interestingly, usually performance increase, really slows down after surpassing human-level performance. This happens for (at least) two reasons:
 
@@ -76,7 +76,7 @@ Interestingly, usually performance increase, really slows down after surpassing 
 * So long as ML is worse than humans there are certain things that we can do to improve performance:
     * get labeled data from humans
     * gain insight from manual error analysis (why did a person get this right?)
-    * better analysis of bias/variance (<a href="{{site.basurl}}/ML/ML25ML25">ML25</a>)
+    * better analysis of bias/variance (<a href="page:ML25">ML25</a>)
 
 ### Define human level performance
 The first step towards understanding the human level error for a certain task is to decide what purpose would serve its definition.
@@ -232,10 +232,10 @@ In machine learning, the effects that you want to orthogonalize are:
 3. Fit test set well on cost function: e.g. tune by getting a bigger dev set
 4. Performs well in real world: e.g. tune by changing cost function
 
-An action that doesn't fit well with orthogonalization is early stopping (<a href="{{site.basurl}}/ML/ML27ML-27">ML27</a>), since it tries to simultaneously tune train set and dev set performance.
+An action that doesn't fit well with orthogonalization is early stopping (<a href="page:ML27">ML-27</a>), since it tries to simultaneously tune train set and dev set performance.
 
 ## Satisficing and Optimizing metrics
-We have talked in <a href="{{site.basurl}}/ML/ML17ML-17">ML17</a> about the importance of having a single real-number evaluation metric. However, it is not always easy to combine all the desired properties of a model in a single metric. In those cases it is useful to set satisficing and optimizing metrics.
+We have talked in <a href="page:ML17">ML-17</a> about the importance of having a single real-number evaluation metric. However, it is not always easy to combine all the desired properties of a model in a single metric. In those cases it is useful to set satisficing and optimizing metrics.
 
 Let's say that for an image classifier we care about the classification accuracy and about the running time. Suppose we have three classifiers as in the <a href="#satopt">the table below</a>
 

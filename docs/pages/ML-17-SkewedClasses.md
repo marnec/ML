@@ -96,15 +96,15 @@ $$
 
 And we will attain higher recall but lower precision.
 
-In general by lowering the threshold we will trade off precision for recall and if we were to plot recall and precision for a number of possible threshold values we would have something like <a href="#fig:prerec">Figure 16</a>:
+In general by lowering the threshold we will trade off precision for recall and if we were to plot recall and precision for a number of possible threshold values we would have something like <a href="#fig:prerec">the figure below</a>:
 
 
     
+![png](ML-17-SkewedClasses_files/ML-17-SkewedClasses_6_0.png)
+    
 
-<figure id="fig:prerec">
-    <img src="{{site.baseurl}}/pages/ML-17-SkewedClasses_files/ML-17-SkewedClasses_6_0.png" alt="png">
-    <figcaption>Figure 16. An ideal precision-recall curve for decreasing values of threshold (lef-to-right) applied to a logistic regression output scores compared to the actual classes.</figcaption>
-</figure>
+
+<i id="fig:prerec">An ideal precision-recall curve for decreasing values of threshold (lef-to-right) applied to a logistic regression output scores compared to the actual classes.</i>
 
 ### A single metric F1-Score
 Precision and recall are reliable metrics that complement each other in telling the performance of a learning algorithm. But how do we compare precision and recall? 

@@ -11,19 +11,19 @@ comments: true
 Derivatives are a fundamental concept in machine learning, they are the building block of optimization and having an understanding of what a derivative is vastly helps in understanding how optimization and gradient descent work.
 
 ## Derivative
-Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#fig:derivative">Figure 5</a>).
+Suppose we have a function $f(a) = 3a$, then $f(2) = 6$. If we take a small increment of $a$ ($a'$) we will have $f(2.001) = 6.003$. Connecting $a$ and $a'$ forms a triangle, with an height ($a'-a$) and a width ($f(a') - f(a)$) (<a href="#fig:derivative">figure below</a>).
 
 The slope $\frac{\text{height} }{\text{width}}=3$ so we say that the derivative of $f(a)$ at the point $a=2$ is $3$. Height and width are the the vertical and horizontal distances and the slope is also expressed as $\frac{df(a)}{da}$ or as $\frac{d}{da}f(a)$. The reason why $a'$ doesn't appear in this representation is because, formally, the derivative is calculated at a very small increment of $a$ such as $a' \approx a$.
 
-For a straight line (<a href="#fig:derivative">Figure 5</a>, panel A) the derivative is constant along the whole line.
+For a straight line (<a href="#fig:derivative">figure below</a>, panel A) the derivative is constant along the whole line.
 
 
     
+![png](ML-1-Preparatory_files/ML-1-Preparatory_2_0.png)
+    
 
-<figure id="fig:derivative">
-    <img src="{{site.baseurl}}/pages/ML-1-Preparatory_files/ML-1-Preparatory_2_0.png" alt="png">
-    <figcaption>Figure 5. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
-</figure>
+
+<i id="fig:derivative">The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</i>
 
 ## Computational graph
 The computational graph explains the forward- and backward- propagation (as to say the flow of the computation) that takes place in the training of a neural network. 
@@ -38,11 +38,11 @@ We can draw these steps in a computational graph (<a href="#compgraph">figure be
 
 
     
+![png](ML-1-Preparatory_files/ML-1-Preparatory_4_0.png)
+    
 
-<figure id="compgraph">
-    <img src="{{site.baseurl}}/pages/ML-1-Preparatory_files/ML-1-Preparatory_4_0.png" alt="png">
-    <figcaption>Figure 6. Computational graph showing the flow of a very simple process</figcaption>
-</figure>
+
+<i id="compgraph">Computational graph showing the flow of a very simple process</i>
 
 Suppose we want to calculate $\frac{dJ}{dv}$ ( in other words if we change the value $v$ of a little amount how would the value of $J$ change?). 
 
