@@ -7,22 +7,13 @@ order: 4.5
 comments: true
 ---
 
-
-```python
-%pylab --no-import-all inline
-plt.rcParams["mathtext.fontset"] = "cm"
-```
-
-    Populating the interactive namespace from numpy and matplotlib
-
-
 # Linear regression implementation
 Since linear regression is a trivial model, it is relatively easy to implement it from scratches and maybe in the future I'll implement a full version on this page. 
 
 Many libraries enabling a user to build and train a linear regression model exist. In the last years I feel like `scikit-learn` and `pytorch` are the most widely used libraries in machine learning.
 
-## Preparing data
-For this example we are using house prices as a function of inhabitable surface and number of rooms. In order to prepare data we use `pandas`. 
+## Reading data
+For this example we are using house prices as a function of inhabitable surface and number of rooms. Data is stored in a csv file, to parse it into a python data structure we use `pandas`. This is a preliminary step for any approach and while some libraries may offer custom way to parse data I find that this is just better. Delegating parsing to a second library follows the *single-responsibility* principle. This is at least true for datasets saved in common formats like `csv` or `tsv` or similar. Sometimes we will deal with custom formats like Pytorch's `pt` files: in that case it is obviously better (or sometimes necessary) to take care of data loading with the right library.
 
 
 ```python
@@ -148,10 +139,10 @@ y[:5].reshape(-1, 1)
 
 
 ## scikit-learn
-Linear regression in `scikit-learn` is as easy as one line of code
+Linear regression in `scikit-learn` is as easy as one line of code. To keep this first example as easy as possible, I'm not going to split the data in training and dev sets. I'm just fitting the model to the whole dataset. In a real scenario, there should be a preliminary step of dataset splitting. 
 
 ### Single feature
-In order for the linear dependency to be intuitively visualizable, we are going for now to drop the `rooms` column from the features
+In order for the first example to be as simple as possible and plottable, for now we drop the `rooms` column from the features and we are only left with the `sqf` column. This means that in this first example we are exploring linear dependency between the inhabitable surface and the price of a house.
 
 
 ```python
@@ -225,32 +216,28 @@ linreg.coef_, linreg.intercept_
 
 
 
-```python
-fig, ax = plt.subplots()
-ax.plot(X_simple, y, ls='none', marker='o')
-px = np.linspace(1000, 5000)
-ax.plot(px, linreg.predict(px.reshape(-1, 1)))
-ax.set_title(f'$\\hat{{y}}={linreg.coef_[0]:.2f} \cdot x '
-             f'+ {linreg.intercept_:.2f}$', fontsize=13);
-```
-
-
     
-![png](ML-4.5-linregImplementation_files/ML-4.5-linregImplementation_24_0.png)
+![png](ML-4.5-linregImplementation_files/ML-4.5-linregImplementation_23_0.png)
     
 
 
 ### Multiple Features
-We can now repeat the fit for the original feature matrix $X$
+We can now introduce the dataset split step that we oversaw in the previous example. In `scikit-learn` splitting the dataset in train and test set is taken care of for us through a function. The proportion of the split can be configured through its arguments.
 
 
 ```python
-from IPython.display import Math
-
-linreg = LinearRegression().fit(X, y)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
 ```
 
-Since this time $X \in \mathbb{R}^{m \times 2}$, we have two weight parameters and one bias parameter
+We can now fit the all ($n=2$) features of the training set $X^t$
+
+
+```python
+linreg = LinearRegression().fit(X_train, y_train)
+```
+
+Since this time $X^t \in \mathbb{R}^{m \times 2}$, we have 2 weight parameters and 1 bias parameter
 
 
 ```python
@@ -260,17 +247,70 @@ linreg.coef_, linreg.intercept_
 
 
 
-    (array([  139.21067402, -8738.01911233]), 89597.90954279754)
+    (array([ 121.23967719, -533.38308167]), 102899.49800253182)
+
+
+
+Parameters fitted on the training set can be used to produce prediction from the test set features
+
+
+```python
+y_pred = linreg.predict(X_test)
+y_pred
+```
+
+
+
+
+    array([223605.79211291, 320331.02107066, 315529.85835588, 481628.21610898,
+           572921.69303459, 246786.96138798, 362886.14776507, 205128.93680682,
+           464484.997252  , 411988.21702784, 392274.57401844, 643143.85706018,
+           268610.10328255, 282431.42648245, 368026.63858003, 338638.21232666])
+
+
+
+Predictions can be now compared to the labels of the test set
+
+
+```python
+from sklearn.metrics import explained_variance_score
+explained_variance_score(y_test, y_pred)
+```
+
+
+
+
+    0.8322693778910275
 
 
 
 ## Pytorch
+Whereas `scikit-learn` is a high-level library, `Pytorch` is has a much lower-level approach. Many of the things that in `scikit-learn` happen under the hoods, in `Pytorch` need to be done manually. 
+
+The main entry point of the framework is the `torch` module
 
 
 ```python
 import torch
-from torch.autograd import Variable
 ```
+
+The first noticeable `Pytorch` feature is that it works using a proprietary data-structure, called a `tensor`. The underlying mathematical concept of tensor is beyond the scope of this article but can be consulted at the [Wikipedia tensor entry](https://en.wikipedia.org/wiki/Tensor). In Pytorch, a `tensor` is (citing the [pytorch tensor documentation](https://pytorch.org/docs/stable/tensors.html)) *a multi-dimensional matrix containing elements of a single data type*.
+
+
+```python
+torch.tensor(X, dtype=torch.float32)[:5]
+```
+
+
+
+
+    tensor([[2.1040e+03, 3.0000e+00],
+            [1.6000e+03, 3.0000e+00],
+            [2.4000e+03, 3.0000e+00],
+            [1.4160e+03, 2.0000e+00],
+            [3.0000e+03, 4.0000e+00]])
+
+
 
 
 ```python
