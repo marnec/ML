@@ -247,7 +247,7 @@ linreg.coef_, linreg.intercept_
 
 
 
-    (array([ 121.23967719, -533.38308167]), 102899.49800253182)
+    (array([  134.00624715, -6735.36295985]), 89300.92498337029)
 
 
 
@@ -262,10 +262,10 @@ y_pred
 
 
 
-    array([223605.79211291, 320331.02107066, 315529.85835588, 481628.21610898,
-           572921.69303459, 246786.96138798, 362886.14776507, 205128.93680682,
-           464484.997252  , 411988.21702784, 392274.57401844, 643143.85706018,
-           268610.10328255, 282431.42648245, 368026.63858003, 338638.21232666])
+    array([627195.8048889 , 489472.43341908, 322331.5926185 , 235128.57632493,
+           337107.33040746, 422469.30984317, 283504.83154673, 229902.332686  ,
+           322366.64322076, 363908.57983783, 655704.08492997, 468532.40826114,
+           411981.77196307, 325279.73005584, 190003.52163702, 328361.87374033])
 
 
 
@@ -280,7 +280,7 @@ explained_variance_score(y_test, y_pred)
 
 
 
-    0.8322693778910275
+    0.7663988971402916
 
 
 
@@ -294,11 +294,12 @@ The main entry point of the framework is the `torch` module
 import torch
 ```
 
-The first noticeable `Pytorch` feature is that it works using a proprietary data-structure, called a `tensor`. The underlying mathematical concept of tensor is beyond the scope of this article but can be consulted at the [Wikipedia tensor entry](https://en.wikipedia.org/wiki/Tensor). In Pytorch, a `tensor` is (citing the [pytorch tensor documentation](https://pytorch.org/docs/stable/tensors.html)) *a multi-dimensional matrix containing elements of a single data type*.
+The first noticeable Pytorch feature is that it works using a proprietary data-structure, called a `tensor`. The underlying mathematical concept of tensor is beyond the scope of this article but can be consulted at the [Wikipedia tensor entry](https://en.wikipedia.org/wiki/Tensor). In Pytorch, a `tensor` is (citing the [pytorch tensor documentation](https://pytorch.org/docs/stable/tensors.html)) *a multi-dimensional matrix containing elements of a single data type*.
 
 
 ```python
-torch.tensor(X, dtype=torch.float32)[:5]
+X_tensor = torch.tensor(X, dtype=torch.float32)
+X_tensor[:5]
 ```
 
 
@@ -312,36 +313,82 @@ torch.tensor(X, dtype=torch.float32)[:5]
 
 
 
+As you can notice we had to specify `dtype=np.float32`. This is because the underlying implementation of forward and backward propagation used by Pytorch under the hood would not work with the `int` type.
+
+Furthermore, $y$ tensor would be 1D but this would not comply with requirements of Pytorch methods used below, so we transform it into a column vector with the `unsqueeze(-1)` method. This is equivalent to calling `.reshape(-1, 1)` on a `numpy.array`
+
 
 ```python
-class linearRegression(torch.nn.Module):
-    def __init__(self, inputSize, outputSize):
-        super(linearRegression, self).__init__()
-        self.linear = torch.nn.Linear(inputSize, outputSize)
-
-    def forward(self, x):
-        return self.linear(x)
+y_tensor = torch.tensor(y, dtype=torch.float32).unsqueeze(-1)
+y_tensor[:5]
 ```
 
 
+
+
+    tensor([[399900.],
+            [329900.],
+            [369000.],
+            [232000.],
+            [539900.]])
+
+
+
+Since data is in very different scales we need to first normalize it. Here we use [standardization](https://en.wikipedia.org/wiki/Standard_score), which rescales data to have mean $\mu=0$ and standard deviation $\sigma=1$
+
+$$
+X_\text{std} = \frac{X - \mu}{\sigma}
+$$
+
+
 ```python
-model = linearRegression(2, 1)
+X_tensor_norm = (X_tensor - X_tensor.mean()) / torch.sqrt(X_tensor.var())
+X_tensor_norm[:5]
 ```
 
 
+
+
+    tensor([[ 0.9590, -0.8692],
+            [ 0.5204, -0.8692],
+            [ 1.2166, -0.8692],
+            [ 0.3603, -0.8701],
+            [ 1.7387, -0.8684]])
+
+
+
+A linear regression model can be built using the `Linear` class from the `nn` module, which initializes bias and weights automatically. Its constructor takes as input the number of columns of the input ($n_X$) and of the output ($n_y$)
+
+
 ```python
-epochs = 100
+model = torch.nn.Linear(2, 1)
+```
+
+Training the model will require some hyperparameters that we will define in advance for convenience:
+
+* `epochs` is the number of times the model will see all of our training samples;
+* `alpha` is the learning rate, which defines how big are the steps takes in updating the parameters;
+* `loss_func` is the loss function $\mathcal{L}$ used at training time. In this case we are using the `MSELoss`, which measures the mean squared error (squared L2 norm) between each element in the input $x$ and target $y$;
+* `optim` is the optimization algorithm used. In this case we are using `SGD` (Stochastic Gradient Descent). SGD requires us to select the correct $\alpha$. Up to this point we haven't seen that other optimization algorithm exist that automatically adapt $\alpha$ to data (e.g. [ADAM](https://en.wikipedia.org/wiki/Stochastic_gradient_descent#Adam)), so we are sticking with standard SGD.
+
+
+```python
+epochs = 10
 alpha = 0.01
 loss_func = torch.nn.MSELoss()
 optim = torch.optim.SGD(model.parameters(), lr=alpha)
 ```
 
+Now we need to manually run over the epochs and trigger the update of the parameters that will ultimately produce a fitted model
+
 
 ```python
+from torch.autograd import Variable
+
 for epoch in range(epochs):
-    inputs = Variable(torch.from_numpy(X.astype(np.float32)))
-    labels = Variable(torch.from_numpy(y.reshape(-1, 1).astype(np.float32)))
-    # Clear gradient buffers because we don't want any gradient from previous epoch to carry forward, dont want to cummulate gradients
+    inputs = Variable(X_tensor_norm)
+    labels = Variable(y_tensor)
+    # Clear gradient buffers because from previous epoch
     optim.zero_grad()
     # get output from the model, given the inputs
     outputs = model(inputs)
@@ -351,5 +398,33 @@ for epoch in range(epochs):
     loss.backward()
     # update parameters
     optim.step()
-#     print('epoch {}, loss {}'.format(epoch, loss.item()))
+    print('epoch {}, loss {}'.format(epoch, loss.item()))
 ```
+
+    epoch 0, loss 131183001600.0
+    epoch 1, loss 117986418688.0
+    epoch 2, loss 106161872896.0
+    epoch 3, loss 95566716928.0
+    epoch 4, loss 86073106432.0
+    epoch 5, loss 77566492672.0
+    epoch 6, loss 69944254464.0
+    epoch 7, loss 63114424320.0
+    epoch 8, loss 56994619392.0
+    epoch 9, loss 51510988800.0
+
+
+
+```python
+model(inputs)[:5]
+```
+
+
+
+
+    tensor([[150347.2500],
+            [124711.7578],
+            [165403.0156],
+            [115393.3906],
+            [195880.8281]], grad_fn=<SliceBackward>)
+
+
