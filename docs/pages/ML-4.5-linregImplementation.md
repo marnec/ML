@@ -28,69 +28,6 @@ df = pd.read_csv('./data/house_pricing.csv')
 df.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>sqf</th>
-      <th>rooms</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2104</td>
-      <td>3</td>
-      <td>399900</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1600</td>
-      <td>3</td>
-      <td>329900</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2400</td>
-      <td>3</td>
-      <td>369000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1416</td>
-      <td>2</td>
-      <td>232000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>3000</td>
-      <td>4</td>
-      <td>539900</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
 This dataset has two feature columns (`sqf` and `rooms`) and a label column (`price`)
 
 Let's assign the features $X$ and the labels $y$ to two different variables
@@ -109,34 +46,12 @@ Where the features $X$ are
 X[:5]
 ```
 
-
-
-
-    array([[2104,    3],
-           [1600,    3],
-           [2400,    3],
-           [1416,    2],
-           [3000,    4]])
-
-
-
 and their labels $y$
 
 
 ```python
 y[:5].reshape(-1, 1)
 ```
-
-
-
-
-    array([[399900],
-           [329900],
-           [369000],
-           [232000],
-           [539900]])
-
-
 
 ## scikit-learn
 Linear regression in `scikit-learn` is as easy as one line of code. To keep this first example as easy as possible, I'm not going to split the data in training and dev sets. I'm just fitting the model to the whole dataset. In a real scenario, there should be a preliminary step of dataset splitting. 
@@ -150,17 +65,6 @@ X_simple = X[:, 0]
 X_simple
 ```
 
-
-
-
-    array([2104, 1600, 2400, 1416, 3000, 1985, 1534, 1427, 1380, 1494, 1940,
-           2000, 1890, 4478, 1268, 2300, 1320, 1236, 2609, 3031, 1767, 1888,
-           1604, 1962, 3890, 1100, 1458, 2526, 2200, 2637, 1839, 1000, 2040,
-           3137, 1811, 1437, 1239, 2132, 4215, 2162, 1664, 2238, 2567, 1200,
-            852, 1852, 1203])
-
-
-
 Since the `fit()` function that we are using later wants a 2D-vector of shape $(m, n)$  and we only have one feature, we need to reshape the array in the form $(m, 1)$. On the other hand $y$ can either be a 2D or 1D array.
 
 
@@ -168,17 +72,6 @@ Since the `fit()` function that we are using later wants a 2D-vector of shape $(
 X_simple = X_simple.reshape(-1, 1)
 X_simple[:5]
 ```
-
-
-
-
-    array([[2104],
-           [1600],
-           [2400],
-           [1416],
-           [3000]])
-
-
 
 Building a linear regression model with [scikit-learn](https://scikit-learn.org/) requires the `LinearRegression` class
 
@@ -208,19 +101,6 @@ The parameters and bias of the model are returned with
 linreg.coef_, linreg.intercept_
 ```
 
-
-
-
-    (array([134.52528772]), 71270.49244872917)
-
-
-
-
-    
-![png](ML-4.5-linregImplementation_files/ML-4.5-linregImplementation_23_0.png)
-    
-
-
 ### Multiple Features
 We can now introduce the dataset split step that we oversaw in the previous example. In `scikit-learn` splitting the dataset in train and test set is taken care of for us through a function. The proportion of the split can be configured through its arguments.
 
@@ -244,13 +124,6 @@ Since this time $X^t \in \mathbb{R}^{m \times 2}$, we have 2 weight parameters a
 linreg.coef_, linreg.intercept_
 ```
 
-
-
-
-    (array([  134.00624715, -6735.36295985]), 89300.92498337029)
-
-
-
 Parameters fitted on the training set can be used to produce prediction from the test set features
 
 
@@ -258,16 +131,6 @@ Parameters fitted on the training set can be used to produce prediction from the
 y_pred = linreg.predict(X_test)
 y_pred
 ```
-
-
-
-
-    array([627195.8048889 , 489472.43341908, 322331.5926185 , 235128.57632493,
-           337107.33040746, 422469.30984317, 283504.83154673, 229902.332686  ,
-           322366.64322076, 363908.57983783, 655704.08492997, 468532.40826114,
-           411981.77196307, 325279.73005584, 190003.52163702, 328361.87374033])
-
-
 
 Predictions can be now compared to the labels of the test set
 
@@ -277,15 +140,18 @@ from sklearn.metrics import explained_variance_score
 explained_variance_score(y_test, y_pred)
 ```
 
-
-
-
-    0.7663988971402916
-
-
-
 ## Pytorch
-Whereas `scikit-learn` is a high-level library, `Pytorch` is has a much lower-level approach. Many of the things that in `scikit-learn` happen under the hoods, in `Pytorch` need to be done manually. 
+Whereas `scikit-learn` is a high-level library, `Pytorch` is has a much lower-level approach. Many of the things that in `scikit-learn` happen under the hoods, in `Pytorch` need to be done manually.
+
+The steps for training a model in Pytorch as defined in [Pytorch documentation](https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html#sphx-glr-beginner-blitz-neural-networks-tutorial-py) are
+
+1. Load Dataset
+2. Make Dataset Iterable
+3. Create Model Class
+4. Instantiate Model Class
+5. Instantiate Loss Class
+6. Instantiate Optimizer Class
+7. Train Model
 
 The main entry point of the framework is the `torch` module
 
@@ -302,17 +168,6 @@ X_tensor = torch.tensor(X, dtype=torch.float32)
 X_tensor[:5]
 ```
 
-
-
-
-    tensor([[2.1040e+03, 3.0000e+00],
-            [1.6000e+03, 3.0000e+00],
-            [2.4000e+03, 3.0000e+00],
-            [1.4160e+03, 2.0000e+00],
-            [3.0000e+03, 4.0000e+00]])
-
-
-
 As you can notice we had to specify `dtype=np.float32`. This is because the underlying implementation of forward and backward propagation used by Pytorch under the hood would not work with the `int` type.
 
 Furthermore, $y$ tensor would be 1D but this would not comply with requirements of Pytorch methods used below, so we transform it into a column vector with the `unsqueeze(-1)` method. This is equivalent to calling `.reshape(-1, 1)` on a `numpy.array`
@@ -322,17 +177,6 @@ Furthermore, $y$ tensor would be 1D but this would not comply with requirements 
 y_tensor = torch.tensor(y, dtype=torch.float32).unsqueeze(-1)
 y_tensor[:5]
 ```
-
-
-
-
-    tensor([[399900.],
-            [329900.],
-            [369000.],
-            [232000.],
-            [539900.]])
-
-
 
 Since data is in very different scales we need to first normalize it. Here we use [standardization](https://en.wikipedia.org/wiki/Standard_score), which rescales data to have mean $\mu=0$ and standard deviation $\sigma=1$
 
@@ -345,17 +189,6 @@ $$
 X_tensor_norm = (X_tensor - X_tensor.mean()) / torch.sqrt(X_tensor.var())
 X_tensor_norm[:5]
 ```
-
-
-
-
-    tensor([[ 0.9590, -0.8692],
-            [ 0.5204, -0.8692],
-            [ 1.2166, -0.8692],
-            [ 0.3603, -0.8701],
-            [ 1.7387, -0.8684]])
-
-
 
 A linear regression model can be built using the `Linear` class from the `nn` module, which initializes bias and weights automatically. Its constructor takes as input the number of columns of the input ($n_X$) and of the output ($n_y$)
 
@@ -401,30 +234,25 @@ for epoch in range(epochs):
     print('epoch {}, loss {}'.format(epoch, loss.item()))
 ```
 
-    epoch 0, loss 131183001600.0
-    epoch 1, loss 117986418688.0
-    epoch 2, loss 106161872896.0
-    epoch 3, loss 95566716928.0
-    epoch 4, loss 86073106432.0
-    epoch 5, loss 77566492672.0
-    epoch 6, loss 69944254464.0
-    epoch 7, loss 63114424320.0
-    epoch 8, loss 56994619392.0
-    epoch 9, loss 51510988800.0
-
-
 
 ```python
 model(inputs)[:5]
 ```
 
+## Pytorch-lightning
+Pytorch-lightning is a high-level wrapper for Pytorch that at the same time prevents you from writing much of the boilerplate code needed for a Pytorch model, and automatically adopts the most suited optimization strategies.
+
+It works on top of Pytorch-lightning and scikit-learn (among the others) and really speeds up the design process. For example its additional module `lightning bolts` offers linea regression and logistic regression implementations with `numpy` and `sklearn` bridges for datasets! But their implementations work on multiple GPUs, TPUs and scale dramatically. 
 
 
+```python
+# from pl_bolts.models.regression import LinearRegression
+# import pytorch_lightning as pl
+# from pl_bolts.datamodules import SklearnDataModule
 
-    tensor([[150347.2500],
-            [124711.7578],
-            [165403.0156],
-            [115393.3906],
-            [195880.8281]], grad_fn=<SliceBackward>)
-
-
+# loaders = SklearnDataModule(X_tensor_norm.numpy(), y_tensor.numpy(), num_workers=4)
+# model = LinearRegression(input_dim=2, bias=True)
+# trainer = pl.Trainer()
+# trainer.fit(model, train_dataloader=loaders.train_dataloader(), val_dataloaders=loaders.val_dataloader())
+# trainer.test(test_dataloaders=loaders.test_dataloader())
+```
