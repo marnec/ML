@@ -12,34 +12,34 @@ While the concept of deep learning has been around since many years, it really t
 
 So in one word **scale** has been driving deep learning, scale of labeled data, of computational power and of the algorithm.
 
-Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">figure below</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
+Incidentally many new technologies (i.e. types of neural networks) have been invented while trying to run large algorithms faster: for example, one of the fundamental breakthrough in ML has been switching from a sigmoid function to a RELU function (<a href="#fig:sigmoidrelu">Figure 41</a>). This is due to the fact that in the regions far from $0$, the parameters change very slowly, while with the ReLU the gradient descent is much more efficient.
 
 
     
-![png](ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png)
-    
 
-
-<i id="fig:sigmoidrelu">Comparison between sigmoid function and ReLU</i>
+<figure id="fig:sigmoidrelu">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_2_0.png" alt="png">
+    <figcaption>Figure 41. Comparison between sigmoid function and ReLU</figcaption>
+</figure>
 
 ## Deep representation
 Why do deep neural networks work well? Deep neural networks build a hierarchical representation of training data.
 
-Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">the figure below</a>).
+Early layers of neural networks detect simpler functions and compose them together in following layers of the neural network in more complex functions (a possible example in <a href="#fig:audioexample">Figure 42</a>).
 
 
     
-![png](ML-24-DeepLearning_files/ML-24-DeepLearning_5_0.png)
-    
 
-
-<i id="fig:audioexample">An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</i>
+<figure id="fig:audioexample">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_5_0.png" alt="png">
+    <figcaption>Figure 42. An hypothesized example of increasingly complex features learned from a 5 layers-deep neural network trained on audio sources.</figcaption>
+</figure>
 
 A result from circuit theory states that:
 
 > there are functions you can compute with a "small" L-layer deep neural network that shallower networks require exponentially more hidden units to compute.
     
-Let's try to illustrate this with an example: as we have seen in <a href="page:ML11">ML-11</a> we can calculate logical functions with neural networks. Let's say we want to calculate the combined $\text{XOR}$ of our input vector $x$.
+Let's try to illustrate this with an example: as we have seen in <a href="{{site.basurl}}/ML/ML11ML-11">ML11</a> we can calculate logical functions with neural networks. Let's say we want to calculate the combined $\text{XOR}$ of our input vector $x$.
 
 $$y=x_1 \text{XOR} x_2 \text{XOR} x_3 \text{XOR} \dots \text{XOR} x_n$$
 
@@ -50,11 +50,11 @@ Let's take the deep neural network in <a href=#fig:deepann>the figure below</a>
 
 
     
-![png](ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.png)
-    
 
-
-<i id="fig:deepann">A 4-layers deep neural network</i>
+<figure id="fig:deepann">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_8_0.png" alt="png">
+    <figcaption>Figure 43. A 4-layers deep neural network</figcaption>
+</figure>
 
 We say that this neural network as $L=4$ layers; input layer is included in the number of layers. Each layer has $n^{[l]}$ number of units. In this case:
 
@@ -76,7 +76,7 @@ where $z^{[l]}$ is calculated from parameters $W^{[l]}$ and bias $b^{[l]}$.
 The input layer is referred to as $x = a^{[0]}$ and the output layer as $a^{[L]} = \hat{y}$
 
 ## Forward propagation
-Forward propagation for a deep neural network follows the same process as for a shallow network, which is explained in detail in <a href="page:ML10">ML-10</a>. The process follows the general rule:
+Forward propagation for a deep neural network follows the same process as for a shallow network, which is explained in detail in <a href="{{site.basurl}}/ML/ML10ML-10">ML10</a>. The process follows the general rule:
 
 $$
 \begin{aligned}
@@ -159,15 +159,15 @@ Since the goal of the test set is to provide a platform to obtain an un-biased e
 ## Transfer Learning
 One of the most powerful ideas in deep learning is that sometimes you can take knowledge that was learned from one task and apply that knowledge to another task, in other words to **transfer learning**.
 
-Suppose we trained the neural network in <a href="#fig:transf">the figure below</a> on object detection and we now want to transfer that knowledge to radiology diagnosis. We can transfer learning, by dropping the output layer and the layer before it, which feeds the processed-input directly in the output layer, and retrain by swapping the dataset with a new $x, y$ where $x$ is radiology images and $y$ is the diagnosis. In order to achieve that, we initialize the last layer weights ($w^{[L]} ,b^{[L]}$) randomly and retraining the neural network on the new dataset. Sometimes we can decide not only to retrain the dropped layers with new data, but to change the architecture of the dropped layers, maybe adding some more hidden layers between the trained layers and the output layer.
+Suppose we trained the neural network in <a href="#fig:transf">Figure 44</a> on object detection and we now want to transfer that knowledge to radiology diagnosis. We can transfer learning, by dropping the output layer and the layer before it, which feeds the processed-input directly in the output layer, and retrain by swapping the dataset with a new $x, y$ where $x$ is radiology images and $y$ is the diagnosis. In order to achieve that, we initialize the last layer weights ($w^{[L]} ,b^{[L]}$) randomly and retraining the neural network on the new dataset. Sometimes we can decide not only to retrain the dropped layers with new data, but to change the architecture of the dropped layers, maybe adding some more hidden layers between the trained layers and the output layer.
 
 
     
-![png](ML-24-DeepLearning_files/ML-24-DeepLearning_14_0.png)
-    
 
-
-<i id="fig:transf">A deep neural network trained for a specific task and repurposed for a different task by dropping the hidden units of the last two layers (red) and retrain only those.</i>
+<figure id="fig:transf">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_14_0.png" alt="png">
+    <figcaption>Figure 44. A deep neural network trained for a specific task and repurposed for a different task by dropping the hidden units of the last two layers (red) and retrain only those.</figcaption>
+</figure>
 
 The rule of thumb to know how many layers to retrain is that if your new dataset is small, you should only retrain the hidden layer. The bigger your new dataset, the more hidden layers you can go back to retrain. In case you have enough data to retrain the entire network, then your first training is called **pre-training**, which becomes a step where you initialize the weights of the network with a learning process on a separate dataset, and your second training is called **fine-tuning**, in which the network is optimized for the target task.
 
@@ -195,15 +195,15 @@ y^{(1)} & y^{(2)} & \dots & y^{(m)} \\
 \end{bmatrix} 
 $$
 
-In case our multitask neural network has 4 target tasks, it will look like that in <a href="#fig:multitasknn">the figure below</a>, with 4 units in the output layer.
+In case our multitask neural network has 4 target tasks, it will look like that in <a href="#fig:multitasknn">Figure 45</a>, with 4 units in the output layer.
 
 
     
-![png](ML-24-DeepLearning_files/ML-24-DeepLearning_17_0.png)
-    
 
-
-<i id="fig:multitasknn">A multitask neural network with 4 output units</i>
+<figure id="fig:multitasknn">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_17_0.png" alt="png">
+    <figcaption>Figure 45. A multitask neural network with 4 output units</figcaption>
+</figure>
 
 Since $\hat{y}^{(i)} \in \mathbb{R}^{4 \times 1}$, also the Loss function $\mathcal{L}\left(\hat{y}^{(i)}_j, y^{(i)}_j \right) \in \mathbb{R}^{4 \times 1}$ (where $\mathcal{L}$ is usual logistic loss) and the loss averaged over the whole dataset (Cost function) becomes
 
@@ -240,15 +240,15 @@ Let's take an example in speech recognition, where from an audio source $x$ we o
 3. ML model for building words from phonemes
 4. ML model for building a transcript from words.
 
-End-to-end learning maps directly from audio to transcript (<a href="#fig:e2elearn">figure below</a>).
+End-to-end learning maps directly from audio to transcript (<a href="#fig:e2elearn">Figure 46</a>).
 
 
     
-![png](ML-24-DeepLearning_files/ML-24-DeepLearning_20_0.png)
-    
 
-
-<i id="fig:e2elearn">An example of a task faced with a early machine learning approach and with end-to-end learning</i>
+<figure id="fig:e2elearn">
+    <img src="{{site.baseurl}}/pages/ML-24-DeepLearning_files/ML-24-DeepLearning_20_0.png" alt="png">
+    <figcaption>Figure 46. An example of a task faced with a early machine learning approach and with end-to-end learning</figcaption>
+</figure>
 
 End-to-end learning is able to map directly the audio source $x$ to the transcript $y$, only if a lot of data is available. For example, if only 3000 hours of audio source are available, then the traditional approach will perform better; but if 10000 or more hours of audio source are available then end-to-end learning might be a better approach.
 

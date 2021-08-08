@@ -44,15 +44,15 @@ Example:
 
 > Given data about the size of houses on the real estate market, try to predict their price. 
 
-Price as a function of size (<a href="#fig:scatter">Figure below</a>) is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
+Price as a function of size (<a href="#fig:scatter">Figure 1</a>) is a psuedo-continuous output (prices in USD have sense only rounded to the second decimal figure), so this is a regression problem.
 
 
     
-![png](ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_5_0.png)
-    
 
-
-<i id="fig:scatter">Price of houses in USD $(y)$ plotted against the living surface in square foots $(x)$ of a set of houses in Portland, Oregon</i>
+<figure id="fig:scatter">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_5_0.png" alt="png">
+    <figcaption>Figure 1. Price of houses in USD $(y)$ plotted against the living surface in square foots $(x)$ of a set of houses in Portland, Oregon</figcaption>
+</figure>
 
 ### Classification problems
 We try to map input variables into discrete categories. 
@@ -60,15 +60,15 @@ We try to map input variables into discrete categories.
 Example:
 > Given a patient with a tumor, we have to predict whether the tumor is malignant or benign.
 
-When trying to predict malignancy, a tumor can either be malignant (positive case, 1) or bening (negative case, 0). This situation is represented in the <a href="#fig:tumorsize">Figure below</a>
+When trying to predict malignancy, a tumor can either be malignant (positive case, 1) or bening (negative case, 0). This situation is represented in the <a href="#fig:tumorsize">Figure 2</a>
 
 
     
-![png](ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_7_0.png)
-    
 
-
-<i id="fig:tumorsize">Measured size of tumors $(x)$ and their malignancy $(y)$ constrained to the values $0$ (bening) or $1$ (malignant)</i>
+<figure id="fig:tumorsize">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_7_0.png" alt="png">
+    <figcaption>Figure 2. Measured size of tumors $(x)$ and their malignancy $(y)$ constrained to the values $0$ (bening) or $1$ (malignant)</figcaption>
+</figure>
 
 ## Unsupervised learning
 We don't know how the correct output should look like. Unsupervised learning allows us to approach problems with little or no idea of what our results should look like. Wit unsupervised learning we try to derive structure and patterns from data where we don't necessarily know the effect of the variables. We derive this structure by clustering the data based on relationships among the variables in the data.
@@ -81,26 +81,26 @@ We can divide unsuperised learning in two categories:
 * **Non-clustering**
 
 ### Clustering
-Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on (<a href="#fig:genexpr">Figure below</a>).
+Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on (<a href="#fig:genexpr">Figure 3</a>).
 
 
     
-![png](ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_9_0.png)
-    
 
-
-<i id="fig:genexpr">Heatmap of gene expression of 5 genes for 100 individuals, which are then clustered based on the similarity of the (gene-) expression profile (data is randomly generated).</i>
+<figure id="fig:genexpr">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_9_0.png" alt="png">
+    <figcaption>Figure 3. Heatmap of gene expression of 5 genes for 100 individuals, which are then clustered based on the similarity of the (gene-) expression profile (data is randomly generated).</figcaption>
+</figure>
 
 #### Difference between clustering and classification
-In classification, we try to teach a learning algrithm to associate a set of features to the correct class after exposing it to many labeled examples. In clustering we don't know the correct label and we try measure if some data can be grouped toghther based on a feature or a combination of features. In <a href="#fig:iris">the figure below</a>, the same dataset is shown in its labeled (left) and unlabeled (right) versions.
+In classification, we try to teach a learning algrithm to associate a set of features to the correct class after exposing it to many labeled examples. In clustering we don't know the correct label and we try measure if some data can be grouped toghther based on a feature or a combination of features. In <a href="#fig:iris">Figure 4</a>, the same dataset is shown in its labeled (left) and unlabeled (right) versions.
 
 
     
-![png](ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_11_0.png)
-    
 
-
-<i id="fig:iris">Labeled (left) and unlabeled (right) data on sepal length $(x)$ and width $(y)$</i>
+<figure id="fig:iris">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_11_0.png" alt="png">
+    <figcaption>Figure 4. Labeled (left) and unlabeled (right) data on sepal length $(x)$ and width $(y)$</figcaption>
+</figure>
 
 ### Non-clustering
 The "Cocktail Party Algorithm" allows you to find structure in a chaotic environment. (i.e. identifying individual voices and music from a mesh of sounds at a cocktail party).

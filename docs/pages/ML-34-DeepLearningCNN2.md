@@ -10,20 +10,20 @@ comments: true
 # Convolutional neural network
 
 ## Building one layer of a CNN
-From what we have seen in <a href="ML33#fig:multifilter">the multiple filters figure</a>, e can proceed to produce one layer of out convolutional neural network. Building on the application of multiple filters to a single image, we can imagine to add the bias terms $b_i \in \mathbb{R}$ and apply a non-linear activation funtion, to the single, 1-channel output matrices. <a href="#fig:onelayercnn">figure below</a>.
+From what we have seen in <a href="{{site.basurl}}/ML/ML33#fig:multifilter">Figure 84</a>.
 
 
     
-![svg](ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_2_0.svg)
-    
 
-
-<i id="fig:onelayercnn">A single layer of a convolutional neural network, with an input matrix $a^{[0]}$, convolved with two learned filters $w^{[1]}$ and the ReLU activation function applied to the two channels of the produced output images $g(w^{[1]}a^{[0]})$.</i>
+<figure id="fig:onelayercnn">
+    <img src="{{site.baseurl}}/pages/ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_2_0.svg" alt="png">
+    <figcaption>Figure 86. A single layer of a convolutional neural network, with an input matrix $a^{[0]}$, convolved with two learned filters $w^{[1]}$ and the ReLU activation function applied to the two channels of the produced output images $g(w^{[1]}a^{[0]})$.</figcaption>
+</figure>
 
 
 In building one layer of a convolutional neural network, the input image, analogously to any neural network, can also be called $a^{[0]}$. The two filters play a similar role to the weights of the first layer of the neural network $w^{[1]}$. Each filter is multiplied and summed to the input image and produces a $4\times 4$ output, which is similar to $w^{[1]}a^{[0]}$. For each of these outputs, we can add a bias $b_i$, which is a single number $\in \mathbb{R}$ that is added to each cell of the output image. A non linearity function is applied to each output $g(w^{[1]}a^{[0]})$. Finally the two outputs are stacked together to generate the final output of one layer of a convolutional neural network $a^{[1]}$.
 
-In the example in <a href="#fig:onelayercnn">the figure above</a> we have two filters and this is the reason why we end up with 2 channels in the output, but if instead we had for example 10 filters, we would have a $4 \times 4 \times 10$ output. Such a layer would have $3 \times 3 \times 3 + 1= 28$ parameters plus bias, multiplied $ \times 10$ for each filter, for a total of $280$ parameters for this layer. The nice thing about convolutional neural network, is that **number of parameters is independent from the size of the input image**. Even if the input image was a 1000 x 1000 pixels image, a layer such as what we have described, would still have 280 parameters. This means that with a very small number of parameters we can add filters for detecting a number of features of input images of any dimension. This property of convolutional neural networks make them **less prone to overfitting**.
+In the example in <a href="#fig:onelayercnn">Figure 86</a> we have two filters and this is the reason why we end up with 2 channels in the output, but if instead we had for example 10 filters, we would have a $4 \times 4 \times 10$ output. Such a layer would have $3 \times 3 \times 3 + 1= 28$ parameters plus bias, multiplied $ \times 10$ for each filter, for a total of $280$ parameters for this layer. The nice thing about convolutional neural network, is that **number of parameters is independent from the size of the input image**. Even if the input image was a 1000 x 1000 pixels image, a layer such as what we have described, would still have 280 parameters. This means that with a very small number of parameters we can add filters for detecting a number of features of input images of any dimension. This property of convolutional neural networks make them **less prone to overfitting**.
 
 ### Notation for one convolutional layer
 
@@ -54,7 +54,7 @@ Weights from all filters combined have dimensions $f^{[l]} \times f^{[l]} \times
 The bias will be a number for each filter, so a vector of $n_c^{[l]}$ elements
 
 ## Simple convolutional network
-Suppose we want to build a classifier that is able to recognize if an input image is the picture of a cat (<a href="#fig:cnn">figure below</a>). For the sake of this example we will use small input images with dimensions: $39 \times 39 \times 3$. By convolving 10 $3 \times 3 \times 3$ filters with *valid* padding and stride $s^{[1]}=1$, we will obtain an output $a^{[1]} \in 37 \times 37 \times 10$.
+Suppose we want to build a classifier that is able to recognize if an input image is the picture of a cat (<a href="#fig:cnn">Figure 87</a>). For the sake of this example we will use small input images with dimensions: $39 \times 39 \times 3$. By convolving 10 $3 \times 3 \times 3$ filters with *valid* padding and stride $s^{[1]}=1$, we will obtain an output $a^{[1]} \in 37 \times 37 \times 10$.
 
 A second convolutional layer with 20 $3\times 3 \times 3$ filters with *valid* padding and stride $s^{[2]}=2$ will give $a^{[2]} \in 17 \times 17 \times 20$. And a further layer with 40 $3 \times 3 \times 3$ filters with *valid* padding and stride $s^{[3]}=2$ will give an output $a^{[3]} \in 7 \times 7 \times 40$.
 
@@ -62,11 +62,11 @@ The last output layer $a^{[3]}$ can be reshaped into a $1960 \times 1$ array and
 
 
     
-![svg](ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_6_0.svg)
-    
 
-
-<i id="fig:cnn">A simple convolutional neural network with 3 convolutional layers and one final dense layer.</i>
+<figure id="fig:cnn">
+    <img src="{{site.baseurl}}/pages/ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_6_0.svg" alt="png">
+    <figcaption>Figure 87. A simple convolutional neural network with 3 convolutional layers and one final dense layer.</figcaption>
+</figure>
 
 As shown in this example, the typical trend of a convolutional neural network is that the width and height of the activation matrices will generally shrink, while the number of channels will generally grow as we advance deeper in the network. At each convolutional step, the values $f^{[l]}, s^{[l]}, p^{[l]}$ add themselves to the list of hyperparameters that need to be set. Different values of these hyperparameters can give fundamentally different results.
 
@@ -85,26 +85,26 @@ A pooling layer is a layer that performs an operation on a window of cells of di
 
 
     
-![svg](ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_8_0.svg)
-    
 
-
-<i id="fig:maxpool">Max pooling on a $4 \times 4$ input with a $2\times 2$ window with stride $s=2$</i>
+<figure id="fig:maxpool">
+    <img src="{{site.baseurl}}/pages/ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_8_0.svg" alt="png">
+    <figcaption>Figure 88. Max pooling on a $4 \times 4$ input with a $2\times 2$ window with stride $s=2$</figcaption>
+</figure>
 
 The intuition behind max pooling is to preserve the feature detected in the input feature, which should be represented by high values in the input, while reducing the dimension of the image. Despite this the widely accepted intuition of max pooling, to the best of my knowledge I don't know if anyone knows if this intuition is the real underlying reason why max-pooling woks well.
 
 Other kinds of pooling exist, as for example **average pooling** that takes the average of a window. There are two typical version of pooling layers: the most common is $f=2,s=2$; also $f=2,s=3$, sometimes called overlapping pooling, is found. Pooling layers have two hyperparameters ($f,s$), but don't have learned parameters. For this reason pooling layers are sometimes not counted as layers on their own, but only associated to a CONV layer.
 
 ## LeNet - A CNN example
-The first working implementation of a CNN is LeNet, published 1990. LeNet-5 was designed as shown in <a href="#fig:lenet5">the picture below</a>. LeNet has a typical architecture for convolutional networks. With a CONV and a POOL layer the alternate. Deeper convolutional layers shrink in width and height and grow in channels. The last layers of the network are fully connected (FC) and the network terminates with the output layer, that contains as many units as the output classes, a softmax layer with 10 units in this case.
+The first working implementation of a CNN is LeNet, published 1990. LeNet-5 was designed as shown in <a href="#fig:lenet5">Figure 89</a>. LeNet has a typical architecture for convolutional networks. With a CONV and a POOL layer the alternate. Deeper convolutional layers shrink in width and height and grow in channels. The last layers of the network are fully connected (FC) and the network terminates with the output layer, that contains as many units as the output classes, a softmax layer with 10 units in this case.
 
 
     
-![svg](ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_11_0.svg)
-    
 
-
-<i id="fig:lenet5">Approximate architecture on LeNet-5 convolutional neural network</i>
+<figure id="fig:lenet5">
+    <img src="{{site.baseurl}}/pages/ML-34-DeepLearningCNN2_files/ML-34-DeepLearningCNN2_11_0.svg" alt="png">
+    <figcaption>Figure 89. Approximate architecture on LeNet-5 convolutional neural network</figcaption>
+</figure>
 
 By looking at the number of parameters in the different layers, we can notice how convolutional layers have very few parameters and very large activation size, while fully connected layers have typically smaller activation size and large number of parameters.
 

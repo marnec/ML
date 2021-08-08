@@ -9,15 +9,15 @@ comments: true
 
 ## Evaluating an hypothesis
 
-In the case of house prices if we want to see how our hypothesis is performing we could just plot it. Since we have just one feature (the area of each house) we can plot the feature against the price as in <a href="#fig:linreghouseprice">Figure below</a>.
+In the case of house prices if we want to see how our hypothesis is performing we could just plot it. Since we have just one feature (the area of each house) we can plot the feature against the price as in <a href="#fig:linreghouseprice">Figure 14</a>.
 
 
     
-![png](ML-15-Diagnostic_files/ML-15-Diagnostic_2_0.png)
-    
 
-
-<i id="fig:linreghouseprice">Visual representation of a linear regression of house prices ($y$) based on the living surface in square foots ($x$)</i>
+<figure id="fig:linreghouseprice">
+    <img src="{{site.baseurl}}/pages/ML-15-Diagnostic_files/ML-15-Diagnostic_2_0.png" alt="png">
+    <figcaption>Figure 14. Visual representation of a linear regression of house prices ($y$) based on the living surface in square foots ($x$)</figcaption>
+</figure>
 
 When we have many features it becomes impossible to plot hypotheses. How do we tell if our hypothesis is overfitting? The standard way to evaluate a training hypothesis is to split the training set in two randomly selected subsets. The first subset ($70\%$ of the examples) will be the **training set** and the second subset ($30\%$ of the examples) will be the **test set** (blue background).
 
@@ -259,11 +259,11 @@ When a ML algorith is underperfoming with respect to expectations is almost alwa
 
 
     
-![png](ML-15-Diagnostic_files/ML-15-Diagnostic_12_0.png)
-    
 
-
-<i id="fig:polynomialregression">Visual representation of polynomial regression of grade 1 (A), grade 2 (B) and grade 3 (C)</i>
+<figure id="fig:polynomialregression">
+    <img src="{{site.baseurl}}/pages/ML-15-Diagnostic_files/ML-15-Diagnostic_12_0.png" alt="png">
+    <figcaption>Figure 15. Visual representation of polynomial regression of grade 1 (A), grade 2 (B) and grade 3 (C)</figcaption>
+</figure>
 
 Let's say that training error and cross validation error are defined as in $\eqref{eq:trainerr}$ and $\eqref{eq:crosserr}$. If we plot $J_\text{train}(\theta)$ and $J_\text{CV}(\theta)$ as a function of the polynome degree $d$ we will see that $J_\text{train}(\theta)$ decrease at the increase of $d$, because we are able to fit the algorithm better and better; $J_\text{CV}(\theta)$ will be large for small values of $d$ indicating that we are underfitting the data, it will decrease at the increase of $d$ until reaching the minimum value for the optimal $d$ and raise again when further increasing $d$.
 
