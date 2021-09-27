@@ -67,10 +67,10 @@ We can now notice that the representation for *Apple* $e_{456}$ and for the word
 Once a high-dimensional featurized representation (embedding) is built for each word in a vocabulary, each word will be represented by a high-dimensional vector of feature components. This reflects the reason why they are called embeddings: they are imagined as points *embedded* in a high-dimensional feature-space. It could be useful to visualize the embeddings but it is impossible to represent more than 2-3 dimensions in a plot. To visualize them the high-dimensional space is compressed to a 2D space. The compression method commonly used is the **t-SNE** algorithm ([van der Maaten and Hinton, 2008](https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf))
 
 ### Relation of word embeddings to face encodings
-In face verification and face recognition tasks, input images of faces are represented in vectors called **encodings** (<a href="page:ML40">ML-40</a>). The concept of face encoding and word embedding is very close (not equal) and in the literature the two terms are sometimes used interchangeably.
+In face verification and face recognition tasks, input images of faces are represented in vectors called **encodings** (<a href="{{site.basurl}}/ML/ML40ML-40">ML40</a>). The concept of face encoding and word embedding is very close (not equal) and in the literature the two terms are sometimes used interchangeably.
 
 ### Using word embeddings
-Let's apply the concept of word embeddings to the named entity recognition example that we have followed throughout <a href="page:ML44">ML-44</a>. Suppose we have the sentences
+Let's apply the concept of word embeddings to the named entity recognition example that we have followed throughout <a href="{{site.basurl}}/ML/ML44ML-44">ML44</a>. Suppose we have the sentences
 
 ```
 Sally Johnson is an orange farmer
@@ -78,17 +78,17 @@ Sally Johnson is an orange farmer
 Robert Lin is an apple farmer
 ```
 
-If the algorithm is trained with the first sentence. Word embeddings will increase the probability of `Robert Lin` being correctly classified as a name. In fact, knowing that `orange` and `apple` are similar will make it easier for the algorithm to correctly classify the rest of the sentence (<a href="#fig:ner">figure below</a>).
+If the algorithm is trained with the first sentence. Word embeddings will increase the probability of `Robert Lin` being correctly classified as a name. In fact, knowing that `orange` and `apple` are similar will make it easier for the algorithm to correctly classify the rest of the sentence (<a href="#fig:ner">Figure 137</a>).
 
 Suppose now to replace the words `apple farmer` with the much less common words `durian cultivator`. A small labeled dataset for the named entity training doesn't probably contain the words `durian` and `cultivator`, but if the algorithm has learned a word embedding associating `durian` with fruits and `cultivator` with farmer, it should still be able to generalize well.
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_3_0.svg)
-    
 
-
-<i id="fig:ner">An example of a simplified RNN taking variations of a sequence and producing an output.</i>
+<figure id="fig:ner">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_3_0.svg" alt="png">
+    <figcaption>Figure 137. An example of a simplified RNN taking variations of a sequence and producing an output.</figcaption>
+</figure>
 
 ### Transfer learning of word embeddings
 The example in the previous section implies that the word embedding model *knows more* (aka as been trained on a bigger dataset) than the named entity recognition model. In fact, to make full use of word embeddings, they are usually trained on extremely large text corpus, in the range of 1 billion to 100 billion words. On the contrary, a named entity recognition model can be trained on a much smaller dataset, for example 100 thousands words. 
@@ -116,15 +116,15 @@ e_{\text{Man}} - e_{\text{Woman}} =
 = e_{\text{King}} - e_{\text{Queen}}
 $$
 
-The embedding of `Man` differs from the embedding of `Woman` due to a single value (Gender). In a realistic embedding we would have hundreds to thousands of such components, but we can still imagine the embeddings of two words to be different only on one (or few) components. In the high-dimensional feature space of the embedding the difference between the two embeddings is their Euclidean distance. We can imagine the difference of the other set of words in the analogy (`King` and `Queen`) to have a similar (almost parallel) distance vector. In the <a href="#fig:analogy">figure below</a> it is shown an oversimplified representation of this parallelism. Do notice that, should the bi-dimensional feature space used in the plot be produced by the t-SNE algorithm, this parallelism would not be preserved due to the highly non-linear nature of t-SNE.
+The embedding of `Man` differs from the embedding of `Woman` due to a single value (Gender). In a realistic embedding we would have hundreds to thousands of such components, but we can still imagine the embeddings of two words to be different only on one (or few) components. In the high-dimensional feature space of the embedding the difference between the two embeddings is their Euclidean distance. We can imagine the difference of the other set of words in the analogy (`King` and `Queen`) to have a similar (almost parallel) distance vector. In the <a href="#fig:analogy">Figure 138</a> it is shown an oversimplified representation of this parallelism. Do notice that, should the bi-dimensional feature space used in the plot be produced by the t-SNE algorithm, this parallelism would not be preserved due to the highly non-linear nature of t-SNE.
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_5_0.svg)
-    
 
-
-<i id="fig:analogy">A simplified representation of how an analogous relationship between words would look in the highly dimensional feature space of the embeddings. The arrows represent the distance between two similar words. Arrows between analogous concepts would be parallel(ish)</i>
+<figure id="fig:analogy">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_5_0.svg" alt="png">
+    <figcaption>Figure 138. A simplified representation of how an analogous relationship between words would look in the highly dimensional feature space of the embeddings. The arrows represent the distance between two similar words. Arrows between analogous concepts would be parallel(ish)</figcaption>
+</figure>
 
 To correctly identify the right word to complete the analogy an algorithm would need to set a value of $e_?$ that satisfies the condition
 
@@ -144,7 +144,7 @@ $$
 \text{sim}(u,v) = \frac{u^Tv}{\| u \|_2 \| v \|_2}
 $$
 
-where the numerator is basically the inner product between $u$ and $v$ ($u^Tv = \langle u, v \rangle$). If $u$ and $v$ are very similar (parallel) the inner product will tend to be large; if they are very different (orthogonal) the inner product will tend to 0. This similarity function is called cosine similarity because it computes the cosine between the vectors $u$ and $v$ (<a href="#fig:cosine">figure below</a>): 
+where the numerator is basically the inner product between $u$ and $v$ ($u^Tv = \langle u, v \rangle$). If $u$ and $v$ are very similar (parallel) the inner product will tend to be large; if they are very different (orthogonal) the inner product will tend to 0. This similarity function is called cosine similarity because it computes the cosine between the vectors $u$ and $v$ (<a href="#fig:cosine">Figure 139</a>): 
 
 * $\cos = 1$ when the angle $\phi=0$ (parallel, same direction)
 * $\cos = 0$ when the angle $\phi=90^{\circ}$ (orthogonal)
@@ -152,11 +152,11 @@ where the numerator is basically the inner product between $u$ and $v$ ($u^Tv = 
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_7_0.svg)
-    
 
-
-<i id="fig:cosine">Cosine function for values of the angle $\phi$ between to vectors in the range $[0, \pi]$</i>
+<figure id="fig:cosine">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_7_0.svg" alt="png">
+    <figcaption>Figure 139. Cosine function for values of the angle $\phi$ between to vectors in the range $[0, \pi]$</figcaption>
+</figure>
 
 ## Learning Word embeddings
 
@@ -196,21 +196,21 @@ Given the task of predicting the missing word from a sentence, as for example
 I want a glass of orange ______.
 ```
 
-the authors of [Benjo et. al., 2003](https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf) built a language model. They would codify each word as a one-hot vector $o_j$ and obtain the word embedding $e_j$. This produces a series of high-dimensional embeddings, which are fed into a neural network layer, which in turn feeds to a softmax classifier (<a href="#fig:neurallanguagemodel">figure below</a>). The softmax clasifier outputs a vector with the same dimension as the training vocabulary, so that it can select any word from it to fill the missing word. The neural network layer has its own parameters ($W^{[1]}, b^{[1]}$) as well as the softmax layer ($W^{[2]}, b^{[2]}$)
+the authors of [Benjo et. al., 2003](https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf) built a language model. They would codify each word as a one-hot vector $o_j$ and obtain the word embedding $e_j$. This produces a series of high-dimensional embeddings, which are fed into a neural network layer, which in turn feeds to a softmax classifier (<a href="#fig:neurallanguagemodel">Figure 140</a>). The softmax clasifier outputs a vector with the same dimension as the training vocabulary, so that it can select any word from it to fill the missing word. The neural network layer has its own parameters ($W^{[1]}, b^{[1]}$) as well as the softmax layer ($W^{[2]}, b^{[2]}$)
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_10_0.svg)
-    
 
+<figure id="fig:neurallanguagemodel">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_10_0.svg" alt="png">
+    <figcaption>Figure 140. The architecture of a neural language model applied to a sentence.</figcaption>
+</figure>
 
-<i id="fig:neurallanguagemodel">The architecture of a neural language model applied to a sentence.</i>
-
-Looking at the example in <a href="#fig:neurallanguagemodel">the figure above</a>, given 300 dimensional word embeddings the input fed to the neural network will be a 1800 input vector, composed by the 6 embedding vectors (one per word) stacked together. 
+Looking at the example in <a href="#fig:neurallanguagemodel">Figure 140</a>, given 300 dimensional word embeddings the input fed to the neural network will be a 1800 input vector, composed by the 6 embedding vectors (one per word) stacked together. 
 
 A common alternative is that of using a **fixed historical window**, where a fixed number of past time-steps (words in this case) are fed to the neural network layer to produce a prediction for the current time-step. The width of the window would be an additional hyperparameter that needs to be set manually, however this approach allow to process arbitrarily long sentences without changing the computation time.
 
-The model represented in <a href="#fig:neurallanguagemodel">the figure above</a>, can be used to train word embeddings. In this model, the parameters are the embedding matrix $E$, the parameters of the neural network $W^{[1]}, b^{[1]}$ and those of the softmax layer $W^{[2]}, b^{[2]}$. For each word in your text corpus, backpropagation can be used to perform gradient descent to maximize the likelihood to that word given the preceding word in the window. 
+The model represented in <a href="#fig:neurallanguagemodel">Figure 140</a>, can be used to train word embeddings. In this model, the parameters are the embedding matrix $E$, the parameters of the neural network $W^{[1]}, b^{[1]}$ and those of the softmax layer $W^{[2]}, b^{[2]}$. For each word in your text corpus, backpropagation can be used to perform gradient descent to maximize the likelihood to that word given the preceding word in the window. 
 
 For the task of building a language model, upon which we built our example, using as context a few preceding words is natural. However, if the task is to learn word embeddings various contexts can be used and researchers have experimented with various context combinations:
 
@@ -315,15 +315,15 @@ In practice this is not desirable because it means that many training steps will
 #### Computational cost of softmax
 There are problems with the computational speed of the skip-gram model with softmax, in particular, each time the probability $p(t \vert c)$ is evaluated, a sum over $n$ elements needs to be carried out, with $n$ possibly reaching millions.
 
-To resolve this issue, an laternative approach to the standard softmax is applied, called **hirearchical softmax**. A hierarchical softmax classifier is built of many binary classifiers organized hierarchically, where each binary classifier tells if the target $t$ is in the first or the second half of the previous input (<a href="#fig:hirearchicalsoftmax">figure below</a>). This scales the computational cost to $\log \vert n \vert$. 
+To resolve this issue, an laternative approach to the standard softmax is applied, called **hirearchical softmax**. A hierarchical softmax classifier is built of many binary classifiers organized hierarchically, where each binary classifier tells if the target $t$ is in the first or the second half of the previous input (<a href="#fig:hirearchicalsoftmax">Figure 141</a>). This scales the computational cost to $\log \vert n \vert$. 
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_17_0.svg)
-    
 
-
-<i id="fig:hirearchicalsoftmax">Hierarchical softmax. Each node is a binary classifier that splits its input in two halves and determines if the target $t$ is the first or second half </i>
+<figure id="fig:hirearchicalsoftmax">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_17_0.svg" alt="png">
+    <figcaption>Figure 141. Hierarchical softmax. Each node is a binary classifier that splits its input in two halves and determines if the target $t$ is the first or second half </figcaption>
+</figure>
 
 Acutal implementation of a hierarchical softmax classifier would not split the input in halves but it would have more common words (word encountered more frequently in the corpus) in shallow layers and more rare words in deep layers. This detail increase the likelyhood of stopping in early layers without traversing all layers of the tree and has the effect of further speeding up computation for the majority of words.
 
@@ -378,7 +378,7 @@ we build a training set by selecting a context word $c$, and associating it to a
 
 The supervised learning problem predicts if an input pair of words ($x$) is a context-target pair ($\hat{y}$). In other words the learning algorithm needs to distinguish between the two distribution of manually labeled positive target words and randomly picked negative target words.
 
-The model to learn the mapping $x \to y$ is basically a logistic regression model that outputs the probability of $y=1$, given the pair $c,t$ (<a href="#fig:negsamp">figure below</a>)
+The model to learn the mapping $x \to y$ is basically a logistic regression model that outputs the probability of $y=1$, given the pair $c,t$ (<a href="#fig:negsamp">Figure 142</a>)
 
 $$
 P(y=1 \vert c,t) = \sigma \left(\theta^T_te_c \right )
@@ -386,11 +386,11 @@ $$
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_22_0.svg)
-    
 
-
-<i id="fig:negsamp">Negative sampling model architecture. The context word $o_c$ selects its embedding $e_c$ and feeds to $n$ logistic regression units where $n$ is the size of the vocabulary. Each binary classifier elects the pair $(c,t)$ to a context-target pair</i>
+<figure id="fig:negsamp">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_22_0.svg" alt="png">
+    <figcaption>Figure 142. Negative sampling model architecture. The context word $o_c$ selects its embedding $e_c$ and feeds to $n$ logistic regression units where $n$ is the size of the vocabulary. Each binary classifier elects the pair $(c,t)$ to a context-target pair</figcaption>
+</figure>
 
 The context word $c$, represented as a one-hot vector $o_c$ selects its embedding representation $e_c$ from the embedding matrix $E$ and then feeds to as many logistic regression units as the number of words in the vocabulary ($n$). Each logistic regression unit produce a binary classification that tells if the the pair $(c,t)$ is a context-target pair. However, instead of training all $n$ binary classifiers at every iteration, only $k+1$ of them are trained, where $k$ is the number of **negative samples** drawn from the text corpus and the $+1$ is the known positive example.
 
@@ -490,15 +490,15 @@ Given a sentence and a rating
 
 
 The one hot vector representation of each word $o_i$ selects the column of an embedding matrix $E$ trained on a much bigger training set to select the embedding of each word $e_i$.
-The embeddings are the simply averaged or summed together and fed to a softmax layer that outputs a vector $\hat{y}$ of the same dimension as the granularity of the sentiment classification (<a href="#fig:sentclass1">figure below</a>). 
+The embeddings are the simply averaged or summed together and fed to a softmax layer that outputs a vector $\hat{y}$ of the same dimension as the granularity of the sentiment classification (<a href="#fig:sentclass1">Figure 143</a>). 
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_28_0.svg)
-    
 
-
-<i id="fig:sentclass1">A simple sentiment classification algorithm transfering knowledge from a word embedding pre-trained model. The model feeds the average (or sum) of the embeddings of words from a sentence to a softmax classifier</i>
+<figure id="fig:sentclass1">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_28_0.svg" alt="png">
+    <figcaption>Figure 143. A simple sentiment classification algorithm transfering knowledge from a word embedding pre-trained model. The model feeds the average (or sum) of the embeddings of words from a sentence to a softmax classifier</figcaption>
+</figure>
 
 The combination step uses simple operations (average or sum) that maintain the dimensionality of a single embedding vector; this allows for this model to work for input sentences of any size. On the downside however, this step lose the information about the order of words, which in some cases can be fundamental. Take for example a sentence like 
 
@@ -509,12 +509,12 @@ Completely lacking in good taste, good service and good ambience
 The sentiment associated to this sentence is clearly negative, however the word `good` appears a lot and a model as the one explained above would associate this sentence with a positive sentiment.
 
 ### RNN sentiment classification model
-To encode for the order of words in a sentence a sentiment classification model can be built by feeding embedding vectors to an RNN (<a href="#fig:sentclassrnn">figure below</a>), which takes into account the order of the words and, if trained correctly, should correctly classify sentences as the one cited above.
+To encode for the order of words in a sentence a sentiment classification model can be built by feeding embedding vectors to an RNN (<a href="#fig:sentclassrnn">Figure 144</a>), which takes into account the order of the words and, if trained correctly, should correctly classify sentences as the one cited above.
 
 
     
-![svg](ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_30_0.svg)
-    
 
-
-<i id="fig:sentclassrnn">An RNN based sentiment classification algorithm. This architecture takes into account the order of the embeddings instead of just the embedding themselves</i>
+<figure id="fig:sentclassrnn">
+    <img src="{{site.baseurl}}/pages/ML-45-DeepLearningRNN3_files/ML-45-DeepLearningRNN3_30_0.svg" alt="png">
+    <figcaption>Figure 144. An RNN based sentiment classification algorithm. This architecture takes into account the order of the embeddings instead of just the embedding themselves</figcaption>
+</figure>

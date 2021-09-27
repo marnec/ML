@@ -8,54 +8,54 @@ comments: true
 ---
 
 # RNN architectures
-In <a href="page:ML43">ML-43</a> we have seen an RNN architecture where $T_x = T_y$. For most applications, this is not the case and the basic RNN architecture that we have seen in <a href="page:ML43">ML-43</a> can be modified to map sequence-related $x$ and $y$ with different shapes.
+In <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a> we have seen an RNN architecture where $T_x = T_y$. For most applications, this is not the case and the basic RNN architecture that we have seen in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a> can be modified to map sequence-related $x$ and $y$ with different shapes.
 
 ## IO relationship
-The basic RNN architecture that we have seen in <a href="page:ML43">ML-43</a> maps many input to as many outputs and it is therefore called a Many-to-Many architecture. Furthermore, in that architecture $T_x = T_y$. This condition is not always the case and other relationship balances exist: additionally to the many-to-may we have one-to-one, one-to-many and many-to-one.
+The basic RNN architecture that we have seen in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a> maps many input to as many outputs and it is therefore called a Many-to-Many architecture. Furthermore, in that architecture $T_x = T_y$. This condition is not always the case and other relationship balances exist: additionally to the many-to-may we have one-to-one, one-to-many and many-to-one.
 
 ### One-to-One
-A one-to-one architecture maps an input $x$ to an output $y$ in a single time-step and it is a limit case, which is identical to a classical (non-recurrent) neural network <a href="#fig:oto">figure below</a>)
+A one-to-one architecture maps an input $x$ to an output $y$ in a single time-step and it is a limit case, which is identical to a classical (non-recurrent) neural network <a href="#fig:oto">Figure 126</a>)
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_3_0.svg)
-    
 
-
-<i id="fig:oto">One to One RNN: an RNN with a single time step where the input $x$ passes through the network only once to produce $y$. This is equivalent to a classic (non-recursive) neural network</i>
+<figure id="fig:oto">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_3_0.svg" alt="png">
+    <figcaption>Figure 126. One to One RNN: an RNN with a single time step where the input $x$ passes through the network only once to produce $y$. This is equivalent to a classic (non-recursive) neural network</figcaption>
+</figure>
 
 ### Many-to-One
-Suppose we want to train an RNN for a sentiment classification task where, given an sentence $x$, the task is to produce a number $y$ indicating how good is the sentiment that the sentence expresses. For example, we could have movie reviews as input and the task is to tell if the review is good or bad. The words of the input review are parsed in subsequent time-steps, but only one output is produced at the end of the process (<a href="#fig:mto">figure below</a>)  This is a Many-to-One architecture where we want to map mulitple inputs (multiple words in a sentence) to a single output (the review mark).
+Suppose we want to train an RNN for a sentiment classification task where, given an sentence $x$, the task is to produce a number $y$ indicating how good is the sentiment that the sentence expresses. For example, we could have movie reviews as input and the task is to tell if the review is good or bad. The words of the input review are parsed in subsequent time-steps, but only one output is produced at the end of the process (<a href="#fig:mto">Figure 127</a>)  This is a Many-to-One architecture where we want to map mulitple inputs (multiple words in a sentence) to a single output (the review mark).
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_5_0.svg)
-    
 
-
-<i id="fig:mto">Many to One RNN: inputs fed through each time-step $x^{\langle t \rangle}$ concur to produce a single output $\hat{y}$</i>
+<figure id="fig:mto">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_5_0.svg" alt="png">
+    <figcaption>Figure 127. Many to One RNN: inputs fed through each time-step $x^{\langle t \rangle}$ concur to produce a single output $\hat{y}$</figcaption>
+</figure>
 
 ### One-to-Many
-Suppose we want to create a music generation algorithm, where the goal is for the RNN to output a set of notes from a single number input, representing for example the music genre. One-to-many RNN, also called **sequence generation** algorithms, usually feed the output of a time-step $\hat{y}^{\langle t \rangle}$ to the next time-step (<a href="#fig:otm">figure below</a>). Sequence generative models have some more subtlety to them that are better explained in a dedicated section.
+Suppose we want to create a music generation algorithm, where the goal is for the RNN to output a set of notes from a single number input, representing for example the music genre. One-to-many RNN, also called **sequence generation** algorithms, usually feed the output of a time-step $\hat{y}^{\langle t \rangle}$ to the next time-step (<a href="#fig:otm">Figure 128</a>). Sequence generative models have some more subtlety to them that are better explained in a dedicated section.
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_7_0.svg)
-    
 
-
-<i id="fig:otm">One to Many RNN: a single (or even no) input elicit the production of a series of outputs</i>
+<figure id="fig:otm">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_7_0.svg" alt="png">
+    <figcaption>Figure 128. One to Many RNN: a single (or even no) input elicit the production of a series of outputs</figcaption>
+</figure>
 
 ### Many-to-Many
-We have already seen a Many-to-Many RNN in <a href="page:ML43">ML-43</a>, which we used as a basic example of RNN architecture (<a href="fig:mtm">figure below</a>, panel A). Another case exists of many to many architecture, where $T_x \neq T_y$ (<a href="fig:mtm">figure below</a>, panel B). In this architecture input and output are temporally separated: a series of time-steps $[1, T_x]$ only take inputs and another series of time-steps $[1, T_y]$ only produce outputs. Since there is this clear distinction from input and output time-steps they are also referred to as the **encoder** and **decoder**, respectively: the encoder encodes the input and decoder maps the encoded input to the output.
+We have already seen a Many-to-Many RNN in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a>, which we used as a basic example of RNN architecture (<a href="fig:mtm">figure below</a>, panel A). Another case exists of many to many architecture, where $T_x \neq T_y$ (<a href="fig:mtm">figure below</a>, panel B). In this architecture input and output are temporally separated: a series of time-steps $[1, T_x]$ only take inputs and another series of time-steps $[1, T_y]$ only produce outputs. Since there is this clear distinction from input and output time-steps they are also referred to as the **encoder** and **decoder**, respectively: the encoder encodes the input and decoder maps the encoded input to the output.
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_9_0.svg)
-    
 
-
-<i id="fig:mtm">Mnay-to-Many RNN architectures. A many to many architecture can map an equal number of input and output (A) or input and output of different sizes (B)</i>
+<figure id="fig:mtm">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_9_0.svg" alt="png">
+    <figcaption>Figure 129. Mnay-to-Many RNN architectures. A many to many architecture can map an equal number of input and output (A) or input and output of different sizes (B)</figcaption>
+</figure>
 
 ## Language models
 Language models are one of the most fundamental tasks in natural language processing (NLP) and one where RNNs excel. A language model encode the context of a word in a sentence. Suppose we have a speech-recognition algorithm listening to either one of these two sentences:
@@ -103,15 +103,15 @@ Tokens are then fed to the RNN one step at a time:
 3. At step 3, the RNN is fed $y^{\langle 2 \rangle}$ and outputs $y^{\langle 1 \rangle} = P(15 \mid P(\text{average} \mid \text{ Cats}))$: the conditional probability of the word `15` given `Cats average`
 4. ...
 
-This process continues up to the EOS step, which computes the probability of ending the sentence given the sentence (<a href="#fig:langmod">figure below</a>). By feeding each step the distribution of preceding words this RNN learns to predict one word a time.
+This process continues up to the EOS step, which computes the probability of ending the sentence given the sentence (<a href="#fig:langmod">Figure 130</a>). By feeding each step the distribution of preceding words this RNN learns to predict one word a time.
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_12_0.svg)
-    
 
-
-<i id="fig:langmod">Processing of one training example from a corpus of sentence during training of a language modelling RNN</i>
+<figure id="fig:langmod">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_12_0.svg" alt="png">
+    <figcaption>Figure 130. Processing of one training example from a corpus of sentence during training of a language modelling RNN</figcaption>
+</figure>
 
 To train this RNN the loss ($\mathcal{L}$) and cost ($J$) functions are defined as:
 
@@ -124,7 +124,7 @@ $$
 ### Sampling novel sequences
 Once a sequence model is trained you can get a sense of what it has learned by letting it **sample novel sequences**. Let's see this applied to out language model.
 
-A sequence model models the chance of any particular sequence of elements as $P \left(y^{\langle 1 \rangle}, \dots, y^{\langle T_x \rangle} \right)$. This distribution can be sampled to generate novel sequences. The sampling of novel sequences follow the same identical process shown in <a href="#fig:langmod">the figure above</a>, but in sequence sampling each output $\hat{y}^{\langle t \rangle}$ is randomly sampled from the trained probability distribution of the elements in the training set. 
+A sequence model models the chance of any particular sequence of elements as $P \left(y^{\langle 1 \rangle}, \dots, y^{\langle T_x \rangle} \right)$. This distribution can be sampled to generate novel sequences. The sampling of novel sequences follow the same identical process shown in <a href="#fig:langmod">Figure 130</a>, but in sequence sampling each output $\hat{y}^{\langle t \rangle}$ is randomly sampled from the trained probability distribution of the elements in the training set. 
 
 1. The first sample $\hat{y}^{\langle 1 \rangle}$ is a random sampling of $P \left(y^{\langle 1 \rangle}, \dots, y^{\langle T_x \rangle} \right)$
 2. The second sample $\hat{y}^{\langle 2 \rangle}$  is a random sampling from $P \left(?\mid \hat{y}^{\langle 1 \rangle} \right)$
@@ -144,12 +144,12 @@ Long-term dependencies tend to be very important in many sequence models: consid
 The word `hero` and the word `has` are at opposing ends of the sentence but they need to be in accordance. And this is just one example of language having very long-term dependencies were an early word affects what needs to come much later in a sentence. The basic RNN architecture that we have seen so far however, is not very good at capturing long-term dependencies due to **vanishing gradients**.
 
 ### Vanishing gradients with RNNs
-One of the problems of the basic RNN architecture is that it runs into the problem of vanishing gradients which we have seen, together with exploding gradients in <a href="page:ML28">ML-28</a>. Tu summarize, in very deep neural networks with tens of layers it is very difficult for error in late layers to backpropagate to early layers and affect the beginning of the sequence. For this reason, outputs in an RNN have strong local influences and weak long-range influences. Although exploding gradients are a much less frequent problem on RNNs, their occurrence can be disruptive; usually to prevent exploding gradients **gradient clipping** is used, where gradients are rescaled if they are larger than some threshold. Vanishing gradients, which are much more frequent, are also much harder to address; a great solution for addressing this problem is Gated Recurrent Units (GRUs).
+One of the problems of the basic RNN architecture is that it runs into the problem of vanishing gradients which we have seen, together with exploding gradients in <a href="{{site.basurl}}/ML/ML28ML-28">ML28</a>. Tu summarize, in very deep neural networks with tens of layers it is very difficult for error in late layers to backpropagate to early layers and affect the beginning of the sequence. For this reason, outputs in an RNN have strong local influences and weak long-range influences. Although exploding gradients are a much less frequent problem on RNNs, their occurrence can be disruptive; usually to prevent exploding gradients **gradient clipping** is used, where gradients are rescaled if they are larger than some threshold. Vanishing gradients, which are much more frequent, are also much harder to address; a great solution for addressing this problem is Gated Recurrent Units (GRUs).
 
 ### Gated Recurrent Unit (GRU)
 GRU is a modification of RNN hidden layer that enables it to capture long-range dependencies and reduce the problem of vanishing gradients.
 
-As we have seen in <a href="page:ML43">ML-43</a>, the computation of an RNN unit (represented in <a href="fig:rnnunit">the figure below</a>), can be written as
+As we have seen in <a href="{{site.basurl}}/ML/ML43ML-43">ML43</a>, the computation of an RNN unit (represented in <a href="fig:rnnunit">the figure below</a>), can be written as
 
 $$
 \begin{split}
@@ -172,11 +172,11 @@ $$
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_16_0.svg)
-    
 
-
-<i id="fig:rnnunit">RNN unit (A) and simplified GRU unit (B)</i>
+<figure id="fig:rnnunit">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_16_0.svg" alt="png">
+    <figcaption>Figure 131. RNN unit (A) and simplified GRU unit (B)</figcaption>
+</figure>
 
 When the gate $\Gamma_u \approx 0$, then the value of the memory cell $c^{\langle t \rangle} = c^{\langle t -1 \rangle}$ and so $c^{\langle t \rangle}$ will retain *memory* of its value as long as $\Gamma_u \approx 0$. Furthermore, since the gate when can be a very small value ($\Gamma_u \to 0$) it doesn't suffer from vanishing gradient problems. In fact, for $\lim_{ \Gamma_u \to 0} c^{\langle t \rangle} = c^{\langle t -1 \rangle}$. This allow an RNN to learn even very long-range dependencies.
 
@@ -218,21 +218,21 @@ The set of equations defining an LSTM unit, are sometimes represented as in <a h
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_20_0.svg)
-    
 
-
-<i id="fig:lstm">An LSTM unit with its activation ($a^{\langle t-1 \rangle}$) and memory cell ($c^{\langle t-1 \rangle}$) input from the previous time-step; the activation ($a^{\langle t \rangle}$) and memory cell ($c^{\langle t \rangle}$) for the current time-step; and the prediction $y^{\langle t \rangle}$ </i>
+<figure id="fig:lstm">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_20_0.svg" alt="png">
+    <figcaption>Figure 132. An LSTM unit with its activation ($a^{\langle t-1 \rangle}$) and memory cell ($c^{\langle t-1 \rangle}$) input from the previous time-step; the activation ($a^{\langle t \rangle}$) and memory cell ($c^{\langle t \rangle}$) for the current time-step; and the prediction $y^{\langle t \rangle}$ </figcaption>
+</figure>
 
 When temporally linking LSTM units (<a href="fig:lstmlink">figure below</a>) we can notice how the operations to propagate the memory cell value $c^{\langle t \rangle}$ are only regulated by the update and forget gates  and thus the memory cell values are passed easily across time-steps given the the gates are well set.
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_22_0.svg)
-    
 
-
-<i id="fig:lstmlink">Temporally linked LSTM units</i>
+<figure id="fig:lstmlink">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_22_0.svg" alt="png">
+    <figcaption>Figure 133. Temporally linked LSTM units</figcaption>
+</figure>
 
 ## Information from the Future
 All the RNN architectures seen up to this point produce a prediction $\hat{y}^{\langle t \rangle}$ taking into account information from previous steps: they are called **uni-directional RNN**. However, there are many situations in sequence analysis in which information from later steps is relevant or necessary to produce an accurate output.
@@ -244,7 +244,7 @@ Consider the task of telling if a word in a sentence is a name or part of a name
 > He said, "Teddy Roosevelt was a great president!"
 
 ### Bidirectional RNN
-It is not sufficient to take into account the words before "Teddy", to determine its output. A **Bi-directional RNN** (BRNN) fixes this issue by taking into account information from both previous and following steps. To do that it employs a **forward recurrent component** and a **backwards recurring component** (green elements in <a href="#fig:brnn">the figure below</a>). They both act during forward propagation: the forward component propagates the information forward in the sequence from the first to the last step and it is the component employed in the architectures seen until now; the backwards component propagates information backwards from the last to the first element of the sequence. The two components combine in an acyclic graph where $\hat{y}$ receives information from both $\overrightarrow{a}$ and $\overleftarrow{a}$.
+It is not sufficient to take into account the words before "Teddy", to determine its output. A **Bi-directional RNN** (BRNN) fixes this issue by taking into account information from both previous and following steps. To do that it employs a **forward recurrent component** and a **backwards recurring component** (green elements in <a href="#fig:brnn">Figure 134</a>). They both act during forward propagation: the forward component propagates the information forward in the sequence from the first to the last step and it is the component employed in the architectures seen until now; the backwards component propagates information backwards from the last to the first element of the sequence. The two components combine in an acyclic graph where $\hat{y}$ receives information from both $\overrightarrow{a}$ and $\overleftarrow{a}$.
 
 $$
 \hat{y}^{\langle t \rangle} = g\left (W_y \left[\overrightarrow{a}^{\langle t \rangle}, \overleftarrow{a}^{\langle t \rangle} \right] + b_y \right) 
@@ -252,26 +252,26 @@ $$
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_24_0.svg)
-    
 
+<figure id="fig:brnn">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_24_0.svg" alt="png">
+    <figcaption>Figure 134. Bidirectional RNN architecture on a 4-steps sequence. The black elements show the forward recurring component, the green elements show the backwards recurring component. The $a$ blocks can represent any of the GRU or LSTM block</figcaption>
+</figure>
 
-<i id="fig:brnn">Bidirectional RNN architecture on a 4-steps sequence. The black elements show the forward recurring component, the green elements show the backwards recurring component. The $a$ blocks can represent any of the GRU or LSTM block</i>
-
-The recurrent units represented as boxes in <a href="#fig:brnn">the figure above</a> can refer to any RNN unit, like GRU or LSTM. It is in fact common for NLP problems to use BRNNs with LSTM units. Using BRNNS has the advantage that predictions on each element of a sequence can be made taking into account the entire sequence. The **disadvantage** of BRNNs is that it needs to know the entire sequence to produce an output. This poses a problem with real-time tasks like speech-recognition, where a simple BRNN model like that shown here would have to wait for a person to stop talking before it could process the audio source.
+The recurrent units represented as boxes in <a href="#fig:brnn">Figure 134</a> can refer to any RNN unit, like GRU or LSTM. It is in fact common for NLP problems to use BRNNs with LSTM units. Using BRNNS has the advantage that predictions on each element of a sequence can be made taking into account the entire sequence. The **disadvantage** of BRNNs is that it needs to know the entire sequence to produce an output. This poses a problem with real-time tasks like speech-recognition, where a simple BRNN model like that shown here would have to wait for a person to stop talking before it could process the audio source.
 
 ##  Deep RNNs
-The different RNN units seen so far rely on a single classification layer. Form many tasks, these architectures are already good-performer, however some mappings require more complex functions to be modeled. This can be achieved by stacking multiple layers of RNNs together and build a **deep-RNNs**. In <a href="#fig:deeprnn">figure below</a>, a possible uni-directional deep-rnn is shown.
+The different RNN units seen so far rely on a single classification layer. Form many tasks, these architectures are already good-performer, however some mappings require more complex functions to be modeled. This can be achieved by stacking multiple layers of RNNs together and build a **deep-RNNs**. In <a href="#fig:deeprnn">Figure 135</a>, a possible uni-directional deep-rnn is shown.
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_27_0.svg)
-    
 
+<figure id="fig:deeprnn">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_27_0.svg" alt="png">
+    <figcaption>Figure 135. A deep uni-directional RNN architecture with 3 layers and 4 steps</figcaption>
+</figure>
 
-<i id="fig:deeprnn">A deep uni-directional RNN architecture with 3 layers and 4 steps</i>
-
-Taking into account the network shown in  <a href="#fig:deeprnn">figure above</a>, an activation vector at layer $l$ and time-step $t$ has the input coming from the previous layer ($l-1$) and the input coming from the precious time-step ($t-1$). So the activation value $a^{[l]\langle t \rangle}$ will be
+Taking into account the network shown in  <a href="#fig:deeprnn">Figure 135</a>, an activation vector at layer $l$ and time-step $t$ has the input coming from the previous layer ($l-1$) and the input coming from the precious time-step ($t-1$). So the activation value $a^{[l]\langle t \rangle}$ will be
 
 $$
 a^{[l]\langle t \rangle} = g \left( W_a^{[l]} \left [ a^{[l]\langle t-1 \rangle} , a^{[l-1]\langle t \rangle} \right ] + b_a^{[l]} \right)
@@ -283,12 +283,12 @@ $$
 a^{[2]\langle 3 \rangle} = g \left( W_a^{[2]} \left [ a^{[2]\langle 2 \rangle} , a^{[1]\langle 3 \rangle} \right ] + b_a^{[2]} \right)
 $$
 
-Each recurrent unit $a$ in a deep RNN can of course be any of the GRU, LSTM or BRNN unit, however due to RNN being computationally intensive to train, deep-BRNN are less employed. For the same reason, recurrent layers are usually not stacked in huge numbers. However, in some implementations many deep non-recurrent layers are stacked on top of recurrent layers (<a href="#fig:deepmixedrnn">figure below</a>).
+Each recurrent unit $a$ in a deep RNN can of course be any of the GRU, LSTM or BRNN unit, however due to RNN being computationally intensive to train, deep-BRNN are less employed. For the same reason, recurrent layers are usually not stacked in huge numbers. However, in some implementations many deep non-recurrent layers are stacked on top of recurrent layers (<a href="#fig:deepmixedrnn">Figure 136</a>).
 
 
     
-![svg](ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_30_0.svg)
-    
 
-
-<i id="fig:deepmixedrnn">A deep RNN architecture with 4 time-steps, 3 recurrent layers and 2 non-recurrent layers</i>
+<figure id="fig:deepmixedrnn">
+    <img src="{{site.baseurl}}/pages/ML-44-DeepLearningRNN2_files/ML-44-DeepLearningRNN2_30_0.svg" alt="png">
+    <figcaption>Figure 136. A deep RNN architecture with 4 time-steps, 3 recurrent layers and 2 non-recurrent layers</figcaption>
+</figure>

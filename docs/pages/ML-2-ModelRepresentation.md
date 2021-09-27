@@ -8,25 +8,25 @@ comments: true
 ---
 
 # Model Representation
-Let's use as an example the housing prices in Portland Oregon and plot them with respect to the surface of the house in square feets (<a href="#fig:housepricescatter">figure below</a>)
+Let's use as an example the housing prices in Portland Oregon and plot them with respect to the surface of the house in square feets (<a href="#fig:housepricescatter">Figure 7</a>)
 
 
     
-![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_2_0.png)
+
+<figure id="fig:housepricescatter">
+    <img src="{{site.baseurl}}/pages/ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_2_0.png" alt="png">
+    <figcaption>Figure 7. Scatterplot of house prices as a function of the living area in square foots</figcaption>
+</figure>
+
+Let's say that you want to know the possible price of an house given its surface. One thing that you could do is to draw a straight line that describes the growth of prices with surface (<a href="#fig:linreghouseprices">Figure 8</a>).
+
+
     
 
-
-<i id="fig:housepricescatter">Scatterplot of house prices as a function of the living area in square foots</i>
-
-Let's say that you want to know the possible price of an house given its surface. One thing that you could do is to draw a straight line that describes the growth of prices with surface (<a href="#fig:linreghouseprices"></a>).
-
-
-    
-![png](ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_4_0.png)
-    
-
-
-<i id="fig:linreghouseprices">A possible description of the dependence of house prices from square foots</i>
+<figure id="fig:linreghouseprices">
+    <img src="{{site.baseurl}}/pages/ML-2-ModelRepresentation_files/ML-2-ModelRepresentation_4_0.png" alt="png">
+    <figcaption>Figure 8. A possible description of the dependence of house prices from square foots</figcaption>
+</figure>
 
 This is an example of supervised learning since we know the answer for each example in the dataset and it is also an example of regression problem, where we try to predict a contnuous value.
 
