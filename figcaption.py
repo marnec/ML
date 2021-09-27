@@ -133,7 +133,7 @@ def update_md(md, func_call):
 if __name__ == "__main__":
     getnum = lambda fn: fn.split('/')[-1].split('-')[:-1]
 
-    for mdfile in sorted(argv[1:], key=lambda fn: int(getnum(fn)[1])):
+    for mdfile in sorted(argv[1:], key=lambda fn: float(getnum(fn)[1])):
 
         print(f'[{argv[0]}] input file: {mdfile}')
         permalink = ''.join(getnum(mdfile))

@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+matplotlib = "*"
+numpy = "*"
+mpl-flow = "*"
+plot-ann = "*"
+ipykernel = "*"
+pandas = "*"
+seaborn = "*"
+scikit-learn = "*"
+graphviz = "*"
+jinja2 = "*"
+torch = "*"
+torchvision = "==0.10.1"
+torchaudio = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

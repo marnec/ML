@@ -22,15 +22,15 @@ for epoch in range(n_iterations):
         w := update_weigths(dw)
 ```
 
-Whereas in batches you expect the value of the cost function $J$ to monotonically decrease with the number of iterations and if this doesn't happen is a signal of some error in the implementation of gradient descent, in mini-batch gradient descent for each $t$ we could have a local increase or decrease f $J$, depending on how hard the examples in the mini-batch are. There should still be a trend down at the increase of $t$ (<a href="#fig:minibatchcost">figure below</a>).
+Whereas in batches you expect the value of the cost function $J$ to monotonically decrease with the number of iterations and if this doesn't happen is a signal of some error in the implementation of gradient descent, in mini-batch gradient descent for each $t$ we could have a local increase or decrease f $J$, depending on how hard the examples in the mini-batch are. There should still be a trend down at the increase of $t$ (<a href="#fig:minibatchcost">Figure 60</a>).
 
 
     
-![png](ML-29-DeepLearningMiniBatch_files/ML-29-DeepLearningMiniBatch_2_0.png)
-    
 
-
-<i id="fig:minibatchcost">The value of J over many epochs in batch gradient descent (A) and over many mini-batches (B)</i>
+<figure id="fig:minibatchcost">
+    <img src="{{site.baseurl}}/pages/ML-29-DeepLearningMiniBatch_files/ML-29-DeepLearningMiniBatch_2_0.png" alt="png">
+    <figcaption>Figure 60. The value of J over many epochs in batch gradient descent (A) and over many mini-batches (B)</figcaption>
+</figure>
 
 ## Size of mini-batch
 

@@ -49,7 +49,7 @@ train_dataset[0]
 
 
 
-    (<PIL.Image.Image image mode=L size=28x28 at 0x7FBAC20B02E8>, 5)
+    (<PIL.Image.Image image mode=L size=28x28 at 0x7FDDA96F3208>, 5)
 
 
 
@@ -63,7 +63,7 @@ A sample of 100 images in the dataset show us that the images are low-res graysc
     
 
 
-The dataset needs to be transformed to tensor in order for Pytorch to be able to process it. To do that we use the `transforms` module and `ToTensor()` function. 
+Images in a computer are just matrices of real values that represent the intensity of each pixel. This is also the format that is understood by machine learning algorithms. In particular for Pytorch to be able to process it, the dataset needs to be transformed to tensor. To do that we use the `transforms` module and `ToTensor()` function. 
 
 Doing that after loading the dataset would be a bit more difficult so, in practice, this step is usually performed contextually to the data load, using the `transform` argument.
 
@@ -111,6 +111,23 @@ train_dataset[0][0].shape
 
 
 
+And these are the values of the 11th row of pixels in the first image of the dataset
+
+
+```python
+train_dataset[0][0][0][10]
+```
+
+
+
+
+    tensor([-0.4242, -0.4242, -0.4242, -0.4242, -0.4242, -0.4242, -0.4242, -0.4242,
+            -0.4242, -0.2460, -0.4115,  1.5359,  2.7960,  0.7213, -0.4242, -0.4242,
+            -0.4242, -0.4242, -0.4242, -0.4242, -0.4242, -0.4242, -0.4242, -0.4242,
+            -0.4242, -0.4242, -0.4242, -0.4242])
+
+
+
 We can now define here some hyperparameters that will come in handy later
 
 
@@ -126,8 +143,16 @@ the train and test datasets are wrapped in a `DataLoader` that provide functions
 
 
 ```python
-train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
-test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
+train_loader = torch.utils.data.DataLoader(
+    dataset=train_dataset, 
+    batch_size=batch_size, 
+    shuffle=True
+)
+test_loader = torch.utils.data.DataLoader(
+    dataset=test_dataset, 
+    batch_size=batch_size,
+    shuffle=False
+)
 ```
 
 For logistic regression we just need a linear model that we will wrap into a non linearity function like ReLU or softmax. So as for linear regression, our model is just made of a `Linear` object instantiated with the input and output dimensions that in this case are $28 \times 28 = 784$ for the input and $10$ for the output (we want to identify handwritten digits).
@@ -179,20 +204,21 @@ for epoch in range(int(epochs)):
             correct = 0
             total = 0
             for images, labels in test_loader:
-                images = Variable(images.view(-1, 28*28))
+                images = Variable(images.view(-1, 28 * 28))
                 outputs = model(images)
                 _, predicted = torch.max(outputs.data, 1)
-                total+= labels.size(0)
-                # for gpu, bring the predicted and labels back to cpu fro python operations to work
-                correct+= (predicted == labels).sum()
+                total += labels.size(0)
+                correct += (predicted == labels).sum()
             accuracy = 100 * correct/total
-            print("Iteration: {}. Loss: {}. Accuracy: {}.".format(iteration, loss.item(), accuracy))
+            print("Iteration: {}. Loss: {}. Accuracy: {}.".format(
+                iteration, loss.item(), accuracy)
+                 )
 ```
 
-    Iteration: 500. Loss: 0.78566575050354. Accuracy: 82.4800033569336.
-    Iteration: 1000. Loss: 0.5676836371421814. Accuracy: 86.30000305175781.
-    Iteration: 1500. Loss: 0.5241549015045166. Accuracy: 87.52999877929688.
-    Iteration: 2000. Loss: 0.4447768032550812. Accuracy: 88.37999725341797.
-    Iteration: 2500. Loss: 0.510481059551239. Accuracy: 88.94999694824219.
-    Iteration: 3000. Loss: 0.4202028214931488. Accuracy: 89.38999938964844.
+    Iteration: 500. Loss: 0.7569801211357117. Accuracy: 82.83999633789062.
+    Iteration: 1000. Loss: 0.5661232471466064. Accuracy: 86.26000213623047.
+    Iteration: 1500. Loss: 0.5856491327285767. Accuracy: 87.5199966430664.
+    Iteration: 2000. Loss: 0.40971270203590393. Accuracy: 88.26000213623047.
+    Iteration: 2500. Loss: 0.3808164894580841. Accuracy: 88.66000366210938.
+    Iteration: 3000. Loss: 0.43385395407676697. Accuracy: 89.16000366210938.
 
