@@ -28,22 +28,22 @@ y^{\langle 1 \rangle} & y^{\langle 2 \rangle} & y^{\langle 3 \rangle} & y^{\lang
 \end{split}
 $$
 
-In order to map such input sequences to output sequences, [Sutskever et.al. 2014](https://arxiv.org/abs/1409.3215) and [Cho et.al.2014](https://arxiv.org/abs/1406.1078) developed RNN based seq-to-seq models. These models are made of an **encoder** network and a **decoder** network. The encoder processes the input sequence and then feeds it to the decoder, which produces the output sequence (<a href="#fig:seq2seqbasic">Figure 145</a>).
+In order to map such input sequences to output sequences, [Sutskever et.al. 2014](https://arxiv.org/abs/1409.3215) and [Cho et.al.2014](https://arxiv.org/abs/1406.1078) developed RNN based seq-to-seq models. These models are made of an **encoder** network and a **decoder** network. The encoder processes the input sequence and then feeds it to the decoder, which produces the output sequence (<a href="#fig:seq2seqbasic">figure below</a>).
 
 
     
+![svg](ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_2_0.svg)
+    
 
-<figure id="fig:seq2seqbasic">
-    <img src="{{site.baseurl}}/pages/ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_2_0.svg" alt="png">
-    <figcaption>Figure 145. A basic sequence to sequence RNN architecture with an encoder and a decoder. The encoder process the input sequence and feeds it to the decoder, which produces th output sequence</figcaption>
-</figure>
+
+<i id="fig:seq2seqbasic">A basic sequence to sequence RNN architecture with an encoder and a decoder. The encoder process the input sequence and feeds it to the decoder, which produces th output sequence</i>
 
 The encoder and decoder are two separate networks that serve separate purposes. The task of the encoder is to produce a standard encoding (or we could say an embedding) of an input, while the task of the decoder is to interpret map the encoding to a sequence. 
 
 To further sustain this point, the decoder can also be a convolutional network processing an image. In **image captioning** tasks in fact the ALEX-net, once the final sofmtax layer is removed, plays the role of the decoder network producing a 4096-dimensional encoding of an image, which is then fed to a decoder that produces a caption for the image. 
 
 ## Selecting the most likely translation
-The decoder network in <a href="#fig:seq2seqbasic">Figure 145</a>) in that it outputs the probability of the translated sentence 
+The decoder network in <a href="#fig:seq2seqbasic">the figure above</a> is a language model (<a href="page:ML44">ML-44</a>) in that it outputs the probability of the translated sentence 
 
 $$P \left(y^{\langle 1 \rangle}, \dots, y^{\langle T_y \rangle} \right)$$
 
@@ -153,15 +153,15 @@ $$
 \end{equation} \label{eq:logbeamsearch} \tag{5}
 $$
 
-$\eqref{eq:logbeamsearch}$ is numerically stable and less prone to numerical underflow problems. Since the log function is monotonically increasing (<a href="#fig:log">Figure 146</a>), we know that maximizing $\eqref{eq:beamsearch}$ should give the same results as maximizing $\eqref{eq:logbeamsearch}$
+$\eqref{eq:logbeamsearch}$ is numerically stable and less prone to numerical underflow problems. Since the log function is monotonically increasing (<a href="#fig:log">figure below</a>), we know that maximizing $\eqref{eq:beamsearch}$ should give the same results as maximizing $\eqref{eq:logbeamsearch}$
 
 
     
+![svg](ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_7_0.svg)
+    
 
-<figure id="fig:log">
-    <img src="{{site.baseurl}}/pages/ML-46-DeepLearningRNN4_files/ML-46-DeepLearningRNN4_7_0.svg" alt="png">
-    <figcaption>Figure 146. Logarithmic function</figcaption>
-</figure>
+
+<i id="fig:log">Logarithmic function</i>
 
 ### Length normalization
 Another side effect of the objective function $\eqref{eq:beamsearch}$ (and $\eqref{eq:logbeamsearch}$) is that it becomes smaller the longer the sequence. This means that it will tend to unnaturally prefer short over long sequences. To prevent this problem the objective function is usually normalized by length by dividing by the number of elements in the output sequence.
@@ -215,7 +215,7 @@ $$
 * If $P(y^* \vert x) > P(\hat{y} \vert x)$ it means that Beam Search chose $\hat{y}$ but $y^*$ would attain higher $P(y \vert x)$. So Beam Search is failing to find the optimal solution.
 * If $P(y^* \vert x) \leq P(\hat{y} \vert x)$ it means that Beam Search chose $\hat{y}$ *because it attains* a higher $P(y \vert x)$. So Beam Search is working fine but the RNN model is not trained well.
 
-To carry out a comprehensive error analysis we can check the responsibility of all errors in our development set. If Beam Search is at fault for a large fraction of them, increasing the value of $B$ should resolve the issue. If errors are due to a faulty RNN model, then we ca carry out a deeper layer of error analysis as detailed in <a href="{{site.basurl}}/ML/ML15ML-15">ML15</a>.
+To carry out a comprehensive error analysis we can check the responsibility of all errors in our development set. If Beam Search is at fault for a large fraction of them, increasing the value of $B$ should resolve the issue. If errors are due to a faulty RNN model, then we ca carry out a deeper layer of error analysis as detailed in <a href="page:ML15">ML-15</a>.
 
 ## BLEU Score
 Unlike in tasks like image recognition, where there's one right answer, in machine translation there might be multiple equally good answers and it becomes impossible to measure accuracy traditionally. Conventionally accuracy in machine translation is measured with the **BiLingual Evaluation Undesrstudy (BLEU) score** ([Papineni et.al. 2002](https://www.aclweb.org/anthology/P02-1040.pdf)).

@@ -50,41 +50,41 @@ $$
 * the $i$ in the triple sum does not refer to training example $i$
 
 # Activation function
-Until now we used the sigmoid activation (<a href="#fig:activfuncs">Figure 12</a>, panel A) function but you can use different activation functions that affect the output.
+Until now we used the sigmoid activation (<a href="#fig:activfuncs">figure below</a>, panel A) function but you can use different activation functions that affect the output.
 
 ## Different types of activation functions
-A function that almost always works better than the sigmoid function is the hyperbolic tangent function (<a href="#fig:activfuncs">Figure 12</a>, panel B), which is a shifted and scaled version of the sigmoid function. The reason it works better than the sigmoid function is that, being centered on 0, the mean of the activation values in the hidden units of a layer is close to 0 and this makes the learning process easier for the next layer. This is always valid with the exception of the output layer.
+A function that almost always works better than the sigmoid function is the hyperbolic tangent function (<a href="#fig:activfuncs">figure below</a>, panel B), which is a shifted and scaled version of the sigmoid function. The reason it works better than the sigmoid function is that, being centered on 0, the mean of the activation values in the hidden units of a layer is close to 0 and this makes the learning process easier for the next layer. This is always valid with the exception of the output layer.
 
 One of the drawbacks of both the sigmoid function and the hyperbolic tangent function is that for extreme values of $z$, the derivatives are $\approx 0$ (the slope of the function is close to 0) and this can slow down gradient descent. 
 
-A popular choice to avoid this problem is the Rectified Linear Unit (ReLU) (<a href="#fig:activfuncs">Figure 12</a>, panel C). The derivative of the ReLU is 1 for $z>1$ and 0 for $z < 0$ (for $z=0$ the derivative is undefined). The ReLU is the most popular choice when it comes to activation function.
+A popular choice to avoid this problem is the Rectified Linear Unit (ReLU) (<a href="#fig:activfuncs">figure below</a>, panel C). The derivative of the ReLU is 1 for $z>1$ and 0 for $z < 0$ (for $z=0$ the derivative is undefined). The ReLU is the most popular choice when it comes to activation function.
 
-Since the derivative of the ReLU is 0 for $z<0$, sometimes an alternative version, called the leaky ReLU is used (<a href="#fig:activfuncs">Figure 12</a>, panel D), but it is not as common as the ReLU.
+Since the derivative of the ReLU is 0 for $z<0$, sometimes an alternative version, called the leaky ReLU is used (<a href="#fig:activfuncs">figure below</a>, panel D), but it is not as common as the ReLU.
 
 
     
+![png](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_5_0.png)
+    
 
-<figure id="fig:activfuncs">
-    <img src="{{site.baseurl}}/pages/ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_5_0.png" alt="png">
-    <figcaption>Figure 12. Four activation functions in the range (-10, 10): (A) the sigmoid function, (B) the hyperbolic tangent function, (C) the Rectified Linear Unit (ReLU) function and (D) the leaky ReLU.</figcaption>
-</figure>
+
+<i id="fig:activfuncs">Four activation functions in the range (-10, 10): (A) the sigmoid function, (B) the hyperbolic tangent function, (C) the Rectified Linear Unit (ReLU) function and (D) the leaky ReLU.</i>
 
 The advantage of ReLU and leaky ReLU is that for most of the $z$ space, their derivative is far from 0 and this means that the learning speed will be much faster than with other functions. While it is true that the derivative of the ReLU is 0 for $z<0$, most of the hidden units will have $z>0$.
 
 ## Why non-linear activation functions
 Why not set $z = a$ (a situation sometimes called a linear activation function)? If the activation function is linear the neural network will only be able to build linear models no matter how many hidden layers there are.
 
-As a matter of fact it can be demonstrated that a neural network with 1 hidden layer with linear activation functions (<a href="#fig:linann">Figure 13</a>, panel A), it is not more expressive than a logistic regression algorithm.
+As a matter of fact it can be demonstrated that a neural network with 1 hidden layer with linear activation functions (<a href="#fig:linann">figure below</a>, panel A), it is not more expressive than a logistic regression algorithm.
 
 
     
+![png](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_7_0.png)
+    
 
-<figure id="fig:linann">
-    <img src="{{site.baseurl}}/pages/ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_7_0.png" alt="png">
-    <figcaption>Figure 13. A neural network with one hidden layer in which the hidden units have linear activation functions; not more expressive than a logistic regression model.</figcaption>
-</figure>
 
-There is a case in which having a linear activation function in the output layer might be useful: when using a neural network for a regression problem, where $y \in \mathbb{R}$. But in that case the hidden units should have non-linear activation functions (<a href="#fig:linann">Figure 13</a>, panel B).
+<i id="fig:linann">A neural network with one hidden layer in which the hidden units have linear activation functions; not more expressive than a logistic regression model.</i>
+
+There is a case in which having a linear activation function in the output layer might be useful: when using a neural network for a regression problem, where $y \in \mathbb{R}$. But in that case the hidden units should have non-linear activation functions (<a href="#fig:linann">figure above</a>, panel B).
 
 
     

@@ -35,7 +35,7 @@ $$
 
 where $q^{\langle t \rangle}, k^{\langle t \rangle}, v^{\langle t \rangle}$, called the **query**, **key** and **value**, are vectors that are used as input to compute the self-attention representation for each word. These vectors are named using a loose analogy the queries and key-value pairs concepts in databases.
 
-Let's build the self-attention representation for the third word $A^{\langle 3 \rangle}$ `l'Afrique` (<a href="#fig:selfattention">Figure 149</a>)
+Let's build the self-attention representation for the third word $A^{\langle 3 \rangle}$ `l'Afrique` (<a href="#fig:selfattention">figure below</a>)
 
 1. Each word is associated with its query, key, and value vectors, which are defined as
     
@@ -66,11 +66,11 @@ $$
 
 
     
+![svg](ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_2_0.svg)
+    
 
-<figure id="fig:selfattention">
-    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_2_0.svg" alt="png">
-    <figcaption>Figure 149. Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word $x^{\langle 3 \rangle}$ as the inner product of query and key $\langle q, k \rangle$. The softmax vector of the inner products is multiplied by the value vector $v$, which summed together constitutes the self-attention representation $A^{\langle 3 \rangle}$ </figcaption>
-</figure>
+
+<i id="fig:selfattention">Self attention mechanism for the computation of the self-attention representation $A^{\langle 3 \rangle}$. A set of query, key, value vectors ($q, k, v$) are learned for each word $x$. The best context-dependent embedding is computed for the word $x^{\langle 3 \rangle}$ as the inner product of query and key $\langle q, k \rangle$. The softmax vector of the inner products is multiplied by the value vector $v$, which summed together constitutes the self-attention representation $A^{\langle 3 \rangle}$ </i>
 
 
 The main advantage of the self-attention mechanism is that the embedding for the word `l'Afrique` is not fixed. The self-attention mechanism realizes that `l'Afrique` is the destination of a `visite` and thus compute a more useful and context-aware representation for this word.
@@ -102,11 +102,11 @@ $$
 
 
     
+![svg](ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_5_0.svg)
+    
 
-<figure id="fig:multihead">
-    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_5_0.svg" alt="png">
-    <figcaption>Figure 150. Processing of multiple heads (self-attention mechanisms). Multiple context-dependent embeddings (self-attention representations or heads) are computed in parallel to answer different queries $q$. The heads are then concatenated in the final output</figcaption>
-</figure>
+
+<i id="fig:multihead">Processing of multiple heads (self-attention mechanisms). Multiple context-dependent embeddings (self-attention representations or heads) are computed in parallel to answer different queries $q$. The heads are then concatenated in the final output</i>
 
 The different heads are independent computations and can thus be calculated **in parallel**; after the computation of all the heads is completed, the self-attention vectors are concatenated and multiplied by a parameter matrix $W_o$.
 
@@ -114,23 +114,23 @@ The different heads are independent computations and can thus be calculated **in
 A transformer is made of an **encoder block** and a **decoder block**, each repeated $N$ times (with a typical value being $N=6$). The encoder block produces an encoding of the input sequence, the decoder block maps the encoding to an output sequence.
 
 ### Encoder Decoder blocks
-The encoder block has a multi-head attention layer, which is fed the vectors $Q, K, V$ computed for the input sequence. The multi-head attention layer produces a matrix that is passed into a feed-forward neural network, which is the second layer of the encoder block. After repeating $N$ times the encoder feeds the results in the decoder block (<a href="#fig:transbase">Figure 151</a>).
+The encoder block has a multi-head attention layer, which is fed the vectors $Q, K, V$ computed for the input sequence. The multi-head attention layer produces a matrix that is passed into a feed-forward neural network, which is the second layer of the encoder block. After repeating $N$ times the encoder feeds the results in the decoder block (<a href="#fig:transbase">figure below</a>).
 
 At each time-step $t$ the decoder blocks is fed $[1:t]$ elements from the input sequence. These elements are fed into a multi-head attention layer, whose job is to generate the query matrix $Q$ for the next multi-head attention layer. The key-value pair matrices $K, V$ taken as input in this second multi-head attention layer are instead generated from the output of the encoder.
 This architecture is designed to produce an optimal next word, given the previous words in the translation (the $[1:t]$ elements fed as $Q$) and the input sequence (encoding fed as $K, V$). The second multi-head attention layer feeds into a feed forward neural network producing an output matrix, which is fed in loop to the decoder block for $N$ times.
 
 
     
+![svg](ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_7_0.svg)
+    
 
-<figure id="fig:transbase">
-    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_7_0.svg" alt="png">
-    <figcaption>Figure 151. Simplified representation of a transformer network focusing on the encoder and decoder blocks and their main components</figcaption>
-</figure>
+
+<i id="fig:transbase">Simplified representation of a transformer network focusing on the encoder and decoder blocks and their main components</i>
 
 ### Positional encoding and skip-connections
 In the self-attention model we didn't talk about any encoding of the position of an element in the sequence. However, position is a fundamental piece of information when treating with sequences. 
 
-In Transformers a **positional-embedding** vector $P$ of the same dimension $d$ of the self-attention embedding vector is function of the numerical position of an element in the sequence ($\small\text{pos}$), $P$ and $d$ (<a href="#fig:posenc">Figure 152</a>).
+In Transformers a **positional-embedding** vector $P$ of the same dimension $d$ of the self-attention embedding vector is function of the numerical position of an element in the sequence ($\small\text{pos}$), $P$ and $d$ (<a href="#fig:posenc">figure below</a>).
 
 $$
 \begin{split}
@@ -141,18 +141,18 @@ $$
 
 
     
+![svg](ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_9_0.svg)
+    
 
-<figure id="fig:posenc">
-    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_9_0.svg" alt="png">
-    <figcaption>Figure 152. Positional embedding $P$ of dimension $d=4$ for elements with positions $\text{pos}=1$ (orange points) and $\text{pos}=3$ (green points) in a sequence</figcaption>
-</figure>
+
+<i id="fig:posenc">Positional embedding $P$ of dimension $d=4$ for elements with positions $\text{pos}=1$ (orange points) and $\text{pos}=3$ (green points) in a sequence</i>
 
 The positional embedding is directly added to the encoder and decoder blocks of the transformer. The information of the positional embedding is then propagated throughout the whole network via **skip-connections**. Skip connections are directed to **normalization layers** placed after each multi-head and feed-forward layer in both encoder and decoder blocks. This normalization layers are called **Add & Norm** layers. Finally, the decoder block feeds to a linear and softmax layer that produce the final output (<a href="#transfarch">figure below</a>).  
 
 
     
+![svg](ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_11_0.svg)
+    
 
-<figure id="fig:transfarch">
-    <img src="{{site.baseurl}}/pages/ML-48-DeepLearningRNN6_files/ML-48-DeepLearningRNN6_11_0.svg" alt="png">
-    <figcaption>Figure 153. Full transformer architecture with encoder and decoder blocks, positional embeddings, skip connections, normalization and final linear and softmax layers</figcaption>
-</figure>
+
+<i id="fig:transfarch">Full transformer architecture with encoder and decoder blocks, positional embeddings, skip connections, normalization and final linear and softmax layers</i>

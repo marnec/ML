@@ -112,13 +112,13 @@ def insert_pagerefs(md):
 
     def repl_pagerefs(mobj):
         print(f'[{argv[0]}] {inspect.currentframe().f_code.co_name}')
-        page, content = mobj.groups()
-        page = page.split(':')[1]
-        href = '{{{{site.basurl}}}}/ML/{}'.format(page)
+        plink, anchor = mobj.groups()
+        plink = plink.split(':')[1]
+        href = '{{{{site.basurl}}}}/ML/{}'.format(plink)
 
-        if content:
-            href += content
-        return '<a href="{}">{}</a>'.format(href, page)
+        if anchor:
+            href += anchor
+        return '<a href="{}">{}</a>'.format(href, plink)
 
     return re.sub(pattern, repl_pagerefs, md)
 
@@ -133,7 +133,7 @@ def update_md(md, func_call):
 if __name__ == "__main__":
     getnum = lambda fn: fn.split('/')[-1].split('-')[:-1]
 
-    for mdfile in sorted(argv[1:], key=lambda fn: float(getnum(fn)[1])):
+    for mdfile in sorted(argv[1:], key=lambda fn: int(getnum(fn)[1])):
 
         print(f'[{argv[0]}] input file: {mdfile}')
         permalink = ''.join(getnum(mdfile))
