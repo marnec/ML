@@ -12,7 +12,7 @@ Let's take the network <a href="ML10#simpleann">the previous lesson</a> and focu
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_2_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_2_0.svg)
     
 
 
@@ -30,7 +30,7 @@ Neural networks can have different number and dimension of hidden layers and the
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_4_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_4_0.svg)
     
 
 
@@ -41,7 +41,7 @@ Let's take a non-linear classification example like that depicted below, where p
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_6_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_6_0.svg)
     
 
 
@@ -69,7 +69,7 @@ $$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_9_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_9_0.svg)
     
 
 
@@ -86,7 +86,7 @@ Since the sigmoid activation function $\sigma(z)$ is
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_11_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_11_0.svg)
     
 
 
@@ -95,31 +95,43 @@ The the output of $\eqref{eq:h}$ is
 
 
 
-<style  type="text/css" >
-#T_1efba_row0_col0,#T_1efba_row0_col1,#T_1efba_row0_col2,#T_1efba_row1_col0,#T_1efba_row1_col1,#T_1efba_row1_col2,#T_1efba_row2_col0,#T_1efba_row2_col1,#T_1efba_row2_col2,#T_1efba_row3_col0,#T_1efba_row3_col1,#T_1efba_row3_col2{
-            text-align:  left;
-        }</style><table id="T_1efba_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$\hat{y}$</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_1efba_row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_1efba_row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_1efba_row0_col2" class="data row0 col2" >$\sigma(-30) \approx 0$</td>
-            </tr>
-            <tr>
-                                <td id="T_1efba_row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_1efba_row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_1efba_row1_col2" class="data row1 col2" >$\sigma(-10) \approx 0$</td>
-            </tr>
-            <tr>
-                                <td id="T_1efba_row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_1efba_row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_1efba_row2_col2" class="data row2 col2" >$\sigma(-10) \approx 0$</td>
-            </tr>
-            <tr>
-                                <td id="T_1efba_row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_1efba_row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_1efba_row3_col2" class="data row3 col2" >$\sigma(10) \approx 1$</td>
-            </tr>
-    </tbody></table>
+<style type="text/css">
+#T_81c33_row0_col0, #T_81c33_row0_col1, #T_81c33_row0_col2, #T_81c33_row1_col0, #T_81c33_row1_col1, #T_81c33_row1_col2, #T_81c33_row2_col0, #T_81c33_row2_col1, #T_81c33_row2_col2, #T_81c33_row3_col0, #T_81c33_row3_col1, #T_81c33_row3_col2 {
+  text-align: left;
+}
+</style>
+<table id="T_81c33_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >$x_1$</th>
+      <th class="col_heading level0 col1" >$x_2$</th>
+      <th class="col_heading level0 col2" >$\hat{y}$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_81c33_row0_col0" class="data row0 col0" >0</td>
+      <td id="T_81c33_row0_col1" class="data row0 col1" >0</td>
+      <td id="T_81c33_row0_col2" class="data row0 col2" >$\sigma(-30) \approx 0$</td>
+    </tr>
+    <tr>
+      <td id="T_81c33_row1_col0" class="data row1 col0" >0</td>
+      <td id="T_81c33_row1_col1" class="data row1 col1" >1</td>
+      <td id="T_81c33_row1_col2" class="data row1 col2" >$\sigma(-10) \approx 0$</td>
+    </tr>
+    <tr>
+      <td id="T_81c33_row2_col0" class="data row2 col0" >1</td>
+      <td id="T_81c33_row2_col1" class="data row2 col1" >0</td>
+      <td id="T_81c33_row2_col2" class="data row2 col2" >$\sigma(-10) \approx 0$</td>
+    </tr>
+    <tr>
+      <td id="T_81c33_row3_col0" class="data row3 col0" >1</td>
+      <td id="T_81c33_row3_col1" class="data row3 col1" >1</td>
+      <td id="T_81c33_row3_col2" class="data row3 col2" >$\sigma(10) \approx 1$</td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 
@@ -130,7 +142,7 @@ The following network and table show instead $x_1 \vee x_2$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_15_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_15_0.svg)
     
 
 
@@ -139,31 +151,43 @@ $$\hat{y} = \sigma(-10+20x_1+20x_2)$$
 
 
 
-<style  type="text/css" >
-#T_8f5e0_row0_col0,#T_8f5e0_row0_col1,#T_8f5e0_row0_col2,#T_8f5e0_row1_col0,#T_8f5e0_row1_col1,#T_8f5e0_row1_col2,#T_8f5e0_row2_col0,#T_8f5e0_row2_col1,#T_8f5e0_row2_col2,#T_8f5e0_row3_col0,#T_8f5e0_row3_col1,#T_8f5e0_row3_col2{
-            text-align:  left;
-        }</style><table id="T_8f5e0_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$\hat{y}$</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_8f5e0_row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_8f5e0_row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_8f5e0_row0_col2" class="data row0 col2" >$\sigma(-10) \approx 0$</td>
-            </tr>
-            <tr>
-                                <td id="T_8f5e0_row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_8f5e0_row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_8f5e0_row1_col2" class="data row1 col2" >$\sigma(10) \approx 1$</td>
-            </tr>
-            <tr>
-                                <td id="T_8f5e0_row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_8f5e0_row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_8f5e0_row2_col2" class="data row2 col2" >$\sigma(10) \approx 1$</td>
-            </tr>
-            <tr>
-                                <td id="T_8f5e0_row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_8f5e0_row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_8f5e0_row3_col2" class="data row3 col2" >$\sigma(30) \approx 1$</td>
-            </tr>
-    </tbody></table>
+<style type="text/css">
+#T_73e86_row0_col0, #T_73e86_row0_col1, #T_73e86_row0_col2, #T_73e86_row1_col0, #T_73e86_row1_col1, #T_73e86_row1_col2, #T_73e86_row2_col0, #T_73e86_row2_col1, #T_73e86_row2_col2, #T_73e86_row3_col0, #T_73e86_row3_col1, #T_73e86_row3_col2 {
+  text-align: left;
+}
+</style>
+<table id="T_73e86_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >$x_1$</th>
+      <th class="col_heading level0 col1" >$x_2$</th>
+      <th class="col_heading level0 col2" >$\hat{y}$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_73e86_row0_col0" class="data row0 col0" >0</td>
+      <td id="T_73e86_row0_col1" class="data row0 col1" >0</td>
+      <td id="T_73e86_row0_col2" class="data row0 col2" >$\sigma(-10) \approx 0$</td>
+    </tr>
+    <tr>
+      <td id="T_73e86_row1_col0" class="data row1 col0" >0</td>
+      <td id="T_73e86_row1_col1" class="data row1 col1" >1</td>
+      <td id="T_73e86_row1_col2" class="data row1 col2" >$\sigma(10) \approx 1$</td>
+    </tr>
+    <tr>
+      <td id="T_73e86_row2_col0" class="data row2 col0" >1</td>
+      <td id="T_73e86_row2_col1" class="data row2 col1" >0</td>
+      <td id="T_73e86_row2_col2" class="data row2 col2" >$\sigma(10) \approx 1$</td>
+    </tr>
+    <tr>
+      <td id="T_73e86_row3_col0" class="data row3 col0" >1</td>
+      <td id="T_73e86_row3_col1" class="data row3 col1" >1</td>
+      <td id="T_73e86_row3_col2" class="data row3 col2" >$\sigma(30) \approx 1$</td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 
@@ -171,26 +195,37 @@ $$\hat{y} = \sigma(-10+20x_1+20x_2)$$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_19_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_19_0.svg)
     
 
 
 
 
 
-<style  type="text/css" >
-#T_48978_row0_col0,#T_48978_row0_col1,#T_48978_row1_col0,#T_48978_row1_col1{
-            text-align:  left;
-        }</style><table id="T_48978_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$\hat{y}$</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_48978_row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_48978_row0_col1" class="data row0 col1" >$\sigma(10) \approx 1$</td>
-            </tr>
-            <tr>
-                                <td id="T_48978_row1_col0" class="data row1 col0" >1</td>
-                        <td id="T_48978_row1_col1" class="data row1 col1" >$\sigma(-10) \approx 0$</td>
-            </tr>
-    </tbody></table>
+<style type="text/css">
+#T_7a88d_row0_col0, #T_7a88d_row0_col1, #T_7a88d_row1_col0, #T_7a88d_row1_col1 {
+  text-align: left;
+}
+</style>
+<table id="T_7a88d_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >$x_1$</th>
+      <th class="col_heading level0 col1" >$\hat{y}$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_7a88d_row0_col0" class="data row0 col0" >0</td>
+      <td id="T_7a88d_row0_col1" class="data row0 col1" >$\sigma(10) \approx 1$</td>
+    </tr>
+    <tr>
+      <td id="T_7a88d_row1_col0" class="data row1 col0" >1</td>
+      <td id="T_7a88d_row1_col1" class="data row1 col1" >$\sigma(-10) \approx 0$</td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 
@@ -198,38 +233,50 @@ $$\hat{y} = \sigma(-10+20x_1+20x_2)$$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_22_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_22_0.svg)
     
 
 
 
 
 
-<style  type="text/css" >
-#T_1a161_row0_col0,#T_1a161_row0_col1,#T_1a161_row0_col2,#T_1a161_row1_col0,#T_1a161_row1_col1,#T_1a161_row1_col2,#T_1a161_row2_col0,#T_1a161_row2_col1,#T_1a161_row2_col2,#T_1a161_row3_col0,#T_1a161_row3_col1,#T_1a161_row3_col2{
-            text-align:  left;
-        }</style><table id="T_1a161_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$\hat{y}$</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_1a161_row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_1a161_row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_1a161_row0_col2" class="data row0 col2" >$\sigma(10) \approx 1$</td>
-            </tr>
-            <tr>
-                                <td id="T_1a161_row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_1a161_row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_1a161_row1_col2" class="data row1 col2" >$\sigma(-10) \approx 0$</td>
-            </tr>
-            <tr>
-                                <td id="T_1a161_row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_1a161_row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_1a161_row2_col2" class="data row2 col2" >$\sigma(-10) \approx 0$</td>
-            </tr>
-            <tr>
-                                <td id="T_1a161_row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_1a161_row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_1a161_row3_col2" class="data row3 col2" >$\sigma(-30) \approx 0$</td>
-            </tr>
-    </tbody></table>
+<style type="text/css">
+#T_985d0_row0_col0, #T_985d0_row0_col1, #T_985d0_row0_col2, #T_985d0_row1_col0, #T_985d0_row1_col1, #T_985d0_row1_col2, #T_985d0_row2_col0, #T_985d0_row2_col1, #T_985d0_row2_col2, #T_985d0_row3_col0, #T_985d0_row3_col1, #T_985d0_row3_col2 {
+  text-align: left;
+}
+</style>
+<table id="T_985d0_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >$x_1$</th>
+      <th class="col_heading level0 col1" >$x_2$</th>
+      <th class="col_heading level0 col2" >$\hat{y}$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_985d0_row0_col0" class="data row0 col0" >0</td>
+      <td id="T_985d0_row0_col1" class="data row0 col1" >0</td>
+      <td id="T_985d0_row0_col2" class="data row0 col2" >$\sigma(10) \approx 1$</td>
+    </tr>
+    <tr>
+      <td id="T_985d0_row1_col0" class="data row1 col0" >0</td>
+      <td id="T_985d0_row1_col1" class="data row1 col1" >1</td>
+      <td id="T_985d0_row1_col2" class="data row1 col2" >$\sigma(-10) \approx 0$</td>
+    </tr>
+    <tr>
+      <td id="T_985d0_row2_col0" class="data row2 col0" >1</td>
+      <td id="T_985d0_row2_col1" class="data row2 col1" >0</td>
+      <td id="T_985d0_row2_col2" class="data row2 col2" >$\sigma(-10) \approx 0$</td>
+    </tr>
+    <tr>
+      <td id="T_985d0_row3_col0" class="data row3 col0" >1</td>
+      <td id="T_985d0_row3_col1" class="data row3 col1" >1</td>
+      <td id="T_985d0_row3_col2" class="data row3 col2" >$\sigma(-30) \approx 0$</td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 
@@ -237,52 +284,66 @@ $$\hat{y} = \sigma(-10+20x_1+20x_2)$$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_25_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_25_0.svg)
     
 
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_26_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_26_0.svg)
     
 
 
 
 
 
-<style  type="text/css" >
-#T_a7f58_row0_col0,#T_a7f58_row0_col1,#T_a7f58_row0_col2,#T_a7f58_row0_col3,#T_a7f58_row0_col4,#T_a7f58_row1_col0,#T_a7f58_row1_col1,#T_a7f58_row1_col2,#T_a7f58_row1_col3,#T_a7f58_row1_col4,#T_a7f58_row2_col0,#T_a7f58_row2_col1,#T_a7f58_row2_col2,#T_a7f58_row2_col3,#T_a7f58_row2_col4,#T_a7f58_row3_col0,#T_a7f58_row3_col1,#T_a7f58_row3_col2,#T_a7f58_row3_col3,#T_a7f58_row3_col4{
-            text-align:  left;
-        }</style><table id="T_a7f58_" ><thead>    <tr>        <th class="col_heading level0 col0" >$x_1$</th>        <th class="col_heading level0 col1" >$x_2$</th>        <th class="col_heading level0 col2" >$a_1^{[1]}$</th>        <th class="col_heading level0 col3" >$a_2^{[1]}$</th>        <th class="col_heading level0 col4" >$\hat{y}$</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_a7f58_row0_col0" class="data row0 col0" >0</td>
-                        <td id="T_a7f58_row0_col1" class="data row0 col1" >0</td>
-                        <td id="T_a7f58_row0_col2" class="data row0 col2" >0</td>
-                        <td id="T_a7f58_row0_col3" class="data row0 col3" >1</td>
-                        <td id="T_a7f58_row0_col4" class="data row0 col4" >1</td>
-            </tr>
-            <tr>
-                                <td id="T_a7f58_row1_col0" class="data row1 col0" >0</td>
-                        <td id="T_a7f58_row1_col1" class="data row1 col1" >1</td>
-                        <td id="T_a7f58_row1_col2" class="data row1 col2" >0</td>
-                        <td id="T_a7f58_row1_col3" class="data row1 col3" >0</td>
-                        <td id="T_a7f58_row1_col4" class="data row1 col4" >0</td>
-            </tr>
-            <tr>
-                                <td id="T_a7f58_row2_col0" class="data row2 col0" >1</td>
-                        <td id="T_a7f58_row2_col1" class="data row2 col1" >0</td>
-                        <td id="T_a7f58_row2_col2" class="data row2 col2" >0</td>
-                        <td id="T_a7f58_row2_col3" class="data row2 col3" >0</td>
-                        <td id="T_a7f58_row2_col4" class="data row2 col4" >0</td>
-            </tr>
-            <tr>
-                                <td id="T_a7f58_row3_col0" class="data row3 col0" >1</td>
-                        <td id="T_a7f58_row3_col1" class="data row3 col1" >1</td>
-                        <td id="T_a7f58_row3_col2" class="data row3 col2" >1</td>
-                        <td id="T_a7f58_row3_col3" class="data row3 col3" >0</td>
-                        <td id="T_a7f58_row3_col4" class="data row3 col4" >1</td>
-            </tr>
-    </tbody></table>
+<style type="text/css">
+#T_6f2ef_row0_col0, #T_6f2ef_row0_col1, #T_6f2ef_row0_col2, #T_6f2ef_row0_col3, #T_6f2ef_row0_col4, #T_6f2ef_row1_col0, #T_6f2ef_row1_col1, #T_6f2ef_row1_col2, #T_6f2ef_row1_col3, #T_6f2ef_row1_col4, #T_6f2ef_row2_col0, #T_6f2ef_row2_col1, #T_6f2ef_row2_col2, #T_6f2ef_row2_col3, #T_6f2ef_row2_col4, #T_6f2ef_row3_col0, #T_6f2ef_row3_col1, #T_6f2ef_row3_col2, #T_6f2ef_row3_col3, #T_6f2ef_row3_col4 {
+  text-align: left;
+}
+</style>
+<table id="T_6f2ef_">
+  <thead>
+    <tr>
+      <th class="col_heading level0 col0" >$x_1$</th>
+      <th class="col_heading level0 col1" >$x_2$</th>
+      <th class="col_heading level0 col2" >$a_1^{[1]}$</th>
+      <th class="col_heading level0 col3" >$a_2^{[1]}$</th>
+      <th class="col_heading level0 col4" >$\hat{y}$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_6f2ef_row0_col0" class="data row0 col0" >0</td>
+      <td id="T_6f2ef_row0_col1" class="data row0 col1" >0</td>
+      <td id="T_6f2ef_row0_col2" class="data row0 col2" >0</td>
+      <td id="T_6f2ef_row0_col3" class="data row0 col3" >1</td>
+      <td id="T_6f2ef_row0_col4" class="data row0 col4" >1</td>
+    </tr>
+    <tr>
+      <td id="T_6f2ef_row1_col0" class="data row1 col0" >0</td>
+      <td id="T_6f2ef_row1_col1" class="data row1 col1" >1</td>
+      <td id="T_6f2ef_row1_col2" class="data row1 col2" >0</td>
+      <td id="T_6f2ef_row1_col3" class="data row1 col3" >0</td>
+      <td id="T_6f2ef_row1_col4" class="data row1 col4" >0</td>
+    </tr>
+    <tr>
+      <td id="T_6f2ef_row2_col0" class="data row2 col0" >1</td>
+      <td id="T_6f2ef_row2_col1" class="data row2 col1" >0</td>
+      <td id="T_6f2ef_row2_col2" class="data row2 col2" >0</td>
+      <td id="T_6f2ef_row2_col3" class="data row2 col3" >0</td>
+      <td id="T_6f2ef_row2_col4" class="data row2 col4" >0</td>
+    </tr>
+    <tr>
+      <td id="T_6f2ef_row3_col0" class="data row3 col0" >1</td>
+      <td id="T_6f2ef_row3_col1" class="data row3 col1" >1</td>
+      <td id="T_6f2ef_row3_col2" class="data row3 col2" >1</td>
+      <td id="T_6f2ef_row3_col3" class="data row3 col3" >0</td>
+      <td id="T_6f2ef_row3_col4" class="data row3 col4" >1</td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 
@@ -300,7 +361,7 @@ $$
 
 
     
-![png](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_29_0.png)
+![svg](ML-11-NeuralNetworksApplications_files/ML-11-NeuralNetworksApplications_29_0.svg)
     
 
 

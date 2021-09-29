@@ -21,7 +21,7 @@ For a straight line (<a href="#fig:derivative">Figure 5</a>, panel A) the deriva
     
 
 <figure id="fig:derivative">
-    <img src="{{site.baseurl}}/pages/ML-1-Preparatory_files/ML-1-Preparatory_2_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-1-Preparatory_files/ML-1-Preparatory_2_0.svg" alt="png">
     <figcaption>Figure 5. The concept of derivative applied to a straight line (A), where the derivative is constant along the whole length of the function; and to a non-linear function (B), where the derivative changes based on the value of $a$.</figcaption>
 </figure>
 
@@ -37,10 +37,17 @@ To illustrate the computation graph let's use a simpler example than a full blow
 We can draw these steps in a computational graph (<a href="#compgraph">figure below</a>)
 
 
+
+
+    <mpl_flow.Edge at 0x7fea6f1cf550>
+
+
+
+
     
 
 <figure id="compgraph">
-    <img src="{{site.baseurl}}/pages/ML-1-Preparatory_files/ML-1-Preparatory_4_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-1-Preparatory_files/ML-1-Preparatory_4_1.svg" alt="png">
     <figcaption>Figure 6. Computational graph showing the flow of a very simple process</figcaption>
 </figure>
 
@@ -57,8 +64,15 @@ $$\frac{dJ}{dv}=\frac{0.003}{0.001}=3$$
 In the terminology of backpropagation if we want to compute $\frac{dJ}{dv}$ we take one step back from $J$ to $v$
 
 
+
+
+    <mpl_flow.Edge at 0x7fea6f1449a0>
+
+
+
+
     
-![png](ML-1-Preparatory_files/ML-1-Preparatory_6_0.png)
+![svg](ML-1-Preparatory_files/ML-1-Preparatory_6_1.svg)
     
 
 
@@ -82,8 +96,15 @@ $$
 In calculus this is called the **chain rule** where $a$ affects $v$ that affects $J$ ($a\to v \to J$). So that the change of $J$ when $a$ is given by the product $\frac{dJ}{dv}\frac{dv}{da}$. This illustrates how having computed $\frac{dJ}{dv}$ helps in calculating $\frac{dJ}{da}$
 
 
+
+
+    <mpl_flow.Edge at 0x7fea6f0d20a0>
+
+
+
+
     
-![png](ML-1-Preparatory_files/ML-1-Preparatory_8_0.png)
+![svg](ML-1-Preparatory_files/ML-1-Preparatory_8_1.svg)
     
 
 
@@ -151,7 +172,7 @@ v
 
 
 
-    array([0.13, 0.98, 0.16, 0.9 , 0.73, 0.39, 0.46, 0.01, 0.25, 0.69])
+    array([0.17, 0.64, 0.46, 0.08, 0.26, 0.62, 0.56, 0.75, 0.03, 0.48])
 
 
 
@@ -163,7 +184,7 @@ np.exp(v).round(2)
 
 
 
-    array([1.14, 2.66, 1.17, 2.46, 2.08, 1.48, 1.58, 1.01, 1.28, 1.99])
+    array([1.19, 1.9 , 1.58, 1.08, 1.3 , 1.86, 1.75, 2.12, 1.03, 1.62])
 
 
 
@@ -175,8 +196,8 @@ np.log(v).round(2)
 
 
 
-    array([-2.04, -0.02, -1.83, -0.11, -0.31, -0.94, -0.78, -4.61, -1.39,
-           -0.37])
+    array([-1.77, -0.45, -0.78, -2.53, -1.35, -0.48, -0.58, -0.29, -3.51,
+           -0.73])
 
 
 
@@ -188,7 +209,7 @@ v + 1
 
 
 
-    array([1.13, 1.98, 1.16, 1.9 , 1.73, 1.39, 1.46, 1.01, 1.25, 1.69])
+    array([1.17, 1.64, 1.46, 1.08, 1.26, 1.62, 1.56, 1.75, 1.03, 1.48])
 
 
 
@@ -200,7 +221,7 @@ v * 2
 
 
 
-    array([0.26, 1.96, 0.32, 1.8 , 1.46, 0.78, 0.92, 0.02, 0.5 , 1.38])
+    array([0.34, 1.28, 0.92, 0.16, 0.52, 1.24, 1.12, 1.5 , 0.06, 0.96])
 
 
 
@@ -338,7 +359,7 @@ a
 
 
 
-    array([0.70273802, 0.59057133, 0.92142553, 0.38603558, 0.37320026])
+    array([0.69772688, 0.83113936, 0.58433493, 0.2092702 , 0.70983487])
 
 
 
@@ -368,7 +389,7 @@ a.T
 
 
 
-    array([0.70273802, 0.59057133, 0.92142553, 0.38603558, 0.37320026])
+    array([0.69772688, 0.83113936, 0.58433493, 0.2092702 , 0.70983487])
 
 
 
@@ -382,7 +403,7 @@ np.dot(a, a.T)
 
 
 
-    1.9799421335211578
+    2.0667222923715833
 
 
 
@@ -397,11 +418,11 @@ a
 
 
 
-    array([[0.5600209 ],
-           [0.05814544],
-           [0.98815322],
-           [0.24366541],
-           [0.16702286]])
+    array([[0.59830775],
+           [0.41295833],
+           [0.94338306],
+           [0.16903855],
+           [0.66591253]])
 
 
 
@@ -413,7 +434,7 @@ a.T
 
 
 
-    array([[0.5600209 , 0.05814544, 0.98815322, 0.24366541, 0.16702286]])
+    array([[0.59830775, 0.41295833, 0.94338306, 0.16903855, 0.66591253]])
 
 
 
@@ -425,11 +446,11 @@ np.dot(a, a.T)
 
 
 
-    array([[0.31362341, 0.03256266, 0.55338646, 0.13645772, 0.09353629],
-           [0.03256266, 0.00338089, 0.0574566 , 0.01416803, 0.00971162],
-           [0.55338646, 0.0574566 , 0.97644678, 0.24077876, 0.16504418],
-           [0.13645772, 0.01416803, 0.24077876, 0.05937283, 0.04069769],
-           [0.09353629, 0.00971162, 0.16504418, 0.04069769, 0.02789664]])
+    array([[0.35797216, 0.24707617, 0.56443339, 0.10113708, 0.39842062],
+           [0.24707617, 0.17053458, 0.38957789, 0.06980588, 0.27499412],
+           [0.56443339, 0.38957789, 0.88997159, 0.15946811, 0.62821059],
+           [0.10113708, 0.06980588, 0.15946811, 0.02857403, 0.11256489],
+           [0.39842062, 0.27499412, 0.62821059, 0.11256489, 0.44343949]])
 
 
 
@@ -444,7 +465,7 @@ a
 
 
 
-    array([0.63684256, 0.57294573, 0.41888045, 0.70994363, 0.3930198 ])
+    array([0.02657882, 0.91282618, 0.91845211, 0.64890572, 0.40281761])
 
 
 
@@ -456,11 +477,11 @@ a.reshape(5, 1)
 
 
 
-    array([[0.63684256],
-           [0.57294573],
-           [0.41888045],
-           [0.70994363],
-           [0.3930198 ]])
+    array([[0.02657882],
+           [0.91282618],
+           [0.91845211],
+           [0.64890572],
+           [0.40281761]])
 
 
 
@@ -472,6 +493,6 @@ a.reshape(1, 5)
 
 
 
-    array([[0.63684256, 0.57294573, 0.41888045, 0.70994363, 0.3930198 ]])
+    array([[0.02657882, 0.91282618, 0.91845211, 0.64890572, 0.40281761]])
 
 

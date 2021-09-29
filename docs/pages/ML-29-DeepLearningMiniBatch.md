@@ -9,13 +9,15 @@ comments: true
 
 # Mini-batch gradient descent
 
-When training a deep-learning model, you training set might very large and slow down your training. In order to prevent this problem what is usually done is to split your training set in **mini-batches**. For example you might split a 5000000 examples training set in 1000 mini-batches ($t$) of 5000 training examples each. You would have 1000 feature vectors $X^{\{t\}}, Y^{\{t\}}$.
+When training a deep-learning model, you training set might be very large and slow down your training. In order to prevent this problem, the training set is usually split in **mini-batches**. For example you might split a 5,000,000 examples training set in 1,000 mini-batches ($t$) of 5,000 training examples each. You would have 1,000 feature vectors $X^{\{t\}}, Y^{\{t\}}$.
 
-From here you would proceed by iterating over your 1000 mini-batches in each training epoch. Below you can see some pseudocode representing the process, where I focus on epoch and mini-batches and remain less rigorous on layers:
+From here you would proceed by iterating over your 1000 mini-batches in each training **epoch**. Below you can see some pseudocode representing the process, where I focus on epoch and mini-batches and remain less rigorous on layers:
 
 ```python
-for epoch in range(n_iterations):
-    for t in range(n_minibatches):
+iteration = 0
+for epoch in range(n_epochs):         # number of epochs
+    for t in range(n_minibatches):    # 1000 mini-batches of size 5000 each
+        iteration += 1
         a = forward_prop(w, x[t], b)
         J[t] = compute_cost(a, y[t])
         dw = backprop(x[t], y[t])
@@ -41,3 +43,12 @@ The size of the mini-batch ($m_b$) is an hyperparameter that you will need to ch
 * If $m_b=1$ we have an algorithm called stochastic gradient descent where every example is its own mini-batch $(X^{\{1\}}, Y^{\{1\}}) = (x^{(1)}, y^{(1)})$. Stochastic gradient descent will bring **on average** our cost function towards the minimum but with many detours and will never converge.
 
 * In practice $1 < m_b < m$. This will ensure the fastest learning. Typical mini-batches sizes are power of 2, that tend to run faster due to computer architectural implementations. Usually these sizes are used: $64, 128, 256, 512$.
+
+## Nomenclature
+The introduction mini-batches and epochs creates ambiguity in some terminology. To disambiguate, especially in deep-learning
+
+* The dataset of size $m$ is split in $b$ **mini-batches** of size $m_b$
+* Each **iteration** an algorithm visits a mini-batch
+* Each **epoch** an algorithm visits the entire dataset (all mini-batches)
+
+When $m_b=m$ (batch gradient descent) the definition of iteration and epoch coincides, this is beacuse sometimes we will find epochs referred to as iterations.

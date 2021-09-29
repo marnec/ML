@@ -49,7 +49,7 @@ train_dataset[0]
 
 
 
-    (<PIL.Image.Image image mode=L size=28x28 at 0x7FDDA96F3208>, 5)
+    (<PIL.Image.Image image mode=L size=28x28 at 0x7F9F4727BBB0>, 5)
 
 
 
@@ -59,7 +59,7 @@ A sample of 100 images in the dataset show us that the images are low-res graysc
 
 
     
-![png](ML-7.5-logregImplementation_files/ML-7.5-logregImplementation_10_0.png)
+![svg](ML-7.5-logregImplementation_files/ML-7.5-logregImplementation_10_0.svg)
     
 
 
@@ -215,10 +215,10 @@ for epoch in range(int(epochs)):
                  )
 ```
 
-    Iteration: 500. Loss: 0.7569801211357117. Accuracy: 82.83999633789062.
-    Iteration: 1000. Loss: 0.5661232471466064. Accuracy: 86.26000213623047.
-    Iteration: 1500. Loss: 0.5856491327285767. Accuracy: 87.5199966430664.
-    Iteration: 2000. Loss: 0.40971270203590393. Accuracy: 88.26000213623047.
-    Iteration: 2500. Loss: 0.3808164894580841. Accuracy: 88.66000366210938.
-    Iteration: 3000. Loss: 0.43385395407676697. Accuracy: 89.16000366210938.
+    Iteration: 500. Loss: 0.8654791116714478. Accuracy: 82.69999694824219.
+    Iteration: 1000. Loss: 0.6863134503364563. Accuracy: 86.18000030517578.
+    Iteration: 1500. Loss: 0.4218657314777374. Accuracy: 87.2699966430664.
+    Iteration: 2000. Loss: 0.5223045945167542. Accuracy: 88.05999755859375.
+    Iteration: 2500. Loss: 0.6541801691055298. Accuracy: 88.5999984741211.
+    Iteration: 3000. Loss: 0.370985746383667. Accuracy: 89.0199966430664.
 

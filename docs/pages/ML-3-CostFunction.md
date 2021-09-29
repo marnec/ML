@@ -42,7 +42,7 @@ $$h_\theta(x)=\theta_1x$$
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_3_0.png)
+![svg](ML-3-CostFunction_files/ML-3-CostFunction_5_0.svg)
     
 
 
@@ -57,7 +57,7 @@ When $\theta_1 = 1$, we get a slope of 1 which goes through every single data po
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_6_0.png)
+![svg](ML-3-CostFunction_files/ML-3-CostFunction_8_0.svg)
     
 
 
@@ -65,7 +65,7 @@ Plotting 15 $\theta_1$ values in the interval $[-0.5, 2.5]$ yields a bell shaped
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_8_0.png)
+![svg](ML-3-CostFunction_files/ML-3-CostFunction_10_0.svg)
     
 
 
@@ -76,15 +76,19 @@ Let's take a slightly more complex hypothesis wwhere we have $\theta \in \mathbb
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_10_0.png)
+![svg](ML-3-CostFunction_files/ML-3-CostFunction_12_0.svg)
     
 
 
 Now we have two parameters so the cost function depends on two variables and its plot needs to account for three dimensions. We can use a surface plot where the $x$ axis is $\theta_0$, the $y$ axis is $\theta_1$ and the $z$ axis (the height) is the cost function at specific values of $\theta_0, \theta_1$
 
+    /tmp/ipykernel_21112/1601170917.py:3: MatplotlibDeprecationWarning: Calling gca() with keyword arguments was deprecated in Matplotlib 3.4. Starting two minor releases later, gca() will take no keyword arguments. The gca() function should only be used to get the current axes, or if no axes exist, create new axes with default keyword arguments. To create a new axes with non-default arguments, use plt.axes() or plt.subplot().
+      ax = fig.gca(projection='3d')
+
+
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_12_0.png)
+![svg](ML-3-CostFunction_files/ML-3-CostFunction_14_1.svg)
     
 
 
@@ -94,6 +98,6 @@ A more accessible kind of plots are the contour plots, bidimensional plot in whi
 
 
     
-![png](ML-3-CostFunction_files/ML-3-CostFunction_14_0.png)
+![svg](ML-3-CostFunction_files/ML-3-CostFunction_16_0.svg)
     
 

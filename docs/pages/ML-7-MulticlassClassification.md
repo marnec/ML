@@ -12,7 +12,7 @@ Sometimes we don't want $y$ to be limited to the $\{0,1\}$ values but instead we
 
 
     
-![png](ML-7-MulticlassClassification_files/ML-7-MulticlassClassification_2_0.png)
+![svg](ML-7-MulticlassClassification_files/ML-7-MulticlassClassification_2_0.svg)
     
 
 
@@ -25,7 +25,7 @@ The principle of one vs all classification is turning a multiclass classfication
 
 
     
-![png](ML-7-MulticlassClassification_files/ML-7-MulticlassClassification_4_0.png)
+![svg](ML-7-MulticlassClassification_files/ML-7-MulticlassClassification_4_0.svg)
     
 
 

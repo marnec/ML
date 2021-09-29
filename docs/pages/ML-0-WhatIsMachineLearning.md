@@ -50,7 +50,7 @@ Price as a function of size (<a href="#fig:scatter">Figure 1</a>) is a psuedo-co
     
 
 <figure id="fig:scatter">
-    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_5_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_5_0.svg" alt="png">
     <figcaption>Figure 1. Price of houses in USD $(y)$ plotted against the living surface in square foots $(x)$ of a set of houses in Portland, Oregon</figcaption>
 </figure>
 
@@ -66,7 +66,7 @@ When trying to predict malignancy, a tumor can either be malignant (positive cas
     
 
 <figure id="fig:tumorsize">
-    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_7_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_7_0.svg" alt="png">
     <figcaption>Figure 2. Measured size of tumors $(x)$ and their malignancy $(y)$ constrained to the values $0$ (bening) or $1$ (malignant)</figcaption>
 </figure>
 
@@ -87,7 +87,7 @@ Take a collection of 1,000,000 different genes, and find a way to automatically 
     
 
 <figure id="fig:genexpr">
-    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_9_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_9_0.svg" alt="png">
     <figcaption>Figure 3. Heatmap of gene expression of 5 genes for 100 individuals, which are then clustered based on the similarity of the (gene-) expression profile (data is randomly generated).</figcaption>
 </figure>
 
@@ -98,7 +98,7 @@ In classification, we try to teach a learning algrithm to associate a set of fea
     
 
 <figure id="fig:iris">
-    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_11_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-0-WhatIsMachineLearning_files/ML-0-WhatIsMachineLearning_11_0.svg" alt="png">
     <figcaption>Figure 4. Labeled (left) and unlabeled (right) data on sepal length $(x)$ and width $(y)$</figcaption>
 </figure>
 

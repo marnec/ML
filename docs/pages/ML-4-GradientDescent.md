@@ -15,9 +15,13 @@ Imagine that we graph the cost function based on its fields $\theta_0$ and $\the
 
 We put $\theta_0$ on the $x$ axis and $\theta_1$ on the $y$ axis, with the cost function on the vertical $z$ axis. The points on our graph will be the result of the cost function using our hypothesis with those specific theta parameters. The graph below depicts such a setup.
 
+    /tmp/ipykernel_21168/140559370.py:19: MatplotlibDeprecationWarning: Calling gca() with keyword arguments was deprecated in Matplotlib 3.4. Starting two minor releases later, gca() will take no keyword arguments. The gca() function should only be used to get the current axes, or if no axes exist, create new axes with default keyword arguments. To create a new axes with non-default arguments, use plt.axes() or plt.subplot().
+      ax = fig.gca(projection='3d')
+
+
 
     
-![png](ML-4-GradientDescent_files/ML-4-GradientDescent_3_0.png)
+![svg](ML-4-GradientDescent_files/ML-4-GradientDescent_3_1.svg)
     
 
 
@@ -55,7 +59,7 @@ $$
 
 
     
-![png](ML-4-GradientDescent_files/ML-4-GradientDescent_5_0.png)
+![svg](ML-4-GradientDescent_files/ML-4-GradientDescent_5_0.svg)
     
 
 
@@ -93,7 +97,7 @@ href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.cs
     if (isInternetExplorer()) {
         // switch from oninput to onchange because IE <= 11 does not conform
         // with W3C specification. It ignores oninput and onchange behaves
-        // like oninput. In contrast, Mircosoft Edge behaves correctly.
+        // like oninput. In contrast, Microsoft Edge behaves correctly.
         slider.setAttribute('onchange', slider.getAttribute('oninput'));
         slider.setAttribute('oninput', null);
     }
@@ -247,42 +251,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img5ea39f56164b452692f1c32954fca3d7">
+  <img id="_anim_imge89359e0587849da831abbd8802ffd78">
   <div class="anim-controls">
-    <input id="_anim_slider5ea39f56164b452692f1c32954fca3d7" type="range" class="anim-slider"
+    <input id="_anim_slidere89359e0587849da831abbd8802ffd78" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim5ea39f56164b452692f1c32954fca3d7.set_frame(parseInt(this.value));">
+           oninput="anime89359e0587849da831abbd8802ffd78.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" onclick="anim5ea39f56164b452692f1c32954fca3d7.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anime89359e0587849da831abbd8802ffd78.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anime89359e0587849da831abbd8802ffd78.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anime89359e0587849da831abbd8802ffd78.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" onclick="anim5ea39f56164b452692f1c32954fca3d7.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anime89359e0587849da831abbd8802ffd78.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" onclick="anim5ea39f56164b452692f1c32954fca3d7.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anime89359e0587849da831abbd8802ffd78.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" onclick="anim5ea39f56164b452692f1c32954fca3d7.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anime89359e0587849da831abbd8802ffd78.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anime89359e0587849da831abbd8802ffd78.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" onclick="anim5ea39f56164b452692f1c32954fca3d7.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anime89359e0587849da831abbd8802ffd78.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" onclick="anim5ea39f56164b452692f1c32954fca3d7.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anime89359e0587849da831abbd8802ffd78.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" action="#n" name="_anim_loop_select5ea39f56164b452692f1c32954fca3d7"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecte89359e0587849da831abbd8802ffd78"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_5ea39f56164b452692f1c32954fca3d7"
+      <input type="radio" name="state" value="once" id="_anim_radio1_e89359e0587849da831abbd8802ffd78"
              >
-      <label for="_anim_radio1_5ea39f56164b452692f1c32954fca3d7">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_5ea39f56164b452692f1c32954fca3d7"
+      <label for="_anim_radio1_e89359e0587849da831abbd8802ffd78">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_e89359e0587849da831abbd8802ffd78"
              checked>
-      <label for="_anim_radio2_5ea39f56164b452692f1c32954fca3d7">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_5ea39f56164b452692f1c32954fca3d7"
+      <label for="_anim_radio2_e89359e0587849da831abbd8802ffd78">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_e89359e0587849da831abbd8802ffd78"
              >
-      <label for="_anim_radio3_5ea39f56164b452692f1c32954fca3d7">Reflect</label>
+      <label for="_anim_radio3_e89359e0587849da831abbd8802ffd78">Reflect</label>
     </form>
   </div>
 </div>
@@ -292,13 +296,13 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img5ea39f56164b452692f1c32954fca3d7";
-    var slider_id = "_anim_slider5ea39f56164b452692f1c32954fca3d7";
-    var loop_select_id = "_anim_loop_select5ea39f56164b452692f1c32954fca3d7";
+    var img_id = "_anim_imge89359e0587849da831abbd8802ffd78";
+    var slider_id = "_anim_slidere89359e0587849da831abbd8802ffd78";
+    var loop_select_id = "_anim_loop_selecte89359e0587849da831abbd8802ffd78";
     var frames = new Array(10);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAADQQElEQVR4nOz9eXhb2ZnfiX8PQJAE90UUSXHfsdyLhaR2kQRALVVeuqrd7m47\
 nbh64rGfTNszSXp+7pSTecaT7nS7Mp6kE88kTrx120lvjl1tl+0qq1QqVWkrLZRIcd9FLRQlURJJ\
 URQpbuf3By5UKBpczrkXoJb38zx4BBzcc84FCFL3i/d9vy/jnIMgCIIgCIIgCIKIPqbNPgGCIAiC\
@@ -1237,7 +1241,7 @@ EEIIIYQQNpEATAghhBBCCCFsIgGYEEIIIYQQQthEAjAhhBBCCCGEsIkEYEIIIYQQQghhEwnAhBBC\
 CCGEEMImEoAJIYQQQgghhE0kABNCCCGEEEIIm/z/sZPm2Ds7aV8AAAAASUVORK5CYII=\
 "
   frames[1] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAADhzElEQVR4nOz9eXhb2ZnfiX8PQJAE90UUSXHfsdyLhaR2kQRALVVeuqrd7m47\
 nbh64rGfTNszSXp+7pSTecaT7nS7Mp6kE88kTrx120lvjl1tl+0qq1QqVWkrLZRIcd9FLRQlURJJ\
 URQpbuf3By5UKBpczrkXoJb38zx4BBzcc84FCFL3i/d9vy/jnIMgCIIgCIIgCIKIPqbNPgGCIAiC\
@@ -2255,7 +2259,7 @@ CCGEEEJ4iARgQgghhBBCCOEhEoAJIYQQQgghhIdIACaEEEIIIYQQHiIBmBBCCCGEEEJ4iARgQggh\
 hBBCCOEhEoAJIYQQQgghhIf8/+EIIQ9+VJUGAAAAAElFTkSuQmCC\
 "
   frames[2] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAADweUlEQVR4nOy9eXhb13nn/z0AQRLcF3HfdwK42EhqpUgCoDbbSewmaZNMp3Gn\
 aTydJDNt85u0TjszmbaTxm3aps1MmmZtky5J08R1nMSOLEu2tVkLJVJcxJ2iFoqSKImkKIoUt/P7\
 AxcSxHA7516AWt7P8+AReHDPORcLqfvF+77fl3HOQRAEQRAEQRAEQYQew3qfAEEQBEEQBEEQxJMC\
@@ -3339,7 +3343,7 @@ kiTJRWQAJkmSJEmSJEmS5CIyAJMkSZIkSZIkSXIRGYBJkiRJkiRJkiS5iAzAJEmSJEmSJEmSXEQG\
 YJIkSZIkSZIkSS7y/wGuDNZYzktILwAAAABJRU5ErkJggg==\
 "
   frames[3] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAEAAElEQVR4nOy9eXhb13nn/z0AwX2nKJLivhPAxUZSK0USIGXJjpPYzZ6msTvN\
 xL9Okk7bzKS10yVt0yTuZNqkmcmkzdbYadYmrmMnTmRZsq19oUSK+y5qoSiJ4iaKIsXt/P7AhQwz\
 3M65FyApvZ/nwSPw4J5zLhZS94v3fb8v45yDIAiCIAiCIAiCCDyGtT4BgiAIgiAIgiCIBwUSYARB\
@@ -4496,7 +4500,7 @@ iUTiIqQAk0gkEolEIpFIJBIXIQWYRCKRSCQSiUQikbgIKcAkEolEIpFIJBKJxEVIASaRSCQSiUQi\
 kUgkLkIKMIlEIpFIJBKJRCJxEVKASSQSiUQikUgkEomL+P/4gk6lPfBdYgAAAABJRU5ErkJggg==\
 "
   frames[4] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAEAAElEQVR4nOydd1ib57n/v4+E2BtjwOyNpFcL8DYgCY+MtnHTtE06krZJc3qa\
 7nN6mnT80p30dKftSZvVJh3pSNM0aYbj2E68BzaYvY0HNjY2xsaYzfP7Q68chYLN876vBLbvz3Vx\
 WTx6nyEhsL667/t7M845CIIgCIIgCIIgCP+jm+sDEARBEARBEARBXC+QACMIgiAIgiAIgggQJMAI\
@@ -5745,7 +5749,7 @@ iUQikUgkEonETkgBJpFIJBKJRCKRSCR2QgowiUQikUgkEolEIrETUoBJJBKJRCKRSCQSiZ2QAkwi\
 kUgkEolEIpFI7MT/ByJweBO2fp/WAAAAAElFTkSuQmCC\
 "
   frames[5] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAEAAElEQVR4nOydd3icV5X/v3dGI2nUe7F61/QZSe6WNCO5pAAJIbAJJQESskDo\
 EEhY9pddWrIbaoDNEhJIQgmwEEKAJI5jO3EvsnpvlossybJ6r/f3x7xjT4Qk6y0zsuzzeZ55PLrz\
 3nvfKZLfM+d8v4dxzkEQBEEQBEEQBEF4HtVqnwBBEARBEARBEMSNAgVgBEEQBEEQBEEQXoICMIIg\
@@ -7052,7 +7056,7 @@ AkySJEmSKrEAkyRJkqRKLMAkSZIkqRILMEmSJEmqxAJMkiRJkiqxAJMkSZKkSv4GNIJb/7qSTWAA\
 AAAASUVORK5CYII=\
 "
   frames[6] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAEAAElEQVR4nOy9d3hc1bX+/+4ZjXrvsnrX9BlJ7pY0IxmbGhwCBEICSSgJ4PTk\
 BnLv/SU3uQncL6lgSuglCQmhE4oxtsG9yJas3i0X2bJk9V737485Yw+KZOuUGbmsz/PM49Ges/c+\
 UySfd9Za72KccxAEQRAEQRAEQRDuR7XQJ0AQBEEQBEEQBHG5QAKMIAiCIAiCIAjCQ5AAIwiCIAiC\
@@ -8432,7 +8436,7 @@ ERGPKAATERERERHxiAIwERERERERjygAExERERER8YgCMBEREREREY/8f14qr6R1M6wyAAAAAElF\
 TkSuQmCC\
 "
   frames[7] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAEAAElEQVR4nOydd1hc17X23z3D0HtH9A7TB5BABRhAluQWK46T2HFiJ3FJYsvp\
 xU5uvuQmN4nvdaot9xKXJI4d23GJi2xLtlWRhOi9CRUkEKKLDrO/P+aMhDAgTplRW7/nmYdhz9l7\
 nxkGOO+std7FOOcgCIIgCIIgCIIgnI/qfJ8AQRAEQRAEQRDE5QIJMIIgCIIgCIIgCBdBAowgCIIg\
@@ -9877,7 +9881,7 @@ CCGEEMJDJAATQgghhBBCCA+RAEwIIYQQQgghPEQCMCGEEEIIIYTwEAnAhBBCCCGEEMJDJAATQggh\
 hBBCCA/5/6/t13DvZ/5hAAAAAElFTkSuQmCC\
 "
   frames[8] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAEAAElEQVR4nOydd3yb1b3/P0eybMt77721Je8M27IdkrBTSguUFtoyWiB000J7\
 76/3treFe+mkYZRVRguFAmVDErKXkzjx3jOJ997bOr8/9ChRjB37GXISct6vl16Wj55zziNZtp+P\
 vt/v50sopWAwGAwGg8FgMBgMhuORXewTYDAYDAaDwWAwGIwrBSbAGAwGg8FgMBgMBmOVYAKMwWAw\
@@ -11379,7 +11383,7 @@ CCGEEMJDJIAJIYQQQgghhIdIABNCCCGEEEIID5EAJoQQQgghhBAeIgFMCCGEEEIIITxEApgQQggh\
 hBBCeIgEMCGEEEIIIYTwkP8PCwGjEvUy1WwAAAAASUVORK5CYII=\
 "
   frames[9] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAFoCAYAAAAxXpjgAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjMuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/Il7ecAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAEAAElEQVR4nOydd3ic1Zm376NR78WyLMuyepsuS+5WN7YhtBBSSIEkBJIA6cku\
 ZHe/7G42CbskISSmJJQAKaQAoQUwYIobLrJlS5bV5Sp3y3KR1XW+P2bGloVk+y0j23Du65pLozPv\
 Oeed0Uh6f/M8z+8RUkoUCoVCoVAoFAqFQuF/Ai72CSgUCoVCoVAoFArFRwUlwBQKhUKhUCgUCoVi\
@@ -12928,7 +12932,7 @@ TkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim5ea39f56164b452692f1c32954fca3d7 = new Animation(frames, img_id, slider_id, 500.0,
+        anime89359e0587849da831abbd8802ffd78 = new Animation(frames, img_id, slider_id, 500.0,
                                  loop_select_id);
     }, 0);
   })()

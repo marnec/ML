@@ -12,7 +12,7 @@ Anatomical neurons are cells that are present in the brain in millions. A neuron
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_2_0.png)
+![svg](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_2_0.svg)
     
 
 
@@ -22,7 +22,7 @@ A neuron implemented on the computer has a very simple model that mimics the arc
 
 
     
-![png](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_4_0.png)
+![svg](ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_4_0.svg)
     
 
 
@@ -46,7 +46,7 @@ Until now we represented single neurons; a neural network is a group of differen
     
 
 <figure id="fig:simpleann">
-    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_7_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_7_0.svg" alt="png">
     <figcaption>Figure 10. A simple neural network with one hidden layer</figcaption>
 </figure>
 
@@ -186,7 +186,7 @@ $$
     
 
 <figure id="fig:annfirststeps">
-    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_12_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-10-NeuralNetworkModelRepresentation_files/ML-10-NeuralNetworkModelRepresentation_12_0.svg" alt="png">
     <figcaption>Figure 11. First three steps of forward propagation to calculate the hidden units of the first layer from the input layer.</figcaption>
 </figure>
 

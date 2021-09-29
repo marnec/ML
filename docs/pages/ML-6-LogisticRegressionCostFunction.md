@@ -7,6 +7,12 @@ order: 6
 comments: true
 ---
 
+
+    
+![svg](ML-6-LogisticRegressionCostFunction_files/ML-6-LogisticRegressionCostFunction_1_0.svg)
+    
+
+
 The Cost function for a single training example is called the **Loss function** $\mathcal{L}$
 
 $$\frac{1}{2}\left(h_\theta\left(x^{(i)}\right)-y^{(i)}\right)^2 \equiv \mathcal{L} \implies J(\theta)=\frac{1}{m}\sum_{i=1}^m\mathcal{L}$$
@@ -23,6 +29,12 @@ $$
 \end{cases}
 \end{equation*}
 $$
+
+
+
+    
+![svg](ML-6-LogisticRegressionCostFunction_files/ML-6-LogisticRegressionCostFunction_4_0.svg)
+    
 
 
 This cost function has some desirable properties:

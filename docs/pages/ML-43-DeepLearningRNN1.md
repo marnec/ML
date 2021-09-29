@@ -10,7 +10,7 @@ comments: true
 # Sequence Models 
 Models like Recurrent Neural Networks (RNNs) have transformed many fields, as for example speech recognition and natural language processing. There are a lot of different types of sequence problems that can be treated as supervised learning problems:
 
-* In speech recognition an input audio source $x$ is mapped to an output text $y$. Both the input and the output are sequence data, because $x$ plays over time and $y$ is a sequence of words.
+* In speech recognition, an input audio source $x$ is mapped to an output text $y$. Both the input and the output are sequences of data, because $x$ plays over time and $y$ is a sequence of words.
 * In music generation the output $y$ is a sequence, while the input can be void or it may be a single number encoding for the genre or style of music to generated. 
 * In sentiment classification the input $x$ is one or more sentences (sequence) while the output $y$ is a number encoding for the quality of the object to which the input refers. 
 * Sequence models are also widely used in DNA sequence analysis.
@@ -19,19 +19,19 @@ Models like Recurrent Neural Networks (RNNs) have transformed many fields, as fo
 * In name entity recognition entities $y$ like for example peoples are detected in an input sentence $x$
 
 ## Notation
-Suppose you want a sequence model that extract character names from a sentence $x$ and classifies each word as character name (1) or not (0). This is an example of **Natural Language Processing**.
+Suppose you want a sequence model that extracts character names from a sentence $x$ and classifies each word as character name (1) or not (0). This is an example of **Natural Language Processing**.
 
     x:	Rand is a friend of Perrin and they both live in the twin rivers
     y:	1    0  0 0      0  1      0   0    0    0    0  0   0    0
 
 
-The input is a sequence of 13 words ($T_x=13$). They are represented by a set of 13 features to which we will refer as $x^{\langle 1 \rangle}, \dots ,x^{\langle 13 \rangle}$ or more in general they will be referred to as $x^{\langle t \rangle}$ where $t$ implies that they are temporal sequences regardless whether the sequence is temporal or not.
+The input is a sequence of 13 words ($T_x=13$). They are represented by a set of 13 features to which we will refer as $x^{\langle 1 \rangle}, \dots ,x^{\langle 13 \rangle}$ or more in general they will be referred to as $x^{\langle t \rangle}$ where $t$ implies that they are temporal sequences regardless whether the sequentiality is in the time dimension or not.
 
-Similarly we refer to $y^{\langle 1 \rangle}, \dots , y^{\langle t \rangle} , \dots,y^{\langle 13 \rangle}$ which has length $T_y$. In this example $T_x = T_y = 13$ but they can be different.
+Similarly we refer to $y^{\langle t \rangle}$ which has length $T_y$. In this example $T_x = T_y = 13$ ($y^{\langle 1 \rangle}, \dots,y^{\langle 13 \rangle}$) but they can be different. This means that the length of the input and output sequence don't need to match. For example a sentiment analysis network has $T_x >= 1, T_y = 1$
 
 Each training example $X^{(i)}$ has a label associated to some features $t$. To refer to feature $t$ of training example $i$ we use $X^{(i)\langle t \rangle}$. Each training example might have a different number of input features $T_x$. To refer to the number of input features of training example $i$ we use $T_x^{(i)}$. Similarly $y^{(i)\langle t \rangle}$ refers to the $t$-th element in the output sequence of the $i$-th training example and $T_y^{(i)}$ refers to the length of the output sequence in the $i$-the training example.
 
-The representation of individual words $x^{\langle 1 \rangle}$ is based on a vocabulary (or dictionary) $V$, a set of all the words that can be used in a representation. Once a dictionary is defined, one way to represent a word, called **one-hot** representation, is with a vector of the same size of the dictionary where the only non-zero value is at the index of the word in the vocabulary.
+In the example of Natural Language Processing, one of the simplest representation of individual words $x^{\langle t \rangle}$ is based on a vocabulary (or dictionary) $V$. The vocabulary $V$ is a set of all the words that can be used in a representation. Once a dictionary is defined, one way to represent a word, called **one-hot** representation, is with a vector of the same size of the dictionary where the only non-zero value is at the index of the word in the vocabulary.
 
 $$
 V = 
@@ -67,8 +67,8 @@ A RNN has none of these problems: When modelling this data in a recurrent neural
 
 <figure id="fig:rnn">
     <img src="{{site.baseurl}}/pages/ML-43-DeepLearningRNN1_files/ML-43-DeepLearningRNN1_5_0.svg" alt="png">
-    <figcaption>Figure 125. Two equivalent representations of a recurrent neural network (RNN) model. In the left panel (A), each box represents a time step. One element in the input sequence $x^{\langle t \rangle}$ is fed to an hidden layer, which takes as an additional input the activations of the previous step $a^{\langle t-1 \rangle}$. Each step produces as output a vector $y^{\langle t \rangle}$</figcaption>
-</figure>. In the right panel (B) the same process is represented as the layer being fed the input $x$ and weighting it with a set of weights $W$ to produce the output $y$ in a loop for each time step $t$.
+    <figcaption>Figure 125. Two equivalent representations of a recurrent neural network (RNN) model. In the left panel (A), each box represents a time step. One element in the input sequence $x^{\langle t \rangle}$ is fed to an hidden layer, which takes as an additional input the activations of the previous step $a^{\langle t-1 \rangle}$. Each step produces as output a vector $y^{\langle t \rangle}$. In the right panel (B) the same process is represented as the layer being fed the input $x$ and weighting it with a set of weights $W$ to produce the output $y$ in a loop for each time step $t$.</figcaption>
+</figure>
 
 In an RNN a single set of parameters ($W_{ax}$) for every time-step governs the connection from $x^{\langle i \rangle}$ to the hidden layer for every time step. A single set of parameters ($W_{aa}$) governs the connection from one time-step to the next and a single set of parameters ($W_{ya}$) governs the connection from the hidden layer to the output $\hat{y}^{\langle i \rangle}$.
 
@@ -78,12 +78,12 @@ A weakness of the architecture of the RNN depicted in <a href="#fig:rnn">Figure 
     He said, Teddy bears are one sale!
 
 
-In order to decide whether the words `Teddy` is a person's name it would be much more useful to consider information from the last words rather than only information from the first two words.
+In order to decide whether the words `Teddy` is a person's name it would be much more useful to consider information from the last few words rather than only information from the first two words.
 
 This is amended by Bidirectional RNN (BRNN) but this simpler Uni-direction RNN architecture considers only information from earlier time-steps.
 
 ### Forward propagation
-The calculation performed in the RNN architecture in discussed up to this point start with the all-zero vector $a^{\langle 0 \rangle}$. The computation than proceeds through the computation of $a^{\langle 1 \rangle}$ and $\hat{y}^{\langle 1 \rangle}$ and so on.
+The calculation performed in the RNN architecture discussed up to this point start with the all-zero vector $a^{\langle 0 \rangle}$. The computation than proceeds through the computation of $a^{\langle 1 \rangle}$ and $\hat{y}^{\langle 1 \rangle}$ and so on.
 
 $$
 \begin{split}
@@ -114,7 +114,7 @@ $$
 Where $W_{a} = \left[W_{aa} \vert W_{ax} \right]$ (horizontal stack of the matrices) and $\left [a^{\langle t-1 \rangle}, x^{\langle t \rangle} \right ]$ is a vertical stack of the two matrices.
 
 ### Backpropagation through time
-Backpropagation propagates the distance of the prediction $\hat{y}$ from the label $y$; the loss function $\mathcal{L}$ measure this distance. In an RNN we have a step-wise loss function $\mathcal{L}^{\langle t \rangle}$, which is the logistic regression loss function, also called **cross-entropy loss**. Loss values of single steps are used in a sequence-wise loss function $\mathcal{L}$
+Backpropagation propagates the distance of the prediction $\hat{y}$ from the label $y$; the loss function $\mathcal{L}$ measures this distance. In an RNN we have a step-wise loss function $\mathcal{L}^{\langle t \rangle}$, which is the logistic regression loss function, also called **cross-entropy loss**. Loss values of single steps are used in a sequence-wise loss function $\mathcal{L}$
 
 $$
 \begin{split}

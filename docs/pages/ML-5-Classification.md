@@ -21,7 +21,7 @@ Let's take an example where we have to predict if a tumor is malignant ($y=1$) o
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_3_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_3_0.svg)
     
 
 
@@ -29,7 +29,7 @@ If we use linear regression here we might have something like this
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_5_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_5_0.svg)
     
 
 
@@ -42,7 +42,7 @@ However if we add another Tumor size that is much bigger than the previous, $h_\
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_7_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_7_0.svg)
     
 
 
@@ -106,7 +106,7 @@ $$\begin{align}
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_11_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_11_0.svg)
     
 
 
@@ -172,7 +172,7 @@ This means that if we decide to adopt $0.5$ as a threshold as in $\eqref{eq:inte
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_13_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_13_0.svg)
     
 
 
@@ -180,7 +180,7 @@ Let's suppose we have a dataset like that on the figure below
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_15_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_15_0.svg)
     
 
 
@@ -221,7 +221,7 @@ So for any couple of values $x_1, x_2$, we have $y=1$ whenever $x_1+x_2\geq 3$. 
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_17_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_17_0.svg)
     
 
 
@@ -231,7 +231,7 @@ Now let's examine a more difficult case and discuss how we could define an hypot
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_19_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_19_0.svg)
     
 
 
@@ -264,6 +264,6 @@ So $y=1$ for $x_1^2+x_2^2\geq1$ and the decision boundary is $x_1^2+x_2^2=1$.
 
 
     
-![png](ML-5-Classification_files/ML-5-Classification_21_0.png)
+![svg](ML-5-Classification_files/ML-5-Classification_21_0.svg)
     
 
