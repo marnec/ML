@@ -7,6 +7,11 @@ order: 7.5
 comments: true
 ---
 
+
+```python
+%reset -f
+```
+
 # Logistic regression implementation
 
 ## Pytorch
@@ -49,7 +54,7 @@ train_dataset[0]
 
 
 
-    (<PIL.Image.Image image mode=L size=28x28 at 0x7F9F4727BBB0>, 5)
+    (<PIL.Image.Image image mode=L size=28x28 at 0x7F469695AE50>, 5)
 
 
 
@@ -59,7 +64,7 @@ A sample of 100 images in the dataset show us that the images are low-res graysc
 
 
     
-![svg](ML-7.5-logregImplementation_files/ML-7.5-logregImplementation_10_0.svg)
+![svg](ML-7.5-logregImplementation_files/ML-7.5-logregImplementation_11_0.svg)
     
 
 
@@ -144,22 +149,32 @@ the train and test datasets are wrapped in a `DataLoader` that provide functions
 
 ```python
 train_loader = torch.utils.data.DataLoader(
-    dataset=train_dataset, 
-    batch_size=batch_size, 
+    dataset=train_dataset,
+    batch_size=batch_size,
     shuffle=True
 )
 test_loader = torch.utils.data.DataLoader(
-    dataset=test_dataset, 
+    dataset=test_dataset,
     batch_size=batch_size,
     shuffle=False
 )
 ```
 
-For logistic regression we just need a linear model that we will wrap into a non linearity function like ReLU or softmax. So as for linear regression, our model is just made of a `Linear` object instantiated with the input and output dimensions that in this case are $28 \times 28 = 784$ for the input and $10$ for the output (we want to identify handwritten digits).
+For logistic regression we just need a linear model that we will wrap into a non linearity function like Sigmoid, ReLU or softmax. So as for linear regression, our model is just made of a `Linear` object instantiated with the input and output dimensions that in this case are $28 \times 28 = 784$ for the input and $10$ for the output (we want to identify handwritten digits).
 
 
 ```python
-model = torch.nn.Linear(input_dim, output_dim)
+# model = torch.nn.Linear(input_dim, output_dim)
+class LogisticRegression(torch.nn.Module):
+    def __init__(self, input_dim, output_dim):
+        super(LogisticRegression, self).__init__()
+        self.linear = torch.nn.Linear(input_dim, output_dim)
+
+    def forward(self, x):
+        outputs = self.linear(x)
+        return outputs
+
+model = LogisticRegression(input_dim, output_dim)
 ```
 
 The loss function $\mathcal{L}$ adopted in logistic regression is the [Cross Entropy Loss](https://en.wikipedia.org/wiki/Cross_entropy). 
@@ -186,6 +201,7 @@ The training loop is a bit more complex than the linear regression example
 ```python
 from torch.autograd import Variable
 
+losses = []
 iteration = 0
 for epoch in range(int(epochs)):
     for i, (images, labels) in enumerate(train_loader):
@@ -210,15 +226,32 @@ for epoch in range(int(epochs)):
                 total += labels.size(0)
                 correct += (predicted == labels).sum()
             accuracy = 100 * correct/total
+            losses.append((iteration, loss.item()))
             print("Iteration: {}. Loss: {}. Accuracy: {}.".format(
                 iteration, loss.item(), accuracy)
                  )
 ```
 
-    Iteration: 500. Loss: 0.8654791116714478. Accuracy: 82.69999694824219.
-    Iteration: 1000. Loss: 0.6863134503364563. Accuracy: 86.18000030517578.
-    Iteration: 1500. Loss: 0.4218657314777374. Accuracy: 87.2699966430664.
-    Iteration: 2000. Loss: 0.5223045945167542. Accuracy: 88.05999755859375.
-    Iteration: 2500. Loss: 0.6541801691055298. Accuracy: 88.5999984741211.
-    Iteration: 3000. Loss: 0.370985746383667. Accuracy: 89.0199966430664.
+    Iteration: 500. Loss: 0.715435802936554. Accuracy: 82.98999786376953.
+    Iteration: 1000. Loss: 0.6665298342704773. Accuracy: 86.31999969482422.
+    Iteration: 1500. Loss: 0.4685955047607422. Accuracy: 87.4800033569336.
+    Iteration: 2000. Loss: 0.5610877275466919. Accuracy: 88.22000122070312.
+
+
+
+```python
+plt.plot(*zip(*losses))
+```
+
+
+
+
+    [<matplotlib.lines.Line2D at 0x7f3a03e45ca0>]
+
+
+
+
+    
+![svg](ML-7.5-logregImplementation_files/ML-7.5-logregImplementation_30_1.svg)
+    
 

@@ -438,21 +438,3 @@ model(inputs)[:5]
             [195881.3750]], grad_fn=<SliceBackward>)
 
 
-
-## Pytorch-lightning
-Pytorch-lightning is a high-level wrapper for Pytorch that at the same time prevents you from writing much of the boilerplate code needed for a Pytorch model, and automatically adopts the most suited optimization strategies.
-
-It works on top of Pytorch-lightning and scikit-learn (among the others) and really speeds up the design process. For example its additional module `lightning bolts` offers linea regression and logistic regression implementations with `numpy` and `sklearn` bridges for datasets! But their implementations work on multiple GPUs, TPUs and scale dramatically. 
-
-
-```python
-# from pl_bolts.models.regression import LinearRegression
-# import pytorch_lightning as pl
-# from pl_bolts.datamodules import SklearnDataModule
-
-# loaders = SklearnDataModule(X_tensor_norm.numpy(), y_tensor.numpy(), num_workers=4)
-# model = LinearRegression(input_dim=2, bias=True)
-# trainer = pl.Trainer()
-# trainer.fit(model, train_dataloader=loaders.train_dataloader(), val_dataloaders=loaders.val_dataloader())
-# trainer.test(test_dataloaders=loaders.test_dataloader())
-```

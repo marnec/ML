@@ -9,7 +9,15 @@ comments: true
 
 # Mini-batch gradient descent
 
-When training a deep-learning model, you training set might be very large and slow down your training. In order to prevent this problem, the training set is usually split in **mini-batches**. For example you might split a 5,000,000 examples training set in 1,000 mini-batches ($t$) of 5,000 training examples each. You would have 1,000 feature vectors $X^{\{t\}}, Y^{\{t\}}$.
+When training a deep-learning model, you training set might be create some problems at training.
+
+For example the [MNIST](http://yann.lecun.com/exdb/mnist/) training set consists of 60000 images. Training an algorithm on the whole dataset would:
+
+* require a lot of memory
+* cumulate the rounding errors
+* slow down training
+
+In order to prevent this problems, the training set is usually split in **mini-batches**. For example you might split a 5,000,000 examples training set in 1,000 mini-batches ($t$) of 5,000 training examples each. You would have 1,000 feature vectors $X^{\{t\}}, Y^{\{t\}}$.
 
 From here you would proceed by iterating over your 1000 mini-batches in each training **epoch**. Below you can see some pseudocode representing the process, where I focus on epoch and mini-batches and remain less rigorous on layers:
 
