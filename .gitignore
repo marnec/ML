@@ -6,3 +6,4 @@ vendor
 Pipfile.lock
 .ipynb_checkpoints
 .idea
+data/MNIST
