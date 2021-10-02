@@ -54,7 +54,7 @@ train_dataset[0]
 
 
 
-    (<PIL.Image.Image image mode=L size=28x28 at 0x7F469695AE50>, 5)
+    (<PIL.Image.Image image mode=L size=28x28 at 0x7F01E73260D0>, 5)
 
 
 
@@ -214,6 +214,8 @@ for epoch in range(int(epochs)):
         loss.backward()
         optimizer.step()
 
+        losses.append((iteration, loss.item()))
+
         iteration += 1
         if iteration % 500 == 0:
             # calculate Accuracy
@@ -226,16 +228,20 @@ for epoch in range(int(epochs)):
                 total += labels.size(0)
                 correct += (predicted == labels).sum()
             accuracy = 100 * correct/total
-            losses.append((iteration, loss.item()))
+
             print("Iteration: {}. Loss: {}. Accuracy: {}.".format(
                 iteration, loss.item(), accuracy)
                  )
+
+
 ```
 
-    Iteration: 500. Loss: 0.715435802936554. Accuracy: 82.98999786376953.
-    Iteration: 1000. Loss: 0.6665298342704773. Accuracy: 86.31999969482422.
-    Iteration: 1500. Loss: 0.4685955047607422. Accuracy: 87.4800033569336.
-    Iteration: 2000. Loss: 0.5610877275466919. Accuracy: 88.22000122070312.
+    Iteration: 500. Loss: 0.6954136490821838. Accuracy: 83.30000305175781.
+    Iteration: 1000. Loss: 0.6825755834579468. Accuracy: 86.30000305175781.
+    Iteration: 1500. Loss: 0.5101509094238281. Accuracy: 87.45999908447266.
+    Iteration: 2000. Loss: 0.4781498610973358. Accuracy: 88.12000274658203.
+    Iteration: 2500. Loss: 0.4298083782196045. Accuracy: 88.68000030517578.
+    Iteration: 3000. Loss: 0.40631353855133057. Accuracy: 89.01000213623047.
 
 
 
@@ -246,7 +252,7 @@ plt.plot(*zip(*losses))
 
 
 
-    [<matplotlib.lines.Line2D at 0x7f3a03e45ca0>]
+    [<matplotlib.lines.Line2D at 0x7f01e7281a30>]
 
 
 

@@ -17,6 +17,7 @@ jinja2 = "*"
 torch = "*"
 torchvision = "==0.10.1"
 torchaudio = "*"
+jupyterlab-code-formatter = "*"
 
 [dev-packages]
 

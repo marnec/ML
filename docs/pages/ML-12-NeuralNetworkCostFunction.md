@@ -12,7 +12,7 @@ Suppose we have a classification problem and we are training a neural network li
 
 
     
-![png](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_2_0.png)
+![svg](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_2_0.svg)
     
 
 
@@ -65,7 +65,7 @@ Since the derivative of the ReLU is 0 for $z<0$, sometimes an alternative versio
     
 
 <figure id="fig:activfuncs">
-    <img src="{{site.baseurl}}/pages/ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_5_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_5_0.svg" alt="png">
     <figcaption>Figure 12. Four activation functions in the range (-10, 10): (A) the sigmoid function, (B) the hyperbolic tangent function, (C) the Rectified Linear Unit (ReLU) function and (D) the leaky ReLU.</figcaption>
 </figure>
 
@@ -80,7 +80,7 @@ As a matter of fact it can be demonstrated that a neural network with 1 hidden l
     
 
 <figure id="fig:linann">
-    <img src="{{site.baseurl}}/pages/ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_7_0.png" alt="png">
+    <img src="{{site.baseurl}}/pages/ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_7_0.svg" alt="png">
     <figcaption>Figure 13. A neural network with one hidden layer in which the hidden units have linear activation functions; not more expressive than a logistic regression model.</figcaption>
 </figure>
 
@@ -88,6 +88,6 @@ There is a case in which having a linear activation function in the output layer
 
 
     
-![png](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_9_0.png)
+![svg](ML-12-NeuralNetworkCostFunction_files/ML-12-NeuralNetworkCostFunction_9_0.svg)
     
 
