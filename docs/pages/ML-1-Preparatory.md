@@ -134,6 +134,7 @@ $$
 The vectorized form of this operation in python is 
 
 
+{% include codeHeader.html %}
 ```python
 np.dot(w, x) + b
 ```
@@ -155,6 +156,7 @@ v=\begin{bmatrix}
 $$
 
 
+{% include codeHeader.html %}
 ```python
 np.dot(A, v)
 ```
@@ -165,6 +167,7 @@ Notice that the exact same syntax performs both vecto-vector and matrix-vector m
 To apply a function element by element to whole arrays you can simply use`np.ufuncs` ([numpy universal functions](https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc))
 
 
+{% include codeHeader.html %}
 ```python
 v
 ```
@@ -177,6 +180,7 @@ v
 
 
 
+{% include codeHeader.html %}
 ```python
 np.exp(v).round(2)
 ```
@@ -189,6 +193,7 @@ np.exp(v).round(2)
 
 
 
+{% include codeHeader.html %}
 ```python
 np.log(v).round(2)
 ```
@@ -202,6 +207,7 @@ np.log(v).round(2)
 
 
 
+{% include codeHeader.html %}
 ```python
 v + 1
 ```
@@ -214,6 +220,7 @@ v + 1
 
 
 
+{% include codeHeader.html %}
 ```python
 v * 2
 ```
@@ -284,6 +291,7 @@ To a complete guide to broadcasting check out [numpy great documentation](https:
 
 
 
+{% include codeHeader.html %}
 ```python
 A = A.values
 A
@@ -299,6 +307,7 @@ A
 
 
 
+{% include codeHeader.html %}
 ```python
 cal = A.sum(axis=0)
 cal
@@ -312,6 +321,7 @@ cal
 
 
 
+{% include codeHeader.html %}
 ```python
 (A / cal.reshape(1, 4) * 100)
 ```
@@ -326,6 +336,7 @@ cal
 
 
 
+{% include codeHeader.html %}
 ```python
 A / cal * 100
 ```
@@ -351,6 +362,7 @@ Heres a series of considerations and suggestions for dealing with `numpy`.
 For example let's take a random vector of 5 elements
 
 
+{% include codeHeader.html %}
 ```python
 a = np.random.rand(5)
 a
@@ -366,6 +378,7 @@ a
 Whose shape is
 
 
+{% include codeHeader.html %}
 ```python
 a.shape
 ```
@@ -382,6 +395,7 @@ This is called a rank 1 vector in python and it's neither a row vector nor a col
 For example, its transpose is equal to itself 
 
 
+{% include codeHeader.html %}
 ```python
 a.T
 ```
@@ -396,6 +410,7 @@ a.T
 and the inner product of `a` and `a.T` is not a matrix instead is a scalar
 
 
+{% include codeHeader.html %}
 ```python
 np.dot(a, a.T)
 ```
@@ -410,6 +425,7 @@ np.dot(a, a.T)
 So, instead of using rank 1 vectors you may want to use rank 2 vectors, which have a much more predictable behavior.
 
 
+{% include codeHeader.html %}
 ```python
 a = np.random.rand(5, 1)
 a
@@ -427,6 +443,7 @@ a
 
 
 
+{% include codeHeader.html %}
 ```python
 a.T
 ```
@@ -439,6 +456,7 @@ a.T
 
 
 
+{% include codeHeader.html %}
 ```python
 np.dot(a, a.T)
 ```
@@ -457,6 +475,7 @@ np.dot(a, a.T)
 rank 1 arrays can always be reshaped in row or columns vectors (or higher dimensional matrices)
 
 
+{% include codeHeader.html %}
 ```python
 a = np.random.rand(5)
 a
@@ -470,6 +489,7 @@ a
 
 
 
+{% include codeHeader.html %}
 ```python
 a.reshape(5, 1)
 ```
@@ -486,6 +506,7 @@ a.reshape(5, 1)
 
 
 
+{% include codeHeader.html %}
 ```python
 a.reshape(1, 5)
 ```

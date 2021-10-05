@@ -61,6 +61,7 @@ In order to get around this proble an ANN is randomly initialized. Each $\Theta_
 The random initialization of parameters $W^{[1]}$ (`w1`) can be done as:
 
 
+{% include codeHeader.html %}
 ```python
 constant = 0.01
 w1 = np.random.rand(3,3) * constant

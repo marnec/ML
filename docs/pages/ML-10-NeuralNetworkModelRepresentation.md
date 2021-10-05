@@ -260,6 +260,7 @@ The process in $\eqref{eq:vectanneqs}$ must be repeated for each training exampl
 
 In a non-vectorized implementation you would have something along the lines of:
 
+{% include codeHeader.html %}
 ```python
 for i in len(examples):
     z1[i] = w1 @ x[i] + b[i]

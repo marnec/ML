@@ -140,6 +140,7 @@ $$
 So, in order to set the variance for random variables **drawn from a Gaussian distribution** we would write our weights matrix as:
 
 
+{% include codeHeader.html %}
 ```python
 nx = 4
 np.random.randn(1, nx)*np.sqrt(1/nx)

@@ -8,6 +8,7 @@ comments: true
 ---
 
 
+{% include codeHeader.html %}
 ```python
 %reset -f
 ```
@@ -18,6 +19,7 @@ comments: true
 Pytorch implementation of logistic regression is extremely similar to that of linear regression. The two main differences is that the linear regression layer is wrapped by a non-linearity function and that the loss function used is the [Cross Entropy Loss](https://en.wikipedia.org/wiki/Cross_entropy).
 
 
+{% include codeHeader.html %}
 ```python
 import torch
 ```
@@ -37,6 +39,7 @@ In this case we are using the famous [MNIST dataset](https://en.wikipedia.org/wi
 The `dsets` module has access to a number of datasets, `MNIST` is one of them. By setting the `download` parameter to `True`, the whole datasets is downloaded locally.
 
 
+{% include codeHeader.html %}
 ```python
 import torchvision.datasets as dsets
 
@@ -47,6 +50,7 @@ test_dataset = dsets.MNIST(root='./data', train=False)
 the dataset is made of a series of `tuples` containing two objects, a `PIL` image and the number it represents
 
 
+{% include codeHeader.html %}
 ```python
 train_dataset[0]
 ```
@@ -73,6 +77,7 @@ Images in a computer are just matrices of real values that represent the intensi
 Doing that after loading the dataset would be a bit more difficult so, in practice, this step is usually performed contextually to the data load, using the `transform` argument.
 
 
+{% include codeHeader.html %}
 ```python
 import torchvision.transforms as transforms
 
@@ -105,6 +110,7 @@ We need to pass the mean $\mu$ and standard deviation $\sigma$ to the `Normalize
 Now the images in the dataset have been converted to tensors and their values normalized. Since our input are square images of $28 \times 28$ pixels and they only have one channel, the tensor $x_i \in \mathbb{R}^{1 \times 28 \times 28}$ or $x_i \in \mathbb{R}^{784}$
 
 
+{% include codeHeader.html %}
 ```python
 train_dataset[0][0].shape
 ```
@@ -119,6 +125,7 @@ train_dataset[0][0].shape
 And these are the values of the 11th row of pixels in the first image of the dataset
 
 
+{% include codeHeader.html %}
 ```python
 train_dataset[0][0][0][10]
 ```
@@ -136,6 +143,7 @@ train_dataset[0][0][0][10]
 We can now define here some hyperparameters that will come in handy later
 
 
+{% include codeHeader.html %}
 ```python
 batch_size = 100
 epochs = 3000 / (len(train_dataset) / batch_size)
@@ -147,6 +155,7 @@ alpha = 0.001
 the train and test datasets are wrapped in a `DataLoader` that provide functions to iterate over the dataset, split it into patches and shuffle it.
 
 
+{% include codeHeader.html %}
 ```python
 train_loader = torch.utils.data.DataLoader(
     dataset=train_dataset,
@@ -163,6 +172,7 @@ test_loader = torch.utils.data.DataLoader(
 For logistic regression we just need a linear model that we will wrap into a non linearity function like Sigmoid, ReLU or softmax. So as for linear regression, our model is just made of a `Linear` object instantiated with the input and output dimensions that in this case are $28 \times 28 = 784$ for the input and $10$ for the output (we want to identify handwritten digits).
 
 
+{% include codeHeader.html %}
 ```python
 # model = torch.nn.Linear(input_dim, output_dim)
 class LogisticRegression(torch.nn.Module):
@@ -184,6 +194,7 @@ $$
 $$
 
 
+{% include codeHeader.html %}
 ```python
 criterion = torch.nn.CrossEntropyLoss()
 ```
@@ -191,6 +202,7 @@ criterion = torch.nn.CrossEntropyLoss()
 The optimizer we are using is [Stochastic Gradient Descent](https://www.google.com/search?q=stochastic+gradient+descent&oq=stockas&aqs=chrome.2.69i57j0i10l5j0i10i395l2j0i10j0i10i395.1729j1j7&sourceid=chrome&ie=UTF-8) with a preset learning rate $\alpha$
 
 
+{% include codeHeader.html %}
 ```python
 optimizer = torch.optim.SGD(model.parameters(), lr=alpha)
 ```
@@ -198,6 +210,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=alpha)
 The training loop is a bit more complex than the linear regression example
 
 
+{% include codeHeader.html %}
 ```python
 from torch.autograd import Variable
 
@@ -245,6 +258,7 @@ for epoch in range(int(epochs)):
 
 
 
+{% include codeHeader.html %}
 ```python
 plt.plot(*zip(*losses))
 ```

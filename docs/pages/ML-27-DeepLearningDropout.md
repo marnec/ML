@@ -38,6 +38,7 @@ One **downside of dropout** is to render the cost function $J$ undefined: this m
 Let's suppose to implement dropout for layer $l=3$. We will define a vector of dropout probabilities $d^{[3]}$ based on the keep probability $p = 0.8$ that represents the probability that each hidden unit is not discarded.
 
 
+{% include codeHeader.html %}
 ```python
 # a3 = forward_prop()
 p = 0.8 # keep probability

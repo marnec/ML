@@ -16,6 +16,7 @@ Many libraries enabling a user to build and train a linear regression model exis
 For this example we are using house prices as a function of inhabitable surface and number of rooms. Data is stored in a csv file, to parse it into a python data structure we use `pandas`. This is a preliminary step for any approach and while some libraries may offer custom way to parse data I find that this is just better. Delegating parsing to a second library follows the *single-responsibility* principle. This is at least true for datasets saved in common formats like `csv` or `tsv` or similar. Sometimes we will deal with custom formats like Pytorch's `pt` files: in that case it is obviously better (or sometimes necessary) to take care of data loading with the right library.
 
 
+{% include codeHeader.html %}
 ```python
 import pandas as pd
 ```
@@ -23,6 +24,7 @@ import pandas as pd
 We read data from a `csv` file and cast it into a `pandas.DataFrame`
 
 
+{% include codeHeader.html %}
 ```python
 df = pd.read_csv('./data/house_pricing.csv')
 df.head()
@@ -96,6 +98,7 @@ This dataset has two feature columns (`sqf` and `rooms`) and a label column (`pr
 Let's assign the features $X$ and the labels $y$ to two different variables
 
 
+{% include codeHeader.html %}
 ```python
 xy = df.values.T
 X = xy[:-1].T
@@ -105,6 +108,7 @@ y = xy[-1]
 Where the features $X$ are
 
 
+{% include codeHeader.html %}
 ```python
 X[:5]
 ```
@@ -123,6 +127,7 @@ X[:5]
 and their labels $y$
 
 
+{% include codeHeader.html %}
 ```python
 y[:5].reshape(-1, 1)
 ```
@@ -145,6 +150,7 @@ Linear regression in `scikit-learn` is as easy as one line of code. To keep this
 In order for the first example to be as simple as possible and plottable, for now we drop the `rooms` column from the features and we are only left with the `sqf` column. This means that in this first example we are exploring linear dependency between the inhabitable surface and the price of a house.
 
 
+{% include codeHeader.html %}
 ```python
 X_simple = X[:, 0]
 X_simple
@@ -164,6 +170,7 @@ X_simple
 Since the `fit()` function that we are using later wants a 2D-vector of shape $(m, n)$  and we only have one feature, we need to reshape the array in the form $(m, 1)$. On the other hand $y$ can either be a 2D or 1D array.
 
 
+{% include codeHeader.html %}
 ```python
 X_simple = X_simple.reshape(-1, 1)
 X_simple[:5]
@@ -183,6 +190,7 @@ X_simple[:5]
 Building a linear regression model with [scikit-learn](https://scikit-learn.org/) requires the `LinearRegression` class
 
 
+{% include codeHeader.html %}
 ```python
 from sklearn.linear_model import LinearRegression
 ```
@@ -190,6 +198,7 @@ from sklearn.linear_model import LinearRegression
 Now we can build the model buy instantiating the `LinearRegression` class
 
 
+{% include codeHeader.html %}
 ```python
 linreg = LinearRegression()
 ```
@@ -197,6 +206,7 @@ linreg = LinearRegression()
 the `linreg` variable contains a linear regression object that allow the computation of the model, but we didn't feed the data to it. Data is fed to the `.fit()` method
 
 
+{% include codeHeader.html %}
 ```python
 linreg = linreg.fit(X_simple, y)
 ```
@@ -204,6 +214,7 @@ linreg = linreg.fit(X_simple, y)
 The parameters and bias of the model are returned with
 
 
+{% include codeHeader.html %}
 ```python
 linreg.coef_, linreg.intercept_
 ```
@@ -225,6 +236,7 @@ linreg.coef_, linreg.intercept_
 We can now introduce the dataset split step that we oversaw in the previous example. In `scikit-learn` splitting the dataset in train and test set is taken care of for us through a function. The proportion of the split can be configured through its arguments.
 
 
+{% include codeHeader.html %}
 ```python
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
@@ -233,6 +245,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
 We can now fit the all ($n=2$) features of the training set $X^t$
 
 
+{% include codeHeader.html %}
 ```python
 linreg = LinearRegression().fit(X_train, y_train)
 ```
@@ -240,6 +253,7 @@ linreg = LinearRegression().fit(X_train, y_train)
 Since this time $X^t \in \mathbb{R}^{m \times 2}$, we have 2 weight parameters and 1 bias parameter
 
 
+{% include codeHeader.html %}
 ```python
 linreg.coef_, linreg.intercept_
 ```
@@ -254,6 +268,7 @@ linreg.coef_, linreg.intercept_
 Parameters fitted on the training set can be used to produce prediction from the test set features
 
 
+{% include codeHeader.html %}
 ```python
 y_pred = linreg.predict(X_test)
 y_pred
@@ -272,6 +287,7 @@ y_pred
 Predictions can be now compared to the labels of the test set
 
 
+{% include codeHeader.html %}
 ```python
 from sklearn.metrics import explained_variance_score
 explained_variance_score(y_test, y_pred)
@@ -300,6 +316,7 @@ The steps for training a model in Pytorch as defined in [Pytorch documentation](
 The main entry point of the framework is the `torch` module
 
 
+{% include codeHeader.html %}
 ```python
 import torch
 ```
@@ -307,6 +324,7 @@ import torch
 The first noticeable Pytorch feature is that it works using a proprietary data-structure, called a `tensor`. The underlying mathematical concept of tensor is beyond the scope of this article but can be consulted at the [Wikipedia tensor entry](https://en.wikipedia.org/wiki/Tensor). In Pytorch, a `tensor` is (citing the [pytorch tensor documentation](https://pytorch.org/docs/stable/tensors.html)) *a multi-dimensional matrix containing elements of a single data type*.
 
 
+{% include codeHeader.html %}
 ```python
 X_tensor = torch.tensor(X, dtype=torch.float32)
 X_tensor[:5]
@@ -328,6 +346,7 @@ As you can notice we had to specify `dtype=np.float32`. This is because the unde
 Furthermore, $y$ tensor would be 1D but this would not comply with requirements of Pytorch methods used below, so we transform it into a column vector with the `unsqueeze(-1)` method. This is equivalent to calling `.reshape(-1, 1)` on a `numpy.array`
 
 
+{% include codeHeader.html %}
 ```python
 y_tensor = torch.tensor(y, dtype=torch.float32).unsqueeze(-1)
 y_tensor[:5]
@@ -351,6 +370,7 @@ X_\text{std} = \frac{X - \mu}{\sigma}
 $$
 
 
+{% include codeHeader.html %}
 ```python
 X_tensor_norm = (X_tensor - X_tensor.mean()) / torch.sqrt(X_tensor.var())
 X_tensor_norm[:5]
@@ -370,6 +390,7 @@ X_tensor_norm[:5]
 A linear regression model can be built using the `Linear` class from the `nn` module, which initializes bias and weights automatically. Its constructor takes as input the number of columns of the input ($n_X$) and of the output ($n_y$)
 
 
+{% include codeHeader.html %}
 ```python
 model = torch.nn.Linear(2, 1)
 ```
@@ -382,6 +403,7 @@ Training the model will require some hyperparameters that we will define in adva
 * `optim` is the optimization algorithm used. In this case we are using `SGD` (Stochastic Gradient Descent). SGD requires us to select the correct $\alpha$. Up to this point we haven't seen that other optimization algorithm exist that automatically adapt $\alpha$ to data (e.g. [ADAM](https://en.wikipedia.org/wiki/Stochastic_gradient_descent#Adam)), so we are sticking with standard SGD.
 
 
+{% include codeHeader.html %}
 ```python
 epochs = 10
 alpha = 0.01
@@ -392,6 +414,7 @@ optim = torch.optim.SGD(model.parameters(), lr=alpha)
 Now we need to manually run over the epochs and trigger the update of the parameters that will ultimately produce a fitted model
 
 
+{% include codeHeader.html %}
 ```python
 from torch.autograd import Variable
 
@@ -424,6 +447,7 @@ for epoch in range(epochs):
 
 
 
+{% include codeHeader.html %}
 ```python
 model(inputs)[:5]
 ```

@@ -21,6 +21,7 @@ In order to prevent this problems, the training set is usually split in **mini-b
 
 From here you would proceed by iterating over your 1000 mini-batches in each training **epoch**. Below you can see some pseudocode representing the process, where I focus on epoch and mini-batches and remain less rigorous on layers:
 
+{% include codeHeader.html %}
 ```python
 iteration = 0
 for epoch in range(n_epochs):         # number of epochs
